@@ -1,4 +1,4 @@
-"""CPU-only environment inspection and COCO annotation audit."""
+"""CPU-only environment inspection and dataset annotation audits."""
 
 import argparse
 import json
@@ -80,7 +80,7 @@ def doctor(config_path: Path | None = None) -> dict:
         "packages": packages,
         "paths": paths,
         "gpu": gpu,
-        "implemented": ["doctor", "audit-coco", "validated JSON contracts"],
+        "implemented": ["doctor", "audit-coco", "audit-stcray", "validated JSON contracts"],
         "not_implemented": ["P1 inference/training", "P2 fusion", "model evaluation", "GUI"],
         "real_data_validated": False,
         "model_inference_verified": False,
@@ -105,11 +105,20 @@ def main(argv: list[str] | None = None) -> int:
     )
     audit.add_argument("--other-image-root", type=Path)
     audit.add_argument("--group-key", help="Verified image metadata field for physical groups")
+    stcray = commands.add_parser(
+        "audit-stcray", help="Audit extracted STCray images and native rectangle JSON"
+    )
+    stcray.add_argument("root", type=Path, help="Parent of STCray_TrainSet and STCray_TestSet")
     args = parser.parse_args(argv)
     try:
         if args.command == "doctor":
             report = doctor(args.config)
             code = 0  # Missing optional artifacts are findings, not a broken doctor.
+        elif args.command == "audit-stcray":
+            from sdp_xray.data.stcray import audit_stcray
+
+            report = audit_stcray(args.root)
+            code = 0 if report["ok"] else 1
         else:
             from sdp_xray.data.audit import audit_coco
 

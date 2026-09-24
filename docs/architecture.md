@@ -1,6 +1,7 @@
 # Architecture and integration boundary
 
-Status: CPU tools and JSON contracts implemented; model paths intentionally unimplemented.
+Status: CPU tools, JSON contracts and standalone generic-threat inference implemented.
+See [verified first inference](first-inference.md). P1 pipeline and P2 fusion remain unimplemented.
 One repository, separate `sdp_xray.p1` and `sdp_xray.p2`, shared `common` and `data` modules.
 The exact contract is documented in [contracts.md](contracts.md) and enforced by
 `src/sdp_xray/common/contracts.py`; contract examples/tests are synthetic software evidence.
@@ -49,8 +50,10 @@ warm-up, synchronization, preprocessing/postprocessing boundaries; median/tail w
 For each real run save an ignored `runs/<run_id>/manifest.json` with UTC timestamp/run ID,
 team commit and dirty state, upstream revision, exact command/config, dataset/split hashes,
 checkpoint source/SHA-256, class map, seed, dependency/CUDA/hardware details, output paths,
-actual metrics and errors. Register it in `experiments/registry.csv`; seed alone does not establish
-bitwise reproducibility. No real runs exist yet. Adopt heavier tracking only for an observed need.
+actual metrics and errors. Keep detailed execution journals locally; seed alone does not establish
+bitwise reproducibility. Generic YOLOv10 CPU smoke runs now exist; their single-image outputs
+are not accuracy evaluation. CPU data-audit evidence remains separate. Adopt heavier tracking
+only for an observed need.
 
 P2 needs group outcomes and component-level evidence. Compare independent scan decisions to
 transparent group aggregation first; investigate learned fusion only with suitable data/time.

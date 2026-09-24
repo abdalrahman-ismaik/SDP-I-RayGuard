@@ -40,3 +40,11 @@ def test_installed_module_help():
     )
     assert result.returncode == 0
     assert "audit-coco" in result.stdout
+    assert "audit-stcray" in result.stdout
+
+
+def test_stcray_cli_missing_root_reports_findings(tmp_path, capsys):
+    assert main(["audit-stcray", str(tmp_path / "absent")]) == 1
+    report = json.loads(capsys.readouterr().out)
+    assert report["ok"] is False
+    assert "missing_required_directory" in report["summary"]["findings"]

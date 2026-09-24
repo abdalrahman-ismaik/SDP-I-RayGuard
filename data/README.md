@@ -1,9 +1,11 @@
 # External data
 
-No real dataset has been inspected. Acquire only through authorized lab access or the
-[IEDXray Figshare record](https://doi.org/10.6084/m9.figshare.30784328), after reviewing terms.
+The user supplied local STCray archives and extracted IEDXray files; see the
+[STCray audit](../docs/stcray-audit.md) and [IEDXray audit](../docs/iedxray-audit.md).
+The [IEDXray Figshare record](https://doi.org/10.6084/m9.figshare.30784328) is the published
+source, but its original ZIP checksum cannot be compared with the supplied extracted files alone.
 The approximately 70K internal images are reported separately; their relationship is unresolved.
-No download is part of bootstrap.
+IEDXray is the current P1 dataset; STCray is optional and deferred.
 
 Keep data outside Git (or in this ignored directory). Set `dataset_root` and `annotations` in
 `configs/project.local.json`, or shell `SDP_DATA_ROOT` / `SDP_ANNOTATIONS`. Layout is not assumed:
@@ -18,5 +20,20 @@ are task-specific negatives, not proof an image is safe or annotations are compl
 Run the implemented audit with explicit paths and optional other split/image roots. Missing
 roots/groups mean corresponding checks remain unverified. Check exact hashes where possible;
 near duplicates and physical identity require further investigation. Do not repartition the test
-set or treat filename grouping as authoritative. Overlays/manual real-image inspection are the
-next data task; overlay generation is not implemented in bootstrap.
+set or treat filename grouping as authoritative. Real-image annotation previews were reviewed
+during the audits. The [generic baseline runner](../scripts/infer_generic_yolov10.py) renders
+model predictions; the audit CLI does not provide a general annotation-overlay command.
+
+STCray uses `STCray_TrainSet` and `STCray_TestSet`, each containing `Images`, `Json_BB`,
+`Json`, `Segmentation` and `Captions`. Run `audit-stcray data/STCray/extracted` using the
+package CLI above. `Json_BB` contains per-image rectangle corners in original pixel coordinates,
+not COCO `xywh` or the normalized coordinates used in some STING-BEE instruction outputs.
+The audit reads source files without repairing them; inspect findings before conversion/training.
+Caption contents, mask semantics, near duplicates and physical groups require separate checks.
+
+IEDXray's actual roots are `data/IEDXray/Train`, `Test` and `annotations`. The ignored local
+config now points to its generic train JSON. All four task image tables match; full image checks
+were run through the complete pair. Device Mobile/Pager labels disagree between exports, four
+image hashes cross splits and 13 distinct boxes violate strict bounds. Resolve these before
+conversion/training or fair evaluation. Do not construct filenames from image IDs, relabel
+Mobile/Pager globally, infer benign status from task-empty images, or silently change test data.

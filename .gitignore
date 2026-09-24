@@ -1,4 +1,36 @@
-# Local inputs and generated outputs. Source PDFs remain in docs locally.
+# Local development guidance and workspace configuration
+AGENTS.md
+AGENTS.override.md
+CLAUDE.md
+GEMINI.md
+.agents/
+.codex/
+.claude/
+.cursor/
+.windsurf/
+.cursorrules
+.windsurfrules
+.aider*
+.github/copilot-instructions.md
+.github/agents/
+.github/prompts/
+.github/skills/
+
+# Internal planning, source records and execution journals (kept locally)
+/docs/internal/
+/docs/sdp-repository-bootstrap-prompt.md
+/docs/context.md
+/docs/decisions.md
+/docs/logbook.md
+/docs/plan.md
+/docs/research.md
+/docs/source-hashes.csv
+/docs/status.md
+/docs/tasks.md
+/docs/verification.md
+/experiments/registry.csv
+
+# Source documents, datasets, model artifacts and archives
 *.pdf
 *.docx
 *.pt
@@ -12,11 +44,21 @@
 *.tar
 *.gz
 *.7z
+*.rar
+*.crdownload
+*.part
+
+# Credentials and machine-specific settings
 *.pem
 *.key
+*.p12
+*.pfx
 .env
 .env.*
 !.env.example
+configs/*.local.*
+
+# Environments, caches, temporary files and generated outputs
 .venv/
 .venv-*/
 __pycache__/
@@ -24,7 +66,11 @@ __pycache__/
 *.egg-info/
 .pytest_cache/
 .ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
 .coverage
+.coverage.*
+coverage.xml
 htmlcov/
 build/
 dist/
@@ -34,12 +80,14 @@ outputs/
 checkpoints/
 datasets/
 external/
+*.log
+*.tmp
 .idea/
 .vscode/
+*.code-workspace
 data/*
 !data/README.md
 models/*
 !models/README.md
-configs/*.local.json
 Thumbs.db
 .DS_Store

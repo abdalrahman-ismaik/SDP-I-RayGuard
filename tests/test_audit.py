@@ -141,6 +141,25 @@ def test_corrupt_png_checksum_reported_without_aborting(tmp_path, document):
     assert any("cannot be inspected" in entry for entry in result["errors"])
 
 
+def test_truncated_jpeg_passing_verify_is_rejected_by_full_decode(tmp_path, document):
+    path = tmp_path / "positive.jpg"
+    document["images"][0]["file_name"] = path.name
+    Image.new("RGB", (64, 48), "red").save(path)
+    path.write_bytes(path.read_bytes()[:-8])
+    Image.new("RGB", (64, 48), "blue").save(tmp_path / "negative.png")
+
+    with Image.open(path) as image:
+        image.verify()  # This truncated JPEG still has valid headers.
+    with Image.open(path) as image, pytest.raises(OSError):
+        image.load()
+
+    result = audit_coco(save(tmp_path, document), image_root=tmp_path)
+    assert not result["ok"]
+    assert any("Image 1 cannot be inspected" in error for error in result["errors"])
+    assert result["summary"]["primary"]["image_files_checked"] == 1
+    assert result["summary"]["primary"]["image_file_checks"] == "incomplete"
+
+
 def test_compare_maps_filenames_groups_but_not_ids(tmp_path, document):
     first = save(tmp_path, document)
     other = copy.deepcopy(document)

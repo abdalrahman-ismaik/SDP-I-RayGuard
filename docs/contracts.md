@@ -60,8 +60,9 @@ threshold; the future backend must document which scores it retains.
 `ok` with an empty detection list means inference reported no detections.
 It does **not** mean benign, safe, or missing input. Failure statuses require an
 empty detection list and error details; partial predictions need a future schema
-decision. No benign/modified decision, inference backend, crop/remapping, overlay,
-or evaluation implementation exists yet.
+decision. The standalone [generic baseline](first-inference.md) saves real predictions and
+overlays using this contract. The P1 benign/modified decision, crop/remapping and evaluation
+remain unimplemented.
 
 `dumps_scan_result(value)` validates then serializes JSON;
 `loads_scan_result(text)` parses JSON then validates it. Validation raises

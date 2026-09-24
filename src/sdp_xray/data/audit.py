@@ -126,6 +126,9 @@ def _inspect(path: Path, root: Path | None, group_key: str | None) -> dict[str, 
             with Image.open(image_path) as image:
                 actual_size = image.size
                 image.verify()
+            # verify() checks file structure; decoding requires reopening the image.
+            with Image.open(image_path) as image:
+                image.load()
             files_checked += 1
             if identifier in dimensions and actual_size != dimensions[identifier]:
                 errors.append(
