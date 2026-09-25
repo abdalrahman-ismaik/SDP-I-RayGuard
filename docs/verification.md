@@ -10,8 +10,9 @@ or sign-off is inferred.
 
 Latest local check: **25 September 2026**, during collaboration setup. `uv run --locked ruff
 check .` passed and `uv run --locked python -m pytest` passed **85 tests in 5.54 seconds**.
-The CI workflow now names its two jobs explicitly for required-check configuration. Hosted
-execution and rule read-back are still pending under T36; local checks do not establish them.
+The CI workflow now names its two jobs explicitly for required-check configuration. Both
+hosted jobs subsequently passed in the setup PR, as recorded below; local and hosted results
+remain separate evidence.
 
 Earlier software check: **24 September 2026**, in a fresh directory containing the **50 public
 files prepared before the agent-guidance follow-up**, without private instructions,
@@ -53,7 +54,27 @@ uv run --locked python -m pytest
 
 The CPU package was tested with Python 3.12 and a locked uv environment. A clean installation
 also verified imports from the installed package rather than relying on source-path injection.
-The repository has a CI definition; no remote CI pass is established by these local records.
+These local records do not establish hosted success; the separate 25 September run below does.
+
+## GitHub collaboration verification — 25 September 2026
+
+- [Setup PR #1](https://github.com/abdalrahman-ismaik/SDP-I-RayGuard/pull/1) merged as
+  `5fac792`. Reviewed documentation, agent guidance and CODEOWNERS were then synchronized
+  to both prototype branches by ordinary fast-forward updates before protection activation.
+- [Hosted run 36129256939](https://github.com/abdalrahman-ismaik/SDP-I-RayGuard/actions/runs/36129256939)
+  completed successfully with `CPU (ubuntu-latest)` and `CPU (windows-latest)`. These run
+  the locked CPU software checks; no datasets/checkpoints or model inference are involved.
+- [CI/history ruleset](https://github.com/abdalrahman-ismaik/SDP-I-RayGuard/rules/23994219)
+  requires both observed check names from GitHub Actions (integration 15368), requires testing
+  against the current base, blocks force-pushes/deletion and has no bypass actors.
+- [PR/review ruleset](https://github.com/abdalrahman-ismaik/SDP-I-RayGuard/rules/23994221)
+  requires one approval, code-owner approval, stale-approval dismissal and resolved review
+  threads. Only the repository owner has a PR-only bypass; this is distinct from an approval.
+- Both active rulesets were read back, and their effective rules were checked for `main`,
+  `prototype/p1-single-scan` and `prototype/p2-multiscan`. GitHub returned no CODEOWNERS errors
+  for each branch. Verification inspected configuration; no destructive push/delete probe ran.
+- No collaborator invitations were sent: teammate usernames are pending. Repository visibility
+  and passing checks do not prove individual student access, review or contribution.
 
 ## Shared documentation checks — 24 September 2026
 
