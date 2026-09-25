@@ -79,7 +79,7 @@ Resolve conflicts with the affected owners; do not force-push over teammates' co
 
 ## Protected branches and review
 
-The following policy is being configured under T36; activation is not yet verified.
+The following policy was activated and read back on 25 September 2026 under T36.
 It covers `main`, `prototype/p1-single-scan` and
 `prototype/p2-multiscan`. Work on a task branch and open a PR against the agreed target.
 Teammates can use branches in this repository after accepting a collaborator invitation,
@@ -93,15 +93,16 @@ or submit a PR from a fork without write access.
 - Block direct changes, force-pushes and deletion of the three shared branches; use PRs to
   bring shared fixes into each prototype branch as well.
 
-Configure an owner-only **PR-only review bypass** because GitHub does not allow authors to approve
+The owner has an **owner-only PR review bypass** because GitHub does not allow authors to approve
 their own PRs. Use it deliberately for owner-authored or administrative changes, and seek
-teammate review when available. Keep separate CI/history rules with **no bypass**, including
+teammate review when available. Separate CI/history rules have **no bypass**, including
 for the owner. A bypass is not a recorded approval or student sign-off. Collaborators may
 click Merge once the required approvals and checks pass; ownership does not reserve that button.
 
-Rules live in [GitHub repository settings](https://github.com/abdalrahman-ismaik/SDP-I-RayGuard/settings/rules),
-not in the local Git configuration. See T36 and [verification](docs/verification.md) for the
-actual setup result. Invitations and each member's access remain separately tracked in T31.
+Rules live on GitHub: [CI/history](https://github.com/abdalrahman-ismaik/SDP-I-RayGuard/rules/23994219)
+and [owner-reviewed PRs](https://github.com/abdalrahman-ismaik/SDP-I-RayGuard/rules/23994221).
+See T36 and [verification](docs/verification.md) for the actual setup result. Invitations and
+each member's access remain separately tracked in T31.
 
 ## Evidence and review rules
 
