@@ -1,9 +1,27 @@
-# Local development guidance and workspace configuration
+# Share root guidance; nested/personal overrides remain local
 AGENTS.md
+!/AGENTS.md
 AGENTS.override.md
 CLAUDE.md
 GEMINI.md
+
+# Share only the four reviewed project skills
 .agents/
+!/.agents/
+/.agents/*
+!/.agents/skills/
+/.agents/skills/*
+!/.agents/skills/baseline-reproduction/
+!/.agents/skills/iedxray-data-audit/
+!/.agents/skills/detection-evaluation/
+!/.agents/skills/prototype-demo/
+/.agents/skills/*/*
+!/.agents/skills/baseline-reproduction/SKILL.md
+!/.agents/skills/iedxray-data-audit/SKILL.md
+!/.agents/skills/detection-evaluation/SKILL.md
+!/.agents/skills/prototype-demo/SKILL.md
+
+# Personal client settings, credentials and sessions
 .codex/
 .claude/
 .cursor/
@@ -16,19 +34,19 @@ GEMINI.md
 .github/prompts/
 .github/skills/
 
-# Internal planning, source records and execution journals (kept locally)
+# Private correspondence, source records and detailed execution journals
 /docs/internal/
 /docs/sdp-repository-bootstrap-prompt.md
-/docs/context.md
-/docs/decisions.md
 /docs/logbook.md
-/docs/plan.md
-/docs/research.md
 /docs/source-hashes.csv
-/docs/status.md
-/docs/tasks.md
-/docs/verification.md
 /experiments/registry.csv
+
+# Share only reviewed meeting Markdown; original sources remain private
+/docs/meeting_minutes/*
+!/docs/meeting_minutes/README.md
+!/docs/meeting_minutes/SDP_Meeting_01_Minutes_KU_Styled (1).md
+!/docs/meeting_minutes/SDP_Meeting_02_Minutes_Fall_2026.md
+!/docs/meeting_minutes/follow-up-2026-09-24.md
 
 # Source documents, datasets, model artifacts and archives
 *.pdf
@@ -57,6 +75,7 @@ GEMINI.md
 .env.*
 !.env.example
 configs/*.local.*
+*.local.*
 
 # Environments, caches, temporary files and generated outputs
 .venv/

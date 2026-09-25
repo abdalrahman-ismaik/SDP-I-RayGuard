@@ -7,6 +7,13 @@ source, but its original ZIP checksum cannot be compared with the supplied extra
 The approximately 70K internal images are reported separately; their relationship is unresolved.
 IEDXray is the current P1 dataset; STCray is optional and deferred.
 
+The 24 September meeting separately requires a **distributed dismantled dataset**: all five
+students repeat the same five-session weekly rota for two consecutive weeks, ten sessions
+total, completed by **15 October 2026**. Exact lab slots, taxonomy, grouping and image quota
+remain to be confirmed. Use the lab's protocol and record actual session/case/physical-instance
+provenance and QC. The published datasets do not fulfil this new collection. A second two-week
+batch after midterms, followed by retraining, is planned; exact dates are unassigned.
+
 Keep data outside Git (or in this ignored directory). Set `dataset_root` and `annotations` in
 `configs/project.local.json`, or shell `SDP_DATA_ROOT` / `SDP_ANNOTATIONS`. Layout is not assumed:
 identify the actual image root and train/test JSON paths first. Preserve all published splits and
