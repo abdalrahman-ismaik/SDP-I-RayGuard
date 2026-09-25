@@ -22,9 +22,11 @@ Batch 1 collection. T10/Q9 must reconcile these obligations; no new prototype da
 
 ## What actually works
 
-Repository collaboration setup is in progress under T36: shared documentation/agent guidance,
-owner-reviewed PRs and required CPU checks. Teammate usernames and invitations remain pending
-under T31; public visibility is not confirmation of individual access or understanding.
+Repository collaboration setup is active under T36: shared documentation/agent guidance,
+owner-reviewed PRs and required Linux/Windows CPU checks on all three shared branches.
+Rules were read back and CODEOWNERS validated; both hosted checks passed. The owner's review
+bypass works only through PRs; CI/history rules have no bypass. Teammate usernames and
+invitations remain pending under T31; individual access/understanding is not yet confirmed.
 
 CPU audits, strict JSON contracts and the standalone generic YOLOv10-M runner exist.
 [Real diagnostic inference](first-inference.md) ran on three images, including a missed threat
