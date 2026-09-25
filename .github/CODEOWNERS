@@ -1,0 +1,3 @@
+# Require the repository owner's review for shared project changes.
+* @abdalrahman-ismaik
+/.github/CODEOWNERS @abdalrahman-ismaik

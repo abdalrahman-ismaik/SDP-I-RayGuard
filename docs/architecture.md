@@ -19,6 +19,32 @@ traveler/group inference from filenames. Complete-device threat classes cannot s
 component labels; component evidence is explicitly not supplied by this initial interface.
 Failure/missing-scan cases stay visible. Fusion and case outcomes are not implemented.
 
+## Direction after the 24 September meeting
+
+The five-student team's primary technical work is now distributed component evidence across
+separate packages. Complete the initial lab dataset by **15 October**, then adapt/train/evaluate
+the available model. A second two-week collection period follows midterms, then retraining.
+Exact model, lab taxonomy, physical/case grouping, data split and fusion architecture remain
+open. The discussed three packages do not fix input cardinality. Existing IEDXray/FALCON class
+maps cannot silently become the new component taxonomy; a reviewed contract extension is
+needed before representing component predictions.
+
+A **simple laptop GUI** for the reported-ready laptop/pager model is an immediate, separate
+showcase requirement, alongside the poster on **Embedded Explosive Detection in Electronic
+Devices**, ASAP for the SLG visit. The visit date and intended model pairing are unverified.
+The GUI is not implemented. It can be developed against a verified existing model before full
+P1 training or distributed-model completion. Recommended minimum behavior is image selection,
+real localization/score display, explicit task/model identity and visible errors/empty results;
+these details are design recommendations. No detection must never become a benign verdict.
+
+The current generic runner is one executed baseline, not proof that the meeting's complete
+laptop/pager demonstration already runs. Confirm the matching artifacts, then implement and
+rehearse the UI with real saved/live evidence. Hardik's colorization is a separate workstream;
+no colorization preprocessing or detector dependency is implemented or assumed.
+
+Earlier P1/P2 target dates (8/15 October) need reconciliation with the new collection-first
+sequence; no replacement dates or waiver of earlier prototype requirements were provided.
+
 ## P1 implementation gates
 
 1. Inspect real task-specific COCO/category map, published split, original RGB images and

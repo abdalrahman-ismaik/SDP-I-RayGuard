@@ -10,6 +10,13 @@ task checkpoints embed their architectures/class names; separate sidecars are no
 basic inference. The expanded folder now has 18 completed checkpoints across six families;
 see the [checkpoint catalog](../docs/checkpoint-catalog.md). All archive checks pass, but several
 additional task/config mappings need resolution. Only generic YOLO inference has been executed.
+
+The 24 September meeting separately described a ready laptop/pager model for the early GUI
+and an available model to adapt for distributed detection after Batch 1. Confirm the exact
+artifact/config/class-map pairing and lab support contact for each role. The existing catalog
+does not by itself identify those intended models or establish that the GUI/distributed system
+runs. Early GUI work and later distributed training have different completion evidence.
+
 For each additional model, pair its
 checkpoint with exact upstream commit, model config, task-specific class order, preprocessing,
 source/license and SHA-256. A filename is not pairing evidence. Do not load untrusted pickle
