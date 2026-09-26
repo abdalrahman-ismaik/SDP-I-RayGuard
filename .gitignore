@@ -110,3 +110,18 @@ models/*
 !models/README.md
 Thumbs.db
 .DS_Store
+
+# Local GUI dependencies, builds and browser evidence
+node_modules/
+playwright-report/
+test-results/
+/output/playwright/
+.playwright-cli/
+*.tsbuildinfo
+
+# GUI extracted to the sibling RayGuard-App repository. Preserve this local
+# pre-migration app/media/launcher for existing sessions; do not publish duplicates.
+/app/
+/assets/
+/run-app.ps1
+/.github/workflows/gui.yml
