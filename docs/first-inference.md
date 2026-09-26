@@ -5,6 +5,11 @@ and produces model predictions, an overlay and a run manifest. This is a standal
 the sequential P1 pipeline, benign/modified decision, training and model evaluation remain
 unimplemented. No dataset annotation is used to generate predictions.
 
+**26 September follow-up:** the preserved CPU baseline now supports a separate
+[portable-runtime implementation and CUDA verification record](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/runtime-verification.md).
+That follow-up retains these diagnostic outcomes and the original environment;
+it does not turn this initial CPU smoke test into an accuracy study.
+
 ## Supplied artifacts
 
 This section records the initial five-file inspection. The later
@@ -103,6 +108,12 @@ The three recorded prediction calls took about 1.79–1.95 seconds including bac
 These single cold calls are **not latency benchmarks**; upstream substage timers have limited
 resolution here. No dataset AP/recall, training or GPU performance was measured.
 
-Next: run standalone device inference while resolving concrete device-label and split-evaluation
-findings in parallel. Agree P1 association and benign/modified semantics before pipeline integration.
+26 September follow-up: [model selection](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/model-selection.md) now records
+bounded real device/specific CPU and CUDA execution. The generic CPU outputs above
+were protected and reproduced exactly before extending the CLI. All nine
+three-task/three-diagnostic CPU/GPU pairs passed fixed FP32 parity gates.
+These later checks do not turn the original smoke runs into accuracy evidence.
+
+Next: resolve concrete device-label and split-evaluation findings in parallel.
+Agree P1 association and benign/modified semantics before pipeline integration.
 A bounded fine-tuning experiment remains an advisor requirement, separate from this run.
