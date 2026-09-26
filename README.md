@@ -5,8 +5,8 @@ Advisor: **Prof. Naoufel Werghi**. Technical guidance: **Dr. Divya Velayudhan**.
 
 RayGuard investigates how X-ray evidence of suspicious components can be combined across
 separate bags or packages. Following the **24 September meeting**, the main priority is the
-distributed dismantled dataset and model adaptation. An early single-scan laptop GUI will
-showcase **Embedded Explosive Detection in Electronic Devices**. The executed detector
+distributed dismantled dataset and model adaptation. An early single-scan laptop GUI supports
+the **Embedded Explosive Detection in Electronic Devices** showcase. The executed detector
 baseline is **IEDXray + YOLOv10-M**; STCray and extra detectors remain optional.
 
 **Collection deadline: 15 October 2026.** All five students must coordinate one schedule for
@@ -23,17 +23,30 @@ total**, approximately two hours per student each week. Actual dates and lab slo
 >
 > **[Conference & agenda](https://6g-mena.com/#agenda)** · **[Official event details](https://eu-ems.com/summary.asp?event_id=4979&page_id=16881)** · **[Register](https://eu-ems.com/register.asp?event_id=4979)** · **[Poster requirements & team checklist](docs/6g-mena-2026.md)**
 
+## RayGuard application
+
+The GUI is maintained separately in **[RayGuard-App](https://github.com/abdalrahman-ismaik/RayGuard-App)**,
+with its own launcher, frontend/API, tests and documentation. Abd Alrahman Basim Ismaik
+directs and maintains the application; its [credits](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/CREDITS.md)
+distinguish app development assistance, team research and published models/data.
+This repository remains the SDP research and shared inference source. The app pins a
+specific revision of those tools; teammates should use its documented release/setup.
+
 ## Current progress
 
-As of **24 September 2026**, CPU dataset-audit tools, shared JSON interfaces and a standalone
-generic-threat detector are implemented. The detector has produced real predictions on three
-diagnostic images, including a missed threat; these runs do not establish accuracy.
-Device inference, the complete P1 pipeline, P2 fusion, fine-tuning, model evaluation and GUI
-remain unfinished. Empty detections do not establish that a scan is benign.
+As of **27 September 2026**, CPU dataset audits, shared JSON interfaces and three
+inspected YOLOv10 task runners are implemented. The separate application supports
+upload/folder intake, finite IEDXray test replay, actual boxes and reference
+comparison, operator review, export and CPU/GPU selection. See the
+[app guide](https://github.com/abdalrahman-ismaik/RayGuard-App).
 
-See [baseline commands/results](docs/first-inference.md) and [IEDXray audit findings](docs/iedxray-audit.md).
-The latest software checks passed **85 tests** in a copy containing only public project files;
-these are separate from real-data inspection and model inference.
+Bounded real CPU/GPU runs establish execution compatibility, including known
+misses; they do not establish accuracy. Synthetic software checks and real
+inference evidence are recorded separately in [verification](docs/verification.md),
+[baseline evidence](docs/first-inference.md) and [data audits](docs/iedxray-audit.md).
+The scanner connection, intended lab model pairing and human showcase rehearsal
+remain unverified. Full P1 association/decisions, P2 fusion, fine-tuning and model
+evaluation remain unfinished. Empty detections never establish a benign scan.
 
 ## Joining the project
 
@@ -54,7 +67,7 @@ does not complete the new collection requirement; no new SDP lab scans have been
 | Workstream | Goal and immediate tasks | Start here |
 |---|---|---|
 | **Five-student team — collection and distributed model** | Complete Batch 1 by 15 October with real case/component labels. Inspect the lab's available model early, then adapt/train/evaluate after Batch 1. Collect a broader two-week batch after midterms and retrain. | [P2 interface](src/sdp_xray/p2/__init__.py), [shared contracts](docs/contracts.md), [architecture](docs/architecture.md) |
-| **Single-scan / GUI showcase** | Confirm the intended ready laptop/pager model, assign a GUI owner and prepare a runnable laptop demonstration alongside the poster. Full P1 device/region/decision work remains separate and unfinished. | [P1 interface](src/sdp_xray/p1/__init__.py), [generic runner](scripts/infer_generic_yolov10.py), [model notes](models/README.md), [poster checklist](docs/6g-mena-2026.md) |
+| **Single-scan / GUI showcase** | Review the working generic-detector GUI, confirm the intended lab laptop/pager pairing, assign a human owner and rehearse alongside the poster. Full P1 device/region/decision work remains separate. | [GUI setup](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/usage.md), [app architecture](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/architecture.md), [model notes](models/README.md), [poster checklist](docs/6g-mena-2026.md) |
 | **Hardik — colorization** | Collect colorization data and complete phase 1 by 15 October; separately register for 6G and prepare its video. Interface to detection and video deadline need confirmation. | Coordinate with the lab; no colorization implementation in this repository |
 
 The P1/P2 interfaces are explicit stubs. Model, GUI and integration leads still need naming;
@@ -71,7 +84,8 @@ SDP-I-RayGuard/
 │   ├── common/             # Shared JSON validation
 │   ├── data/               # COCO and STCray audit tools
 │   └── cli.py              # Environment checks and dataset audits
-├── scripts/                # Standalone generic YOLO inference
+├── scripts/                # Catalog-bound YOLO inference and runtime setup
+├── environments/           # Reviewed model environment profiles and locks
 ├── configs/                # Portable configuration example
 ├── tests/                  # Synthetic software tests
 ├── docs/                   # Shared status, tasks, requirements, plan and evidence
@@ -79,7 +93,7 @@ SDP-I-RayGuard/
 │   ├── meeting_minutes/    # Reviewed Markdown summaries; original PDFs excluded
 │   └── templates/          # Blank collection schedule and sample manifest
 ├── data/ & models/         # Usage notes; actual artifacts stay local
-├── .github/workflows/      # CPU CI definition
+├── .github/workflows/      # Automated software checks
 ├── AGENTS.md               # Shared instructions for project agents
 ├── .agents/skills/         # Four focused audit, baseline, evaluation and demo workflows
 ├── CONTRIBUTING.md         # Setup, branches, reviews and evidence standards
@@ -107,6 +121,13 @@ train/test split, physical-group provenance and P2 case labels. Preserve the pub
 The lab collection quota/taxonomy, proposal's **500-sample** obligation, remaining full-GUI
 scope and departmental dates need confirmation. The simple showcase GUI is required now.
 See the [paper/annotation review](docs/iedxray-paper-review.md).
+
+## Run the GUI
+
+Clone **[RayGuard-App](https://github.com/abdalrahman-ismaik/RayGuard-App)** with
+`--recurse-submodules` and follow its README. Its Windows entry point is
+`run-app.ps1`. GUI source and launcher changes belong in that repository;
+research/model changes belong here. Authorized datasets and checkpoints stay local.
 
 ## Run the CPU tools
 

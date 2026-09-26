@@ -3,6 +3,11 @@
 This is the shared starting point for everyone working on RayGuard. Requirements, task status
 and technical evidence live in this repository so a new clone has the same project context.
 
+The GUI source and app-specific guides are in [RayGuard-App](https://github.com/abdalrahman-ismaik/RayGuard-App).
+Clone it with `--recurse-submodules`; its `engine/` pins this research repository.
+GUI contributions go there, while the research backlog and meeting requirements
+stay here. See the [migration evidence](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/migration.md).
+
 ## Start here
 
 1. Read [current status](status.md) and the active item in [tasks](tasks.md).
@@ -37,7 +42,9 @@ to the agreed requirements. Name unresolved owners as TBD until someone accepts 
 
 | Task area | Read |
 |---|---|
-| Model execution / GUI baseline | [First inference](first-inference.md), [model catalog](checkpoint-catalog.md), [model storage/setup](../models/README.md) |
+| Model execution / GUI baseline | [First inference](first-inference.md), [model catalog](checkpoint-catalog.md), [model selection/classes and execution](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/model-selection.md), [model storage/setup](../models/README.md), [GPU inference study and plan](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/gpu-inference-plan.md), [GPU implementation prompt](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/gpu-implementation-prompt.md) |
+| GUI implementation and rehearsal | [App launch/development](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/usage.md), [app architecture/options](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/architecture.md), [airport UI/scanner research](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/scanner-research.md), [design/font comparison](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/visual-research.md), [workspace choices](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/design-options.md), [actual checks](verification.md) |
+| IEDXray reference in the GUI | [Annotation pairing, overlay and matching protocol](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/annotation-comparison.md); per-image agreement is separate from accuracy |
 | Data collection and audits | [Data handling](../data/README.md), [IEDXray audit](iedxray-audit.md), [paper/annotation review](iedxray-paper-review.md) |
 | Model research and selection | [Research findings](research.md), [dataset catalog](datasets.md); optional [STCray audit](stcray-audit.md) |
 | Interfaces and integration | [Architecture](architecture.md), [contracts](contracts.md) |
