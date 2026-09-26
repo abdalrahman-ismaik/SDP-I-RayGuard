@@ -31,6 +31,19 @@ or YOLO. Follow [the recorded inference setup](docs/first-inference.md); its ori
 inherited local packages, so a fresh machine must independently verify compatible dependencies.
 Do not assume that the lab's reported-ready demo/distributed model is the same artifact.
 
+## GUI development
+
+The application lives in [RayGuard-App](https://github.com/abdalrahman-ismaik/RayGuard-App).
+Clone it with `--recurse-submodules` and follow its own contribution/setup guide.
+Its `engine/` submodule pins a reviewed revision of this repository. Keep shared
+contracts, catalogs, runtime setup and inference scripts authoritative here;
+frontend, local API, launcher and app tests are maintained there.
+
+Propose engine changes here first, run the CPU checks, then update the app's pin
+and run its integration checks. Each app release records the exact engine commit.
+Do not develop in a cached/ignored pre-migration `app/` folder. Original local
+services and files are preserved for migration recovery, not synchronized copies.
+
 ## Working with agents
 
 The repository includes shared [agent instructions](AGENTS.md) and four focused project

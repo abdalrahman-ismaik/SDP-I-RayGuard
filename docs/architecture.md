@@ -1,7 +1,17 @@
 # Architecture and integration boundary
 
-Status: CPU tools, JSON contracts and standalone generic-threat inference implemented.
-See [verified first inference](first-inference.md). P1 pipeline and P2 fusion remain unimplemented.
+**27 September repository boundary:** application frontend, API, launcher and GUI
+tests are now maintained in [RayGuard-App](https://github.com/abdalrahman-ismaik/RayGuard-App).
+The app's `engine/` Git submodule pins this repository's contracts, model catalog,
+inference scripts and environment locks. Research, dataset audits and P1/P2 remain
+here. References below to the original `app/` describe its pre-extraction layout;
+current paths and independent setup are in the application repository.
+
+Status: CPU tools, JSON contracts, standalone generic-threat inference and a local GUI draft
+implemented, including isolated Windows CPU/NVIDIA runtime preparation and session-fixed
+execution. See [verified first inference](first-inference.md), [GPU verification](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/runtime-verification.md)
+and [GUI setup](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/usage.md). Other-device portability acceptance is still open.
+P1 pipeline and P2 fusion remain unimplemented.
 One repository, separate `sdp_xray.p1` and `sdp_xray.p2`, shared `common` and `data` modules.
 The exact contract is documented in [contracts.md](contracts.md) and enforced by
 `src/sdp_xray/common/contracts.py`; contract examples/tests are synthetic software evidence.
@@ -32,18 +42,65 @@ needed before representing component predictions.
 A **simple laptop GUI** for the reported-ready laptop/pager model is an immediate, separate
 showcase requirement, alongside the poster on **Embedded Explosive Detection in Electronic
 Devices**, ASAP for the SLG visit. The visit date and intended model pairing are unverified.
-The GUI is not implemented. It can be developed against a verified existing model before full
-P1 training or distributed-model completion. Recommended minimum behavior is image selection,
-real localization/score display, explicit task/model identity and visible errors/empty results;
-these details are design recommendations. No detection must never become a benign verdict.
+The GUI now selects among three inspected YOLOv10 task checkpoints before full P1 training or
+distributed-model completion. Its implemented scope is image selection, actual localization/
+score display, explicit task/model identity, zoom/pan, linked findings, themes, session history,
+JSON export and visible errors/empty results. These are implementation decisions, not additional
+quoted advisor requirements. Zero detections must never become a benign verdict.
 
 The current generic runner is one executed baseline, not proof that the meeting's complete
-laptop/pager demonstration already runs. Confirm the matching artifacts, then implement and
-rehearse the UI with real saved/live evidence. Hardik's colorization is a separate workstream;
+laptop/pager demonstration already runs. Confirm that intended pairing and rehearse the UI
+with its real saved/live evidence. Hardik's colorization is a separate workstream;
 no colorization preprocessing or detector dependency is implemented or assumed.
 
 Earlier P1/P2 target dates (8/15 October) need reconciliation with the new collection-first
 sequence; no replacement dates or waiver of earlier prototype requirements were provided.
+
+## Local GUI boundary
+
+The dedicated `app/` folder holds a React/TypeScript/Vite frontend and small FastAPI backend.
+The service binds to loopback, validates bounded PNG/JPEG uploads, and uses one canonical
+oriented PNG for viewing and inference. Boxes remain `xyxy` in that image's original pixels.
+One active subprocess invokes the catalog-selected task in its separate pinned model
+environment; the root CPU tools do not gain model dependencies. Validate shared result schema,
+scan/run identity, image dimensions, model/task/hash and threshold before displaying outputs.
+
+Session history lives in memory; private images, predictions, logs and manifests remain under
+ignored `runs/gui/`. JSON exports omit machine-specific paths. Restart clears the session list
+without deleting evidence. Runtime frontend assets are local; no cloud inference is added.
+See [app architecture and researched options](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/architecture.md) for module responsibilities,
+limits and the extension path for another verified task. Network deployment, scanner control,
+persistent history, device/benign decisions and P2 fusion are outside this draft.
+
+[Verification](verification.md) separates synthetic software checks from real upload and
+folder-replay inference. These diagnostic runs include a training image and a missed threat;
+they establish integration behavior, not model accuracy or showcase acceptance.
+
+The user-requested airport-interface extension adds read-only completed-image folder intake,
+a bounded queue, follow/hold review, view-only adjustments and timestamped notes. The scanner
+and its interface remain unconfirmed. Intake begins paused, skips old files on first Start,
+then processes new PNG/JPEG/BMP exports sequentially. Pause preserves accepted work and lets
+the active run finish. Queue/source state is session-only; restart requires deliberate
+recovery of unfinished exports as documented in the [launch guide](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/usage.md).
+Review does not clear an item; display filters do not change model inputs. A published-image
+replay is not a hardware test. The [research record](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/scanner-research.md) explains
+why export reception is the first adapter, pending one observed lab scan handoff.
+
+The direct dataset-demo input reads the local IEDXray test directory without writing
+to it. Finite, explicitly started batches use the same normalized-image/model path;
+source hashes and test indices remain in saved/exported run records. A shared lock
+excludes simultaneous manual, folder and demo dispatch. The published test split is
+preserved, and test replay is neither training nor accuracy evaluation. See the
+[replay guide](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/usage.md#replay-the-published-test-images). Design-studio
+previews are a separate read-only surface and cannot dispatch model jobs.
+
+An optional [annotation comparison](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/annotation-comparison.md) separately
+verifies generic test references against the recorded replay source, canonical
+image and completed model result. Cyan reference boxes and amber predictions
+remain independent. A deterministic IoU ≥ 0.50 rule reports per-image matched,
+missed and extra boxes; export records reference provenance without changing
+`ScanResult`. Unverified inputs receive no verdict, and empty references are not
+benign evidence. This is a diagnostic view, not full-test accuracy or a P1 decision.
 
 ## P1 implementation gates
 
@@ -77,8 +134,11 @@ For each real run save an ignored `runs/<run_id>/manifest.json` with UTC timesta
 team commit and dirty state, upstream revision, exact command/config, dataset/split hashes,
 checkpoint source/SHA-256, class map, seed, dependency/CUDA/hardware details, output paths,
 actual metrics and errors. Keep detailed execution journals locally; seed alone does not establish
-bitwise reproducibility. Generic YOLOv10 CPU smoke runs now exist; their single-image outputs
-are not accuracy evaluation. CPU data-audit evidence remains separate. Adopt heavier tracking
+bitwise reproducibility. The three inspected YOLOv10 task checkpoints now have
+[bounded CPU/CUDA execution evidence](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/model-selection.md), selected through
+one shared hash/class-map catalog and fixed per app session. Device localization
+does not supply host-threat association. Their single-image outputs are not
+accuracy evaluation. CPU data-audit evidence remains separate. Adopt heavier tracking
 only for an observed need.
 
 P2 needs group outcomes and component-level evidence. Compare independent scan decisions to

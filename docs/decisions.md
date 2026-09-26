@@ -1,6 +1,6 @@
 # Project decisions
 
-Updated **24 September 2026**. Entries distinguish repository choices from recorded advisor
+Updated **27 September 2026**. Entries distinguish repository choices from recorded advisor
 requirements. Decisions describe the intended approach; they do not establish completed work.
 Current tasks and ownership are in the [backlog](tasks.md), with evidence in
 [verification](verification.md). Original decision IDs are retained from the project record.
@@ -41,3 +41,12 @@ priorities and delivery planning, not measured software or model capabilities.
 D12–D14 do not waive the proposal's sample target or broader GUI obligations. Hardik's
 15 October colorization phase-1 deadline does not establish a video or GUI deadline.
 See [context and open questions](context.md) and the [plan](plan.md).
+
+## Local GUI first draft — 25 September
+
+| ID | Decision / source category | Consequence |
+|---|---|---|
+| D17 | **Implementation choice:** dedicated `app/` with React/TypeScript/Vite, local FastAPI and the existing generic YOLO runner in its separate environment | Reviewed [stack alternatives and primary documentation](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/architecture.md). Local image/box inspection, themes, asynchronous runs and exports; no desktop wrapper, database or cloud service needed for this draft |
+| D18 | **Evidence boundary:** integrate the executed generic IEDXray model while the lab's intended laptop/pager pairing remains unconfirmed | Real generic inference can be demonstrated now. It does not establish device association, benign/modified decisions, full P1/P2 or showcase acceptance. T28 remains in progress pending pairing and human rehearsal |
+| D19 | **User-requested extension / implementation choice:** airport-style inspection with automatic reception of completed image exports, bounded queue and separate review notes | [Primary-source research](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/scanner-research.md) informed the UI. Scanner/interface is explicitly unconfirmed; a read-only folder receiver is the reversible first adapter. No hardware-control or video-stream claim; intake and history are session-only, and review is not clearance |
+| D20 | **User-authorized repository separation, 27 September:** maintain the public GUI in RayGuard-App under the user's account | Supersedes D17's same-repository application location. Keep research and inference tools here; pin them through the app's engine Git submodule. Record actual app direction/maintenance, implementation assistance and upstream/team credits. Preserve existing source/history and local sessions; no change to advisor scope or deadline |
