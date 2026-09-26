@@ -1,10 +1,18 @@
 # Supplied model catalog — 22 September 2026
 
-**Artifact inspection completed, with pairing issues.** The local model folder now contains
+**26 September follow-up:** the original inventory below is historical. The
+current working folder contains the three YOLOv10-M checkpoints; the other
+fifteen files are absent. All three YOLO tasks have now run on isolated CPU/CUDA
+profiles, with the generic CPU baseline preserved and nine diagnostic CPU/GPU
+pairs passing frozen FP32 parity gates. See [model selection and execution](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/model-selection.md).
+The five other families remain listed but disabled, with no executed backend
+claim. Their static pairing issues below remain unresolved.
+
+**At the 22 September inspection, with pairing issues:** the local model folder contained
 18 completed checkpoints: three named tasks for each of six model families. Total size is
 11,991,175,179 bytes (11.99 GB). File availability and archive integrity do not establish
-task correctness or working inference. Only the [generic YOLO reference](first-inference.md)
-has been executed in this project.
+task correctness or working inference. At that date only the
+[generic YOLO reference](first-inference.md) had been executed in this project.
 
 ## Inventory and integrity
 
@@ -21,7 +29,7 @@ provided. Original author paths/config text stay ignored locally. Evidence and r
 scripts are under `runs/iedxray-model-catalog-2026-09-22/`: `inventory.json`,
 `inventory_checkpoints.py`, and `metadata/compact-summary.json` plus detailed metadata/configs.
 
-| Model family | Named task files present | Static evidence / remaining work | Executed here |
+| Model family | Named task files present on 22 September | Static evidence / remaining work | Executed by 22 September |
 |---|---|---|---|
 | YOLOv10-M | Device, generic, specific | Embedded architectures and 4/1/5 class names previously inspected | Generic CPU smoke only |
 | AO-DETR | Device, generic, specific | Config and classification heads have 4/1/5 classes; requires custom AO modules and specific-task mapping verification | No |

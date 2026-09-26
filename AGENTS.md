@@ -1,5 +1,10 @@
 # SDP-I-RayGuard
 
+The GUI now lives in https://github.com/abdalrahman-ismaik/RayGuard-App.
+Its pinned `engine/` submodule consumes this repository's shared model/contracts
+code. Make GUI edits in that separate checkout. A remaining local `app/` is an
+ignored pre-migration copy kept for running sessions, not an active source tree.
+
 Read `docs/status.md`, the active item in `docs/tasks.md`, and `docs/meeting_minutes/README.md`.
 Read the latest applicable meeting companion/follow-up, then the relevant `docs/context.md`,
 `docs/research.md`, and `docs/architecture.md`. Preserve older obligations unless explicitly
