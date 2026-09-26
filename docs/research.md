@@ -75,8 +75,10 @@ publisher byte identity is unverified.
   [Commands, predictions and limits](first-inference.md).
 
 The embedded YOLO architecture and names are sufficient for the completed generic smoke run;
-missing configuration sidecars no longer block that reference. Device execution, full P1
-association/decision logic, fine-tuning and model evaluation remain unfinished. The other
+missing configuration sidecars no longer block that reference. A 26 September
+[follow-up](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/model-selection.md) executed all three YOLO tasks on bounded
+CPU/CUDA diagnostics, preserving the generic baseline. Full P1 association/decision
+logic, fine-tuning and model evaluation remain unfinished. The other
 checkpoint backends have not been executed. The model environment is separate from the locked
 CPU audit environment and is not an exact reconstruction of the author's training environment.
 
@@ -137,3 +139,13 @@ test reporting. A crop cascade needs coordinate remapping, padding, multiple-hos
 unmatched regions and stage-error analysis; full-image association is a separate design choice.
 Neither is provided automatically by the benchmark. Empty detections imply no benign verdict.
 See [architecture](architecture.md) and [verification](verification.md) for implementation limits.
+
+## Airport interface and acquisition research — 25 September 2026
+
+The [app research record](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/scanner-research.md) compares primary documentation
+and available images from Smiths Detection, Rapiscan and Leidos, plus open-architecture
+and DICOS scope. It separates documented functionality from visually inspected screens
+and our design recommendations. Completed-image folder intake is implemented and tested
+with real YOLO on published-image replays; this does not verify the lab's scanner.
+The user confirms that scanner/interface details are not yet known. No public vendor
+page establishes a usable SDK on that machine, and no physical link has been tested.
