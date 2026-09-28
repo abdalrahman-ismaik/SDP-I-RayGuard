@@ -11,14 +11,17 @@ baseline is **IEDXray + YOLOv10-M**; STCray and extra detectors remain optional.
 
 **Collection deadline: 15 October 2026.** All five students must coordinate one schedule for
 Dr. Divya: five sessions per week, repeated unchanged for two consecutive weeks, **ten sessions
-total**, approximately two hours per student each week. Actual dates and lab slots are pending.
+total**, approximately two hours per student each week. The team proposes **29 September–1 October**
+and **6–8 October**, pending lab acceptance. Yonathan's received catalogue specifies
+**500 planned images across 125 four-bag groups**; see the [collection table](#dataset-collection--round-1).
 
 > [!IMPORTANT]
 > **6G MENA 2026: SDP project poster due 30 September 2026.**
 > The advisor requires participation as a project KPI. The summit takes place **19–20 October**
 > at **Conrad Abu Dhabi Etihad Towers**. The poster deadline comes from the project invitation;
 > attendee registration is a separate action with no confirmed cutoff.
-> **All five students must register.** The poster and simple GUI are also needed **ASAP for
+> **All five students are registered**, confirmed by the owner on 28 September; receipts remain private.
+> The poster and simple GUI are also needed **ASAP for
 > the SLG visit**; the visit date is awaiting confirmation.
 >
 > **[Conference & agenda](https://6g-mena.com/#agenda)** · **[Official event details](https://eu-ems.com/summary.asp?event_id=4979&page_id=16881)** · **[Register](https://eu-ems.com/register.asp?event_id=4979)** · **[Poster requirements & team checklist](docs/6g-mena-2026.md)**
@@ -34,7 +37,7 @@ specific revision of those tools; teammates should use its documented release/se
 
 ## Current progress
 
-As of **27 September 2026**, CPU dataset audits, shared JSON interfaces and three
+As of **28 September 2026**, CPU dataset audits, shared JSON interfaces and three
 inspected YOLOv10 task runners are implemented. The separate application supports
 upload/folder intake, finite IEDXray test replay, actual boxes and reference
 comparison, operator review, export and CPU/GPU selection. See the
@@ -48,6 +51,39 @@ The scanner connection, intended lab model pairing and human showcase rehearsal
 remain unverified. Full P1 association/decisions, P2 fusion, fine-tuning and model
 evaluation remain unfinished. Empty detections never establish a benign scan.
 
+## Dataset collection — Round 1
+
+The received [collection catalogue (F05/C01)](docs/meeting_minutes/follow-up-collection-2026-09-28.md#catalogue-handoff-f05c01)
+assigns **at least 100 images to each of five students across two sessions**. Its listed
+configurations total exactly 100 per student. Each group contains four distinct bags,
+with one registered target per bag: explosive simulant, battery, detonator simulant or
+standalone wire, plus the catalogue's specified clutter.
+
+| Catalogue session | Groups per student | Images per student | Team groups | Team images |
+|---|---:|---:|---:|---:|
+| Session A · G01–G12 | 12 | 48 | 60 | 240 |
+| Session B · G01–G13 | 13 | 52 | 65 | 260 |
+| **Round 1 total** | **25** | **100** | **125** | **500** |
+
+| Target family | Catalogue item codes | Planned images |
+|---|---|---:|
+| Explosive simulant | E1–E4 | 125 |
+| Battery | B1–B3 | 125 |
+| Detonator simulant | D1–D3 | 125 |
+| Standalone wire | W1–W2 | 125 |
+| **Total** | **12 item variants** | **500** |
+
+**Collection status: not started; no acquired scans reported.** These are catalogue targets,
+not completed images. The five clutter levels each cover 100 planned images. Set numbers
+restart for each student/session, so a set label alone does not uniquely identify a group.
+
+Lab confirmation is still needed for the proposed dates, Session A/B mapping to weeks,
+and replacement of the earlier one-item weekly assignments: the catalogue covers all four
+families per student and includes E4/B3 in Round 1. Scanner/export instructions, annotation
+rules, QC and negative/control examples remain open. The **15 October** deadline is unchanged.
+See [current tasks T21/T26/T27](docs/tasks.md) and [requirements](docs/context.md) for the
+acceptance details. Original lab documents and filled personal schedules remain private.
+
 ## Joining the project
 
 Start with the [team documentation index](docs/README.md) and [contribution/setup guide](CONTRIBUTING.md).
@@ -60,8 +96,9 @@ For agent-assisted work, use the shared [AGENTS.md](AGENTS.md) and
 
 ## Workstreams and their next tasks
 
-**Immediate priorities:** send the complete repeated collection schedule, confirm the lab
-protocol, assign GUI/poster owners and register all five students. Published-dataset inspection
+**Immediate priorities:** confirm the proposed collection schedule, reconcile the received
+catalogue with earlier assignments, obtain the remaining lab protocol and assign GUI/poster owners.
+All five student registrations are reported complete. Published-dataset inspection
 does not complete the new collection requirement; no new SDP lab scans have been reported.
 
 | Workstream | Goal and immediate tasks | Start here |
@@ -107,7 +144,8 @@ Earlier prototype targets need explicit reconciliation with the new collection-f
 
 | Date | Deliverable |
 |---|---|
-| Earliest opportunity | One consolidated schedule for all five students; lab protocol, owners and registrations |
+| Before proposed **29 September** start | Confirm the consolidated schedule, catalogue assignments and first-day guidance; obtain remaining protocol/QC instructions |
+| **29 September–1 October / 6–8 October**, proposed | Two collection weeks; ten sessions, pending lab acceptance and Session A/B mapping |
 | ASAP; SLG visit date TBD | Poster on **Embedded Explosive Detection in Electronic Devices**, with simple GUI/laptop demonstration |
 | **30 September** | **[6G MENA poster submission](docs/6g-mena-2026.md)** (deadline supplied in the project invitation) |
 | **15 October** | **Batch 1 distributed dataset collection complete:** ten sessions over two consecutive weeks; Hardik's separate colorization phase 1 also due |
@@ -118,8 +156,10 @@ Earlier prototype targets need explicit reconciliation with the new collection-f
 
 Open dependencies: conflicting Mobile/Pager labels, four duplicate image pairs across the supplied
 train/test split, physical-group provenance and P2 case labels. Preserve the published test split.
-The lab collection quota/taxonomy, proposal's **500-sample** obligation, remaining full-GUI
-scope and departmental dates need confirmation. The simple showcase GUI is required now.
+The catalogue supplies a **500-image Round 1 target**. Annotation taxonomy, QC and negative/control
+coverage still need confirmation; the matching count alone does not satisfy the proposal's
+**500 positive/negative samples** requirement. Remaining full-GUI scope and departmental dates
+also need confirmation. The simple showcase GUI is required now.
 See the [paper/annotation review](docs/iedxray-paper-review.md).
 
 ## Run the GUI

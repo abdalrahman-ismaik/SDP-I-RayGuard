@@ -1,6 +1,6 @@
 # Current plan - Meeting 02 and follow-up
 
-Updated **27 September 2026 (Asia/Dubai)**. Source precedence and exact action IDs are in the
+Updated **28 September 2026 (Asia/Dubai)**. Source precedence and exact action IDs are in the
 [meeting index](meeting_minutes/README.md). [Tasks](tasks.md) holds status; this page sequences
 the work without assigning availability or claiming completion.
 
@@ -20,9 +20,22 @@ laptop/pager pairing before presenting this draft as that specific showcase mode
 Collection commitment is approximately **2 hours/student/week for two consecutive weeks**:
 5 weekly sessions, 10 sessions total, about 20 student-session hours over the campaign.
 These are planned collection hours, not completed contributions or capacity for model/GUI work.
-Collect everyone's actual slots and remaining capacity privately. Previous individual
+Initial weekly slots for all five were supplied on 28 September and recorded privately.
+They total 9 h 45 min/week, or 19 h 30 min over two weeks if unchanged. Following the lab's
+rejection of overlap, the owner supplied two revised slots and a 29 Sep start. The proposal
+now has no overlaps: Week 1 is 29 Sep–1 Oct and Week 2 is 6–8 Oct. Lab acceptance of these
+dates/times and one shorter session remains open. Other capacity is unconfirmed. Previous individual
 implementation allowances are not a commitment under the expanded priorities. STCray corrections, extra detector comparisons and optional
 conference papers remain deferred.
+
+[F05/C01](meeting_minutes/follow-up-collection-2026-09-28.md#catalogue-handoff-f05c01) supplies
+the scenario catalogue: 125 four-bag groups / 500 planned images, 100 per student across
+Session A/B (48/52). This conflicts with F03's earlier one-item weekly allocations and
+E4/B3 extras: the catalogue includes both in Round 1. Confirm the lab's intended amendment
+and map Session A/B to the proposed weeks before using the old rota's item columns.
+Yonathan reports inventory readiness; first-day guidance and rota acceptance remain
+unconfirmed. His email's undated availability is not a recurring booking. Keep the
+15 October deadline while resolving assignment and post-midterm timing questions.
 
 ## Application ownership and delivery
 
@@ -39,16 +52,16 @@ review core dependency changes here before advancing its pin.
 
 | Order / timing | Required action | Evidence / dependency |
 |---|---|---|
-| Earliest opportunity | T26: collect five availability responses, name a coordinator, agree two consecutive active weeks and email one complete schedule to Dr. Divya | [Blank worksheet](templates/collection-schedule.md); five weekly slots repeated unchanged; request lab approval if pending; no fabricated times |
-| Before first session | T27: obtain Dr. Divya/CVMI protocol/scenarios, annotation taxonomy, genuine group provenance and acceptance rule | Versioned lab instructions, named log/review owners; resolve overlap/conflicts |
-| In parallel, ASAP | T22: all five students register; T23/T28: assign poster/GUI owners, confirm SLG date/model and rehearse the GUI draft | Actual registrations; intended lab artifact pairing; reviewed real predictions, known miss and failure/empty states |
+| Promptly, before proposed 29 Sep start | T26: send the final team proposal for 29 Sep–1 Oct and 6–8 Oct and obtain lab acceptance | F04 rejects previous overlap; revised private rota has none. Dated reply drafted, not sent; one shorter session unchanged. [Blank worksheet](templates/collection-schedule.md) |
+| Before proposed 29 Sep start / first day | T27: confirm C01's assignment/session mapping, remaining acquisition/annotation/QC instructions and guidance on 29 Sep | Catalogue and 500-image target received; actual group/scan provenance, negative controls and log/review owners remain open |
+| In parallel, ASAP | T23/T28: assign poster/GUI owners, confirm SLG date/model and rehearse the GUI draft; T22 complete per owner's all-five confirmation on 28 Sep | Registration receipts not independently inspected. Intended lab artifact pairing; reviewed real predictions, known miss and failure/empty states |
 | 25–29 Sep, internal planning targets only | Content/layout review and GUI rehearsal as capacity permits; earlier SLG date takes priority if confirmed | Organizer format, advisor review and named submitter; no promised completion before visit date is known |
 | **30 Sep, earlier invitation deadline** | Submit reviewed poster through confirmed route | Submission acknowledgement; registration is separate |
-| Two consecutive weeks, exact window TBD | T21: carry out 10 sessions, record attendance and usable samples after each | Approximately 2 h per student/week; same rota repeated, no invented scan quota |
+| Proposed Week 1: 29 Sep–1 Oct; Week 2: 6–8 Oct | T21: carry out 10 sessions against the lab-confirmed catalogue/assignment mapping; record attendance and usable samples | C01 plans 100 images/student in two sessions; resolve F03 conflict, A/B dates, lab acceptance and remaining protocol before collection |
 | **By 15 Oct, current required milestone** | Complete Batch 1 distributed collection and review inventory/quality | Actual session records, counts, hashes, labels/groups and lab acceptance; review target to agree before deadline |
 | Before/after Batch 1 as applicable | T29: inspect available base model early; adapt, train and evaluate once usable data and protocol exist | Lab model identity/support, justified split/metrics and real run manifests |
 | **19–20 Oct** | 6G MENA participation as arranged | Confirmed attendance, presentation/demo logistics |
-| After midterms, dates TBD | T30: second two-week broader collection campaign, then retrain and compare against Batch 1 | Exact window and greater diversity agreed; defensible evaluation, no assumed improvement |
+| After midterms, dates TBD | T30: second two-week broader collection campaign, then retrain and compare against Batch 1 | C01 includes E4/B3 in Round 1 despite F03 extras wording; clarify the amendment and broader Batch 2 scope/dates; no assumed improvement |
 
 Hardik separately collects colorization data and completes **phase 1 by 15 October** (T32),
 registers for the summit and prepares the video (T24). Its deadline/scope/handoff needs
@@ -96,8 +109,10 @@ hashes, annotation review and usability. Preserve published IEDXray splits; new 
 splits require lab-supported grouping. Check shared samples/physical groups before evaluation.
 
 M02 did not fix the discussed **20 items / 20 scans per student / 200 detonator examples**
-as acceptance criteria. The proposal's **500 total positive/negative samples** remains a
-separate obligation whose relationship to the batches must be confirmed. The simple GUI is
+as acceptance criteria. C01 now supplies a **500-image Round 1 target**, but usable-image/QC
+acceptance remains open. All listed bags contain a target and all groups contain four families;
+negative/control outcomes are not supplied. The proposal's **500 total positive/negative samples**
+therefore remains a separate scope question, not satisfied by matching the number alone. The simple GUI is
 required now; remaining full control/recording GUI features need explicit scope/timing.
 
 Three packages and firearms were examples, not a fixed scan-count limit or expanded project
