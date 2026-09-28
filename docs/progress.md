@@ -4,6 +4,193 @@ This page records shareable project evidence. It is not a claim of individual st
 authorship, hours or understanding. Those must be recorded by the actual contributor and
 reviewer. Do not include personal paths, private contacts, raw correspondence or artifact files.
 
+## T18 README collection tables and publication preparation — 28 September 2026
+
+The owner requested the README update, a visible dataset collection table and publication
+to main. Automated documentation support added Session A/B and component-family tables:
+48/52 images per student, 240/260 across five students, and 500 total planned images.
+The README now reflects the proposed dates and reported all-five registrations, while
+retaining pending lab acceptance, the C01/F03 assignment conflict and the 15 October deadline.
+No acquired scans, approved booking, category IDs, case outcomes or student hours are inferred.
+
+The publication scope is the README and its collection/registration source, status and task
+records. Existing unrelated poster, branding and repository-housekeeping edits remain local.
+Original documents, raw correspondence and filled personal schedules remain private.
+The catalogue allocation tables contain planned totals, not private attendance schedules.
+
+Read-only `git fetch origin` confirmed the starting main revision `761a1aa`. The GitHub
+branch-rules readback requires a pull request and successful `CPU (ubuntu-latest)` and
+`CPU (windows-latest)` checks; the existing owner-only PR review bypass remains separate
+from those mandatory checks. Publication will use this route without changing protection.
+This entry records preparation; the resulting PR/check/merge history records publication.
+
+`.venv/Scripts/python.exe tmp/prepare-collection-publication.py` prepared eleven public files
+and passed 114 local link/anchor checks against the proposed Git tree, table-total checks
+and private-artifact/machine-path checks. `git apply --cached --check` accepted the patch.
+This is a documentation-only change; hosted CPU checks remain mandatory for the merge.
+
+## T11/T21/T26/T27 catalogue receipt and reconciliation — 28 September 2026
+
+The owner supplied Yonathan's email (F05) and `Multi-bag Collection.docx` (C01).
+Automated documentation support inspected the attachment and updated the shared source
+summary, requirements, architecture boundary, plan, tasks and status. Human/lab confirmation
+is pending; no student authorship, attendance or work hours are inferred. The source DOCX,
+raw correspondence, named allocations and detailed audit remain private.
+
+Actual inspection used PowerShell `Add-Type -AssemblyName System.IO.Compression.FileSystem`,
+`ZipFile.OpenRead` and XML traversal of `word/document.xml`, followed by JavaScript
+count/code checks across every configuration cell. All 24 tables were inspected: four keys
+and twenty session tables. There are 125 groups / 500 bag entries, one target per bag and
+one of each of four component families per group. Each student has 12 Session A groups
+(48 bags) and 13 Session B groups (52 bags). Each family has 125 entries, each clutter level
+25 groups and each orientation 125 entries. All listed clutter codes/counts match the keys;
+no structural count/code mismatch was found. These are planned configurations, not acquired
+scans or verified ground truth. No DOCX page rendering or visual layout review was performed.
+
+`Get-FileHash -Algorithm SHA256 'docs/internal/Multi-bag Collection.docx'` identified the
+unchanged source as `afeb6297d9203ff551c25443d5d7d4fa20720d2fff777d31240363783fca7630`.
+The catalogue provides a concrete numerical target and planned groups, so protocol status
+now distinguishes received scenarios from outstanding acquisition/export, annotation/QC,
+negative/control outcomes and attendance-log ownership. Inventory readiness is reported by
+Yonathan; physical items were not inspected. His undated availability does not confirm
+29 September guidance or recurring availability.
+
+C01's all-family sessions and E4/B3 inclusion in Round 1 conflict with F03's earlier
+one-item weekly allocations/extras. Both records are retained, and the old private rota
+and unsent scheduling reply are flagged for revision/clarification. No dates or assignments
+were silently changed. Session A/B mapping to weeks needs lab confirmation. Repeated G01
+labels require collector/session/source context; planned groups do not prove physical
+independence. No machine category IDs, case outcomes or completed collection were invented.
+The proposal's positive/negative sample scope remains unresolved despite the matching 500
+count. All previous deadlines and the prototype/collection conflict remain visible.
+
+A PowerShell here-string piped to `uv run --locked python -` checked 88 local links/anchors
+across eleven reviewed documents, source-hash/audit readback and task states; all passed.
+`git check-ignore -v` confirmed the attachment, private source/audit and filled planning
+records remain excluded; `git ls-files --` confirmed they are untracked. `git diff --check` passed.
+This was documentation-only work; no code/model tests, inference, message, commit or push
+were performed. Existing working-tree changes were preserved.
+
+T21 remains not started, T26/T27 in progress and T11 blocked on the remaining taxonomy/
+provenance/ownership decisions. Next: confirm C01's precedence and A/B dates with the lab,
+obtain remaining protocol/QC instructions and dated first-day guidance, then record actual
+collection. M02's broader post-midterm Batch 2 remains T30.
+
+## T26 revised slots and dated collection proposal — 28 September 2026
+
+The owner supplied Dr. Divya's scheduling reply (F04): the earlier overlap would prevent
+scan completion, afternoons are possible and final dates are requested promptly. The owner
+then reported two changed slots after group discussion and explicitly supplied **29 September**
+as the agreed first Tuesday. The original email timestamps were not supplied. This is
+documented correspondence/team reporting, not evidence of completed scans or lab acceptance.
+
+The private rota now has no overlapping sessions. The two changed times retain their full
+two-hour durations; the other three slots and all ten F03 item allocations are unchanged.
+Week 1 sessions fall on **29 September, 30 September and 1 October 2026**, with the same
+weekday/time pattern repeated on **6, 7 and 8 October**. The final planned session precedes
+the 15 October Batch 1 deadline. Planned student-session time remains 9 h 45 min/week and
+19 h 30 min across two weeks; actual attendance/hours and scan counts remain unreported.
+
+A new private reply draft includes all dates, times and item allocations and requests lab
+acceptance, the protocol and Yonathan's first-day guidance on 29 September. It is not sent.
+The earlier broad progress email is retained as a historical draft and points to the new
+reply. F04 establishes review of an earlier proposal; its exact sent message was not supplied.
+The private source record and shared source/context/plan/status/tasks distinguish the lab's
+instructions from the owner's revised availability/date confirmation.
+
+Executed checks: a PowerShell here-string piped to `uv run --locked python -` verified all
+ten dated sessions, calendar weekdays, seven-day repetition, absence of overlaps, unchanged
+item assignments, 1,170 total planned minutes and completion before 15 October. All 83 local
+links across 11 reviewed documents resolved. `git check-ignore -v` confirmed the named rota,
+new reply and private source remain excluded; `git diff --check` passed. This was a
+documentation-only change; no code or model tests were needed.
+
+T26 and T27 remain in progress for final reply/lab acceptance, protocol and guidance. T21
+remains not started; T22 remains complete per the earlier owner confirmation. One shorter
+weekly slot is unchanged. F03's extra-item timing question and the prior prototype/poster
+obligations are retained. Automated documentation support recorded the update; no additional
+student contributions or hours are inferred. Next: send the dated proposal, obtain lab and
+protocol/guidance confirmation, then record actual collection. No message, commit or push
+was sent by the assistant.
+
+## T21/T26/T27/T30 item allocations and protocol handoff — 28 September 2026
+
+The owner supplied a further email from Dr. Divya (F03); its original send timestamp was not
+provided. The [sanitized source summary](meeting_minutes/follow-up-collection-2026-09-28.md)
+records the four labelled item families, weekly allocations, timing request and Yonathan's
+protocol responsibility. The supplied correspondence and exact person/week assignments remain
+private. Automated documentation support recorded the update; no student work hours or
+completed collection are inferred.
+
+The existing private rota and unsent advisor email now pair the owner's proposed timings with
+Dr. Divya's ten weekly item allocations. The item sets are E1/B1/W1/D1/E2 in Week 1 and
+B2/D2/W2/E3/D3 in Week 2. E4 and B3 are extras outside that table. These are item labels,
+not scan counts, machine class IDs or verified case groups. The earlier availability spelling
+of one student's name was aligned with the new email and meeting roster; no timing was changed.
+
+T27 is now in progress: Yonathan is named to supply the protocol and requested for first-day
+guidance. Neither protocol receipt nor his attendance is confirmed, and no model-support role
+is inferred. T21 remains not started, T26 remains in progress and T30 remains not started.
+T22 remains complete on the owner's earlier all-five registration confirmation.
+
+Interpreting the post-midterm sentence as applying to E4/B3 extras is explicitly provisional.
+The revised reply asks whether the initial campaign still follows the 15 October deadline.
+Existing two-week cadence, ten sessions, poster obligation and prototype-date conflict remain
+recorded. Exact dates, lab acceptance of overlap/shorter duration, quotas, annotation/group
+schema, log ownership and extra-item allocation remain unresolved.
+
+The source index, context, plan, architecture boundary, tasks and short status were updated.
+The new shared summary was explicitly allowed by the existing meeting-file ignore policy;
+raw correspondence and filled schedules remain excluded.
+
+Executed checks: a PowerShell here-string piped to `uv run --locked python -` passed 83 local
+links across 11 documents, all ten source-to-rota/email assignments, unchanged proposed times,
+E4/B3 exclusion from the initial table and T21/T22/T26/T27/T30 states. `git check-ignore -v`
+confirmed all three private records are excluded, and `git ls-files --` for those paths
+returned no tracked files. `git status --short -- docs/meeting_minutes/follow-up-collection-2026-09-28.md`
+shows the new shared summary as eligible/untracked; `git diff --check` passed. No code tests
+were needed for this documentation-only update.
+
+Next: send proposed times and obtain
+lab/date clarification, Yonathan's protocol and confirmation of first-day guidance. No email,
+code change, model run, commit or push was performed.
+
+## T22/T26 registration and initial collection availability — 28 September 2026
+
+The owner supplied initial weekly availability for all five students and explicitly confirmed
+that all five, including himself, are registered for 6G MENA. T22 is marked complete on that
+documented owner confirmation; receipts were not independently inspected and actual registration
+dates were not supplied. Hardik's separate T24 registration/video remains unconfirmed.
+Automated documentation support recorded this update; no student hours or additional
+implementation contributions are inferred.
+
+The filled schedule is retained privately under the existing documentation policy. Its five
+slots total 9 h 45 min/week, or 19 h 30 min across two weeks if repeated unchanged. These are
+planned student-session hours, including concurrent attendance, not completed work or exclusive
+scanner time. One 90-minute overlap and one 1 h 45 min session require lab confirmation. No
+calendar dates, approvals, session attendance, scan counts or new collection were invented.
+T26 remains in progress; T21 collection and T27 protocol remain open.
+
+A private, unsent progress email to Prof. Naoufel and Dr. Divya combines registration, the
+proposed rota, GUI progress and both repository links. GUI statements use the existing
+27 September migration/verification records and inspected app README; no fresh inference
+or accuracy measurement was performed. The draft requests the exact consecutive weeks,
+lab acceptance/protocol and reconciliation of the old 8/15 October prototype targets with
+Batch 1 by 15 October and subsequent adaptation. The 30 September poster obligation is unchanged.
+
+Executed checks: `git remote -v` in both checkouts matched the two repository URLs.
+A PowerShell here-string piped to `uv run --locked python -` checked 62 local links across
+the eight edited documents, both copies of all five supplied slots, duration/overlap arithmetic
+and T22/T26 states; all passed. `git check-ignore -v docs/internal/collection-schedule.md
+docs/internal/2026-09-28-progress-email.md` confirmed both private records are excluded;
+`git ls-files --` for those paths returned no tracked files. `git diff --check` passed.
+This was documentation-only work; no code tests, email sending, commit or push were performed.
+
+Shared status, tasks, plan, context and event checklist now reflect the report. The blank
+shared schedule and historical meeting requirements remain intact. Existing working-tree
+edits were preserved. Next: send the consolidated email, obtain lab confirmation and protocol,
+then record actual sessions; complete GUI rehearsal and the intended model/scanner handoff.
+
 ## T28 standalone public application — 27 September 2026
 
 The owner requested immediate extraction and explicitly chose public visibility.

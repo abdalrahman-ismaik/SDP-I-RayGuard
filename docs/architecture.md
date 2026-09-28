@@ -34,8 +34,17 @@ Failure/missing-scan cases stay visible. Fusion and case outcomes are not implem
 The five-student team's primary technical work is now distributed component evidence across
 separate packages. Complete the initial lab dataset by **15 October**, then adapt/train/evaluate
 the available model. A second two-week collection period follows midterms, then retraining.
-Exact model, lab taxonomy, physical/case grouping, data split and fusion architecture remain
-open. The discussed three packages do not fix input cardinality. Existing IEDXray/FALCON class
+[F03](meeting_minutes/follow-up-collection-2026-09-28.md) supplies explosive charge, detonator,
+battery and wires item families with E/D/B/W labels, and names Yonathan as protocol provider.
+The later [C01 catalogue](meeting_minutes/follow-up-collection-2026-09-28.md#catalogue-handoff-f05c01)
+defines 125 planned four-bag groups, each containing one target per family, for 500 images.
+These are documented collection groups, not verified scan associations, physical independence
+or operational case outcomes. Set IDs restart per collector/session; retain source version,
+collector, session, set and bag-slot provenance without inferring groups from filenames.
+Exact model, annotation IDs, actual physical/case provenance, split and fusion architecture
+remain open. C01 includes E4/B3 in Round 1, conflicting with F03's earlier assignments/extras;
+confirm the amendment. Four slots apply to this catalogue, not a permanent P2 input limit.
+The recorded Batch 1 deadline is retained. Existing IEDXray/FALCON class
 maps cannot silently become the new component taxonomy; a reviewed contract extension is
 needed before representing component predictions.
 
@@ -58,7 +67,9 @@ sequence; no replacement dates or waiver of earlier prototype requirements were 
 
 ## Local GUI boundary
 
-The dedicated `app/` folder holds a React/TypeScript/Vite frontend and small FastAPI backend.
+RayGuard-App's `frontend/` and `backend/` hold the React/TypeScript/Vite UI and small
+FastAPI service. The legacy local `app/` copy in this repository is ignored and
+is not an active application source. Shared inference tools remain tracked here.
 The service binds to loopback, validates bounded PNG/JPEG uploads, and uses one canonical
 oriented PNG for viewing and inference. Boxes remain `xyxy` in that image's original pixels.
 One active subprocess invokes the catalog-selected task in its separate pinned model
