@@ -4,6 +4,41 @@ This page records shareable project evidence. It is not a claim of individual st
 authorship, hours or understanding. Those must be recorded by the actual contributor and
 reviewer. Do not include personal paths, private contacts, raw correspondence or artifact files.
 
+## T23 poster v6 repository review bundle — 30 September 2026
+
+The owner requested publication of the latest poster and updates to the README,
+project documents and task record. The current user-saved v6 PPTX and PDF are now
+included in [the review bundle](posters/6g-mena-2026/README.md), with direct links,
+editing guidance, source attribution and SHA-256 hashes. T23 remains in progress:
+Prof. Naoufel/team feedback, final approval, print size and submission are outstanding.
+Preparing an email and publishing repository files do not establish an email send.
+
+Preparation progressed through six revisions: two problems and methods, preserved
+paper evidence, descriptive sections and justified text, followed by linked IEDXray
+detail crops and three FALCON close-ups. Version 6 preserves owner-supplied credits.
+Its native QA recorded 182 objects, 93 text boxes, 11 pictures, seven reversible crops,
+10 connectors and eight justified text boxes. Thirteen AP/mIoU values match the papers;
+local demonstration confidence and proposed multi-package performance remain distinct.
+
+For publication, an independent read-only audit verified ZIP integrity, all visible
+PPTX text against the one-page PDF (2,942 non-whitespace characters), source attribution,
+credits and no private filesystem paths, credential patterns, external relationships,
+macros or embedded attachments. The PDF was rendered and visually checked. The current
+files were copied without modification: PPTX 2,954,249 bytes, SHA-256
+`b2c950f1630f1ed25d4c55ca56a56c6731028c1d460619a3dc6b06abee553a87`; PDF 139,507 bytes,
+SHA-256 `20be167333269340f27419bfa9b2937200b18d176ebb067e3f529b2dc1f14ef1`.
+
+Publication validation: `verify_publication.py` checked 139 local links/anchors,
+both exact file hashes and the ignore rules for original PDFs, templates, older
+drafts, scans and weights; all passed. `git diff --check` passed. These artifact
+and documentation checks do not establish new model results.
+
+An isolated `docs/poster-v6-2026-09-30` worktree separates this change from unrelated
+local work. Only the review bundle, its exact PDF allowlist and poster-related README,
+status, task, conference/index and preparation records are included. Source PDFs,
+raw scans, weights, personal records and earlier drafts remain untracked. No production
+code, inference, training, student hours or advisor approval are claimed.
+
 ## T18 README collection tables and publication preparation — 28 September 2026
 
 The owner requested the README update, a visible dataset collection table and publication
