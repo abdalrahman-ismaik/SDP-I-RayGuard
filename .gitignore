@@ -126,3 +126,9 @@ test-results/
 /assets/
 /run-app.ps1
 /.github/workflows/gui.yml
+
+# Private poster sources and earlier drafts remain local.
+/docs/6g-mena-poster/
+
+# Owner-authorized poster review export; source PDFs remain ignored.
+!/docs/posters/6g-mena-2026/RayGuard-Research-Poster-v6.pdf
