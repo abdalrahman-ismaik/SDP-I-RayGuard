@@ -48,14 +48,14 @@ to the agreed requirements. Name unresolved owners as TBD until someone accepts 
 | Data collection and audits | [Data handling](../data/README.md), [IEDXray audit](iedxray-audit.md), [paper/annotation review](iedxray-paper-review.md) |
 | Model research and selection | [Research findings](research.md), [dataset catalog](datasets.md); optional [STCray audit](stcray-audit.md) |
 | Interfaces and integration | [Architecture](architecture.md), [contracts](contracts.md) |
-| Conference, poster and GUI showcase | [6G MENA requirements/checklist](6g-mena-2026.md) |
+| Conference, poster and GUI showcase | [Current v6 PPTX/PDF review bundle](posters/6g-mena-2026/README.md), [6G MENA requirements/checklist](6g-mena-2026.md), [poster preparation and evidence](poster-plan.md) |
 | New collection paperwork | Blank [schedule](templates/collection-schedule.md) and [sample manifest](templates/collection-manifest.csv) |
 
 ## What belongs in Git?
 
 | Keep in the shared repository | Keep private / ignored |
 |---|---|
-| Current plan, backlog, requirements, decisions and technical evidence | Raw correspondence, personal notes, detailed session/recovery journals |
+| Current plan, backlog, requirements, decisions, technical evidence and owner-authorized poster review bundle | Raw correspondence, personal notes, detailed session/recovery journals |
 | Reviewed meeting Markdown without student IDs or contact details | Original minutes/proposal/selection PDFs and documents |
 | Code, meaningful synthetic tests, lock file and portable example config | Scans, annotation releases, checkpoints, environments and generated run outputs |
 | Blank reusable templates and concise reviewed results | Filled availability schedules, attendance/contact details and registration confirmations |
