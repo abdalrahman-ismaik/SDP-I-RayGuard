@@ -1,6 +1,6 @@
 # Current project status
 
-Updated 28 September 2026. Read [tasks](tasks.md), [meeting records](meeting_minutes/README.md)
+Updated 30 September 2026. Read [tasks](tasks.md), [meeting records](meeting_minutes/README.md)
 and [the plan](plan.md) for the authoritative backlog and requirements.
 
 ## Immediate priorities
@@ -19,7 +19,13 @@ and [the plan](plan.md) for the authoritative backlog and requirements.
   The earlier dated reply remains unsent and needs the catalogue clarification before use.
 - **T28/T23:** rehearse the laptop GUI and poster on **Embedded Explosive Detection
   in Electronic Devices**, ASAP for SLG. The visit date and intended lab pairing
-  remain unknown; **30 September poster submission** still applies.
+  remain unknown; **30 September poster submission** still applies. The
+  [research poster v6 review bundle](posters/6g-mena-2026/README.md) now includes the
+  editable PowerPoint and matching PDF in Git. It covers both problems with enlarged
+  source figures and preserves the supplied credits. Prof. Naoufel/team review,
+  print size and submission remain open. The separate showcase v3 stays local;
+  confirm the advisor's combined-versus-separate CT/colorization scope and obtain
+  any required CT/video material. The earlier topic/deadline is not silently replaced.
 - **T22 complete:** on **28 September**, the owner explicitly confirmed that all five
   students are registered for 6G. This is documented confirmation; receipts were not inspected.
   Hardik's separate registration remains T24.
@@ -60,6 +66,15 @@ replay is not a real scanner connection. Other-host GPU/CPU qualification and hu
 rehearsal remain open. Details and prior diagnostics are in the app documentation.
 
 ## Research evidence and open work
+
+The [poster plan](poster-plan.md) records the preparation of research v6 and the
+local showcase alternative. The [v6 PPTX and PDF](posters/6g-mena-2026/README.md) are
+versioned for team review. Original paper annotations, all thirteen reported metrics,
+source attribution and the supplied credits are retained. Native PowerPoint and
+independent scientific/visual checks passed; the current user-saved PDF/PPTX also
+passed text, package and publication checks. T23 remains in progress until review,
+final production and submission are evidenced. Repository sharing is not conference
+submission or confirmation that an email was sent.
 
 CPU audits, strict JSON contracts and genuine generic/device/specific YOLO execution
 exist. [Data audits](verification.md) retain unresolved label disagreements, geometry,
