@@ -37,7 +37,7 @@ specific revision of those tools; teammates should use its documented release/se
 
 ## Current progress
 
-As of **28 September 2026**, CPU dataset audits, shared JSON interfaces and three
+As of **30 September 2026**, CPU dataset audits, shared JSON interfaces and three
 inspected YOLOv10 task runners are implemented. The separate application supports
 upload/folder intake, finite IEDXray test replay, actual boxes and reference
 comparison, operator review, export and CPU/GPU selection. See the
@@ -50,6 +50,15 @@ inference evidence are recorded separately in [verification](docs/verification.m
 The scanner connection, intended lab model pairing and human showcase rehearsal
 remain unverified. Full P1 association/decisions, P2 fusion, fine-tuning and model
 evaluation remain unfinished. Empty detections never establish a benign scan.
+
+The **[poster review draft, version 6](docs/posters/6g-mena-2026/README.md)** is now
+available as a [PDF](docs/posters/6g-mena-2026/RayGuard-Research-Poster-v6.pdf) and an
+[editable PowerPoint](docs/posters/6g-mena-2026/RayGuard-Research-Poster-v6.pptx).
+It covers both detection problems, with enlarged source figures, linked detail views,
+published benchmark results and a saved RayGuard demonstration. Prof. Naoufel and the
+team can comment and improve the PPTX directly. Advisor approval and conference
+submission remain open under [T23](docs/tasks.md); the proposed multi-package study
+is clearly distinguished from measured single-image results.
 
 ## Dataset collection — Round 1
 
@@ -127,6 +136,7 @@ SDP-I-RayGuard/
 ├── tests/                  # Synthetic software tests
 ├── docs/                   # Shared status, tasks, requirements, plan and evidence
 │   ├── README.md           # Documentation index and reading order
+│   ├── posters/            # Current review poster: editable PPTX and matching PDF
 │   ├── meeting_minutes/    # Reviewed Markdown summaries; original PDFs excluded
 │   └── templates/          # Blank collection schedule and sample manifest
 ├── data/ & models/         # Usage notes; actual artifacts stay local
