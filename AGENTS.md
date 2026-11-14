@@ -31,6 +31,13 @@ filled schedules and personal/session records stay local. Read `docs/README.md` 
 - Use one coordinator for dependencies/shared status and separate file ownership or worktrees
   for parallel edits. Review label correctness, leakage and unsupported claims independently.
   One owner per GPU job/output directory; agent output still requires verification.
+- AI agents may inspect, draft and edit agreed project files, but they are never GitHub
+  contributors: no agent account, bot identity, author/committer/co-author metadata,
+  agent-authored commit, push, PR, review comment or collaborator invitation. Each human
+  student reviews their diff and personally runs their own Git identity, commit and push
+  commands. An agent may suggest commands but must not execute them. Keep agent sessions,
+  transcripts, generated client settings and local state out of Git. The reviewed project
+  guidance in `AGENTS.md` and `.agents/skills/` remains team-owned documentation.
 - Use the four focused workflows in `.agents/skills/` when their task applies. No custom
   orchestration or global configuration changes are required. These reviewed project files
   are shared; personal client settings, credentials and session histories remain ignored.

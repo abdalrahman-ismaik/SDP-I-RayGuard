@@ -7,6 +7,13 @@ source, but its original ZIP checksum cannot be compared with the supplied extra
 The approximately 70K internal images are reported separately; their relationship is unresolved.
 IEDXray is the current P1 dataset; STCray is optional and deferred.
 
+The separately collected distributed X-rays were inventoried on 14 November 2026. The latest
+local snapshot contains 577 JPEG paths but 478 distinct byte payloads after 99 exact duplicate
+copies; all paths decode, but round/catalogue mapping, QC and physical/case provenance remain
+unverified. See the [sanitized progress inventory](../docs/collection-progress-2026-11-14.md)
+and [member contribution guide](../docs/collection-contribution-guide.md). Raw images remain on
+the lab computer; filled manifests are private, and neither belongs in Git.
+
 The 24 September meeting separately requires a **distributed dismantled dataset**: all five
 students repeat the same five-session weekly rota for two consecutive weeks, ten sessions
 total, completed by **15 October 2026**. Exact lab slots, taxonomy, grouping and image quota

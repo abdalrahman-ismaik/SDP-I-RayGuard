@@ -1,6 +1,6 @@
 # Meeting records and current requirements
 
-Shared, sanitized requirements summaries, updated 28 September 2026. These Markdown files
+Shared, sanitized requirements summaries, updated 19 October 2026. These Markdown files
 give all contributors the same record of agreed directions, open questions and source history.
 They omit student IDs, contact information, private meeting logistics and raw correspondence.
 Original PDFs and correspondence remain private and are not included in the repository.
@@ -8,11 +8,14 @@ Request an authorized source copy from the project team when original-source rev
 
 ## Read in this order
 
-1. [Collection follow-ups F03–F05/C01](follow-up-collection-2026-09-28.md): revised 29 Sep rota, received 500-image catalogue and assignment conflicts requiring lab confirmation.
-2. [Meeting 02 companion](SDP_Meeting_02_Minutes_Fall_2026.md): current technical direction and action register.
-3. [Dr. Divya's earlier follow-up F02](follow-up-2026-09-24.md): explicit collection cadence, registration and showcase requirements.
-4. [Meeting 01 companion](<SDP_Meeting_01_Minutes_KU_Styled (1).md>): original scope and obligations not explicitly amended.
-5. [Current backlog](../tasks.md), [plan](../plan.md), [context/questions](../context.md) and [short handoff](../status.md).
+1. [Secure Life Group visit F08](follow-up-slg-2026-10-19.md): 21 Oct 2-5 pm, required presence, SDP digital progress poster, Divya lab preparation and Hardik/Fangzhou video.
+2. [Poster acceptance and participation F07](follow-up-poster-2026-10-19.md): digital portrait format, revised-file receipt pending TDRA, Tuesday-only attendance and coverage/photo request.
+3. [Latest F06 collection update](follow-up-collection-2026-10-19.md): reconcile first-round counts against 500, finish shortfalls before next round, send second-round schedule; 30 November overall deadline and optional 5 pm slots.
+4. [Collection follow-ups F03–F05/C01](follow-up-collection-2026-09-28.md): revised 29 Sep rota, received 500-image catalogue and assignment conflicts requiring lab confirmation.
+5. [Meeting 02 companion](SDP_Meeting_02_Minutes_Fall_2026.md): current technical direction and action register.
+6. [Dr. Divya's earlier follow-up F02](follow-up-2026-09-24.md): explicit collection cadence, registration and showcase requirements.
+7. [Meeting 01 companion](<SDP_Meeting_01_Minutes_KU_Styled (1).md>): original scope and obligations not explicitly amended.
+8. [Current backlog](../tasks.md), [plan](../plan.md), [context/questions](../context.md) and [short handoff](../status.md).
 
 Each source PDF has a Markdown companion with the same base filename. The companions are
 structured summaries, not verbatim transcripts or evidence of action completion. PDF page
@@ -28,6 +31,26 @@ the private sources without creating links that fail after cloning the repositor
 | F03 | Dr. Divya's collection email supplied 28 September; actual send timestamp not supplied | Four labelled item families, five students' Week 1/2 allocations, E4/B3 extras and post-midterm wording, timings requested, Yonathan assigned protocol and requested for first-day guidance |
 | F04/U04 | Further lab reply and subsequent group/date update supplied 28 September; actual message timestamps not supplied | Lab rejects overlap, allows afternoon slots and requests final dates. Owner supplies two revised slots and 29 Sep start; two-week proposal ends 8 Oct and awaits lab acceptance |
 | F05/C01 | Yonathan's email and attached catalogue supplied 28 September; actual email timestamp not supplied; DOCX inspected and hashed | Inventory ready per sender; 125 four-bag groups / 500 planned images, 100/student in two sessions. C01 includes E4/B3 and conflicts with F03's item assignments |
+
+**Latest amendment F06:** supplied 19 October; email timestamps unknown. See the
+[full summary](follow-up-collection-2026-10-19.md). First-round collection is now reported
+by one student but counts conflict; completion of 500 and QC remain unverified. Second-round
+schedule requested; finish any first-round shortfall on the same set before moving on.
+Overall collection deadline: **30 November 2026**. Around **5 pm** is optional where feasible.
+The older 15 October Batch 1 milestone below remains historical and unverified.
+
+**Poster amendment F07:** acceptance is documented on 12 October; final digital delivery
+requested for 14 October, then portrait 9:16 / 1080 × 1920 revision for 17 October. Divya's
+revised presentation was received by Brahim; TDRA response is pending. Tuesday-only team
+attendance is confirmed (20 October), with exact session/setup interval and photo day still
+to clarify. This updates the earlier poster/attendance statements below; no final-file
+inspection or actual presentation is claimed.
+
+**Visit amendment F08:** Secure Life Group CEO visit is **Wednesday 21 October, 2-5 pm**.
+Presence is required. SDP prepares a digital project/progress poster; Divya prepares the lab;
+Hardik/Fangzhou prepare a high-quality work/approaches video. Earlier SLG identity/date
+questions below are resolved; readiness remains unverified. T37 tracks visit preparation
+and T28 retains GUI rehearsal. This is separate from Tuesday's 6G poster session.
 
 ## How to apply the sources
 
@@ -52,7 +75,7 @@ the private sources without creating links that fail after cloning the repositor
 | Items and protocol | F05/C01 supplies four-bag scenarios and all four component families per student's sessions, including explosive/detonator simulants. Confirm replacement of F03's one-item assignments and map A/B to dates. Remaining acquisition/annotation instructions and first-day guidance are open | T11, T21, T27 |
 | Quota | C01 specifies 500 Round 1 images, at least 100/student; 125 groups verified in the catalogue. Usability/QC acceptance still open. Older 20/200 discussion figures are not the current target | T27, Q7 |
 | Proposal dataset target | C01's 500 planned target-bearing images do not establish the proposal's positive/negative sample mix or negative/control case outcomes | T10, T27 |
-| GUI and poster | Embedded Explosive Detection in Electronic Devices, with simple GUI, ready ASAP for SLG visit. Visit date and GUI owner remain unknown | T23, T28, Q8 |
+| GUI and poster | Embedded Explosive Detection in Electronic Devices, with simple GUI, ready ASAP for SLG visit. F08 fixes Secure Life Group visit at 21 Oct 2-5 pm; SDP digital progress poster/presence required; GUI owner remains TBD | T23, T28, Q8 |
 | 6G | All five SDP students register; Hardik registers separately. Prior invitation gives 30 September poster deadline and official event is 19–20 October | T22–T24 |
 | Old prototype dates | M01 records P1 8 October and P2 15 October. M02 places adaptation/training after Batch 1; no replacement prototype dates are supplied. Escalate the conflict | T10, T13, Q9 |
 | Batch 2 / extras | M02 retains two weeks after midterms then retraining/comparison. C01 includes E4/B3 in Round 1 despite F03's extras/timing wording; reconcile the amendment and broader Batch 2 dates/scope | T10, T30, Q7/Q10 |

@@ -1,9 +1,27 @@
 # RayGuard poster preparation
 
-Updated 30 September 2026 for **T23**. This is the content/design and review record;
-[tasks.md](tasks.md) remains the only backlog. No advisor approval or submission is recorded.
+Updated 19 October 2026 for **T23**. This is the content/design and review record;
+[tasks.md](tasks.md) remains the only backlog.
 
-**Latest work:** research version 6 refines the owner's edited v5 with paired scan/detail
+**Secure Life Group visit (F08):** [the invitation](meeting_minutes/follow-up-slg-2026-10-19.md)
+requires SDP presence and a digital poster about the project/progress for **21 October,
+2-5 pm**. T37 tracks visit preparation; name the editor/presenter, review current evidence
+and confirm display/file requirements. Do not assume 6G's 9:16 specification applies.
+Divya's lab preparation and Hardik/Fangzhou's video are separate assigned responsibilities.
+No visit-poster artifact or readiness is claimed; keep the earlier GUI rehearsal obligation.
+
+**Latest conference evidence:** [F07](meeting_minutes/follow-up-poster-2026-10-19.md) documents
+poster acceptance (12 Oct), digital portrait 9:16 / 1080 × 1920 px requirements, the 17 Oct
+screen-format revision request, and Divya's new-template presentation handoff acknowledged
+by Brahim. TDRA approval remains pending. That file/template was not inspected; repository
+v6 below remains the earlier review artifact. No new PPTX/PDF was edited in this update.
+Tuesday-only attendance is confirmed (20 Oct); continuous coverage and a 2 pm group photo
+are requested. Confirm exact session/setup interval and photo day because the advisor's
+undated reply also says “today.” Digital display supersedes provisional A1/print assumptions.
+The 30 Sep / 14 Oct / 17 Oct dates are separate delivery stages, not proof of timeliness.
+Historical preparation entries below retain their evidence as of their recorded dates.
+
+**Latest repository artifact work (30 September):** research version 6 refines the owner's edited v5 with paired scan/detail
 figures and a larger FALCON example with three numbered close-ups. The supplied credits,
 title and headings are preserved. Showcase version 3 remains unchanged; earlier drafts
 remain available. Advisor review and submission remain open.

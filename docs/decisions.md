@@ -1,6 +1,6 @@
 # Project decisions
 
-Updated **27 September 2026**. Entries distinguish repository choices from recorded advisor
+Updated **28 September 2026**. Entries distinguish repository choices from recorded advisor
 requirements. Decisions describe the intended approach; they do not establish completed work.
 Current tasks and ownership are in the [backlog](tasks.md), with evidence in
 [verification](verification.md). Original decision IDs are retained from the project record.
@@ -50,3 +50,4 @@ See [context and open questions](context.md) and the [plan](plan.md).
 | D18 | **Evidence boundary:** integrate the executed generic IEDXray model while the lab's intended laptop/pager pairing remains unconfirmed | Real generic inference can be demonstrated now. It does not establish device association, benign/modified decisions, full P1/P2 or showcase acceptance. T28 remains in progress pending pairing and human rehearsal |
 | D19 | **User-requested extension / implementation choice:** airport-style inspection with automatic reception of completed image exports, bounded queue and separate review notes | [Primary-source research](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/scanner-research.md) informed the UI. Scanner/interface is explicitly unconfirmed; a read-only folder receiver is the reversible first adapter. No hardware-control or video-stream claim; intake and history are session-only, and review is not clearance |
 | D20 | **User-authorized repository separation, 27 September:** maintain the public GUI in RayGuard-App under the user's account | Supersedes D17's same-repository application location. Keep research and inference tools here; pin them through the app's engine Git submodule. Record actual app direction/maintenance, implementation assistance and upstream/team credits. Preserve existing source/history and local sessions; no change to advisor scope or deadline |
+| D21 | **Owner-approved identity, 28 September:** A03 · Cobalt / controlled refinement is the selected RayGuard symbol; archive earlier logo designs | Supersedes the 27 September A04-02 Optical/Manrope 650 selection. Preserve the exact transparent A03 PNG in the app's dedicated assets folder and earlier packages in a dated local archive. No new wordmark or vector reconstruction is selected; current A04 runtime artwork remains until a separate adoption change |

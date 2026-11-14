@@ -1,10 +1,60 @@
 # Current plan - Meeting 02 and follow-up
 
-Updated **28 September 2026 (Asia/Dubai)**. Source precedence and exact action IDs are in the
+Updated **14 November 2026 (Asia/Dubai)**. Source precedence and exact action IDs are in the
 [meeting index](meeting_minutes/README.md). [Tasks](tasks.md) holds status; this page sequences
 the work without assigning availability or claiming completion.
 
-## Workstreams and capacity
+## Current end-of-semester implementation phase — 14 November
+
+The proposed, not-yet-accepted work packages T39–T43 and the 14–27 November schedule are in
+the [implementation/demo plan](implementation-plan-demo-2026-11.md). Abd and Mohammad lead
+GUI polish; they also review ML integration. Faisal owns the baseline/run contract, Ahmed
+fine-tuning, and Ali evaluation. The [ML pipeline plan](single-scan-ml-pipeline-plan-2026-11.md)
+prioritizes the GUI-selected CVMI model and public IEDXray data after exact artifact verification.
+Dismantled collection scans count toward collection progress, not this single-scan data path.
+Every student personally commits and pushes under their own identity; agents only advise or
+draft. Confirm each student, reviewer, model/demo pairing and presentation slot before code work starts.
+The earlier sections below preserve historical meeting/planning context; their October dates are not silently reset.
+
+## Latest collection sequence — F06
+
+The [19 October source update](meeting_minutes/follow-up-collection-2026-10-19.md) sets
+**30 November 2026** as overall collection completion and requests the second-round schedule.
+Gather each student's first-round count against 500; reconcile Faisal's reported 102 with
+his formula's 104 and C01's planned 100. Complete any shortfall using the same set before
+moving to the next round. No accepted team total or QC evidence is available.
+
+Gather current availability and exact post-midterm dates, retain M02's two-week round pending
+amendment, and propose around **5 pm** where feasible; late attendance is optional. Obtain
+lab acceptance and record sending of the schedule. No new dates or availability are supplied.
+The earlier rota and 15 October Batch 1 milestone below are historical, with acceptance and
+completion unverified. F06 does not expressly replace that milestone or other deadlines.
+C01 Session A/B both belong to Round 1, distinct from the pre-/post-midterm rounds.
+
+## Accepted poster participation — F07
+
+[F07](meeting_minutes/follow-up-poster-2026-10-19.md) documents acceptance and receipt of
+Divya's digital revision; TDRA approval remains pending. Confirm **Tuesday 20 October**
+session/setup times, cover the full session with shared presenter slots and confirm the
+requested **2 pm** group-photo day. Bring the final digital file on USB. Latest revision
+specification: portrait 9:16, 1080 × 1920 px, PPT/PNG/PDF, proportional layout. The attachment
+and template were not inspected. The advisor's undated “today” conflicts with Tuesday
+wording; do not infer Monday attendance from it. The original generic Monday setup request
+is qualified by Brahim's explicit Tuesday-only confirmation.
+
+## Secure Life Group visit - F08
+
+[F08](meeting_minutes/follow-up-slg-2026-10-19.md) confirms **Wednesday 21 October, 2-5 pm**,
+with required presence. T37 covers the SDP digital poster on project/progress and coordination
+of Divya's lab preparation and Hardik/Fangzhou's high-quality work/approaches video. Name
+the SDP poster editor/presenter and review an accurate progress summary before the visit;
+confirm display/file requirements and any earlier handoff cutoff. Rehearse the existing GUI
+under T28, retaining its verified scope and failure/empty states. No new artifact or readiness
+is established by the invitation. Tuesday's 6G session and Wednesday's visit are consecutive
+events; prepare for both and do not automatically transfer 6G's display specification to SLG.
+The separate summit-video deadline remains unknown; the visit video must be ready for 21 Oct.
+
+## Earlier workstreams and capacity
 
 **Primary technical work:** all five SDP students collect the distributed dismantled dataset,
 then adapt the available model for multi-package evidence. Hardik owns a separate colorization
@@ -12,7 +62,7 @@ workstream. P1/P2 modules and branches remain useful implementation boundaries; 
 GUI and integration assignments need confirmation.
 
 **Near-term showcase:** simple laptop GUI and poster on **Embedded Explosive Detection in
-Electronic Devices**, ready ASAP for the SLG visit. This is separate from completed P1
+Electronic Devices**, required for the SLG visit now dated 21 Oct (F08). This is separate from completed P1
 requirements and a trained multi-package system. The [local GUI draft](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/usage.md)
 integrates the verified IEDXray generic YOLOv10-M baseline. Confirm the intended lab
 laptop/pager pairing before presenting this draft as that specific showcase model.
@@ -44,11 +94,11 @@ The owner requested immediate public separation of the GUI on 27 September.
 versioned SDP core through a pinned submodule. The team backlog, research and
 collection obligations remain here. Local extraction, software checks and real
 diagnostics are complete; human presentation rehearsal and lab pairing stay open.
-This repository decision changes neither the 30 September poster deadline nor
-advisor requirements. Use the application checkout for GUI contributions and
+This repository decision does not amend advisor requirements. F07 separately records
+the later 14/17 October poster delivery/revision stages after the earlier 30 September stage. Use the application checkout for GUI contributions and
 review core dependency changes here before advancing its pin.
 
-## Immediate sequence
+## Earlier sequence (collection actions updated by F06 above)
 
 | Order / timing | Required action | Evidence / dependency |
 |---|---|---|
@@ -64,8 +114,9 @@ review core dependency changes here before advancing its pin.
 | After midterms, dates TBD | T30: second two-week broader collection campaign, then retrain and compare against Batch 1 | C01 includes E4/B3 in Round 1 despite F03 extras wording; clarify the amendment and broader Batch 2 scope/dates; no assumed improvement |
 
 Hardik separately collects colorization data and completes **phase 1 by 15 October** (T32),
-registers for the summit and prepares the video (T24). Its deadline/scope/handoff needs
-confirmation; the colorization date does not become a video deadline.
+registers for the summit and prepares its video (T24), whose deadline remains unconfirmed.
+F08 separately assigns Hardik/Fangzhou a visit video ready for 21 Oct (T37); the colorization
+phase-1 date does not become a video deadline.
 
 ## Prototype timetable conflict to resolve
 

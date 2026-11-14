@@ -9,20 +9,30 @@ distributed dismantled dataset and model adaptation. An early single-scan laptop
 the **Embedded Explosive Detection in Electronic Devices** showcase. The executed detector
 baseline is **IEDXray + YOLOv10-M**; STCray and extra detectors remain optional.
 
-**Collection deadline: 15 October 2026.** All five students must coordinate one schedule for
-Dr. Divya: five sessions per week, repeated unchanged for two consecutive weeks, **ten sessions
-total**, approximately two hours per student each week. The team proposes **29 September–1 October**
-and **6–8 October**, pending lab acceptance. Yonathan's received catalogue specifies
-**500 planned images across 125 four-bag groups**; see the [collection table](#dataset-collection--round-1).
+**Overall collection deadline: 30 November 2026.** The
+[latest follow-up](docs/meeting_minutes/follow-up-collection-2026-10-19.md) requests individual
+first-round counts against **500** and the **second-round schedule**. Finish any first-round
+shortfall on the same set before moving on. Around **5 pm** is preferred where feasible,
+not mandatory; exact second-round dates await current availability and lab acceptance.
+The earlier **15 October Batch 1** milestone remains historical and completion unverified.
+Yonathan's catalogue plans **500 images across 125 four-bag groups**; see the
+[collection table](#dataset-collection--round-1).
 
 > [!IMPORTANT]
-> **6G MENA 2026: SDP project poster due 30 September 2026.**
+> **6G MENA poster accepted; team attendance confirmed for Tuesday, 20 October.**
+> [Latest correspondence](docs/meeting_minutes/follow-up-poster-2026-10-19.md) requires a
+> digital **1080 × 1920 px, portrait 9:16** poster. Divya's revised presentation was
+> received by Brahim; **TDRA approval is pending**. Coordinate continuous coverage and
+> confirm session/setup times and the requested **2 pm** photo day (undated “today” is ambiguous).
 > The advisor requires participation as a project KPI. The summit takes place **19–20 October**
-> at **Conrad Abu Dhabi Etihad Towers**. The poster deadline comes from the project invitation;
+> at **Conrad Abu Dhabi Etihad Towers**. Delivery stages: 30 Sep, 14 Oct, then 17 Oct revision;
 > attendee registration is a separate action with no confirmed cutoff.
 > **All five students are registered**, confirmed by the owner on 28 September; receipts remain private.
-> The poster and simple GUI are also needed **ASAP for
-> the SLG visit**; the visit date is awaiting confirmation.
+> The poster and simple GUI are also needed for the
+> **Secure Life Group CEO visit, Wednesday 21 October, 2-5 pm**.
+> [The invitation](docs/meeting_minutes/follow-up-slg-2026-10-19.md) requires presence and
+> an **SDP digital poster about the project and progress**. Divya prepares the lab;
+> Hardik/Fangzhou prepare their work/approaches video. Visit display requirements remain open.
 >
 > **[Conference & agenda](https://6g-mena.com/#agenda)** · **[Official event details](https://eu-ems.com/summary.asp?event_id=4979&page_id=16881)** · **[Register](https://eu-ems.com/register.asp?event_id=4979)** · **[Poster requirements & team checklist](docs/6g-mena-2026.md)**
 
@@ -35,13 +45,40 @@ distinguish app development assistance, team research and published models/data.
 This repository remains the SDP research and shared inference source. The app pins a
 specific revision of those tools; teammates should use its documented release/setup.
 
+The legacy local `app/`, `assets/` and `run-app.ps1` are excluded by
+[.gitignore](.gitignore); app source is versioned only in RayGuard-App. Nested
+`RayGuard-App/` copies and copied `frontend/` / `backend/` roots are also excluded.
+Shared `src/sdp_xray/`, `scripts/` and `environments/` remain versioned here and
+are consumed by the app through its pinned `engine/` submodule.
+
 ## Current progress
 
-As of **30 September 2026**, CPU dataset audits, shared JSON interfaces and three
-inspected YOLOv10 task runners are implemented. The separate application supports
-upload/folder intake, finite IEDXray test replay, actual boxes and reference
-comparison, operator review, export and CPU/GPU selection. See the
-[app guide](https://github.com/abdalrahman-ismaik/RayGuard-App).
+As of **14 November 2026**, the shared repository contains a dated inventory of the
+dismantled-scan collection: **577 JPEG paths, 478 distinct byte payloads, and 99
+exact-copy paths**. All files decoded, but catalogue mapping, QC, physical-case
+provenance and lab acceptance are not established. The scans remain on the lab
+computer. This collection supports the dismantled multi-scan work and is not the
+single-scan training, evaluation or demo dataset. See the
+[inventory and date breakdown](docs/collection-progress-2026-11-14.md).
+
+For the single-scan prototype, the intended public source is IEDXray. A limited
+YOLOv10-M inference baseline exists, but it is not a full benchmark evaluation or
+fine-tuned result. The exact checkpoint configured by the GUI and its source/hash
+still need reconciliation. The GUI supports upload/folder intake, finite IEDXray
+test replay, actual boxes and reference comparison, operator review, export and
+CPU/GPU selection. See the [app guide](https://github.com/abdalrahman-ismaik/RayGuard-App)
+and [single-scan ML plan](docs/single-scan-ml-pipeline-plan-2026-11.md).
+
+The team received CS-HPC access details by email on **4 November 2026, 12:52 pm**.
+Credentials are private. Login, first-login password change, permissions, manual
+review and job submission have not been verified; see the shared
+[status](docs/status.md) and [progress record](docs/progress.md).
+
+The proposed November work split is: Faisal, reproducible baseline; Ahmed,
+fine-tuning pipeline draft; Ali, evaluation design and implementation; Abd and
+Mohammad, GUI refinement and acceptance, with both also reviewing the ML integration.
+These are proposed task owners until each person accepts and records actual work in
+the [shared progress file](docs/progress.md) and [task backlog](docs/tasks.md).
 
 Bounded real CPU/GPU runs establish execution compatibility, including known
 misses; they do not establish accuracy. Synthetic software checks and real
@@ -56,8 +93,9 @@ available as a [PDF](docs/posters/6g-mena-2026/RayGuard-Research-Poster-v6.pdf) 
 [editable PowerPoint](docs/posters/6g-mena-2026/RayGuard-Research-Poster-v6.pptx).
 It covers both detection problems, with enlarged source figures, linked detail views,
 published benchmark results and a saved RayGuard demonstration. Prof. Naoufel and the
-team can comment and improve the PPTX directly. Advisor approval and conference
-submission remain open under [T23](docs/tasks.md); the proposed multi-package study
+team can comment and improve the PPTX directly. This is the earlier review artifact;
+F07's received new-template revision was not inspected or identified with v6. TDRA approval
+and actual presentation remain open under [T23](docs/tasks.md); the proposed multi-package study
 is clearly distinguished from measured single-image results.
 
 ## Dataset collection — Round 1
@@ -82,14 +120,18 @@ standalone wire, plus the catalogue's specified clutter.
 | Standalone wire | W1–W2 | 125 |
 | **Total** | **12 item variants** | **500** |
 
-**Collection status: not started; no acquired scans reported.** These are catalogue targets,
-not completed images. The five clutter levels each cover 100 planned images. Set numbers
+**Collection status: in progress on self-report; team total and QC unverified.** Faisal
+reports 102 first-round scans, but his formula gives 104 while the catalogue plans 100 per
+student. Other students' counts are not supplied. Reconcile files/logs before accepting totals.
+These tables show catalogue targets; their Session A/B both belong to Round 1 and differ from
+the pre-/post-midterm collection rounds. The five clutter levels each cover 100 planned images. Set numbers
 restart for each student/session, so a set label alone does not uniquely identify a group.
 
 Lab confirmation is still needed for the proposed dates, Session A/B mapping to weeks,
 and replacement of the earlier one-item weekly assignments: the catalogue covers all four
 families per student and includes E4/B3 in Round 1. Scanner/export instructions, annotation
-rules, QC and negative/control examples remain open. The **15 October** deadline is unchanged.
+rules, QC and negative/control examples remain open. F06 sets **30 November** for overall
+collection; the earlier **15 October** first-round milestone remains historical and unverified.
 See [current tasks T21/T26/T27](docs/tasks.md) and [requirements](docs/context.md) for the
 acceptance details. Original lab documents and filled personal schedules remain private.
 
@@ -105,19 +147,25 @@ For agent-assisted work, use the shared [AGENTS.md](AGENTS.md) and
 
 ## Workstreams and their next tasks
 
-**Immediate priorities:** confirm the proposed collection schedule, reconcile the received
-catalogue with earlier assignments, obtain the remaining lab protocol and assign GUI/poster owners.
-All five student registrations are reported complete. Published-dataset inspection
-does not complete the new collection requirement; no new SDP lab scans have been reported.
+**Immediate priorities:** reconcile individual first-round counts against 500, finish any
+shortfall on the same set and prepare the second-round schedule for lab acceptance. Resolve
+catalogue/protocol/QC questions and reconcile the 577-path inventory with the approved
+catalogue. Keep collection evidence separate from the IEDXray single-scan benchmark. Confirm
+the proposed workstream owners and record accepted assignments and actual results in the
+shared progress file. The inventory does not certify the accepted collection total.
 
 | Workstream | Goal and immediate tasks | Start here |
 |---|---|---|
-| **Five-student team — collection and distributed model** | Complete Batch 1 by 15 October with real case/component labels. Inspect the lab's available model early, then adapt/train/evaluate after Batch 1. Collect a broader two-week batch after midterms and retrain. | [P2 interface](src/sdp_xray/p2/__init__.py), [shared contracts](docs/contracts.md), [architecture](docs/architecture.md) |
-| **Single-scan / GUI showcase** | Review the working generic-detector GUI, confirm the intended lab laptop/pager pairing, assign a human owner and rehearse alongside the poster. Full P1 device/region/decision work remains separate. | [GUI setup](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/usage.md), [app architecture](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/architecture.md), [model notes](models/README.md), [poster checklist](docs/6g-mena-2026.md) |
-| **Hardik — colorization** | Collect colorization data and complete phase 1 by 15 October; separately register for 6G and prepare its video. Interface to detection and video deadline need confirmation. | Coordinate with the lab; no colorization implementation in this repository |
+| **Collection and dismantled multi-scan** | Reconcile the 577 paths/478 distinct payloads with the approved catalogue, QC and physical-case records; confirm accepted counts and next collection actions with the lab. Do not use this collection as single-scan training/evaluation evidence. | [Collection inventory](docs/collection-progress-2026-11-14.md), [P2 interface](src/sdp_xray/p2/__init__.py), [shared contracts](docs/contracts.md) |
+| **Faisal — single-scan baseline (proposed)** | Reproduce and document the public IEDXray baseline, confirm the GUI checkpoint provenance, and record an approved split-preserving evaluation protocol. | [ML pipeline plan](docs/single-scan-ml-pipeline-plan-2026-11.md), [model catalog](docs/checkpoint-catalog.md), [baseline evidence](docs/first-inference.md) |
+| **Ahmed — fine-tuning pipeline (proposed)** | Draft a reproducible fine-tuning path and data/config checks; report decisions and limitations. Do not launch a large training job until data/split and HPC access are verified. | [ML pipeline plan](docs/single-scan-ml-pipeline-plan-2026-11.md), [tasks](docs/tasks.md) |
+| **Ali — evaluation (proposed)** | Implement/review a fair evaluation workflow, metrics and error analysis that preserve the published test split and distinguish software checks from detector evidence. | [ML pipeline plan](docs/single-scan-ml-pipeline-plan-2026-11.md), [evaluation records](docs/verification.md) |
+| **Abd and Mohammad — GUI and ML integration review (proposed)** | Polish the existing GUI, align its outcomes with requirements, and review the detector/pipeline interface and evidence. GUI source changes belong in RayGuard-App. | [GUI setup](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/usage.md), [app architecture](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/architecture.md), [demo plan](docs/implementation-plan-demo-2026-11.md) |
+| **Hardik — colorization** | Collect colorization data and complete phase 1 by 15 October; separately register for 6G and prepare its video. Interface to detection and summit-video deadline need confirmation. F08 separately assigns Hardik/Fangzhou a video for the 21 Oct visit. | Coordinate with the lab; no colorization implementation in this repository |
 
-The P1/P2 interfaces are explicit stubs. Model, GUI and integration leads still need naming;
-module names do not assign students. Both modules share `common/` and `data/`; merge small changes into `main` from
+The P1/P2 interfaces are explicit stubs. The proposed workstream owners must accept tasks and
+record actual contributions; a proposed assignment is not evidence of completed work. Both
+modules share `common/` and `data/`; merge small changes into `main` from
 `prototype/p1-single-scan` and `prototype/p2-multiscan`.
 
 ## Repository structure
@@ -151,14 +199,21 @@ SDP-I-RayGuard/
 
 Dates are in **2026**. The latest collection and showcase requirements take planning priority.
 Earlier prototype targets need explicit reconciliation with the new collection-first sequence.
+For the course report and presentation, follow the [end-of-semester checklist](docs/course-endgame-2026-11.md).
+The Blackboard due-date field and one announcement specify **24 November, 5:00 pm UTC+4**;
+a later notice says **27 November**. Use the earlier Blackboard cutoff until the coordinator
+confirms otherwise. Prepare for presentations on **27 November, 8:00 am–12:00 pm**, with
+20 minutes plus 10 minutes of Q&A, unless your supervisor assigns another slot.
 
 | Date | Deliverable |
 |---|---|
 | Before proposed **29 September** start | Confirm the consolidated schedule, catalogue assignments and first-day guidance; obtain remaining protocol/QC instructions |
 | **29 September–1 October / 6–8 October**, proposed | Two collection weeks; ten sessions, pending lab acceptance and Session A/B mapping |
-| ASAP; SLG visit date TBD | Poster on **Embedded Explosive Detection in Electronic Devices**, with simple GUI/laptop demonstration |
-| **30 September** | **[6G MENA poster submission](docs/6g-mena-2026.md)** (deadline supplied in the project invitation) |
-| **15 October** | **Batch 1 distributed dataset collection complete:** ten sessions over two consecutive weeks; Hardik's separate colorization phase 1 also due |
+| **Wednesday 21 October, 14:00-17:00** | Secure Life Group CEO visit: required presence, SDP digital progress poster; Divya lab preparation, Hardik/Fangzhou video; earlier GUI obligation retained |
+| **30 Sep / 14 Oct / 17 Oct** | Poster invitation / accepted-poster final / screen-format revision delivery stages; acceptance and revised-file receipt documented, TDRA pending |
+| **Tuesday 20 October** | Team poster day confirmed; continuous coverage requested, exact session/setup and 2 pm photo day to confirm |
+| Historical **15 October** | Batch 1 collection milestone; completion unverified. Hardik's separate colorization phase 1 retains this deadline |
+| **30 November** | Latest overall collection deadline (F06); second-round schedule requested, first-round shortfalls completed before next set |
 | After usable Batch 1 | Adapt, train and evaluate the available distributed model; exact dates TBD |
 | **19–20 October** | **6G MENA Summit, Abu Dhabi**; attendance/presentation confirmation pending |
 | After midterms; dates TBD | Second two-week collection batch, then retraining and comparison |
@@ -210,7 +265,7 @@ Keep datasets, weights, credentials, source PDFs, local configuration and genera
 
 | Conference / event | When and where | Possible route |
 |---|---|---|
-| [6G MENA 2026](https://eu-ems.com/summary.asp?event_id=4979&page_id=16881) | **19–20 October 2026**, Conrad Abu Dhabi Etihad Towers | SDP poster requested; submission **30 September** per invitation. [Attendee registration](https://eu-ems.com/register.asp?event_id=4979) is separate from poster submission. |
+| [6G MENA 2026](https://eu-ems.com/summary.asp?event_id=4979&page_id=16881) | **19–20 October 2026**, Conrad Abu Dhabi Etihad Towers | Poster accepted; Tuesday 20 Oct team session. Digital revision received, TDRA response pending. [Attendee registration](https://eu-ems.com/register.asp?event_id=4979) is separate from poster submission. |
 | [CAISAIS 2026](https://caisais26.ajman.ac.ae/en/home) | **25–27 November 2026**, Ajman University | Research paper in AI/computer vision/security; extended submission deadline **30 September 2026**. |
 | [MoSICom 2026](https://mosicom2026.com/) | **7–9 December 2026**, BITS Pilani Dubai Campus | Research paper in intelligent computing/image processing; [extended submission deadline](https://mosicom2026.com/important-dates) **15 October 2026**. |
 | [GITEX GLOBAL 2026](https://www.gitex.com/conference-overview) | Expo **8–11 December 2026**, Expo City Dubai; summit **7 December**, DWTC | Technology exhibition/networking; investigate a university demo route. No research-paper submission route identified. |
