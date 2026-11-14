@@ -61,6 +61,7 @@ def validate_run_manifest(value: Any) -> None:
             "code",
             "settings",
             "stages",
+            "requested_device",
             "device",
             "precision",
             "inputs",
@@ -69,8 +70,15 @@ def validate_run_manifest(value: Any) -> None:
         "run_manifest",
     )
     _version(value)
-    for key in ("run_id", "timestamp_utc", "device", "precision"):
+    for key in ("run_id", "timestamp_utc", "requested_device", "precision"):
         _text(value[key], key)
+    # device is where inference actually ran. It is null when no scan got that far,
+    # which is only possible for a failed run.
+    if value["device"] is None:
+        if value["status"] == "ok":
+            raise ValueError("an ok run must record the device that ran inference")
+    else:
+        _text(value["device"], "device")
     if value["role"] not in ROLES:
         raise ValueError(f"role must be one of {ROLES}")
     if value["status"] not in ("ok", "error"):

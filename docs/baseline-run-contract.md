@@ -51,7 +51,9 @@ All fields are required and unknown fields are rejected, as in the scan contract
 | `code` | Team `git_commit`, `git_dirty`, and the `upstream_revision` of the YOLOv10 fork |
 | `settings` | `imgsz`, `batch`, `conf`, `max_det`, `augment` |
 | `stages` | `preprocessing`, `roi`, `features`, `postprocessing`, each with `status` and `detail` |
-| `device`, `precision` | For example `cpu`, `float32` |
+| `requested_device` | The device asked for on the command line, for example `cpu` |
+| `device` | The device inference actually ran on. `null` if no scan got as far as resolving one, which is only valid when `status` is `error`. The requested device is never copied here |
+| `precision` | For example `float32` |
 | `inputs` | Per scan: `scan_id`, image `sha256`, and the `source_run_id` it came from |
 | `limitations` | Plain statements that travel with the record |
 
@@ -73,10 +75,11 @@ checkpoint) or `absent`. For the current baseline:
 
 `sdp_xray.baseline.shared_baseline` refuses to build a record unless:
 
-- the run's model ID, checkpoint hash, class-map hash, task and category map all match
-  the inspected pairing in `model_catalog.py`;
-- every source run used the same model, settings, upstream revision, team commit, device
-  and precision;
+- every source run's model ID, checkpoint hash, class-map hash, task, category map and
+  saved model names match the inspected pairing in `model_catalog.py`. This is checked
+  for each run being combined, not only the first;
+- every source run used the same settings, upstream revision, team commit, requested
+  device and precision, and the runs that resolved a device all resolved the same one;
 - each prediction file belongs to its run's input image.
 
 `validate_prediction_set` then confirms that every result has the manifest's model, hash,

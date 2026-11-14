@@ -27,6 +27,13 @@ T39–T43 rows are not yet on `main`.
 Next: confirm the GUI model and hash with Abd, convert one approved real saved run, and
 agree the candidate manifest with Ahmed and the record reader with Ali.
 
+Review follow-up, 15 November: Abd's review of pull request #16 found two provenance
+gaps, both fixed. The class and category maps are now checked against the catalog for
+every combined run instead of only the first. A run that fails before its device is
+resolved now records `device: null` with a separate `requested_device`, so the requested
+device is no longer reported as the one that ran inference. After the fix the suite gave
+187 passed and 9 skipped.
+
 ## T23 poster v6 repository review bundle — 30 September 2026
 
 The owner requested publication of the latest poster and updates to the README,

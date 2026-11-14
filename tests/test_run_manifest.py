@@ -40,6 +40,7 @@ def synthetic_manifest():
             "features": {"status": "inherited", "detail": "synthetic"},
             "postprocessing": {"status": "inherited", "detail": "synthetic"},
         },
+        "requested_device": "cpu",
         "device": "cpu",
         "precision": "float32",
         "inputs": [{"scan_id": "synthetic-scan", "sha256": HASH_A, "source_run_id": "legacy-1"}],
@@ -171,6 +172,16 @@ def test_rejects_duplicate_scan_ids():
     manifest["inputs"].append(copy.deepcopy(manifest["inputs"][0]))
     with pytest.raises(ValueError):
         validate_run_manifest(manifest)
+
+
+def test_unresolved_device_is_only_valid_for_a_failed_run():
+    with pytest.raises(ValueError):
+        validate_run_manifest(change(("device",), None))
+    failed = change(("device",), None)
+    failed["status"] = "error"
+    validate_run_manifest(failed)
+    with pytest.raises(ValueError):
+        validate_run_manifest(change(("requested_device",), None))
 
 
 def test_candidate_requires_parent_checkpoint():

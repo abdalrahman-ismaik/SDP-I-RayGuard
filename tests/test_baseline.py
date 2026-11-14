@@ -110,6 +110,44 @@ def test_rejects_runs_outside_the_catalog_pairing(key, value):
         shared_baseline("shared-1", [(manifest, result)], WHEN)
 
 
+@pytest.mark.parametrize(
+    ("key", "value"),
+    [
+        ("source_category_map", {"1": "Explosive"}),
+        ("model_names", {"0": "Something else"}),
+    ],
+)
+def test_checks_class_maps_of_every_run_not_only_the_first(key, value):
+    later = source_run("scan-b")
+    later[0][key] = value
+    with pytest.raises(ValueError):
+        shared_baseline("shared-1", [source_run("scan-a"), later], WHEN)
+
+
+def failed_before_device(name):
+    manifest, _ = source_run(name, status="error")
+    manifest["device"] = None
+    del manifest["model_names"]
+    return manifest, None
+
+
+def test_requested_device_is_not_reported_as_the_inference_device():
+    manifest, results = shared_baseline("shared-1", [failed_before_device("scan-a")], WHEN)
+    assert manifest["requested_device"] == "cpu"
+    assert manifest["device"] is None
+    assert manifest["status"] == "error" and results[0]["status"] == "error"
+
+
+def test_device_comes_from_runs_that_resolved_one():
+    manifest, _ = shared_baseline(
+        "shared-1", [failed_before_device("scan-a"), source_run("scan-b")], WHEN)
+    assert manifest["device"] == "cpu"
+    other = source_run("scan-c")
+    other[0]["device"] = "cuda:0"
+    with pytest.raises(ValueError):
+        shared_baseline("shared-1", [source_run("scan-b"), other], WHEN)
+
+
 def test_rejects_mixed_settings_and_unfinished_runs():
     other = source_run("scan-b")
     other[0]["settings"] = {**other[0]["settings"], "conf": 0.5}

@@ -18,7 +18,7 @@ PREDICTIONS_NAME = "predictions.jsonl"
 
 # Fields that must be identical in every source run of one shared record.
 SAME_FOR_ALL = ("model_id", "checkpoint_sha256", "class_map_sha256", "task", "settings",
-                "upstream_revision", "git_commit", "device", "precision",
+                "upstream_revision", "git_commit", "requested_device", "precision",
                 "preprocessing", "postprocessing")
 
 
@@ -67,8 +67,19 @@ def shared_baseline(
         for key in SAME_FOR_ALL:
             if source[key] != first[key]:
                 raise ValueError(f"source runs differ in {key}; record them separately")
+    # Every run is checked against the catalog, not only the first one: the class and
+    # category maps are per-run fields and are not covered by SAME_FOR_ALL.
     model = _checked_model(first)
+    for source, _ in runs[1:]:
+        if _checked_model(source) != model:
+            raise ValueError("source runs differ in model identity; record them separately")
     provenance = f"sha256:{model['checkpoint_sha256']}"
+    # A run that failed before its device was resolved has device=None. The requested
+    # device is kept separately and is never reported as the device that ran inference.
+    resolved = {source["device"] for source, _ in runs if source["device"]}
+    if len(resolved) > 1:
+        raise ValueError("source runs differ in device; record them separately")
+    device = resolved.pop() if resolved else None
 
     inputs, results = [], []
     for source, result in runs:
@@ -113,7 +124,8 @@ def shared_baseline(
                          "detail": "detector backbone inside the checkpoint; no separate stage"},
             "postprocessing": {"status": "inherited", "detail": first["postprocessing"]},
         },
-        "device": first["device"] or first["requested_device"],
+        "requested_device": first["requested_device"],
+        "device": device,
         "precision": first["precision"],
         "inputs": inputs,
         "limitations": ["batch-one diagnostic runs; not an accuracy evaluation",
