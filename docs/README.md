@@ -47,7 +47,7 @@ to the agreed requirements. Name unresolved owners as TBD until someone accepts 
 | IEDXray reference in the GUI | [Annotation pairing, overlay and matching protocol](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/annotation-comparison.md); per-image agreement is separate from accuracy |
 | Data collection and audits | [Data handling](../data/README.md), [IEDXray audit](iedxray-audit.md), [paper/annotation review](iedxray-paper-review.md) |
 | Model research and selection | [Research findings](research.md), [dataset catalog](datasets.md); optional [STCray audit](stcray-audit.md) |
-| Interfaces and integration | [Architecture](architecture.md), [contracts](contracts.md) |
+| Interfaces and integration | [Architecture](architecture.md), [contracts](contracts.md), [baseline run contract](baseline-run-contract.md) |
 | Conference, poster and GUI showcase | [Current v6 PPTX/PDF review bundle](posters/6g-mena-2026/README.md), [6G MENA requirements/checklist](6g-mena-2026.md), [poster preparation and evidence](poster-plan.md) |
 | New collection paperwork | Blank [schedule](templates/collection-schedule.md) and [sample manifest](templates/collection-manifest.csv) |
 

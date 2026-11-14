@@ -4,6 +4,29 @@ This page records shareable project evidence. It is not a claim of individual st
 authorship, hours or understanding. Those must be recorded by the actual contributor and
 reviewer. Do not include personal paths, private contacts, raw correspondence or artifact files.
 
+## T40 baseline run contract and adapter — 15 November 2026
+
+Contributor: Faisal Daoud Alzarooni. Review pending: ML contract with Ahmed and Ali,
+GUI provenance with Abd and Mohammad. Branch `faisal/baseline`.
+
+Added a shared run manifest (`sdp_xray.common.run_manifest`), a prediction-set check and
+a `baseline-record` command that combines saved batch-one runner outputs into one record
+identified by hashes, with no local paths. The existing runner and scan-result contract
+are unchanged. Fields, checks and notes for T41/T42 and the GUI are in the
+[baseline run contract](baseline-run-contract.md).
+
+Checks: `uv run --locked ruff check .` passed. `uv run --locked python -m pytest` gave
+182 passed and 9 skipped; the skips are existing symlink tests that need a privilege
+this Windows machine does not grant.
+
+Limitations: synthetic software checks only. No model was run and no real saved run has
+been converted. The model the GUI selects has not yet been confirmed against the catalog
+entry, and HPC access is unverified. `docs/tasks.md` is not updated here because the
+T39–T43 rows are not yet on `main`.
+
+Next: confirm the GUI model and hash with Abd, convert one approved real saved run, and
+agree the candidate manifest with Ahmed and the record reader with Ali.
+
 ## T23 poster v6 repository review bundle — 30 September 2026
 
 The owner requested publication of the latest poster and updates to the README,
