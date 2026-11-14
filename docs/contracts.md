@@ -64,6 +64,10 @@ decision. The standalone [generic baseline](first-inference.md) saves real predi
 overlays using this contract. The P1 benign/modified decision, crop/remapping and evaluation
 remain unimplemented.
 
+A set of scan results from one run is described by the separate
+[baseline run contract](baseline-run-contract.md), which adds a run manifest without
+changing the scan result fields above.
+
 `dumps_scan_result(value)` validates then serializes JSON;
 `loads_scan_result(text)` parses JSON then validates it. Validation raises
 `ValueError` and does not modify input dictionaries.
