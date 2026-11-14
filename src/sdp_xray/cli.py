@@ -109,11 +109,40 @@ def main(argv: list[str] | None = None) -> int:
         "audit-stcray", help="Audit extracted STCray images and native rectangle JSON"
     )
     stcray.add_argument("root", type=Path, help="Parent of STCray_TrainSet and STCray_TestSet")
+    record = commands.add_parser(
+        "baseline-record",
+        help="Combine saved batch-one runs into one shared record; runs no model",
+    )
+    record.add_argument("output", type=Path, help="New directory; its name is the run ID")
+    record.add_argument("runs", type=Path, nargs="+", help="Saved runner output directories")
     args = parser.parse_args(argv)
     try:
         if args.command == "doctor":
             report = doctor(args.config)
             code = 0  # Missing optional artifacts are findings, not a broken doctor.
+        elif args.command == "baseline-record":
+            from datetime import UTC, datetime
+
+            from sdp_xray.baseline import load_run_dir, shared_baseline, write_record
+
+            try:
+                manifest, results = shared_baseline(
+                    args.output.name,
+                    [load_run_dir(path) for path in args.runs],
+                    datetime.now(UTC).isoformat(),
+                )
+            except (KeyError, TypeError) as exc:
+                raise ValueError("source run is missing an expected field") from exc
+            write_record(args.output, manifest, results)
+            report = {
+                "ok": True,
+                "run_id": manifest["run_id"],
+                "model_id": manifest["model"]["id"],
+                "scans": len(results),
+                "failed_scans": sum(result["status"] != "ok" for result in results),
+                "detections": sum(len(result["detections"]) for result in results),
+            }
+            code = 0
         elif args.command == "audit-stcray":
             from sdp_xray.data.stcray import audit_stcray
 
