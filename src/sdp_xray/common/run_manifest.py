@@ -7,7 +7,14 @@ hashes only, never local paths. See docs/baseline-run-contract.md.
 import json
 from typing import Any
 
-from sdp_xray.common.contracts import SCHEMA_VERSION, _object, _score, _text, _version
+from sdp_xray.common.contracts import (
+    SCHEMA_VERSION,
+    _object,
+    _score,
+    _text,
+    _version,
+    validate_scan_result,
+)
 
 ROLES = ("baseline", "candidate")
 STAGES = ("preprocessing", "roi", "features", "postprocessing")
@@ -144,6 +151,43 @@ def validate_run_manifest(value: Any) -> None:
         _text(item, "limitation")
 
 
+def validate_prediction_set(manifest: Any, results: Any) -> None:
+    """Check that scan results belong to this manifest: same run, model and scans.
+
+    Failed scans stay in the set so a missing prediction is never read as "no detection".
+    """
+    validate_run_manifest(manifest)
+    if not isinstance(results, list):
+        raise ValueError("results must be a list of scan results")
+    model = manifest["model"]
+    labels = set(model["model_names"].values())
+    expected = {
+        "id": model["id"],
+        "task": model["task"],
+        "provenance": f"sha256:{model['checkpoint_sha256']}",
+    }
+    seen = []
+    for result in results:
+        validate_scan_result(result)
+        scan_id = result["scan_id"]
+        seen.append(scan_id)
+        if result["model"] != expected:
+            raise ValueError(f"{scan_id}: model identity differs from the run manifest")
+        if result["run"]["id"] != manifest["run_id"]:
+            raise ValueError(f"{scan_id}: run ID differs from the run manifest")
+        if result["threshold"] != manifest["settings"]["conf"]:
+            raise ValueError(f"{scan_id}: threshold differs from the run manifest")
+        for detection in result["detections"]:
+            if detection["kind"] != model["kind"]:
+                raise ValueError(f"{scan_id}: detection kind differs from the model kind")
+            if detection["category"]["namespace"] != model["task"]:
+                raise ValueError(f"{scan_id}: category namespace is not the model task")
+            if detection["category"]["label"] not in labels:
+                raise ValueError(f"{scan_id}: label is not in the model class map")
+    if sorted(seen) != sorted(item["scan_id"] for item in manifest["inputs"]):
+        raise ValueError("results must cover each manifest input exactly once")
+
+
 def dumps_run_manifest(value: dict[str, Any]) -> str:
     """Validate and serialize one run manifest as JSON."""
     validate_run_manifest(value)
@@ -164,5 +208,6 @@ __all__ = [
     "STAGE_STATUSES",
     "dumps_run_manifest",
     "loads_run_manifest",
+    "validate_prediction_set",
     "validate_run_manifest",
 ]
