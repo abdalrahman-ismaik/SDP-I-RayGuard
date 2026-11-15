@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "protocol_id": "iedxray-generic-explosive-test-draft-1",
+  "status": "draft",
+  "task": "iedxray.generic_explosive_detection",
+  "ground_truth": {
+    "file_name": "binary_explosive_det_test.json",
+    "sha256": null,
+    "images": 5136,
+    "annotations": 3204
+  },
+  "evaluator": {
+    "package": "pycocotools",
+    "version": "2.0.11",
+    "iou_type": "bbox"
+  },
+  "score_floor": 0.001,
+  "operating_point": {
+    "threshold": 0.25,
+    "iou": 0.5,
+    "basis": "Existing GUI/runner default confidence, declared before any test result. Not tuned; no approved validation split exists."
+  },
+  "flagged_images": [
+    {"file_name": "Test001859.jpg", "reason": "same image bytes as Train005219.jpg (cross-split duplicate)"},
+    {"file_name": "Test002780.jpg", "reason": "same image bytes as Train007581.jpg (cross-split duplicate)"},
+    {"file_name": "Test002859.jpg", "reason": "same image bytes as Train007583.jpg (cross-split duplicate)"},
+    {"file_name": "Test004750.jpg", "reason": "same image bytes as Train012221.jpg (cross-split duplicate)"}
+  ],
+  "limitations": [
+    "draft protocol: duplicate, boundary and validation policy are not yet approved",
+    "the published test split is used unchanged; flagged images are listed, not removed",
+    "complete annotations mark a modified host in test image ID 71 without a generic threat box",
+    "112 within-test duplicate image pairs exist; per-image results are not independent",
+    "the generic checkpoint's full training provenance is not established"
+  ]
+}
