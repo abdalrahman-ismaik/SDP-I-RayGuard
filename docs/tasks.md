@@ -1,5 +1,10 @@
 # Task source of truth
 
+**15 November 2026 — T43 scope update:** Mohammad requested only the GUI flow,
+accessibility and acceptance slice. Its isolated app tests and acceptance record
+are prepared locally; human review/rehearsal and publication remain pending.
+The historical priorities and unresolved deadlines below are preserved.
+
 Updated 30 September 2026; requirements follow [Meeting 02 and follow-up](meeting_minutes/README.md)
 and the [poster v6 review bundle](posters/6g-mena-2026/README.md).
 Allowed states: **not started / in progress / blocked / verified complete**. Actual contributions
@@ -63,6 +68,7 @@ individual student authorship or hours; contributor/reviewer evidence must be re
 | T34 | Issue Meeting 02 minutes/actions and communicate workstream split to advisor/team | Abd issues minutes per M02 A17; team liaison for A7 still TBD | Student effort unreported | Reviewed source record and contact/channel confirmation | not started | Immediately after meeting; completion unreported | Actual distribution record and communicated split; creating local Markdown companions does not send or complete this action |
 | T35 | Organize shareable team context, onboarding and documentation policy | Documentation/review; team adoption pending | Student effort unreported | Shared-source review, private/public separation and public-file verification | verified complete | 24 Sep | Shared docs plus owner-approved AGENTS.md/four skills prepared locally; four skill validations and 187 links across 55 public candidates passed. Earlier 50-file CPU export passed Ruff, 85 tests and smoke commands. Publication/access/adoption remain separate |
 | T36 | Publish reviewed team setup and enforce PR/code-owner/CI rules on shared branches | Repository owner / configuration review; student effort unreported | Unreported | Owner authorization, verified CI contexts, T35; invitations separately T31 | verified complete | 25 Sep | Setup published through PR #1 (5fac792), shared branches synced; both hosted checks passed. Two active rulesets and CODEOWNERS read back on all three branches: stale-review dismissal, required owner review, owner PR-only review bypass and no CI/history bypass. Teammate usernames/invitations still pending |
+| T43 | GUI flow, accessibility and acceptance: isolated saved-review checks and a requirement-to-test/manual acceptance record in RayGuard-App | Mohammad (scope requested); assisted implementation; Abd integration review and personal acceptance pending | Actual student hours unreported | Existing T28 app; intended model pairing and human rehearsal remain open | in progress | No new deadline supplied; retain T10/Q9 conflict | Eight focused synthetic browser checks prepared and passed locally; search/filter/sort, selected image and unsaved draft retention, keyboard flow, saved model identity, empty/failed results and Session/Review accessibility. App files: `frontend/tests/e2e/t43-acceptance.spec.ts`, `docs/t43-gui-acceptance.md`; [actual commands and limits](progress.md#t43-gui-acceptance-slice--15-november-2026). Production GUI/model code unchanged. Human review, explain-back and app commit/PR link remain pending; no inference/scanner/accuracy or full completion claim |
 
 T02/T04 remain artifact and real generic-model evidence. The immediate delivery order is
 T26/T27/T21 plus T23/T28; T22 is complete per owner confirmation. Model preparation

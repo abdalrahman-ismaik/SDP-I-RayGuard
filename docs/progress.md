@@ -4,6 +4,60 @@ This page records shareable project evidence. It is not a claim of individual st
 authorship, hours or understanding. Those must be recorded by the actual contributor and
 reviewer. Do not include personal paths, private contacts, raw correspondence or artifact files.
 
+## T43 GUI acceptance slice — 15 November 2026
+
+Mohammad requested only T43. Assisted implementation/verification prepared the
+saved-review acceptance slice in the separate RayGuard-App checkout at base
+`3488abdd60e9b68ac62cc4d35ce85245c0f9bdf9`, with engine pin
+`b7ec59ecf5aa2f63ddeb580a7f232da0906abbd4` unchanged. Student hours, understanding,
+personal rehearsal and Abd's integration review remain unverified. This research
+checkout's existing `mohammad/guiflow` branch and prior T40 work were preserved.
+
+App files: new `frontend/tests/e2e/t43-acceptance.spec.ts` and
+`docs/t43-gui-acceptance.md`; updated `docs/progress.md` and `docs/status.md`.
+Research files: this progress record and the T43 row in `docs/tasks.md`.
+Eight new synthetic checks cover saved-run search/filter/sort, keyboard review,
+selected scan/draft retention across navigation/themes, historical model identity,
+empty/failed results and Session/Review accessibility at 320/1366px in both Onyx
+themes. Test pixels/provenance say synthetic; API writes are rejected and checked.
+No production GUI, model, dataset, dependency pin or other task implementation changed.
+
+Executed checks:
+
+- App root: `npm --prefix frontend ci` and `npm --prefix frontend run build` passed.
+- App frontend: `npx tsc --ignoreConfig --noEmit --strict --skipLibCheck --target ES2022 --module ESNext --moduleResolution bundler --types node tests/e2e/t43-acceptance.spec.ts` passed.
+- App frontend, with `$env:PLAYWRIGHT_CHANNEL='chrome'`: `npm run test:e2e -- t43-acceptance.spec.ts` passed all 8; `npm run test:e2e` passed all 157, including 149 existing checks.
+- App root: `uv run --project backend --locked ruff check backend` passed;
+  `uv run --project backend --locked python -m pytest backend/tests` passed all 280,
+  with one Starlette/httpx deprecation warning.
+- Research root: `uv run --locked ruff check .` passed;
+  `uv run --locked python -m pytest` gave 187 passed, 9 Windows symlink-privilege skips.
+
+Setup used temporary standalone uv 0.9.7 in the checking process's PATH after the
+initial `uv` commands were unavailable, and locked isolated environments with
+CPython 3.14.0. Playwright Chromium download timed out; installed Chrome
+157.0.8103.51 was used. npm reported two high-severity dependency advisories;
+no automatic upgrades were made. App progress records these limitations in detail.
+Relative acceptance links and whitespace checks passed; two existing generated
+synthetic processing-split screenshots were inspected. Generated evidence stays ignored.
+
+These are software checks, not model/scanner execution, accuracy, formal accessibility
+certification or human showcase acceptance. T43 remains in progress for personal
+review, explain-back and rehearsal, with intended model pairing and physical scanner
+handoff still open. No replacement deadline is invented. No commit/push/PR was made;
+the app commit/PR link is pending Mohammad's personal review and publication.
+Next: review the isolated app diff with Abd, complete the checklist with the relevant
+model/evaluation owners, then record actual personal acceptance and the published link.
+
+T43 manual-launch follow-up, 15 November: the user's terminal could not find the
+profile-level Python used by the app environment, although it still resolved in
+the checking environment. Installed the same Python 3.14.0 inside the app's ignored
+`backend/.venv-python`, preserved the old environment, and rebuilt the locked app
+environment against that local interpreter. No source, lock or global setting changed.
+The repaired launcher starts; the GUI returned HTTP 200 and health correctly reported
+the model unconfigured. Left the local service running on port 8765 for manual review.
+The user's terminal retry and personal acceptance are still unobserved.
+
 ## T40 baseline run contract and adapter — 15 November 2026
 
 Contributor: Faisal Daoud Alzarooni. Review pending: ML contract with Ahmed and Ali,
