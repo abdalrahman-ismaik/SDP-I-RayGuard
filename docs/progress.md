@@ -4,6 +4,25 @@ This page records shareable project evidence. It is not a claim of individual st
 authorship, hours or understanding. Those must be recorded by the actual contributor and
 reviewer. Do not include personal paths, private contacts, raw correspondence or artifact files.
 
+## T40 run planning and record check — 15 November 2026
+
+Contributor: Faisal Daoud Alzarooni. Review pending. Branch `faisal/baseline-tools`,
+following the first T40 change in pull request #17.
+
+Added `baseline-plan`, which turns a scan-input list into the per-scan runner arguments
+with the catalog hash and runs nothing, and `check-record`, which re-validates any
+baseline or candidate record and reports scan, failure and per-label counts. The
+[baseline run contract](baseline-run-contract.md) now gives the steps from scan list to
+checked record and lists the HPC prerequisites that are still unconfirmed.
+
+Checks: `uv run --locked ruff check .` passed. `uv run --locked python -m pytest` gave
+192 passed and 9 skipped (existing Windows symlink tests).
+
+Limitations: synthetic software checks only; no model run and no real record yet. The
+HPC list is a set of open questions, not verified access.
+
+Next: same as below, plus trying `check-record` on Ahmed's first candidate manifest.
+
 ## T40 baseline run contract and adapter — 15 November 2026
 
 Contributor: Faisal Daoud Alzarooni. Review pending: ML contract with Ahmed and Ali,
