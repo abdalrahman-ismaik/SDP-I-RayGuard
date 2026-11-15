@@ -16,6 +16,8 @@ change, and no real saved run has been converted yet. Nothing here is an accurac
 | Run manifest | `sdp_xray.common.run_manifest` | One record per run: model identity, settings, stage status, input hashes |
 | Prediction-set check | `validate_prediction_set(manifest, results)` | Confirms results belong to the manifest |
 | Baseline adapter | `sdp_xray.baseline`, `sdp-xray baseline-record` | Combines saved batch-one runs into one shared record |
+| Run planning | `sdp-xray baseline-plan` | Lists runner arguments for a scan-input list without running anything |
+| Record check | `sdp-xray check-record` | Re-validates any record and counts its contents |
 
 The existing runner `scripts/infer_generic_yolov10.py` is not changed. It still handles one
 image per process and writes its own detailed `manifest.json`, which stays private because
@@ -98,6 +100,43 @@ uv run --locked python -m sdp_xray.cli baseline-record runs/<new-record-name> ru
 The output directory must not exist and its name becomes the run ID. The command prints a
 small JSON summary and exits with 2 without writing anything if a source run is unreadable
 or fails a check. Records belong under ignored `runs/`, not in Git.
+
+### From a scan list to a checked record
+
+1. Write the scans as JSON Lines, one [scan input](contracts.md#scan-input) per line. The
+   `scan_id` must equal the image file name without its suffix, because the runner names
+   each scan that way. Keep this file under `runs/`; it holds local paths.
+2. List the runner arguments. This runs nothing and only prints them:
+
+   ```text
+   uv run --locked python -m sdp_xray.cli baseline-plan runs/<inputs>.jsonl <checkpoint> runs/<batch-name>
+   ```
+
+   Each entry carries the catalog hash for the chosen `--model`, so a wrong checkpoint
+   file is refused by the runner.
+3. A person runs each listed entry with the model environment's Python, as described in
+   [first inference](first-inference.md). One process per scan, batch one.
+4. Combine the run directories with `baseline-record` as above.
+5. Check any record, baseline or candidate, before handing it on:
+
+   ```text
+   uv run --locked python -m sdp_xray.cli check-record runs/<record-name>
+   ```
+
+   It re-validates the pair and prints scan, failure and per-label detection counts. Failed
+   scans and scans without detections are counted separately. These are file counts, not
+   metrics.
+
+### Before the same steps on HPC
+
+None of the following is confirmed yet, and each needs a named person rather than an
+assumption (T14):
+
+- an active account and project allocation, checked by logging in, not by an issued login;
+- where the checkpoint and approved images may be stored there, and who may read them;
+- a model environment built and verified on that system, separate from the CPU audit lock;
+- one owner for the job and its output directory;
+- the batch-one check repeated there on an approved image before any larger job.
 
 ## Notes for the other tasks
 
