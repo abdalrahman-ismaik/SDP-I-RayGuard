@@ -29,11 +29,10 @@ and [the plan](plan.md) for the authoritative backlog and requirements.
   remain open. The old proposal does not establish second-round availability.
 - **T23 — accepted poster / digital revision:** [F07 poster follow-up](meeting_minutes/follow-up-poster-2026-10-19.md) records acceptance
   (12 Oct), a 17 Oct revision request for **1080 × 1920 px, portrait 9:16**, and Divya's
-  new-template presentation handoff acknowledged by Brahim. **TDRA approval is pending**;
-  the revised file was not inspected and is not identified with repository v6. Brahim
-  confirms **Tuesday-only attendance (20 Oct)**. Arrange continuous coverage and the
-  requested **2 pm** group photo; confirm exact session/setup time and photo day because
-  the undated advisor message also says “today.” T23 remains in progress.
+  new-template presentation handoff acknowledged by Brahim. The owner reports the team attended
+  on 20 Oct. Individual attendance and presentation evidence remain unreviewed. **TDRA approval
+  and the revised artifact remain unverified**; retain T23 only for these unresolved historical
+  deliverables.
 - **T28 / earlier showcase:** rehearse the laptop GUI and poster on **Embedded Explosive Detection
   in Electronic Devices** for the now-dated SLG visit (21 Oct, F08). Intended lab pairing
   remains unconfirmed; the earlier 30 September poster stage is followed by F07's
@@ -112,7 +111,7 @@ to `mohd2k5`, `blitzict`, `Boshahab` and `Alshamisi10987` for SDP-I-RayGuard; al
 were pending acceptance at verification. T31 is in progress for acceptance, needed
 material access and explain-back. Invitations do not establish contributions or
 understanding. The registration report above is separate from GitHub access; poster acceptance/revision receipt is separately documented in F07; collection completion
-and actual conference attendance remain unverified.
+and presentation/TDRA approval remain unverified. The owner reports team attendance at 6G MENA on 20 October; individual attendance records and presentation evidence were not independently reviewed.
 
 The owner approved **A03 · Cobalt / controlled refinement** on **28 September**,
 superseding A04-02 Optical/Manrope 650. The exact transparent PNG now has its own

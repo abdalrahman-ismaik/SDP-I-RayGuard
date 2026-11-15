@@ -18,23 +18,11 @@ The earlier **15 October Batch 1** milestone remains historical and completion u
 Yonathan's catalogue plans **500 images across 125 four-bag groups**; see the
 [collection table](#dataset-collection--round-1).
 
-> [!IMPORTANT]
-> **6G MENA poster accepted; team attendance confirmed for Tuesday, 20 October.**
-> [Latest correspondence](docs/meeting_minutes/follow-up-poster-2026-10-19.md) requires a
-> digital **1080 × 1920 px, portrait 9:16** poster. Divya's revised presentation was
-> received by Brahim; **TDRA approval is pending**. Coordinate continuous coverage and
-> confirm session/setup times and the requested **2 pm** photo day (undated “today” is ambiguous).
-> The advisor requires participation as a project KPI. The summit takes place **19–20 October**
-> at **Conrad Abu Dhabi Etihad Towers**. Delivery stages: 30 Sep, 14 Oct, then 17 Oct revision;
-> attendee registration is a separate action with no confirmed cutoff.
-> **All five students are registered**, confirmed by the owner on 28 September; receipts remain private.
-> The poster and simple GUI are also needed for the
-> **Secure Life Group CEO visit, Wednesday 21 October, 2-5 pm**.
-> [The invitation](docs/meeting_minutes/follow-up-slg-2026-10-19.md) requires presence and
-> an **SDP digital poster about the project and progress**. Divya prepares the lab;
-> Hardik/Fangzhou prepare their work/approaches video. Visit display requirements remain open.
->
-> **[Conference & agenda](https://6g-mena.com/#agenda)** · **[Official event details](https://eu-ems.com/summary.asp?event_id=4979&page_id=16881)** · **[Register](https://eu-ems.com/register.asp?event_id=4979)** · **[Poster requirements & team checklist](docs/6g-mena-2026.md)**
+The owner reports that the project team attended **6G MENA on 20 October 2026**. This is
+retained as historical project evidence in the [6G MENA record](docs/6g-mena-2026.md);
+individual attendance, the actual presentation, and TDRA approval have not been independently
+verified. The separate Secure Life Group visit record and 6G poster artifacts remain available
+for the final report.
 
 ## RayGuard application
 
@@ -161,7 +149,7 @@ shared progress file. The inventory does not certify the accepted collection tot
 | **Ahmed — fine-tuning pipeline (proposed)** | Draft a reproducible fine-tuning path and data/config checks; report decisions and limitations. Do not launch a large training job until data/split and HPC access are verified. | [ML pipeline plan](docs/single-scan-ml-pipeline-plan-2026-11.md), [tasks](docs/tasks.md) |
 | **Ali — evaluation (proposed)** | Implement/review a fair evaluation workflow, metrics and error analysis that preserve the published test split and distinguish software checks from detector evidence. | [ML pipeline plan](docs/single-scan-ml-pipeline-plan-2026-11.md), [evaluation records](docs/verification.md) |
 | **Abd and Mohammad — GUI and ML integration review (proposed)** | Polish the existing GUI, align its outcomes with requirements, and review the detector/pipeline interface and evidence. GUI source changes belong in RayGuard-App. | [GUI setup](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/usage.md), [app architecture](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/architecture.md), [demo plan](docs/implementation-plan-demo-2026-11.md) |
-| **Hardik — colorization** | Collect colorization data and complete phase 1 by 15 October; separately register for 6G and prepare its video. Interface to detection and summit-video deadline need confirmation. F08 separately assigns Hardik/Fangzhou a video for the 21 Oct visit. | Coordinate with the lab; no colorization implementation in this repository |
+| **Hardik — colorization** | Historical phase-1 target was 15 October. The separate summit-video action is past; completion is not established. F08 separately assigned Hardik/Fangzhou a video for the 21 October Secure Life Group visit. | Coordinate with the lab; no colorization implementation in this repository |
 
 The P1/P2 interfaces are explicit stubs. The proposed workstream owners must accept tasks and
 record actual contributions; a proposed assignment is not evidence of completed work. Both
@@ -215,7 +203,6 @@ confirms otherwise. Prepare for presentations on **27 November, 8:00 am–12:00 
 | Historical **15 October** | Batch 1 collection milestone; completion unverified. Hardik's separate colorization phase 1 retains this deadline |
 | **30 November** | Latest overall collection deadline (F06); second-round schedule requested, first-round shortfalls completed before next set |
 | After usable Batch 1 | Adapt, train and evaluate the available distributed model; exact dates TBD |
-| **19–20 October** | **6G MENA Summit, Abu Dhabi**; attendance/presentation confirmation pending |
 | After midterms; dates TBD | Second two-week collection batch, then retraining and comparison |
 | Historical **8 / 15 October** | Original P1/P2 targets: retain as recorded obligations, but reconcile with the new sequence; no replacement dates supplied |
 
@@ -258,18 +245,12 @@ Keep datasets, weights, credentials, source PDFs, local configuration and genera
 - **YOLOv10:** [original implementation](https://github.com/THU-MIG/yolov10); supplied task checkpoints are documented in the [model catalog](docs/checkpoint-catalog.md).
 - **FALCON:** [component-reasoning paper](https://arxiv.org/abs/2606.25701v2), relevant to P2 research; it does not provide cross-bag grouping by itself.
 
-## UAE conferences and events
+## Upcoming publication opportunities
 
-**Required project priority:** [6G MENA poster and registration](docs/6g-mena-2026.md), checked
-24 September 2026. The other entries are optional opportunities checked on 23 September.
-
-| Conference / event | When and where | Possible route |
-|---|---|---|
-| [6G MENA 2026](https://eu-ems.com/summary.asp?event_id=4979&page_id=16881) | **19–20 October 2026**, Conrad Abu Dhabi Etihad Towers | Poster accepted; Tuesday 20 Oct team session. Digital revision received, TDRA response pending. [Attendee registration](https://eu-ems.com/register.asp?event_id=4979) is separate from poster submission. |
-| [CAISAIS 2026](https://caisais26.ajman.ac.ae/en/home) | **25–27 November 2026**, Ajman University | Research paper in AI/computer vision/security; extended submission deadline **30 September 2026**. |
-| [MoSICom 2026](https://mosicom2026.com/) | **7–9 December 2026**, BITS Pilani Dubai Campus | Research paper in intelligent computing/image processing; [extended submission deadline](https://mosicom2026.com/important-dates) **15 October 2026**. |
-| [GITEX GLOBAL 2026](https://www.gitex.com/conference-overview) | Expo **8–11 December 2026**, Expo City Dubai; summit **7 December**, DWTC | Technology exhibition/networking; investigate a university demo route. No research-paper submission route identified. |
-| [Intersec Global 2027](https://intersecglobal.ae.messefrankfurt.com/dubai/en/planning-preparation.html) | **12–14 January 2027**, Dubai World Trade Centre | Security exhibition/networking; visitor or exhibitor route. No research-paper submission route identified. |
-
-Prioritize collection and the GUI/poster. Additional papers remain optional; MoSICom's deadline
-coincides with the required first collection batch. Submit research only with suitable results and capacity.
+The completed 6G MENA participation and expired calls have been removed from this active list.
+See the [conference opportunity register](docs/conferences-2026-2027.md) for current UAE
+paper calls, deadlines, fit, publication caveats and the two invitations shared with the team.
+The strongest later local student route identified is Zayed University's SRC 2027; its paper
+window is **15 December 2026–18 January 2027**. ISDIA and ICISAS deadlines fall on
+**15 November 2026** and should be considered only if a complete, defensible paper is already
+ready and the team confirms the relevant publication and AI-use rules.

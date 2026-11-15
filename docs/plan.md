@@ -31,16 +31,13 @@ The earlier rota and 15 October Batch 1 milestone below are historical, with acc
 completion unverified. F06 does not expressly replace that milestone or other deadlines.
 C01 Session A/B both belong to Round 1, distinct from the pre-/post-midterm rounds.
 
-## Accepted poster participation — F07
+## Historical conference and showcase records
 
-[F07](meeting_minutes/follow-up-poster-2026-10-19.md) documents acceptance and receipt of
-Divya's digital revision; TDRA approval remains pending. Confirm **Tuesday 20 October**
-session/setup times, cover the full session with shared presenter slots and confirm the
-requested **2 pm** group-photo day. Bring the final digital file on USB. Latest revision
-specification: portrait 9:16, 1080 × 1920 px, PPT/PNG/PDF, proportional layout. The attachment
-and template were not inspected. The advisor's undated “today” conflicts with Tuesday
-wording; do not infer Monday attendance from it. The original generic Monday setup request
-is qualified by Brahim's explicit Tuesday-only confirmation.
+6G MENA participation is complete as an event; the owner reports that the project team
+attended on 20 October 2026. Individual attendance, actual presentation, final revised poster
+and TDRA approval remain unverified. Preserve the requirements and artifacts in the
+[historical dossier](6g-mena-2026.md). Current paper calls are tracked separately in the
+[conference register](conferences-2026-2027.md).
 
 ## Secure Life Group visit - F08
 
@@ -110,13 +107,9 @@ review core dependency changes here before advancing its pin.
 | Proposed Week 1: 29 Sep–1 Oct; Week 2: 6–8 Oct | T21: carry out 10 sessions against the lab-confirmed catalogue/assignment mapping; record attendance and usable samples | C01 plans 100 images/student in two sessions; resolve F03 conflict, A/B dates, lab acceptance and remaining protocol before collection |
 | **By 15 Oct, current required milestone** | Complete Batch 1 distributed collection and review inventory/quality | Actual session records, counts, hashes, labels/groups and lab acceptance; review target to agree before deadline |
 | Before/after Batch 1 as applicable | T29: inspect available base model early; adapt, train and evaluate once usable data and protocol exist | Lab model identity/support, justified split/metrics and real run manifests |
-| **19–20 Oct** | 6G MENA participation as arranged | Confirmed attendance, presentation/demo logistics |
 | After midterms, dates TBD | T30: second two-week broader collection campaign, then retrain and compare against Batch 1 | C01 includes E4/B3 in Round 1 despite F03 extras wording; clarify the amendment and broader Batch 2 scope/dates; no assumed improvement |
 
-Hardik separately collects colorization data and completes **phase 1 by 15 October** (T32),
-registers for the summit and prepares its video (T24), whose deadline remains unconfirmed.
-F08 separately assigns Hardik/Fangzhou a visit video ready for 21 Oct (T37); the colorization
-phase-1 date does not become a video deadline.
+Hardik separately collects colorization data; phase 1 had a **15 October** target (T32). T24 records the separate summit registration/video as historical and unverified. F08 separately assigned Hardik/Fangzhou a visit video for 21 Oct (T37); the colorization phase-1 date does not become a video deadline.
 
 ## Prototype timetable conflict to resolve
 

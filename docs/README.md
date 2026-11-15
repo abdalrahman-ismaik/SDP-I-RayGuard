@@ -56,7 +56,7 @@ to the agreed requirements. Name unresolved owners as TBD until someone accepts 
 | Data collection and audits | [Data handling](../data/README.md), [distributed collection inventory](collection-progress-2026-11-14.md), [member contribution guide](collection-contribution-guide.md), [IEDXray audit](iedxray-audit.md), [paper/annotation review](iedxray-paper-review.md) |
 | Model research and selection | [Research findings](research.md), [dataset catalog](datasets.md); optional [STCray audit](stcray-audit.md) |
 | Interfaces and integration | [Architecture](architecture.md), [contracts](contracts.md), [baseline run contract](baseline-run-contract.md) |
-| Conference, poster and GUI showcase | [Secure Life Group visit requirements](meeting_minutes/follow-up-slg-2026-10-19.md); [Acceptance/digital revision and Tuesday participation](meeting_minutes/follow-up-poster-2026-10-19.md); [Current v6 PPTX/PDF review bundle](posters/6g-mena-2026/README.md), [6G MENA requirements/checklist](6g-mena-2026.md), [poster preparation and evidence](poster-plan.md) |
+| Conference opportunities and historical showcase evidence | [Current UAE publication opportunities and recorded invitations](conferences-2026-2027.md); [6G MENA historical record](6g-mena-2026.md); [Secure Life Group visit requirements](meeting_minutes/follow-up-slg-2026-10-19.md); [poster archive and review bundle](posters/6g-mena-2026/README.md), [poster preparation/evidence](poster-plan.md) |
 | New collection paperwork | [Latest count/schedule requirements](meeting_minutes/follow-up-collection-2026-10-19.md); blank [schedule](templates/collection-schedule.md) and [sample manifest](templates/collection-manifest.csv) |
 
 ## What belongs in Git?

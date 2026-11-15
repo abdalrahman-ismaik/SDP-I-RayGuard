@@ -18,6 +18,25 @@ Next step: [one action and its owner]
 
 Keep updates factual and concise. A plan is not completed work; an agent's output is not verified until the student reviews it. Do not invent time, authorship, results or metrics. Omit raw scans, credentials, private paths, per-image private identifiers and local session details. Students should not edit this file simultaneously: coordinate one editor at a time, submit the progress change in the student's own reviewed PR/commit, and have the coordinator merge adjacent updates without rewriting anyone else's attribution. For GUI implementation details, also update the [RayGuard-App progress file](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/progress.md); add a short summary and link to that entry here.
 
+## Conference register and completed 6G MENA record — 15 November 2026
+
+Repository documentation was updated at the project owner’s request. The active README no
+longer lists completed 6G MENA, expired CAISAIS/MoSICom calls, or non-publication exhibitions.
+The owner reports that the project team attended 6G MENA on 20 October; individual attendance,
+actual presentation, revised poster artifact and TDRA decision remain unverified. Historical
+requirements and poster artifacts remain archived for the final report.
+
+Created [the UAE conference and invitation register](conferences-2026-2027.md) from current
+official pages and the two invitation texts supplied by the owner. It records submission dates,
+venue/modality, paper fit, conditional publication routes, AI-use/policy constraints and conflicts
+between invitation and official CVCI dates. No submission, contact with organizers, publication,
+acceptance, or student contribution is claimed. Recheck official calls before acting because dates
+and publication terms can change.
+
+Files: `README.md`, `docs/README.md`, `docs/status.md`, `docs/tasks.md`, `docs/plan.md`,
+`docs/6g-mena-2026.md`, and `docs/conferences-2026-2027.md`. Documentation-only maintenance;
+no student ownership or hours assigned.
+
 ## First-draft prototype plan aligned to original proposal — 14 November 2026
 
 The owner reports substantial GUI progress already exists in the local RayGuard-App working tree and asked to polish/refactor it against project outcomes with Mohammad (called Mohammed by the owner; roster spelling/handle to confirm). Updated T39/T43 so Abd owns requirement fit, integration and GUI polish; Mohammad owns a separate GUI flow/accessibility/acceptance slice. Both also review ML integration and truthful result/provenance display. Existing app changes remain uncommitted and were not edited in this documentation update.
