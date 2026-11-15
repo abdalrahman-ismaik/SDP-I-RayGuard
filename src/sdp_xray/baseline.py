@@ -9,7 +9,7 @@ import json
 from pathlib import Path, PureWindowsPath
 from typing import Any
 
-from sdp_xray.common.contracts import SCHEMA_VERSION, dumps_scan_result
+from sdp_xray.common.contracts import SCHEMA_VERSION, dumps_scan_result, validate_scan_input
 from sdp_xray.common.run_manifest import dumps_run_manifest, validate_prediction_set
 from sdp_xray.model_catalog import get_model
 
@@ -20,6 +20,62 @@ PREDICTIONS_NAME = "predictions.jsonl"
 SAME_FOR_ALL = ("model_id", "checkpoint_sha256", "class_map_sha256", "task", "settings",
                 "upstream_revision", "git_commit", "requested_device", "precision",
                 "preprocessing", "postprocessing")
+
+
+def plan_runs(
+    scan_inputs: list[dict[str, Any]], model_id: str, checkpoint: str, output_root: str
+) -> list[dict[str, Any]]:
+    """List the runner arguments for each scan input. Nothing is executed here.
+
+    The runner names a scan after its image file, so a scan ID that differs from
+    the file name would be lost; refuse it instead.
+    """
+    spec = get_model(model_id)
+    if not scan_inputs:
+        raise ValueError("at least one scan input is required")
+    seen, runs = set(), []
+    for scan_input in scan_inputs:
+        validate_scan_input(scan_input)
+        scan_id = scan_input["scan_id"]
+        if scan_id in seen:
+            raise ValueError("scan IDs must be unique")
+        seen.add(scan_id)
+        if PureWindowsPath(scan_input["image_path"]).stem != scan_id:
+            raise ValueError(f"{scan_id}: scan ID must equal the image file name without suffix")
+        runs.append({
+            "scan_id": scan_id,
+            "arguments": ["scripts/infer_generic_yolov10.py", checkpoint, scan_input["image_path"],
+                          f"{output_root}/{scan_id}", "--checkpoint-sha256", spec.sha256,
+                          "--model", spec.id],
+        })
+    return runs
+
+
+def summarize(manifest: dict[str, Any], results: list[dict[str, Any]]) -> dict[str, Any]:
+    """Counts for a validated record. These describe the file, not model quality."""
+    validate_prediction_set(manifest, results)
+    labels: dict[str, int] = {}
+    for result in results:
+        for detection in result["detections"]:
+            label = detection["category"]["label"]
+            labels[label] = labels.get(label, 0) + 1
+    ok = [result for result in results if result["status"] == "ok"]
+    return {
+        "ok": True,
+        "run_id": manifest["run_id"],
+        "role": manifest["role"],
+        "status": manifest["status"],
+        "model_id": manifest["model"]["id"],
+        "task": manifest["model"]["task"],
+        "checkpoint_sha256": manifest["model"]["checkpoint_sha256"],
+        "threshold": manifest["settings"]["conf"],
+        "scans": len(results),
+        "failed_scans": len(results) - len(ok),
+        "scans_without_detections": sum(not result["detections"] for result in ok),
+        "detections": sum(labels.values()),
+        "detections_by_label": dict(sorted(labels.items())),
+        "note": "File summary only. Scans without detections are not benign results.",
+    }
 
 
 def load_run_dir(path: Path) -> tuple[dict[str, Any], dict[str, Any] | None]:
