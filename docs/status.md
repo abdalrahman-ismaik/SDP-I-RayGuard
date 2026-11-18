@@ -1,11 +1,24 @@
 # Current project status
 
-Updated 14 November 2026. Read [tasks](tasks.md), [meeting records](meeting_minutes/README.md)
+Updated 18 November 2026. Read [tasks](tasks.md), [meeting records](meeting_minutes/README.md)
 and [the plan](plan.md) for the authoritative backlog and requirements.
+
+## ML planning update — 18 November
+
+HPC access and CVMI Lab provision of the models/resources are owner-confirmed.
+The new [research protocol](finetuning.md) targets checkpoint evaluation reproduction,
+author-training reproduction where possible, and controlled Optuna improvement:
+generic then specific explosives, 20 attempted configurations per task. Ahmed
+owns training/search/Slurm, Faisal baseline/shared contracts, Ali independent
+metrics; assignments need student acceptance. The [HPC handoff](hpc-training.md)
+summarizes inspected manuals. No trainer, environment, new run or improvement is
+verified by this documentation update. Next: owners agree split/data policy,
+initialization and metric handoffs, then qualify a GPU pilot. The 19 Nov milestone
+is a draft/review target; study completion depends on pilot timing.
 
 ## Immediate priorities
 
-- **T14 — CS-HPC access handoff:** email received **4 November 2026 at 12:52 pm** says credentials and job-submission manuals were issued to the named SDP1 recipients; change the initial password at first login. Credentials are intentionally not recorded here or in Git. Actual login, password change, permissions, manual review and any job submission remain unverified. Next advisor appointment is still TBD.
+- **T14 — CS-HPC access handoff:** email received **4 November 2026 at 12:52 pm** says credentials and job-submission manuals were issued to the named SDP1 recipients; change the initial password at first login. Credentials are intentionally not recorded here or in Git. The owner now confirms HPC access; individual password-change/permissions and new RayGuard job/backend qualification are not inferred. Supplied manuals were inspected for the current training plan. Next advisor appointment is still TBD.
 
 - **T39–T43 — proposed first-draft prototype sprint:** Abd and Mohammad/Mohammed (name/handle to confirm) own GUI requirement fit and polish, preserving the extensive in-progress app work; both also review ML integration. Faisal (T40) owns baseline/run integration, Ahmed (T41) fine-tuning, and Ali (T42) evaluation. Use the exact CVMI model configured in the GUI and public IEDXray data after verifying artifact/task identity. Dismantled scans count toward their collection-progress workstream only, not this single-scan dataset. Every student must make their own GitHub commits under their own identity; AI agents may advise but cannot commit or push. Owners remain proposed. Target an integrated draft by **19 Nov**; preserve all existing uncommitted work. No new code, training run or full-data evaluation is claimed by this plan.
 

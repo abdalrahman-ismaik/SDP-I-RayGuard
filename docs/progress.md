@@ -18,6 +18,35 @@ Next step: [one action and its owner]
 
 Keep updates factual and concise. A plan is not completed work; an agent's output is not verified until the student reviews it. Do not invent time, authorship, results or metrics. Omit raw scans, credentials, private paths, per-image private identifiers and local session details. Students should not edit this file simultaneously: coordinate one editor at a time, submit the progress change in the student's own reviewed PR/commit, and have the coordinator merge adjacent updates without rewriting anyone else's attribution. For GUI implementation details, also update the [RayGuard-App progress file](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/progress.md); add a short summary and link to that entry here.
 
+## T40–T42 — reproduction, Optuna and HPC planning — 18 November 2026
+
+Coordinator-prepared documentation at the project owner's request; student authorship,
+acceptance, hours and completed implementation are not inferred. Owner confirms
+HPC access and CVMI Lab provision of papers/data/models. Agreed generic then specific
+explosive studies, fresh general pretrained initialization for training-only validation,
+and 20 attempted Optuna trials per task. Updated T40–T42, T14 access evidence, sprint
+and single-scan plans, status and documentation index; added the detailed
+[research protocol](finetuning.md) and [HPC handoff](hpc-training.md).
+
+Evidence: read both local HPC student DOCX guides using standard-library ZIP/XML
+extraction; inspected the previous football project's current README/training files
+with `rg` and `Get-Content`; checked pinned upstream YOLOv10 trainer/default config
+and Optuna 4.5.0 documentation. Scheduler/environment statements are documented,
+not executed cluster verification. No SSH, training, search, environment installation,
+metrics, contribution credit or GPU job is claimed. Initial implementation files
+created during this session were removed after the owner clarified documentation-only
+scope; the resulting diff contains documentation only.
+
+Checks: `git diff --check` passed. Local Markdown links and documentation-only scope
+were checked with the locked Python interpreter. No code change remains, so Ruff/
+pytest were not required or run. Source manuals remain ignored; no private paths,
+scans, credentials or filled records were added.
+
+Next: Abd sends Ahmed the updated brief; Ahmed/Faisal/Ali accept owned files and
+agree initialization, split/data policy and evaluator interface, then implement
+and qualify an allocated pilot. Draft review remains 19 Nov; complete study dates
+follow pilot timing. The 24-versus-27 Nov report deadline conflict remains unresolved.
+
 ## Conference register and completed 6G MENA record — 15 November 2026
 
 Repository documentation was updated at the project owner’s request. The active README no

@@ -48,6 +48,8 @@ to the agreed requirements. Name unresolved owners as TBD until someone accepts 
 
 ## Technical references
 
+For the 18 November research scope, start with the [reproduction/Optuna protocol](finetuning.md) and [sanitized HPC handoff](hpc-training.md). These are student implementation briefs, not executed training evidence.
+
 | Task area | Read |
 |---|---|
 | Model execution / GUI baseline | [First inference](first-inference.md), [single-scan training/evaluation plan](single-scan-ml-pipeline-plan-2026-11.md), [model catalog](checkpoint-catalog.md), [model selection/classes and execution](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/model-selection.md), [model storage/setup](../models/README.md), [GPU inference study and plan](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/gpu-inference-plan.md), [GPU implementation prompt](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/gpu-implementation-prompt.md) |
