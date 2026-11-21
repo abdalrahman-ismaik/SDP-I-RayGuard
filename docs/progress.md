@@ -2,6 +2,51 @@
 
 ## Team update protocol
 
+### T42 PR review and integration executed — 21 November 2026
+
+At Abd's explicit request to perform the review work, used an isolated detached
+worktree at PR #18. At `6dfa7d6`: `uv run --locked ruff check .` passed;
+`uv run --locked python -m pytest` passed 244, skipped two optional evaluator modules;
+`uv run --locked --with-requirements environments/evaluation.in python -m pytest`
+passed 268. Updated PR branch with main through GitHub to `6edcd68`; Ruff passed
+and evaluation-enabled full pytest passed **273 tests**. All synthetic software
+checks; no inference, real metrics, data repair or HPC job.
+
+Inspected safeguards, comparison modes, objective interface and regression coverage.
+Resolved both threads, submitted approval, updated PR description and merged through
+normal protections after required Linux/Windows CI passed. Actual main merge commit:
+`9350482b89ff601d5617d684b9ac8b5a44173c2d`. Actions used authenticated repository-owner
+account at explicit user direction; no agent identity configured. This is assisted
+review evidence, not proof of personal student understanding or invented hours.
+
+Updated tasks/status/plan and conservative data-policy handoff: preserve test,
+group duplicates/verified physical groups in training-derived validation, mark unknown
+independence, keep geometry blocked without reviewed repair and hash real policy
+receipts. These rules do not themselves clear real data or approve unseen receipts.
+Next: consume current main evaluator, bind findings/partition and qualify the pilot.
+Unrelated 6G MENA move remains untouched. Documentation diff checks required before push.
+
+### T42 validation handoff update — 21 November 2026
+
+Owner relayed Ali's update; agent inspected PR #18 metadata and selected source via
+`gh pr view 18 --json ...` and GitHub contents API for evaluation/validation_objective.
+Head `6dfa7d6` contains required approved-GT hash and clean matching code safeguards,
+validation objective helper/evaluator and common-parent candidate comparison. Hosted
+Linux/Windows CPU checks pass; existing changes-requested review remains pending
+human re-review. Ali reports synthetic interop with Ahmed's validate_objective_result;
+not locally rerun. No real metrics or model execution established.
+
+Updated T42 state/next actions and current plan/status/protocol/demo handoffs. Ahmed
+can set config objective from validation_objective.objective() and wire actual
+hash-bound validation predictions. Source inspection confirms hash equality checks
+use caller-supplied identities; real file hashing, prediction provenance and partition
+verification remain adapter/preflight responsibilities. Data policy and HPC pilot
+remain open. Earlier dated reviews below describe prior heads, not current blockers.
+No student authorship/hours inferred; no GitHub review, message, commit or push made
+in this update. Documentation-only checks: diff whitespace and T42 row/link coverage.
+Next: available teammate integrates the interface, Ali/Ahmed settle data policy,
+and a qualified human re-reviews #18 before merge.
+
 ### Shared execution policy amendment — 21 November 2026
 
 Subsequent owner clarification: focus on assigned tasks first; independently handle a

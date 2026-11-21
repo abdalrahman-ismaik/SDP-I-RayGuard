@@ -4,7 +4,7 @@
 agreed research brief. Ahmed's branch `ahmed/t41-software-draft` at `32091bc` now
 contains planning/partition/provenance and synthetic orchestration software plus a
 Slurm template; its CLIs block live execution. Faisal's PR #21 supplies starting-weight
-provenance/receipt, and Ali's PR #18 is a draft evaluator with requested safeguards.
+provenance/receipt, and Ali's PR #18 at `6dfa7d6` implements the safeguards, validation objective and common-parent comparison; re-review/integration remain pending.
 See the [current integration sequence](plan.md#latest-team-integration-review--21-november)
 and T40–T42. No trainer/backend qualification or real study is verified. Reconcile
 Ahmed's branch-local same-named guide with this protocol during human PR review,

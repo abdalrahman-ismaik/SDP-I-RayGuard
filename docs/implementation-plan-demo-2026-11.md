@@ -13,8 +13,9 @@ data/provenance/qualification requirements remain in force.
 ## Report amendment agreed 21 November
 
 For current student/software/PR status use the [21 November integration review](plan.md#latest-team-integration-review--21-november)
-and updated T40–T43 rows. Ahmed's T41 draft exists; Ali's evaluator draft needs fixes
-and validation/common-parent interfaces; Faisal's initialization PR needs review/HPC
+and updated T40–T43 rows. Ahmed's T41 draft exists; Ali's evaluator at `6dfa7d6` has
+safeguards and validation/common-parent interfaces, pending re-review/integration;
+Faisal's initialization PR needs review/HPC
 verification. Draft targets below are historical, not proof of implementation acceptance.
 
 The [report specification](final-report-requirements.md) now governs the final report:

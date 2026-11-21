@@ -24,13 +24,21 @@ recorded conflict; plan around 24 Nov.
 
 ## Latest software and PR handoff — 21 November
 
+**Latest outcome:** PR #18 merged into main as `9350482` after update-head `6edcd68`
+passed Ruff, **273 evaluation-enabled tests**, and required Linux/Windows CI. Both
+review threads resolved and description updated. Earlier pending-review statements
+below are historical snapshots. Ahmed can integrate from main; T42 remains in progress
+for real metrics. Next: bind real data-policy findings/partition receipts and qualify
+the trainer/evaluator pilot. No real training/evaluation was executed by this review.
+
 Selected remote artifacts and current PR metadata inspected: T40 PRs #17/#19 are
 merged; initialization PR #21 (`b325c28`) has passing hosted CPU checks and requires
 human review. Ahmed's T41 branch `32091bc` implements blocked planning/synthetic
 study software and a Slurm template, not live training; no open T41 PR found. Ali's
-T42 PR #18 (`15cb4a0`) still requests changes: approved-GT hash and matching clean
-inference-code identity. It also needs the validation objective and common-parent
-candidate comparison for T41. T41/T42 now in progress. Mohammad's branch records
+T42 PR #18 now at `6dfa7d6` contains both safeguards, the validation objective and
+common-parent comparison; hosted CPU checks pass, earlier changes-requested review
+needs human re-review. Trainer integration and data policy remain open; no real metrics.
+T41/T42 now in progress. Mohammad's branch records
 an app acceptance slice; actual shared app commit and human walkthrough need review.
 No open RayGuard-App PR found at inspection. No real training, full evaluation or HPC
 qualification verified by this review. [Current dependency order and handoffs](plan.md#latest-team-integration-review--21-november).

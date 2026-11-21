@@ -6,6 +6,32 @@ the work without assigning availability or claiming completion.
 
 ## Latest team integration review — 21 November
 
+**Completed re-review, 21 Nov 14:34 UTC:** PR #18 was updated with main to `6edcd68`,
+tested and merged as `9350482`. Both review threads resolved; description updated.
+Ruff passed, evaluation-enabled pytest passed **273 tests**, and required Linux/Windows
+CI passed. This supersedes PR #18 re-review requirements in earlier snapshots below.
+T42 evaluator software is integrated; real metrics and full task completion remain open.
+Ahmed can consume it from current main. Small blocking adapter changes may be completed
+by any available teammate, with assigned work first and collision coordination.
+
+### Data policy handoff for the pilot
+
+Use these conservative implementation defaults; they do not certify real artifacts:
+preserve published test files and annotations exactly, report all known test/train
+byte overlaps, and make no independent-test claim for them. Fit/validation come only
+from published training images, share one hashed ID assignment across both tasks,
+and keep connected exact-byte duplicates plus verified physical groups together.
+Never infer groups from names. If physical groups remain unavailable, label any
+reviewed byte-group-only experiment exploratory with unverified physical independence.
+Keep annotation-empty images; never label them benign from absent annotations.
+Invalid/nonpositive/nonfinite/out-of-bounds training geometry blocks the live pilot
+under the present software; no silent clipping, removal or relabeling. Ahmed/Ali
+or an available teammate must bind the actual findings, dispositions and partition
+hash in the existing policy receipt; any derived repair needs explicit review and
+separate provenance. Report reproduction with original test annotations separately
+from controlled-study validation. These decisions permit software integration now;
+actual data clearance, authentic reviewer receipts and HPC qualification remain gates.
+
 **Owner amendment — shared execution:** focus on assigned work first; an available student may complete a small
 unfinished dependency, including another lane's evaluator, receipt, trainer or report.
 Names here identify contacts/current contributions, not exclusive rights or mandatory
@@ -24,14 +50,31 @@ or HPC qualification was executed. Backlog state and ownership stay in [tasks](t
 |---|---|---|
 | Faisal T40 | Baseline/contracts/tools merged in PRs #17/#19. [PR #21](https://github.com/abdalrahman-ismaik/SDP-I-RayGuard/pull/21), head `b325c28`, supplies initialization provenance and receipt helper; both hosted CPU platforms pass, review required. | Ahmed reviews receipt; Ali reviews common-parent semantics; Abd performs human PR review. Rehash the permitted file on HPC before use. |
 | Ahmed T41 | [Draft `32091bc`](https://github.com/abdalrahman-ismaik/SDP-I-RayGuard/tree/32091bcd1f46782ed39ac1233ad70e6ecf70451d) on `ahmed/t41-software-draft`: partition/provenance/preflight, synthetic study orchestration and Slurm template. CLIs explicitly block live execution. No open PR found at inspection. | Ahmed opens PR **to `main`** for software review; reconcile overlapping planning docs with PR #20. Implement real trainer/validation connections only after interface/data/environment gates. |
-| Ali T42 | [PR #18](https://github.com/abdalrahman-ismaik/SDP-I-RayGuard/pull/18), unchanged head `15cb4a0`: draft generic COCO evaluation; hosted CPU checks pass but changes requested. | Fix required GT hash and clean matching inference-code identity; deliver validation interface and common-parent U/T mode. Specific-task support is still required separately. |
+| Ali T42 | [PR #18](https://github.com/abdalrahman-ismaik/SDP-I-RayGuard/pull/18), head `6dfa7d6`: both safeguards, validation objective and common-parent comparison implemented; hosted CPU checks pass, earlier review still changes-requested. | Human re-review; connect trainer using objective() and actual file-hash provenance; agree data policy and qualify pilot. Specific-task end-to-end behavior still needs verification. |
 | Mohammad T43 | Research branch `mohammad/guiflow`, `164d6cf`, records an assisted GUI acceptance slice and reported checks in the separate app. The branch changes only research task/progress docs. | Supply app commit/diff and human walkthrough evidence for Abd's review; verify app work is actually shared. No open app PR found; that does not establish whether local work is complete. |
 | Abd T38/T39 | Report specification and guidance are local reviewed-work candidates; PR #20 remains behind/review required despite passing hosted CPU checks. Current app implementation was not requalified here. | Review integration, reconcile docs, preserve existing edits, coordinate report and demo evidence. All GitHub reviews/merges remain human actions. |
 
 ### Dependency order and decisions to close
 
+**Ali update, later 21 November:** source inspected at PR #18 head `6dfa7d6`.
+The safeguards and common-parent comparison requested below are now implemented;
+retain the requirements as acceptance criteria, not outstanding implementation tasks.
+Use `from sdp_xray.validation_objective import objective, evaluate_validation` and
+set the training configuration's `objective` to `objective()`. The function accepts
+request, validation-only COCO ground truth, supplied ground-truth/checkpoint hashes
+and original-pixel COCO xywh detections; returns matching identities, evaluated IDs
+and AP on 0–1 scale. Failures raise `ValueError`, never zero AP. It pins pycocotools
+2.0.11. Ahmed's adapter must hash actual files and bind predictions to the checkpoint;
+the evaluator compares caller-provided hashes and echoes the partition hash, not
+independently verifying weights or partition membership. Validation image coverage
+and source partition remain trainer/preflight responsibilities. Reported compatibility
+with Ahmed's validator is synthetic, not locally repeated here. Next dependencies:
+human PR re-review, config/adapter integration, reviewed data policy and qualified pilot.
+The PR description still describes the original scope and should be updated by its
+human author to include the interface and candidate/candidate mode.
+
 1. **Review targets:** student PRs for shared ML/software/documentation target `main`;
-   GUI implementation targets RayGuard-App. Review #21 and corrected #18 independently;
+   GUI implementation targets RayGuard-App. Review #21 and updated #18 independently;
    Ahmed's PR may be reviewed as a blocked software draft before live dependencies are
    merged. Do not silently overwrite coordinator protocol with branch-local drafts.
    Human reviewer reconciles #20/T41 `docs/finetuning.md` and `docs/hpc-training.md`,
