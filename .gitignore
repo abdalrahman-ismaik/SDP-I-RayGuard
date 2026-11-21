@@ -36,6 +36,7 @@ GEMINI.md
 
 # Private correspondence, source records and detailed execution journals
 /docs/internal/
+/docs/6g-mena-poster/
 /docs/sdp-repository-bootstrap-prompt.md
 /docs/logbook.md
 /docs/source-hashes.csv
@@ -43,6 +44,9 @@ GEMINI.md
 
 # Share only reviewed meeting Markdown; original sources remain private
 /docs/meeting_minutes/*
+!/docs/meeting_minutes/follow-up-slg-2026-10-19.md
+!/docs/meeting_minutes/follow-up-poster-2026-10-19.md
+!/docs/meeting_minutes/follow-up-collection-2026-10-19.md
 !/docs/meeting_minutes/README.md
 !/docs/meeting_minutes/SDP_Meeting_01_Minutes_KU_Styled (1).md
 !/docs/meeting_minutes/SDP_Meeting_02_Minutes_Fall_2026.md
@@ -116,19 +120,21 @@ Thumbs.db
 node_modules/
 playwright-report/
 test-results/
-/output/playwright/
+/output/
 .playwright-cli/
 *.tsbuildinfo
 
-# GUI extracted to the sibling RayGuard-App repository. Preserve this local
-# pre-migration app/media/launcher for existing sessions; do not publish duplicates.
+# Application source belongs only in the separate RayGuard-App repository.
+# Preserve legacy local copies for existing sessions; do not force-add them.
 /app/
 /assets/
 /run-app.ps1
 /.github/workflows/gui.yml
-
-# Private poster sources and earlier drafts remain local.
-/docs/6g-mena-poster/
+# Also exclude an accidentally nested checkout or copied app source roots.
+/RayGuard-App/
+/frontend/
+/backend/
+# Shared src/sdp_xray/, scripts/, environments/ and research docs stay tracked here.
 
 # Owner-authorized poster review export; source PDFs remain ignored.
 !/docs/posters/6g-mena-2026/RayGuard-Research-Poster-v6.pdf

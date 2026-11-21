@@ -8,6 +8,8 @@ See [current tasks](../tasks.md) and [earlier follow-up F02](follow-up-2026-09-2
 The [subsequent scheduling update F04](#subsequent-scheduling-update-f04-and-team-response)
 below records the lab's rejection of overlap and the owner's revised availability report.
 F03's original state below is retained as historical evidence. The latest update is
+[F06](follow-up-collection-2026-10-19.md), covering reported counts, second-round scheduling
+and the 30 November overall deadline. The latest September update below is
 [Yonathan's catalogue handoff F05/C01](#catalogue-handoff-f05c01), which supplies collection
 counts and planned four-bag groups but conflicts with the earlier item allocation.
 

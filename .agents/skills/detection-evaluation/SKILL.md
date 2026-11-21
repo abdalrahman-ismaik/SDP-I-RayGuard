@@ -3,6 +3,11 @@ name: detection-evaluation
 description: Define and run fair device and threat evaluation, operating-point analysis, pipeline error analysis and reproducible latency for real saved model predictions.
 ---
 
+For report evidence, first read `docs/final-report-requirements.md`: primary handbook
+authority, canonical LaTeX/PDF plus checked Word copy, sourced visuals, Gantt/forms
+and both SDP I rubrics. Hand off eligible metrics, protocol/run identities, failures
+and limitations with figure/table provenance. T38 owns report delivery state.
+
 Use when selecting thresholds, comparing detector runs or preparing final test results. Inputs:
 real predictions/manifests, matching ground truth/task/category map, split provenance and frozen
 protocol. Paths below are relative to the repository root. Read `AGENTS.md`, the active task,

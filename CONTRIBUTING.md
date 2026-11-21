@@ -4,6 +4,16 @@ Start with the [documentation index](docs/README.md), [status](docs/status.md) a
 [task](docs/tasks.md). Read the latest applicable meeting record and relevant architecture/
 contracts before implementing. Everyone should be able to explain the code they submit.
 
+## Final report workflow
+
+Read the [report specification](docs/final-report-requirements.md) for report-related
+work and evidence handoffs. It records the primary handbook requirements, both SDP I
+rubrics, LaTeX/PDF plus checked Word workflow, figures/citations, Gantt and official
+forms. Preserve private sources and obtain required distribution permission. Report
+tasks and acceptance evidence belong under T38 in [tasks](docs/tasks.md); student
+contributions require personal review and actual evidence. No report completion is
+established by documenting its requirements.
+
 ## First clone and CPU setup
 
 Install Git, Python 3.12 and uv. From a terminal:
@@ -44,6 +54,12 @@ and run its integration checks. Each app release records the exact engine commit
 Do not develop in a cached/ignored pre-migration `app/` folder. Original local
 services and files are preserved for migration recovery, not synchronized copies.
 
+Git exclusions are maintained in `.gitignore`, not `.ignore`. Legacy `app/`,
+`assets/`, `run-app.ps1` and the old GUI workflow are excluded, together with
+accidentally copied `frontend/`, `backend/` or nested `RayGuard-App/` directories.
+Do not force-add these copies. App-only source belongs in the separate repository;
+shared engine code and research documentation remain tracked here.
+
 ## Working with agents
 
 The repository includes shared [agent instructions](AGENTS.md) and four focused project
@@ -70,10 +86,34 @@ Only reviewed root guidance and the four skill files are shared. Keep personal c
 configuration, session histories, overrides and credentials local. Review any guidance/skill
 change like code; user instructions and agreed project requirements still govern the task.
 
+## Human-only GitHub authorship and Git operations
+
+AI tools may help a student inspect requirements, brainstorm, draft or edit the student's
+assigned files, and suggest checks or Git commands. They are not contributors and must not
+perform GitHub or Git identity actions. Each student must personally review the complete diff,
+run checks, verify their own GitHub-linked `user.name` and `user.email`, and execute their own
+`git add`, `git commit` and `git push` commands. If a student asks an agent for commit/push
+commands, the agent may return commands for the student to inspect and run; the agent must not
+run them.
+
+Never use an AI/agent/bot identity as author, committer or co-author; do not add AI attribution
+trailers, bot commits, bot branches/PRs/reviews, agent collaborator accounts or credentials for
+GitHub operations. Do not commit agent session state, transcripts, local memory, generated
+client settings or other agent-only files. The reviewed project `AGENTS.md` and `.agents/skills/`
+are team documentation, not agent identities. AI-assisted changes count as a student's
+contribution only after that student understands, verifies, documents and personally commits
+their work under their own account. Do not falsify or pad authorship.
+
 ## Claim one task and use a small branch
 
-Agree a task ID, editor, reviewer, file scope and output directory before editing shared work.
-Record the accepted assignment in `docs/tasks.md`; do not infer assignments from branch names.
+Task leads are contacts, not exclusive owners. Focus on assigned work first. A student may implement or fix a small blocking item in
+another lane's work without waiting for that lead. Record task ID, bounded scope and actual
+editor in `docs/tasks.md`, notify affected teammates and proceed on an isolated branch/worktree;
+notification does not require a reply or permission. Arrange an available qualified reviewer
+before merging instead of blocking implementation on a named person's availability.
+Coordinate active edit collisions and GPU/output use; preserve existing work, independent
+review, protected branches and data/evidence gates. Credit the actual contributor.
+This 21 November owner amendment supersedes older exclusive file/task allocations.
 Use a clean worktree and a short task branch, for example:
 
 ```text
@@ -131,6 +171,10 @@ each member's access remain separately tracked in T31.
   and output directory; agree resources before launching larger jobs.
 - Treat generated suggestions as unverified until reviewed. A successful software test is
   separate from real-data validation, model inference and model-performance evaluation.
+- After meaningful work, each student writes their own concise dated handoff in the shared
+  [team progress file](docs/progress.md), using its template. Update the task state/next action
+  in `docs/tasks.md` only when it changes. Coordinate one editor at a time; do not attribute
+  another student's work or merge agents' unreviewed summaries as evidence.
 
 | Work type | Minimum evidence before claiming completion |
 |---|---|

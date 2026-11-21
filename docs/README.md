@@ -8,7 +8,19 @@ Clone it with `--recurse-submodules`; its `engine/` pins this research repositor
 GUI contributions go there, while the research backlog and meeting requirements
 stay here. See the [migration evidence](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/migration.md).
 
+The root [.gitignore](../.gitignore) excludes legacy app/media/launcher files and
+accidental copies of the separate app. Shared inference tools remain tracked in
+this repository. App implementation documentation belongs in RayGuard-App; this
+index links there while team status, progress and the sole backlog stay here.
+
 ## Start here
+
+For all report work, read the [SDP I report specification](final-report-requirements.md):
+primary handbook authority, LaTeX/PDF and checked Word workflow, required chapters,
+sources/visuals, Gantt chart, forms, both rubrics and submission gates. T38 in
+[tasks](tasks.md) is the sole report backlog.
+
+For the November report, GitHub evidence, individual assessment, demo and presentation, use the [end-of-semester course checklist](course-endgame-2026-11.md).
 
 1. Read [current status](status.md) and the active item in [tasks](tasks.md).
 2. Read [requirements and open decisions](context.md), the [latest meeting records](meeting_minutes/README.md)
@@ -28,7 +40,9 @@ Do not rely on a previous conversation as the only record of a requirement or co
 |---|---|
 | [status.md](status.md) | Short handoff: what works, current priorities and blockers; update after a material result |
 | [tasks.md](tasks.md) | **The only backlog**: stable task IDs, owner/reviewer, dependencies, state and acceptance evidence |
+| [final-report-requirements.md](final-report-requirements.md) | Authoritative report requirements and production specification; execution state stays in T38 |
 | [plan.md](plan.md) | Sequencing and capacity assumptions; update when dates or dependencies change |
+| [implementation/demo sprint plan](implementation-plan-demo-2026-11.md) | Proposed individual work packages, demo gates, AI workflow and November schedule |
 | [context.md](context.md) | Agreed requirements, source precedence and questions; update when an authoritative answer arrives |
 | [decisions.md](decisions.md) | Dated design/scope choices and explicitly superseded choices |
 | [meeting_minutes/](meeting_minutes/README.md) | Reviewed Markdown records and source references; originals are retained privately |
@@ -40,16 +54,18 @@ to the agreed requirements. Name unresolved owners as TBD until someone accepts 
 
 ## Technical references
 
+For the 18 November research scope, start with the [reproduction/Optuna protocol](finetuning.md) and [sanitized HPC handoff](hpc-training.md). These are student implementation briefs, not executed training evidence.
+
 | Task area | Read |
 |---|---|
-| Model execution / GUI baseline | [First inference](first-inference.md), [model catalog](checkpoint-catalog.md), [model selection/classes and execution](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/model-selection.md), [model storage/setup](../models/README.md), [GPU inference study and plan](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/gpu-inference-plan.md), [GPU implementation prompt](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/gpu-implementation-prompt.md) |
+| Model execution / GUI baseline | [First inference](first-inference.md), [single-scan training/evaluation plan](single-scan-ml-pipeline-plan-2026-11.md), [model catalog](checkpoint-catalog.md), [model selection/classes and execution](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/model-selection.md), [model storage/setup](../models/README.md), [GPU inference study and plan](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/gpu-inference-plan.md), [GPU implementation prompt](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/gpu-implementation-prompt.md) |
 | GUI implementation and rehearsal | [App launch/development](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/usage.md), [app architecture/options](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/architecture.md), [airport UI/scanner research](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/scanner-research.md), [design/font comparison](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/visual-research.md), [workspace choices](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/design-options.md), [actual checks](verification.md) |
 | IEDXray reference in the GUI | [Annotation pairing, overlay and matching protocol](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/annotation-comparison.md); per-image agreement is separate from accuracy |
-| Data collection and audits | [Data handling](../data/README.md), [IEDXray audit](iedxray-audit.md), [paper/annotation review](iedxray-paper-review.md) |
+| Data collection and audits | [Data handling](../data/README.md), [distributed collection inventory](collection-progress-2026-11-14.md), [member contribution guide](collection-contribution-guide.md), [IEDXray audit](iedxray-audit.md), [paper/annotation review](iedxray-paper-review.md) |
 | Model research and selection | [Research findings](research.md), [dataset catalog](datasets.md); optional [STCray audit](stcray-audit.md) |
 | Interfaces and integration | [Architecture](architecture.md), [contracts](contracts.md), [baseline run contract](baseline-run-contract.md) |
-| Conference, poster and GUI showcase | [Current v6 PPTX/PDF review bundle](posters/6g-mena-2026/README.md), [6G MENA requirements/checklist](6g-mena-2026.md), [poster preparation and evidence](poster-plan.md) |
-| New collection paperwork | Blank [schedule](templates/collection-schedule.md) and [sample manifest](templates/collection-manifest.csv) |
+| Conference opportunities and historical showcase evidence | [Current UAE publication opportunities and recorded invitations](conferences-2026-2027.md); [6G MENA historical record](6g-mena-2026.md); [Secure Life Group visit requirements](meeting_minutes/follow-up-slg-2026-10-19.md); [poster archive and review bundle](posters/6g-mena-2026/README.md), [poster preparation/evidence](poster-plan.md) |
+| New collection paperwork | [Latest count/schedule requirements](meeting_minutes/follow-up-collection-2026-10-19.md); blank [schedule](templates/collection-schedule.md) and [sample manifest](templates/collection-manifest.csv) |
 
 ## What belongs in Git?
 

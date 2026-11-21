@@ -32,7 +32,11 @@ Failure/missing-scan cases stay visible. Fusion and case outcomes are not implem
 ## Direction after the 24 September meeting
 
 The five-student team's primary technical work is now distributed component evidence across
-separate packages. Complete the initial lab dataset by **15 October**, then adapt/train/evaluate
+separate packages. The [latest F06 update](meeting_minutes/follow-up-collection-2026-10-19.md)
+requires first-round counts against 500 and completion of any shortfall on the same set before
+moving on. Overall collection is due **30 November 2026**, with the second-round schedule
+requested; optional late slots do not establish bookings. The earlier **15 October** Batch 1
+milestone remains historical and unverified. After usable first-round data, adapt/train/evaluate
 the available model. A second two-week collection period follows midterms, then retraining.
 [F03](meeting_minutes/follow-up-collection-2026-09-28.md) supplies explosive charge, detonator,
 battery and wires item families with E/D/B/W labels, and names Yonathan as protocol provider.
