@@ -3,6 +3,32 @@
 This page records shareable project evidence. It is not a claim of individual student
 authorship, hours or understanding. Those must be recorded by the actual contributor and
 reviewer. Do not include personal paths, private contacts, raw correspondence or artifact files.
+## T42 evaluation pipeline draft — 15 November 2026
+
+Contributor: Ali Arif Saeed Alshamsi. Review pending: evaluator/model interfaces with
+Ahmed and Faisal, GUI presentation with Abd and Mohammad. Branch `ali/evaluation`.
+
+Added a draft evaluation path for the generic explosive task. `sdp_xray.evaluation` reads
+a T40 shared record, checks the COCO ground truth against the model's category map
+(ID 0 `Explosive` kept), converts `box_xyxy` to COCO `[x, y, width, height]`, counts
+results at a fixed 0.25 threshold (not tuned) and checks that a baseline and a candidate
+are a matched pair. `sdp_xray.coco_metrics` calls the official `pycocotools` evaluator,
+installed from the separate `environments/evaluation.in`, not the root lock.
+`scripts/evaluate_generic_yolov10.py` writes evaluate/compare reports. The draft protocol
+is in [single-scan evaluation protocol](single-scan-evaluation-protocol.md). No existing
+files were changed.
+
+Checks: `uv run --locked ruff check .` passed. `uv run --locked python -m pytest` gave
+225 passed and 10 skipped. With `--with-requirements environments/evaluation.in` it gave
+232 passed and 9 skipped, including 45 new synthetic tests.
+
+Limitations: synthetic software checks only. No model was run, no real evaluation was
+performed and there are no project metrics. The protocol stays draft until the GUI
+checkpoint is confirmed, the duplicate/boundary/validation policy is approved and the
+ground-truth file hash is recorded.
+
+Next: confirm the GUI checkpoint with Faisal and Abd, agree the candidate record with
+Ahmed, and name an owner for the full test prediction run.
 
 ## T40 run planning and record check — 15 November 2026
 
