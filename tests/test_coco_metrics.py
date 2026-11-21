@@ -114,8 +114,31 @@ def test_script_compares_only_matched_pairs(tmp_path):
     assert compared["candidate_minus_baseline"]["AR@100"] == pytest.approx(0.5)
     assert "better" not in json.dumps(compared) and "improv" not in json.dumps(compared)
 
+    assert compared["comparison"] == "baseline_vs_candidate"
+
     unmatched = manifest(role="candidate", checkpoint="b" * 64, parent="c" * 64)
     other = _write(tmp_path, "unmatched", unmatched, results(unmatched))
     assert _script().main(["compare", "--baseline", str(baseline), "--candidate", str(other),
                            *args, "--output", str(tmp_path / "no.json")]) == 2
     assert not (tmp_path / "no.json").exists()
+
+
+def test_script_compares_untuned_and_tuned_from_same_start(tmp_path):
+    args = _files(tmp_path)
+    start = "d" * 64
+    untuned = manifest(role="candidate", checkpoint="b" * 64, parent=start)
+    tuned = manifest(role="candidate", checkpoint="c" * 64, parent=start)
+    items = results(tuned)
+    items[2] = result("Test000003", [([50, 40, 80, 60], 0.7)], tuned)
+    first = _write(tmp_path, "untuned", untuned, results(untuned))
+    second = _write(tmp_path, "tuned", tuned, items)
+    out = tmp_path / "tuning.json"
+    assert _script().main(["compare-candidates", "--untuned", str(first), "--tuned",
+                           str(second), *args, "--output", str(out)]) == 0
+    compared = json.loads(out.read_text(encoding="utf-8"))
+    assert compared["comparison"] == "untuned_vs_tuned"
+    assert compared["tuned_minus_untuned"]["AR@100"] == pytest.approx(0.5)
+    # A supplied baseline is not accepted in this mode.
+    baseline = _write(tmp_path, "baseline", manifest(), results())
+    assert _script().main(["compare-candidates", "--untuned", str(baseline), "--tuned",
+                           str(second), *args, "--output", str(tmp_path / "x.json")]) == 2

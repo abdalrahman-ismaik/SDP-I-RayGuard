@@ -51,12 +51,46 @@ differ from that file.
   for example the existing runner with `--confidence 0.001`.
 - **Full coverage.** Every test image must have an `ok` result. A failed scan is a failure,
   not an empty prediction. A partial run needs `--allow-subset`, and the report then says `subset: true`.
-- **Matched comparison.** A baseline and a candidate are compared only if the candidate's
-  parent checkpoint is the baseline checkpoint, and task, kind, both label maps, settings,
-  stages, precision, upstream revision and every input image hash agree. The output lists
-  candidate-minus-baseline differences only, with no "better" verdict.
+- **Matched comparison.** Two separate modes, never mixed:
+  - `compare` (supplied-checkpoint reproduction vs fine-tuned): baseline `role: baseline`,
+    candidate `role: candidate` whose parent is the baseline checkpoint.
+  - `compare-candidates` (T41 untuned control vs tuned): both `role: candidate`, different
+    checkpoints, the **same** parent hash (the general starting weights from
+    [initialization provenance](initialization-provenance.md), on `faisal/init-provenance`).
+
+  Both modes also require task, kind, both label maps, settings, stages, precision, every
+  input image hash, and **clean, identical inference code** (`git_dirty: false`, same
+  `git_commit` and upstream revision). The output lists second-minus-first differences
+  only, with no "better" verdict.
+- **Approved protocol.** `status: approved` is refused unless the ground-truth SHA-256 is pinned.
 - **Reports.** File names and hashes only, never local paths. A report is marked
   `draft-protocol` until this protocol's status is changed to `approved`. Reports are never overwritten.
+
+## Validation objective for T41 tuning
+
+`sdp_xray.validation_objective.evaluate_validation(request, ground_truth, ground_truth_sha256,
+checkpoint_sha256, detections)` is the evaluator T41 calls for each completed epoch. It uses
+only the validation partition, never the test split.
+
+- **Request:** exactly the fields built by `tuning.validation_request`, namely
+  `checkpoint_sha256`, `completed_epoch`, `task` (catalog task identity), `partition_sha256`,
+  `validation_ids`, `annotation_sha256` and `objective`.
+- **Objective:** must equal `validation_objective.objective()`: name `coco_bbox_AP_50_95`,
+  scale `fraction`, evaluator ID `sdp_xray.validation_objective/pycocotools-bbox-1` and the
+  frozen settings. T41 copies this block into its config.
+- **Checks:**
+  - the detections' checkpoint hash equals the request
+  - the validation annotation file hash equals the request
+  - the ground truth holds exactly the requested image IDs
+  - the task identity is an inspected catalog pairing
+  - every detection uses a valid image, category, box and score
+- **Result:** `status: ok`, the same identities, `evaluated_image_ids`, and
+  `value` = AP@[.50:.95] on a 0–1 scale.
+- **Failure:** any failure raises an error. It is never returned as zero AP. A checkpoint with
+  no detections does score 0, because that is a real result.
+
+Checked against T41 commit `32091bc`: `tuning.validate_objective_result` accepted a result from
+this function on synthetic fixtures. That proves the interfaces fit, not that any model is accurate.
 
 ## Known data issues (listed, not fixed)
 

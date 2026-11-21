@@ -9,6 +9,10 @@ ground-truth file and a frozen protocol, then writes one JSON report. Needs pyco
     --protocol configs/evaluation/generic-explosive-test.json --output runs/<report>.json
 
   ... compare --baseline runs/<baseline> --candidate runs/<candidate> (same other options)
+  ... compare-candidates --untuned runs/<untuned> --tuned runs/<tuned> (same other options)
+
+compare: supplied original checkpoint vs a model fine-tuned from it.
+compare-candidates: two models trained from the same general starting weights.
 
 Reports go under ignored runs/. A report from a draft protocol is not a project metric.
 """
@@ -65,7 +69,11 @@ def main(argv: list[str] | None = None) -> int:
     pair = commands.add_parser("compare", help="evaluate a matched baseline/candidate pair")
     pair.add_argument("--baseline", type=Path, required=True)
     pair.add_argument("--candidate", type=Path, required=True)
-    for command in (one, pair):
+    tuned = commands.add_parser("compare-candidates",
+                                help="evaluate untuned vs tuned models from the same start")
+    tuned.add_argument("--untuned", type=Path, required=True)
+    tuned.add_argument("--tuned", type=Path, required=True)
+    for command in (one, pair, tuned):
         command.add_argument("--ground-truth", type=Path, required=True)
         command.add_argument("--protocol", type=Path, required=True)
         command.add_argument("--output", type=Path, required=True)
@@ -83,25 +91,33 @@ def main(argv: list[str] | None = None) -> int:
                                         args.allow_subset)
             text = dumps_report(report)
         else:
-            baseline, _ = read_record(args.baseline)
-            candidate, _ = read_record(args.candidate)
-            problems = matched_pair_differences(baseline, candidate)
+            if args.command == "compare":
+                mode, names = "baseline_vs_candidate", ("baseline", "candidate")
+                paths = (args.baseline, args.candidate)
+            else:
+                mode, names = "untuned_vs_tuned", ("untuned", "tuned")
+                paths = (args.untuned, args.tuned)
+            first, _ = read_record(paths[0])
+            second, _ = read_record(paths[1])
+            problems = matched_pair_differences(first, second, mode)
             if problems:
                 raise ValueError("not a matched pair: " + "; ".join(problems))
-            _, base_report = evaluate_record(args.baseline, args.ground_truth, protocol,
-                                             args.allow_subset)
-            _, cand_report = evaluate_record(args.candidate, args.ground_truth, protocol,
-                                             args.allow_subset)
+            _, first_report = evaluate_record(paths[0], args.ground_truth, protocol,
+                                              args.allow_subset)
+            _, second_report = evaluate_record(paths[1], args.ground_truth, protocol,
+                                               args.allow_subset)
             # Differences are reported as numbers only; no "better/worse" verdict here.
             difference = {
-                name: (None if base is None or cand_report["metrics"][name] is None
-                       else cand_report["metrics"][name] - base)
-                for name, base in base_report["metrics"].items()
+                name: (None if value is None or second_report["metrics"][name] is None
+                       else second_report["metrics"][name] - value)
+                for name, value in first_report["metrics"].items()
             }
-            text = json.dumps({"schema_version": "1.0", "baseline": json.loads(
-                dumps_report(base_report)), "candidate": json.loads(dumps_report(cand_report)),
-                "candidate_minus_baseline": difference}, allow_nan=False, sort_keys=True,
-                indent=2)
+            text = json.dumps({
+                "schema_version": "1.0", "comparison": mode,
+                names[0]: json.loads(dumps_report(first_report)),
+                names[1]: json.loads(dumps_report(second_report)),
+                f"{names[1]}_minus_{names[0]}": difference,
+            }, allow_nan=False, sort_keys=True, indent=2)
     except (OSError, ValueError, KeyError) as error:
         print(json.dumps({"status": "error", "message": str(error)}), file=sys.stderr)
         return 2
@@ -109,8 +125,9 @@ def main(argv: list[str] | None = None) -> int:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(text + "\n", encoding="utf-8")
     summary = json.loads(text)
+    first = summary.get("baseline") or summary.get("untuned") or summary
     print(json.dumps({"status": "ok", "output": args.output.name,
-                      "evidence": summary.get("evidence") or summary["baseline"]["evidence"]}))
+                      "evidence": first["evidence"]}))
     return 0
 
 

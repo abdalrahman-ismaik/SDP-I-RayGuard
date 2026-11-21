@@ -286,6 +286,8 @@ def validate_protocol(protocol: Any) -> None:
     _text(gt["file_name"], "ground_truth.file_name")
     if gt["sha256"] is not None:
         _sha256(gt["sha256"], "ground_truth.sha256")
+    elif protocol["status"] == "approved":
+        raise ValueError("an approved protocol must pin the ground-truth file SHA-256")
     for key in ("images", "annotations"):
         if type(gt[key]) is not int or gt[key] < 0:
             raise ValueError(f"ground_truth.{key} must be a nonnegative integer")
@@ -336,15 +338,44 @@ def check_protocol(
 # --- matched comparison ------------------------------------------------------------------
 
 
-def matched_pair_differences(baseline: dict[str, Any], candidate: dict[str, Any]) -> list[str]:
-    """List every reason two manifests are not a fair matched pair. Empty means matched."""
+COMPARISON_MODES = ("baseline_vs_candidate", "untuned_vs_tuned")
+
+
+def matched_pair_differences(
+    baseline: dict[str, Any], candidate: dict[str, Any], mode: str = "baseline_vs_candidate"
+) -> list[str]:
+    """List every reason two manifests are not a fair matched pair. Empty means matched.
+
+    ``baseline_vs_candidate``: the supplied original checkpoint against a model fine-tuned
+    from it. ``untuned_vs_tuned``: two candidates trained from the same general starting
+    weights (same parent hash), for example the T41 untuned control and a tuned study model.
+    The two modes are kept separate so a reproduction is never mixed with a tuning result.
+    """
     problems = []
-    if baseline["role"] != "baseline":
-        problems.append("first record is not role=baseline")
-    if candidate["role"] != "candidate":
-        problems.append("second record is not role=candidate")
-    if candidate["model"]["parent_checkpoint_sha256"] != baseline["model"]["checkpoint_sha256"]:
-        problems.append("candidate was not initialized from the baseline checkpoint")
+    if mode == "baseline_vs_candidate":
+        if baseline["role"] != "baseline":
+            problems.append("first record is not role=baseline")
+        if candidate["role"] != "candidate":
+            problems.append("second record is not role=candidate")
+        if candidate["model"]["parent_checkpoint_sha256"] != baseline["model"]["checkpoint_sha256"]:
+            problems.append("candidate was not initialized from the baseline checkpoint")
+    elif mode == "untuned_vs_tuned":
+        if baseline["role"] != "candidate" or candidate["role"] != "candidate":
+            problems.append("both records must be role=candidate")
+        parent = baseline["model"]["parent_checkpoint_sha256"]
+        if parent is None or parent != candidate["model"]["parent_checkpoint_sha256"]:
+            problems.append("records were not initialized from the same starting weights")
+        if baseline["model"]["checkpoint_sha256"] == candidate["model"]["checkpoint_sha256"]:
+            problems.append("both records use the same checkpoint")
+    else:
+        raise ValueError(f"comparison mode must be one of {COMPARISON_MODES}")
+    # Inference code must be committed and identical, so a code change cannot pass as a
+    # model difference.
+    for label, record in (("first", baseline), ("second", candidate)):
+        if record["code"]["git_dirty"]:
+            problems.append(f"{label} record ran from uncommitted code (git_dirty)")
+    if baseline["code"]["git_commit"] != candidate["code"]["git_commit"]:
+        problems.append("code.git_commit differs")
     for key in MATCHED_MODEL_FIELDS:
         if baseline["model"][key] != candidate["model"][key]:
             problems.append(f"model.{key} differs")
@@ -448,6 +479,7 @@ def dumps_report(report: dict[str, Any]) -> str:
 
 
 __all__ = [
+    "COMPARISON_MODES",
     "build_report",
     "check_ground_truth",
     "check_protocol",

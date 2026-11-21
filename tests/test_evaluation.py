@@ -311,6 +311,65 @@ def test_matched_pair_reports_each_difference(edit, message):
     assert any(message in problem for problem in problems)
 
 
+@pytest.mark.parametrize(
+    ("edit", "message"),
+    [
+        (lambda c: c["code"].__setitem__("git_dirty", True), "uncommitted"),
+        (lambda c: c["code"].__setitem__("git_commit", "1111111"), "git_commit"),
+    ],
+)
+def test_matched_pair_requires_clean_matching_inference_code(edit, message):
+    candidate = manifest(role="candidate", checkpoint=HASH_B, parent=HASH_A)
+    edit(candidate)
+    assert any(message in p for p in matched_pair_differences(manifest(), candidate))
+    dirty_baseline = manifest()
+    dirty_baseline["code"]["git_dirty"] = True
+    clean = manifest(role="candidate", checkpoint=HASH_B, parent=HASH_A)
+    assert any("first record" in p for p in matched_pair_differences(dirty_baseline, clean))
+
+
+def untuned_tuned():
+    start = "d" * 64
+    return (manifest(role="candidate", checkpoint=HASH_B, parent=start),
+            manifest(role="candidate", checkpoint=HASH_C, parent=start))
+
+
+def test_untuned_vs_tuned_accepts_same_starting_weights():
+    untuned, tuned = untuned_tuned()
+    assert matched_pair_differences(untuned, tuned, "untuned_vs_tuned") == []
+    # The same pair is not a supplied-checkpoint comparison.
+    assert matched_pair_differences(untuned, tuned) != []
+
+
+@pytest.mark.parametrize(
+    ("edit", "message"),
+    [
+        (lambda t: t["model"].__setitem__("parent_checkpoint_sha256", HASH_A), "same starting"),
+        (lambda t: t["model"].__setitem__("checkpoint_sha256", HASH_B), "same checkpoint"),
+        (lambda t: t.update(role="baseline"), "role=candidate"),
+        (lambda t: t["settings"].__setitem__("imgsz", 320), "settings"),
+        (lambda t: t["code"].__setitem__("git_dirty", True), "uncommitted"),
+    ],
+)
+def test_untuned_vs_tuned_reports_each_difference(edit, message):
+    untuned, tuned = untuned_tuned()
+    edit(tuned)
+    assert any(message in p for p in matched_pair_differences(untuned, tuned, "untuned_vs_tuned"))
+
+
+def test_unknown_comparison_mode_is_rejected():
+    with pytest.raises(ValueError, match="mode"):
+        matched_pair_differences(*untuned_tuned(), "anything")
+
+
+def test_approved_protocol_must_pin_ground_truth_hash():
+    with pytest.raises(ValueError, match="approved"):
+        validate_protocol(protocol(status="approved"))
+    pinned = protocol(status="approved")
+    pinned["ground_truth"]["sha256"] = HASH_A
+    validate_protocol(pinned)
+
+
 def _report():
     truth = ground_truth()
     index = check_ground_truth(truth, CATEGORY_MAP)
