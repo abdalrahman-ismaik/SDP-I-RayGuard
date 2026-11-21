@@ -1,5 +1,22 @@
 # SDP-I-RayGuard
 
+**Owner amendment, 21 November — shared execution:** named task leads are contacts,
+not exclusive owners. Prioritize assigned work. A student may complete a small blocking item in another lane's unfinished
+work without waiting for its lead. Record task/scope and actual editor, notify affected
+teammates and proceed on an isolated branch/worktree; notification is not permission.
+Coordinate overlapping active edits and shared GPU/output use. Preserve existing work,
+independent technical review, protected-branch rules and actual contributor credit.
+This supersedes older person-specific file exclusions and named-person handoff gates;
+scientific/data/environment gates and human-only GitHub actions remain in force.
+
+For all report-related work, read `docs/final-report-requirements.md` first. The
+Fall 2026 handbook is the primary course authority; specific notices amend logistics.
+The owner requires canonical LaTeX source, a professional PDF and a checked Word
+submission copy unless PDF acceptance is confirmed. Preserve handbook coverage,
+verified paper/project/meeting sources, visual provenance, Gantt chart, applicable
+forms and both SDP I rubrics. T38 in `docs/tasks.md` owns delivery state. Target
+24 November 2026, 17:00 UTC+4; do not infer results, signatures or publication permission.
+
 The GUI now lives in https://github.com/abdalrahman-ismaik/RayGuard-App.
 Its pinned `engine/` submodule consumes this repository's shared model/contracts
 code. Make GUI edits in that separate checkout. A remaining local `app/` is an

@@ -3,6 +3,11 @@ name: baseline-reproduction
 description: Establish or reproduce a real RayGuard detector baseline from a matching checkpoint, configuration, class map and pinned backend; verify existing-model pairings for GUI or distributed-model preparation.
 ---
 
+For report evidence, first read `docs/final-report-requirements.md`: primary handbook
+authority, canonical LaTeX/PDF plus checked Word copy, sourced visuals, Gantt/forms
+and both SDP I rubrics. Hand off real checkpoint/run provenance and limitations;
+T38 owns report delivery state. Never convert baseline diagnostics into accuracy claims.
+
 Use for a new task-specific forward pass or reproducing a selected baseline. Inputs: verified
 artifact inventory, actual RGB scan, task labels, compute limits and run owner/output directory.
 Paths below are relative to the repository root. Read `AGENTS.md`, the active task,

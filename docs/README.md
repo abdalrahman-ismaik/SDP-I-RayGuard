@@ -15,6 +15,11 @@ index links there while team status, progress and the sole backlog stay here.
 
 ## Start here
 
+For all report work, read the [SDP I report specification](final-report-requirements.md):
+primary handbook authority, LaTeX/PDF and checked Word workflow, required chapters,
+sources/visuals, Gantt chart, forms, both rubrics and submission gates. T38 in
+[tasks](tasks.md) is the sole report backlog.
+
 For the November report, GitHub evidence, individual assessment, demo and presentation, use the [end-of-semester course checklist](course-endgame-2026-11.md).
 
 1. Read [current status](status.md) and the active item in [tasks](tasks.md).
@@ -35,6 +40,7 @@ Do not rely on a previous conversation as the only record of a requirement or co
 |---|---|
 | [status.md](status.md) | Short handoff: what works, current priorities and blockers; update after a material result |
 | [tasks.md](tasks.md) | **The only backlog**: stable task IDs, owner/reviewer, dependencies, state and acceptance evidence |
+| [final-report-requirements.md](final-report-requirements.md) | Authoritative report requirements and production specification; execution state stays in T38 |
 | [plan.md](plan.md) | Sequencing and capacity assumptions; update when dates or dependencies change |
 | [implementation/demo sprint plan](implementation-plan-demo-2026-11.md) | Proposed individual work packages, demo gates, AI workflow and November schedule |
 | [context.md](context.md) | Agreed requirements, source precedence and questions; update when an authoritative answer arrives |

@@ -4,6 +4,16 @@ Start with the [documentation index](docs/README.md), [status](docs/status.md) a
 [task](docs/tasks.md). Read the latest applicable meeting record and relevant architecture/
 contracts before implementing. Everyone should be able to explain the code they submit.
 
+## Final report workflow
+
+Read the [report specification](docs/final-report-requirements.md) for report-related
+work and evidence handoffs. It records the primary handbook requirements, both SDP I
+rubrics, LaTeX/PDF plus checked Word workflow, figures/citations, Gantt and official
+forms. Preserve private sources and obtain required distribution permission. Report
+tasks and acceptance evidence belong under T38 in [tasks](docs/tasks.md); student
+contributions require personal review and actual evidence. No report completion is
+established by documenting its requirements.
+
 ## First clone and CPU setup
 
 Install Git, Python 3.12 and uv. From a terminal:
@@ -96,8 +106,14 @@ their work under their own account. Do not falsify or pad authorship.
 
 ## Claim one task and use a small branch
 
-Agree a task ID, editor, reviewer, file scope and output directory before editing shared work.
-Record the accepted assignment in `docs/tasks.md`; do not infer assignments from branch names.
+Task leads are contacts, not exclusive owners. Focus on assigned work first. A student may implement or fix a small blocking item in
+another lane's work without waiting for that lead. Record task ID, bounded scope and actual
+editor in `docs/tasks.md`, notify affected teammates and proceed on an isolated branch/worktree;
+notification does not require a reply or permission. Arrange an available qualified reviewer
+before merging instead of blocking implementation on a named person's availability.
+Coordinate active edit collisions and GPU/output use; preserve existing work, independent
+review, protected branches and data/evidence gates. Credit the actual contributor.
+This 21 November owner amendment supersedes older exclusive file/task allocations.
 Use a clean worktree and a short task branch, for example:
 
 ```text

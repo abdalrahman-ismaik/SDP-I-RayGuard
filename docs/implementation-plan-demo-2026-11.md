@@ -1,6 +1,30 @@
 # Implementation and demo plan for November 2026
 
+**Owner amendment, 21 November:** named lanes and bounded file lists are coordination
+defaults. Prioritize assigned work. A student may complete a small blocking item in another lane's unfinished work after
+recording scope/editor and notifying affected teammates, without waiting for a reply.
+Coordinate overlapping active edits or shared GPU/output use; preserve existing work,
+independent review, branch protections and actual contributor credit. This supersedes
+exclusive personal file boundaries and named-person handoff gates below. Scientific
+data/provenance/qualification requirements remain in force.
+
 **Planning status: proposed, not yet accepted by the students or supervisor.** The immediate engineering outcome is a first integrated prototype draft that visibly follows the original proposal's acquisition/input, preprocessing, detection, evaluation-evidence and GUI/recording path. It is a prototype to defend with truthful evidence, not a claim that every requirement or operational capability is complete. The sole backlog remains [tasks.md](tasks.md); T39–T43 are proposed work packages for this plan.
+
+## Report amendment agreed 21 November
+
+For current student/software/PR status use the [21 November integration review](plan.md#latest-team-integration-review--21-november)
+and updated T40–T43 rows. Ahmed's T41 draft exists; Ali's evaluator draft needs fixes
+and validation/common-parent interfaces; Faisal's initialization PR needs review/HPC
+verification. Draft targets below are historical, not proof of implementation acceptance.
+
+The [report specification](final-report-requirements.md) now governs the final report:
+handbook as primary course reference, six SDP I chapters, canonical LaTeX, professional
+PDF and checked Word copy, inspected paper/project/meeting evidence, purposeful visuals,
+Gantt chart and applicable official forms. T38 owns all report delivery state. Follow
+the [21–24 Nov sequence](plan.md#report-delivery-sequence-agreed-21-november), targeting
+24 Nov at 17:00 UTC+4. The previous 19 Nov draft is historical, not evidence of readiness.
+Use both supervisor and examiner rubrics; obtain real approvals/signatures and resolve
+submission/distribution gates. New training results are included only if verified in time.
 
 ## Research amendment — 18 November 2026
 

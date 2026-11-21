@@ -2,6 +2,25 @@
 
 ## Team update protocol
 
+### Shared execution policy amendment — 21 November 2026
+
+Subsequent owner clarification: focus on assigned tasks first; independently handle a
+small task from another lane when it blocks the main task. Keep the team informed and
+coordinate changes affecting active work. The broad permission below is narrowed by
+this clarification; it does not encourage abandoning assigned work for another lane.
+
+Owner explicitly authorizes teammates to complete one another's unfinished tasks without
+waiting for a named lead. Agent-assisted update to AGENTS, contribution guidance, tasks,
+plan, status and ML/demo plans records leads as contacts, notification without a permission
+wait, isolated edits, coordination of active collisions/GPU outputs, qualified independent
+review and credit for actual work. Removed the explicit prohibition on editing another
+lane's shared/evaluator files in the research protocol; older allocations are superseded.
+No student reassignment, contribution or execution is inferred. Scientific/qualification
+gates and protected-branch permissions remain. No code changed or external message sent.
+Validation: `git diff --check` and policy-reference checks; no software tests needed.
+Next: any available student claims a bounded blocking item and proceeds, recording real
+evidence and arranging an available qualified reviewer before merge.
+
 This file is the team-wide handoff for T39–T43 and the other project workstreams. Each student records **their own** verified work here when making a meaningful update; do not write another student's contribution for them. Use the matching task ID and the entry format below. The task state, owner and next action remain in [tasks.md](tasks.md), the only backlog.
 
 ```text
@@ -17,6 +36,83 @@ Next step: [one action and its owner]
 ```
 
 Keep updates factual and concise. A plan is not completed work; an agent's output is not verified until the student reviews it. Do not invent time, authorship, results or metrics. Omit raw scans, credentials, private paths, per-image private identifiers and local session details. Students should not edit this file simultaneously: coordinate one editor at a time, submit the progress change in the student's own reviewed PR/commit, and have the coordinator merge adjacent updates without rewriting anyone else's attribution. For GUI implementation details, also update the [RayGuard-App progress file](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/progress.md); add a short summary and link to that entry here.
+
+## T40–T43 remote handoff review — 21 November 2026
+
+Agent-assisted coordination update requested by the owner after receiving teammate
+messages. This records inspected artifacts and attributed teammate reports, not a
+student-authored contribution entry or independently repeated execution. No hours
+or new owner availability inferred. Existing uncommitted report guidance and the
+user's 6G MENA move preserved.
+
+Commands: `gh pr list --state all`, `gh pr view 18/20/21 --json ...`, `gh api .../pulls/18/comments`,
+GitHub branch/compare/content reads, and `gh pr list -R abdalrahman-ismaik/RayGuard-App --state open`.
+PR #21 head b325c28 has passing Linux/Windows CPU checks, review required; #18 head
+15cb4a0 remains changes-requested with passing checks; #20 remains behind/review
+required with passing checks. No open T41 or app PR found. API read of an assumed
+T41 guide filename returned 404; inspected the actual branch file list and its
+`docs/finetuning.md` instead. No remote mutations, GitHub reviews or messages sent.
+
+Selected T41 `32091bc` sources inspected: planning CLIs always block live execution,
+research config/receipt validation, proposed validation request/result, documentation
+and Slurm template. Synthetic tests/check success are Ahmed's report, not rerun here.
+Branch is one commit ahead/three behind main at inspection; it adds planning files
+also present in #20, requiring reconciliation. Faisal's provenance document and
+receipt source inspected: exact official v1.1 file identity recorded, with evidence
+limits; reported file hashing/receipt interop were not repeated and upstream claims
+were not independently reverified. HPC transfer/hash and head-transfer behavior still
+need executed evidence. T43 research branch records assisted app acceptance work;
+app publication, exact shared app diff and human rehearsal not verified here.
+
+Updated task rows T40–T43, plan/dependency order, status, demo plan and protocol handoff.
+T41/T42 now in progress; real T07 training remains blocked and final T08 full-P1 metrics
+remain unfinished. Plan records main as shared-software PR target, Ali's two outstanding
+safeguards, validation AP interface and common-parent U/T comparison, reviewed data
+policy and one qualified pilot before searches. It preserves generic/specific scope
+without promising 40 attempts before report submission. No new model results claimed.
+
+Checks: `git -c core.safecrlf=false diff --check` passed; PowerShell checks passed
+for T40–T43 row uniqueness/column counts/in-progress states, integration coverage
+and the plan handoff link target. No code changed or software tests run.
+Next: human Abd reviews/reconciles PRs and report evidence;
+Ahmed opens software PR; Ali fixes #18 and supplies interface; Faisal/Ahmed verify HPC
+initialization. Students supply report-ready evidence by the 23 Nov review freeze,
+retaining 24 Nov 17:00 submission and 30 Nov collection obligations.
+
+## T38 report specification and persistent guidance — 21 November 2026
+
+Agent-assisted documentation prepared at the project owner's explicit request; human
+review is pending. No student authorship, hours, accepted assignment or report completion
+is inferred. The owner designated the Fall 2026 handbook as the primary course reference,
+confirmed 24 November as the report deadline, required canonical LaTeX with professional
+visuals, and chose a checked Word copy alongside the PDF unless PDF acceptance is confirmed.
+
+Added [report specification](final-report-requirements.md) with R01–R15 coverage,
+the six SDP I chapters, formatting guidance, research/project/meeting source policy,
+visual provenance, Gantt plan/actual distinctions, forms, confidentiality and submission
+gates. Reinspected the local handbook body and both SDP I rubric tables using PowerShell
+`System.IO.Compression.ZipArchive` and XML text extraction with shared read access.
+Original DOCX unchanged; no rendering, embedded form-artwork inspection or signatures
+verified. Risk Assessment and Health and Safety are listed for SDP I/II; clearance I/II
+is explicitly SDP II. Recorded supervisor/examiner weights separately and corrected the
+course checklist's implication that supervisor weights alone described course assessment.
+
+Updated root agent/contribution guidance, all four project workflow skills, documentation
+index, T38 deliverables, main/demo plans, course checklist and status. Requirements are
+centralized; `docs/tasks.md` remains the sole backlog. These are documentation changes;
+no LaTeX source/report, bibliography, figures, forms or measured model results were created.
+Existing user changes moving the 6G MENA record were preserved. No Git identity action,
+commit, push, external message or publication performed.
+
+Checks: `git diff --check` passed; PowerShell `Select-String`/regex/`Test-Path`
+checks passed for all 13 guidance references, R01–R15 coverage and every relative
+file link in the new specification. Existing links to the user-moved 6G MENA record
+were not repaired as part of this update. No code changed; software tests were not run.
+Next: human coordinator reviews this diff, accepts report editor/reviewer assignments,
+maps actual evidence to R01–R15 and verifies official templates plus LaTeX/Word conversion.
+Target submission 24 Nov, 17:00 UTC+4; report assembly, actual approvals/signatures,
+distribution permission and submission remain unfinished. Retain the separate 30 Nov
+collection obligation and historical deadline conflicts.
 
 ## T40–T42 — reproduction, Optuna and HPC planning — 18 November 2026
 

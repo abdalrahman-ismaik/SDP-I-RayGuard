@@ -3,6 +3,11 @@ name: iedxray-data-audit
 description: Inspect authorized IEDXray COCO annotations and images, category meanings, negatives, split overlap and physical-group provenance before conversion or training.
 ---
 
+For report evidence, first read `docs/final-report-requirements.md`: primary handbook
+authority, canonical LaTeX/PDF plus checked Word copy, sourced visuals, Gantt/forms
+and both SDP I rubrics. Hand off sanitized counts, label/split/group limitations
+and authorized visual provenance; original scans remain private. T38 owns report state.
+
 Use for IEDXray COCO audits or task-map changes; STCray uses its separate native audit below.
 Inputs: authorized JSON/image paths, annotation task, published split provenance and any
 verified physical-group field.

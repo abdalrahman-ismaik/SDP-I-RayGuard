@@ -1,7 +1,43 @@
 # Current project status
 
-Updated 18 November 2026. Read [tasks](tasks.md), [meeting records](meeting_minutes/README.md)
+**Collaboration update, 21 November:** the owner prioritizes assigned work and authorizes a teammate blocked by a small dependency to
+finish another lane's work without waiting for its lead. Record scope/actual editor,
+notify affected teammates and proceed in isolation; coordinate active collisions and
+shared GPU/output use. Names in task handoffs are contacts, not exclusive implementers.
+Retain independent review, scientific gates, protected branches and accurate credit.
+
+Updated 21 November 2026. Read [tasks](tasks.md), [meeting records](meeting_minutes/README.md)
 and [the plan](plan.md) for the authoritative backlog and requirements.
+
+## Report priority — 21 November
+
+Owner confirms the 24 Nov report deadline; target **17:00 UTC+4**. The primary handbook
+requirements and owner-approved **LaTeX/PDF plus checked Word** workflow are recorded in
+the [report specification](final-report-requirements.md), including six SDP I chapters,
+paper/project/meeting sources, figures/tables, Gantt chart, applicable forms and both
+assessment rubrics. T38 and the [delivery sequence](plan.md#report-delivery-sequence-agreed-21-november)
+track remaining work. Requirements documentation is prepared; report content/build,
+official form review/signatures, human owners, distribution permission and submission
+are not verified complete. Next: name the report editor/reviewer and map actual evidence
+to the specification before assembling the report. The older 27 Nov notice remains a
+recorded conflict; plan around 24 Nov.
+
+## Latest software and PR handoff — 21 November
+
+Selected remote artifacts and current PR metadata inspected: T40 PRs #17/#19 are
+merged; initialization PR #21 (`b325c28`) has passing hosted CPU checks and requires
+human review. Ahmed's T41 branch `32091bc` implements blocked planning/synthetic
+study software and a Slurm template, not live training; no open T41 PR found. Ali's
+T42 PR #18 (`15cb4a0`) still requests changes: approved-GT hash and matching clean
+inference-code identity. It also needs the validation objective and common-parent
+candidate comparison for T41. T41/T42 now in progress. Mohammad's branch records
+an app acceptance slice; actual shared app commit and human walkthrough need review.
+No open RayGuard-App PR found at inspection. No real training, full evaluation or HPC
+qualification verified by this review. [Current dependency order and handoffs](plan.md#latest-team-integration-review--21-november).
+Next: Abd reviews #21/#20 and Ahmed's software PR to main; Ali fixes #18 and agrees
+validation/data policy with Ahmed. Prioritize report evidence by 23 Nov, submission
+24 Nov 17:00; preserve unfinished studies as limitations. Older 19 Nov draft targets
+and proposed-owner wording below are historical; current task rows supersede them.
 
 ## ML planning update — 18 November
 

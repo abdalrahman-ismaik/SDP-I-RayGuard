@@ -1,5 +1,12 @@
 # Single-scan model baseline and fine-tuning plan
 
+**Owner amendment, 21 November:** task/file allocations below identify default contacts,
+not exclusive implementers. Prioritize assigned work. A student may complete a small blocking item in another lane's unfinished
+work: record scope/editor, notify affected teammates and proceed without waiting for a
+reply. Use isolated branches/worktrees, coordinate active edit/GPU/output collisions,
+retain independent review and credit actual work. This supersedes older person-specific
+file exclusions and required-person interface approvals; scientific gates still apply.
+
 **Updated 18 November 2026 — coordinator-prepared student handoff; implementation remains with the task owners.** The owner confirms HPC access and CVMI Lab provision of the models/resources. The agreed research aim is supplied-checkpoint evaluation reproduction, author-training reproduction where settings can be recovered, and a controlled Optuna improvement study on public IEDXray. Generic explosives first, specific explosives second; 20 attempted configurations per task. No new training/evaluation or student contribution is inferred.
 
 The [detailed fine-tuning protocol](finetuning.md) and [HPC handoff](hpc-training.md) govern the new experimental design. They supersede this document's earlier generic-only draft scope, access-as-unavailable wording, and assumption that supplied task weights can initialize an unseen train-derived validation experiment. Faisal owns baseline/shared contracts, Ahmed training/Optuna/Slurm, Ali independent evaluation; Abd and Mohammad review app/report integration. Proposed ownership still needs each student's acceptance. The six core T41 paths are confirmed as a coherent file boundary, with the owner reporting Faisal's non-overlap confirmation.

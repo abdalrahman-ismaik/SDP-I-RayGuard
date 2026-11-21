@@ -1,5 +1,15 @@
 # IEDXray reproduction and Optuna improvement protocol
 
+**21 November implementation handoff:** the protocol below remains the coordinator's
+agreed research brief. Ahmed's branch `ahmed/t41-software-draft` at `32091bc` now
+contains planning/partition/provenance and synthetic orchestration software plus a
+Slurm template; its CLIs block live execution. Faisal's PR #21 supplies starting-weight
+provenance/receipt, and Ali's PR #18 is a draft evaluator with requested safeguards.
+See the [current integration sequence](plan.md#latest-team-integration-review--21-november)
+and T40–T42. No trainer/backend qualification or real study is verified. Reconcile
+Ahmed's branch-local same-named guide with this protocol during human PR review,
+preserving actual implementation history rather than overwriting either record.
+
 Updated 18 November 2026. **Planning and student handoff only.** No trainer,
 Optuna integration, Slurm launcher, training environment, new run or result is
 implemented or verified by this update. The sole backlog is [tasks](tasks.md).
@@ -142,7 +152,9 @@ attention module, model replacement or synthetic-data expansion is required.
   This document is a coordinator-prepared brief for Ahmed to continue, not a claim
   that Ahmed wrote it. Plan extra helpers under `scripts/tune_yolov10.py` and
   `environments/training/` as T41 extensions, with file ownership recorded first.
-  Do not edit Faisal's shared manifest, baseline adapter or CLI, or Ali's evaluator.
+  These are default contacts, not exclusive file ownership. Prioritize assigned work; a teammate blocked by a small dependency may
+  implement missing shared/evaluator changes after recording scope and notifying others,
+  without waiting for a reply. Coordinate active collisions and retain independent review.
 - **Ali / T42:** independent COCO evaluator, validation objective interface,
   untouched-test protocol, reproduction and matched candidate metrics, class/size
   errors and latency. Ahmed calls Ali's interface; do not create a competing

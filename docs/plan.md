@@ -1,8 +1,112 @@
 # Current plan - Meeting 02 and follow-up
 
-Updated **14 November 2026 (Asia/Dubai)**. Source precedence and exact action IDs are in the
+Updated **21 November 2026 (Asia/Dubai)**. Source precedence and exact action IDs are in the
 [meeting index](meeting_minutes/README.md). [Tasks](tasks.md) holds status; this page sequences
 the work without assigning availability or claiming completion.
+
+## Latest team integration review — 21 November
+
+**Owner amendment — shared execution:** focus on assigned work first; an available student may complete a small
+unfinished dependency, including another lane's evaluator, receipt, trainer or report.
+Names here identify contacts/current contributions, not exclusive rights or mandatory
+approvers. Record scope/editor, notify affected teammates and proceed in isolation;
+no reply is required to start non-overlapping work. Coordinate active edit/compute
+collisions. Use an available qualified reviewer while preserving independent review
+and protected-branch permissions. Credit actual work. This supersedes older personal
+file exclusions and named-person handoff gates; data/qualification gates still apply.
+
+This review supersedes stale "not started" software descriptions below. Evidence:
+GitHub branch/PR metadata and selected source inspected; teammate execution reports
+are attributed reports, not locally repeated checks. No new real training/evaluation
+or HPC qualification was executed. Backlog state and ownership stay in [tasks](tasks.md).
+
+| Work | Inspected state | Next handoff |
+|---|---|---|
+| Faisal T40 | Baseline/contracts/tools merged in PRs #17/#19. [PR #21](https://github.com/abdalrahman-ismaik/SDP-I-RayGuard/pull/21), head `b325c28`, supplies initialization provenance and receipt helper; both hosted CPU platforms pass, review required. | Ahmed reviews receipt; Ali reviews common-parent semantics; Abd performs human PR review. Rehash the permitted file on HPC before use. |
+| Ahmed T41 | [Draft `32091bc`](https://github.com/abdalrahman-ismaik/SDP-I-RayGuard/tree/32091bcd1f46782ed39ac1233ad70e6ecf70451d) on `ahmed/t41-software-draft`: partition/provenance/preflight, synthetic study orchestration and Slurm template. CLIs explicitly block live execution. No open PR found at inspection. | Ahmed opens PR **to `main`** for software review; reconcile overlapping planning docs with PR #20. Implement real trainer/validation connections only after interface/data/environment gates. |
+| Ali T42 | [PR #18](https://github.com/abdalrahman-ismaik/SDP-I-RayGuard/pull/18), unchanged head `15cb4a0`: draft generic COCO evaluation; hosted CPU checks pass but changes requested. | Fix required GT hash and clean matching inference-code identity; deliver validation interface and common-parent U/T mode. Specific-task support is still required separately. |
+| Mohammad T43 | Research branch `mohammad/guiflow`, `164d6cf`, records an assisted GUI acceptance slice and reported checks in the separate app. The branch changes only research task/progress docs. | Supply app commit/diff and human walkthrough evidence for Abd's review; verify app work is actually shared. No open app PR found; that does not establish whether local work is complete. |
+| Abd T38/T39 | Report specification and guidance are local reviewed-work candidates; PR #20 remains behind/review required despite passing hosted CPU checks. Current app implementation was not requalified here. | Review integration, reconcile docs, preserve existing edits, coordinate report and demo evidence. All GitHub reviews/merges remain human actions. |
+
+### Dependency order and decisions to close
+
+1. **Review targets:** student PRs for shared ML/software/documentation target `main`;
+   GUI implementation targets RayGuard-App. Review #21 and corrected #18 independently;
+   Ahmed's PR may be reviewed as a blocked software draft before live dependencies are
+   merged. Do not silently overwrite coordinator protocol with branch-local drafts.
+   Human reviewer reconciles #20/T41 `docs/finetuning.md` and `docs/hpc-training.md`,
+   preserving both the agreed protocol and Ahmed's actual implementation history.
+   After accepted increments, humans sync shared fixes into both prototype branches;
+   app engine pin advances only with app integration checks.
+2. **Initialization:** PR #21 documents official THU-MIG/yolov10 `v1.1` `yolov10m.pt`,
+   66,924,323 bytes, SHA-256
+   `ff2c559f11d13701abc4e0345f82851d146ecfe7035efaafcc08475cfd8b5f2d`.
+   Its documentary/timing/embedded-COCO evidence supports exclusion of IEDXray but is
+   not proof of training contents. This review inspected Faisal's record/code, not
+   the weight bytes or upstream sources independently. Faisal/Ahmed transfer through
+   an approved channel and rehash on HPC. Agree receipt fields, task identity and
+   model IDs; both U/T records use role `candidate` with the same initialization
+   parent hash, never one another's output as parent. Keep actual output hashes distinct.
+3. **Ali's immediate interface:** review Ahmed's existing `validation_request` and
+   `validate_objective_result` in `src/sdp_xray/tuning.py` at `32091bc`. Request binds
+   checkpoint hash, completed epoch, task, partition hash, annotation hash, validation
+   IDs and objective. Result supplies status, matching identities/objective, exact
+   evaluated image IDs and finite AP@[.50:.95] in **0–1**. Freeze evaluator version,
+   settings and ID inside the objective metadata. Use training-derived validation
+   only; keep final test evaluation separate. Agree failure, callback and checkpoint
+   selection behavior; test wrong hash/task/IDs, nonfinite values and evaluator failure.
+4. **Matched comparison:** Ali keeps supplied-checkpoint reproduction separate from
+   controlled U/T comparison. Add a mode accepting two candidate records with equal
+   parent/task/class maps, split and inference settings, and clean identical inference
+   code identity. Link separate training receipts to the same partition, initialization
+   procedure and paired seeds/budget; shared parent hash alone is insufficient. Preserve
+   the existing baseline/candidate mode. Ahmed's current initialization validator fixes
+   seed 17; agree how head initialization and repeat seeds 17/29/43 are represented
+   before repeat runs, rather than assuming all seed receipts already interoperate.
+5. **Data policy — Ali and Ahmed draft, Abd coordinates review:** retain published test
+   files/annotations unchanged; group exact training duplicates transitively with any
+   verified physical groups in one training-derived partition shared by both tasks.
+   Record published-test overlap and limit independence claims. Missing physical groups
+   requires an explicitly reviewed exploratory fallback, never filename inference.
+   Invalid geometry stays blocked in the current draft; any repair needs separate
+   reviewed derived-data implementation, source/affected-ID hashes and rationale.
+   These are recommendations to approve and bind to findings hashes, not new approvals.
+6. **Live integration and pilot:** Ahmed connects the qualified real trainer to Ali's
+   evaluator; Faisal checks provenance/run handoff. One owner/job/output directory,
+   pinned isolated environment, full verified local weights path, explicit seed and
+   `amp: False` for initial FP32 qualification. Prevent runtime package/weight downloads.
+   Keep the upstream transfer log to verify task-head handling. Forward/backward/save/
+   reload and a bounded pilot must pass; record hardware, actual device, dependency
+   inventory, hashes, command, errors and measured runtime before estimating search cost.
+7. **Research/report cutoff:** retain generic-first then specific 20-attempt studies as
+   the agreed research scope, not a guarantee before 24 Nov. Schedule only after measured
+   pilot/quotas and accepted compute budget. On 23 Nov freeze report content for review;
+   include only verified results available then. If blocked, document implemented
+   software, synthetic checks, precise blockers and the unfinished experiments. Missing
+   new metrics must not delay the 24 Nov 17:00 submission. The 30 Nov collection deadline
+   and full P1/P2 obligations remain separately tracked.
+
+Each student supplies a concise report-ready method/evidence/limitations paragraph,
+real commit/PR links, actual checks and personal contribution statement. Follow the
+[handbook report specification](final-report-requirements.md), including sources,
+figures, Gantt plan-versus-actuals and applicable forms. No invented dates/hours or
+metric values. These instructions allocate next handoffs; new availability is unconfirmed.
+
+## Report delivery sequence agreed 21 November
+
+Follow the [report specification](final-report-requirements.md) and T38 as the immediate
+delivery priority. **21 Nov:** coordinator/report editor and students confirm ownership,
+map handbook requirements to evidence, inspect official templates/forms, verify source
+metadata and establish the LaTeX-to-Word conversion path. **22 Nov:** assemble the six
+SDP I chapters, bibliography, purposeful visuals, Gantt chart and applicable forms;
+distinguish actual work from planned experiments. **23 Nov:** complete group/supervisor
+review as available, contribution verification, reference/visual provenance checks and
+page-by-page PDF/Word inspection. **24 Nov:** resolve submission gates and submit before
+**17:00 UTC+4**, preserving the same content for permitted distribution and private
+receipts. These are planned milestones, not accepted student assignments or completion.
+Required human signatures, format acceptance and confidentiality/publication decisions
+remain explicit dependencies. Report from verified evidence; retain unfinished ML/P2
+work and the 30 Nov collection obligation without promising new results before submission.
 
 ## Current end-of-semester implementation phase — 14 November
 

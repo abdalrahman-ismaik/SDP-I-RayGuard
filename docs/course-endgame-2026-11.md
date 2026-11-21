@@ -4,6 +4,13 @@ This record consolidates the course announcements supplied to the team and the F
 
 ## Dates and conflicts
 
+**21 November owner decision:** use the handbook as primary course authority and
+[report specification](final-report-requirements.md) as the detailed shared checklist.
+Author in **LaTeX**, produce a professional PDF and a checked **Word** submission copy
+unless PDF acceptance is confirmed. The owner confirms **24 November**; target
+**17:00 UTC+4**. Preserve the conflicting 27 Nov notice below as historical context.
+T38 holds execution state and the report deliverables; no report completion is implied.
+
 | Item | Course statement | Working action |
 |---|---|---|
 | Final report | The Final Demos announcement says Tuesday **24 November 2026, 5:00 pm**. The Blackboard details also show **11/24/26, 5:00 PM (UTC+4)**, one attempt and no late submission. A later “Final Project Report Submission Link” notice instead says the deadline is the end of Week 14, **27 November**. | Treat **24 November, 5:00 pm UTC+4** as the working cutoff because it is the explicit Blackboard due-date field and is earlier. Confirm the active link/date with the course coordinator; do not plan around 27 November. |
@@ -16,7 +23,10 @@ This record consolidates the course announcements supplied to the team and the F
 - Email the same final report to the supervisors and examiner after Blackboard submission. Retain submission/email evidence privately; do not put receipts or addresses in Git.
 - Include the GitHub group repository link in the final report.
 - Include a clear per-student contribution table covering the report, system and other project work. Grades are individual, including the report; group output alone does not establish each student's contribution.
-- Upload the final report to GitHub as well. Keep that copy identifiable and consistent with the Blackboard/email copy.
+- The notice requests the final report on GitHub as well. Resolve the handbook's
+  confidentiality/written-permission requirement before public distribution; see the
+  [distribution gates](final-report-requirements.md#forms-and-distribution-gates).
+  Keep any permitted copy identifiable and consistent with the submitted content.
 - No separate progress report is required according to the handbook announcement. Maintain a progress document in GitHub and document work, decisions and meetings throughout.
 
 ## GitHub record expected by the course
@@ -39,7 +49,13 @@ The supplied August 2026 handbook's SDPI detailed rubric allocates individual ma
 | Final live demo | 25% | Core functions, end-to-end integration, output/performance, reliability/error handling and demo execution |
 | Q&A | 20% | Technical understanding, justification, critical evaluation, individual contribution, clarity/independence |
 
-These weights total 100% and are individual assessment. The announcement's 15% statement is consistent with the handbook's GitHub-record category.
+These are the **supervisor form's** weights, totaling 100 within that form. The SDP I
+**examiner form** instead assigns report 20, presentation 20, live demo 25 and Q&A 35,
+with no separate GitHub category. Handbook §6 gives supervisor and examiner 50% each;
+the table above is not the combined course weighting. Both detailed rubrics and their
+evidence mapping are recorded in the [report specification](final-report-requirements.md#assessment-coverage).
+The announcement's 15% wording remains recorded separately; clarify any intended
+course-wide interpretation rather than silently equating it with the combined grade.
 
 ## Report and presentation preparation
 
@@ -53,6 +69,11 @@ The announcement invites items for the CCMS LinkedIn Content Submission Form in 
 
 ## Checklist and evidence log
 
+- [ ] Map report specification R01–R15 to sections, sources and actual evidence.
+- [ ] Build the LaTeX PDF and compare the Word copy, including equations, figures, tables and references.
+- [ ] Prepare the Gantt chart, source/visual provenance and applicable Risk Assessment, Health and Safety and declaration forms; obtain real signatures.
+- [ ] Resolve handbook confidentiality/publication permission and physical-copy requirements before distribution; keep signed/personal records private unless authorized.
+
 - [ ] Confirm report deadline and active Blackboard link; use 24 Nov, 5:00 pm UTC+4 as the working cutoff.
 - [ ] Confirm project number and exact filename against the allocation file/current link.
 - [ ] Confirm presentation date, assigned slot, room, format and supervisor expectations.
@@ -60,7 +81,7 @@ The announcement invites items for the CCMS LinkedIn Content Submission Form in 
 - [ ] Ensure each student's contribution is traceable and prepare individual supervisor explain-backs.
 - [ ] Complete the report, contribution table, GitHub link, references and applicable forms; obtain group/supervisor review.
 - [ ] Upload one `.doc`/`.docx` to Blackboard, retain confirmation privately, then email the same report to supervisors and examiner.
-- [ ] Commit the submitted report and update GitHub progress with actual completion evidence.
+- [ ] After distribution permission is resolved, a human commits the permitted report copy and updates GitHub progress with actual completion evidence.
 - [ ] Rehearse slides, demo, handoffs and Q&A on the presentation setup.
 - [ ] Decide whether to submit an accurate, approved LinkedIn item; record actual submission/approval, not intent.
 
