@@ -1,0 +1,34 @@
+{
+  "schema_version": "t41-draft-1",
+  "dataset": "public_iedxray",
+  "model_id": null,
+  "intended_parent_checkpoint_sha256": "b484d9a6fb37236f6adcc8c019e6a836f11901dc53a0f71d6cce7262413287ff",
+  "gui_confirmation": null,
+  "sources": {"train": null, "validation": null, "test": null},
+  "validation": {
+    "origin": null,
+    "membership_reference": null,
+    "independent_of_author_checkpoint": null,
+    "test_used_for_tuning": null
+  },
+  "hyperparameters": {"epochs": null, "imgsz": null, "batch": null, "lr0": null, "seed": null},
+  "approvals": {
+    "data_policy": null,
+    "source_identity": null,
+    "annotation_policy": null,
+    "duplicate_policy": null,
+    "physical_groups": null,
+    "validation_design": null,
+    "environment": null,
+    "scope": null
+  },
+  "environment": {
+    "upstream_revision": "453c6e38a51e9d1d5a2aa5fb7f1014a711913397",
+    "lock_sha256": null,
+    "train_save_reload_qualified": null,
+    "qualification_reference": null
+  },
+  "requested_device": null,
+  "owner": null,
+  "output_directory": null
+}
