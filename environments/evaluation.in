@@ -1,0 +1,5 @@
+# T42 evaluation-only dependencies; not model, training or root CPU-lock dependencies.
+# Used as: uv run --locked --with-requirements environments/evaluation.in python ...
+# numpy matches the pin in model-common.in.
+numpy==2.2.6
+pycocotools==2.0.11
