@@ -126,6 +126,15 @@ def main(argv: list[str] | None = None) -> int:
     plan.add_argument("checkpoint", help="Checkpoint path to place in the listed arguments")
     plan.add_argument("output_root", help="Parent directory for the per-scan run directories")
     plan.add_argument("--model", default=None, help="Catalog model ID; default is the generic model")
+    receipt = commands.add_parser(
+        "init-receipt",
+        help="Hash local general starting weights and print the initialization receipt",
+    )
+    receipt.add_argument("weights", type=Path, help="Local copy of the recorded yolov10m.pt")
+    receipt.add_argument("--task", required=True, choices=("generic", "specific"))
+    receipt.add_argument("--owner", required=True, help="Person verifying the file")
+    receipt.add_argument("--seed", type=int, default=17)
+    receipt.add_argument("--output", type=Path, help="New JSON file; never overwritten")
     args = parser.parse_args(argv)
     try:
         if args.command == "doctor":
@@ -138,6 +147,14 @@ def main(argv: list[str] | None = None) -> int:
                 report = summarize(*read_record(args.record))
             except (KeyError, TypeError) as exc:
                 raise ValueError("record is missing an expected field") from exc
+            code = 0
+        elif args.command == "init-receipt":
+            from sdp_xray.initialization import initialization_receipt
+
+            report = initialization_receipt(args.weights, args.task, args.owner, args.seed)
+            if args.output:
+                with args.output.open("x", encoding="utf-8") as handle:
+                    handle.write(json.dumps(report, indent=2, allow_nan=False) + "\n")
             code = 0
         elif args.command == "baseline-plan":
             from sdp_xray.baseline import plan_runs

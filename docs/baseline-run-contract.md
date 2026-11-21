@@ -146,6 +146,8 @@ Keep `task`, `kind`, `model_names` and `source_category_map` identical to the ba
 the two records are comparable. `validate_run_manifest` and `validate_prediction_set` do
 not depend on the catalog, so they work for a checkpoint that is not listed there. The
 baseline adapter itself only accepts catalog models.
+For the controlled study, the starting checkpoint is the general pretrained file
+recorded in [initialization provenance](initialization-provenance.md), not a catalog model.
 
 **Evaluation (T42).** Start from `read_record`. For COCO output, convert `box_xyxy` to
 `[x, y, width, height]` and look up `category_id` by label in `source_category_map`.
