@@ -1,0 +1,21 @@
+\documentclass[tikz,border=8pt]{standalone}
+\usepackage{fontspec}
+\setsansfont{Arial}
+\usetikzlibrary{arrows.meta,positioning,fit}
+\begin{document}
+\begin{tikzpicture}[font=\sffamily\small,>=Stealth,
+box/.style={draw=blue!50!black,rounded corners=2pt,fill=blue!5,align=center,text width=3cm,minimum height=1.05cm}]
+\node[box] (input) {Authorized image\\Upload / folder / replay};
+\node[box,right=0.65cm of input] (api) {Local application API\\Canonical image};
+\node[box,right=0.65cm of api] (model) {Isolated model runtime\\Verified task / weights};
+\node[box,below=1cm of api] (result) {Validated scan / run\\Original-pixel boxes};
+\node[box,left=0.65cm of result] (gui) {Operator GUI\\Review / notes / export};
+\node[box,right=0.65cm of result,dashed] (research) {Research path\\Trainer + validation};
+\draw[->,thick] (input)--(api);
+\draw[->,thick] (api)--(model);
+\draw[->,thick] (model.south)--++(0,-0.35)-|(result.north);
+\draw[->,thick] (result)--(gui);
+\draw[->,dashed,thick] (research)--(result);
+\node[below=0.7cm of result,align=center] {Shared contracts and catalogue are versioned in the engine.\\Physical scanner control and case fusion remain unverified.};
+\end{tikzpicture}
+\end{document}

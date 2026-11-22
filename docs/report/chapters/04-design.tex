@@ -1,0 +1,89 @@
+\chapter{Concept Generation and Design Evaluation}\label{ch:design}
+\section{Alternatives and selection criteria}
+The design must balance reproducibility, demonstrated compatibility, development
+effort, usable operator feedback and the risk of unsupported claims. The team
+retained a working task-matched YOLOv10-M reference before expanding detector
+comparisons. This choice preserves a real integration path while the evaluation
+protocol is qualified. Table~\ref{tab:alternatives} documents alternatives and
+the evidence supporting their present disposition.
+
+\begin{table}[htbp]\centering\small
+\caption{Design alternatives and the basis for the current implementation.}
+\label{tab:alternatives}
+\begin{tabular}{p{0.18\textwidth}p{0.34\textwidth}p{0.35\textwidth}}
+\toprule Decision & Alternatives & Current rationale\\\midrule
+Detector & YOLOv10-M; two-stage or transformer-based detectors & Retain the executed reference; other architectures remain research comparisons, not locally verified results\\
+P1 layout & Full-image association; host-crop cascade & Association/cascade decision remains open; a crop design must address missed hosts and coordinate remapping\\
+Input adapter & Manual upload; completed-image folder; scanner SDK & Upload/folder/replay implemented; SDK depends on observed hardware interface\\
+Execution boundary & Model dependencies in main environment; isolated subprocess & Isolated backend preserves locked CPU tools and explicit task/runtime qualification\\
+Study initialization & Continue author task checkpoint; general pretraining & Use general pretraining for controlled validation; keep supplied-checkpoint reproduction separate\\
+P2 method & Independent aggregation; learned fusion; language reasoning & Defer decision until component labels and justified cases exist\\\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Architecture}
+The application and research engine have separate repositories. The frontend
+and API serve local operator interaction; the engine supplies contracts,
+catalogue identity and inference tooling through a pinned submodule. A selected
+model runs in its qualified environment, and the service validates the returned
+record before exposing it to the interface. Figure~\ref{fig:architecture} shows
+this implemented boundary alongside the separately prepared research path.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{architecture.png}
+\caption{Original architecture diagram based on the shared architecture record.
+Solid arrows show the prototype path; the dashed research path requires further
+trainer integration and qualification.}
+\label{fig:architecture}
+\end{figure}
+
+The source image, canonical oriented image and original-coordinate predictions
+must remain correctly associated. Operator viewing adjustments do not silently
+become model preprocessing. Session history and saved evidence also have different
+lifetimes: the visible session list may reset while private run artifacts remain.
+\projectrecord{docs/architecture.md; RayGuard-App/docs/architecture.md}
+
+\section{Preprocessing and host association}
+The proposal asks for image-quality enhancement. Adding a visually appealing
+filter without checking the checkpoint's expected input would change the
+inference distribution. The present design documents the actual normalization
+and backend transforms first. Any enhancement study should compare a declared
+transform against an identity reference under an eligible validation protocol.
+This draft claims no measured benefit from contrast or noise changes.
+
+A host-crop cascade could reduce irrelevant background, but missed host boxes
+would prevent later stages from seeing threats. Multiple or overlapping hosts,
+padding, duplicate predictions and out-of-crop regions require explicit rules.
+Full-image association avoids that specific gate but still needs a justified
+link between threat and host. Neither choice follows automatically from the
+dataset's separate device and explosive annotations.
+
+\section{Realistic constraints and engineering practice}
+Compute access does not establish a functioning training backend or unlimited
+quota. A bounded owned pilot must establish forward/backward execution,
+save/reload behavior and runtime before committing to the full search budget.
+The planned studies use generic first, then specific tasks; report submission
+must not depend on an unmeasured runtime estimate.
+
+The proposal records a 1,000 AED budget and lab-provided GPU resources. Actual
+spending, allocations and utilization are not established by that proposal.
+Software choices should be explainable by the students and avoid unnecessary
+dependencies. Local retention of scans and credentials reduces exposure;
+public repository records contain sanitized evidence rather than raw artifacts.
+
+\section{Standards, ethics and sustainability}
+The project uses COCO conventions and a versioned JSON interface as technical
+interoperability choices. They do not amount to certification under aviation,
+radiation-safety or security-screening standards. The original dual-energy
+scanner signal is not available in the inspected processed RGB release, so
+physical material classification must not be inferred from display colors alone.
+
+Risk includes missed detections, overconfidence, privacy leakage and misleading
+demonstrations. Explicit error states, retained known misses and provenance
+records are design responses. Lab work requires supervisor-approved scanner
+and safety procedures. Compute studies should use measured pilot budgets,
+bounded trials and reuse of valid evidence; no environmental saving or energy
+measurement is claimed without actual measurement.
+
+The design decisions in this chapter lead to the implementation and evidence
+review in Chapter~\ref{ch:implementation}.

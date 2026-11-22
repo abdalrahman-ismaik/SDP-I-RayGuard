@@ -3,6 +3,11 @@ name: prototype-demo
 description: Prepare and rehearse the early RayGuard GUI showcase or a full P1/P2 demonstration using the matching acceptance scope, real model evidence and student explain-back.
 ---
 
+For report and assessment work, first read `docs/final-report-requirements.md`: primary
+handbook authority, canonical LaTeX/PDF plus checked Word copy, sourced visuals,
+Gantt/forms and both SDP I rubrics. Align demo claims, screenshots and individual
+explain-backs with actual report evidence; T38 owns delivery and rehearsal state.
+
 Use for the early GUI showcase, P1/P2 rehearsal or a milestone handover. Inputs: agreed advisor
 acceptance, verified revision/environment, authorized representative inputs and real run manifests.
 Paths below are relative to the repository root. Read `AGENTS.md`, `docs/status.md`, active

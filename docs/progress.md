@@ -1,5 +1,286 @@
 # Engineering progress and contribution records
 
+## Team update protocol
+
+### T42 PR review and integration executed — 21 November 2026
+
+At Abd's explicit request to perform the review work, used an isolated detached
+worktree at PR #18. At `6dfa7d6`: `uv run --locked ruff check .` passed;
+`uv run --locked python -m pytest` passed 244, skipped two optional evaluator modules;
+`uv run --locked --with-requirements environments/evaluation.in python -m pytest`
+passed 268. Updated PR branch with main through GitHub to `6edcd68`; Ruff passed
+and evaluation-enabled full pytest passed **273 tests**. All synthetic software
+checks; no inference, real metrics, data repair or HPC job.
+
+Inspected safeguards, comparison modes, objective interface and regression coverage.
+Resolved both threads, submitted approval, updated PR description and merged through
+normal protections after required Linux/Windows CI passed. Actual main merge commit:
+`9350482b89ff601d5617d684b9ac8b5a44173c2d`. Actions used authenticated repository-owner
+account at explicit user direction; no agent identity configured. This is assisted
+review evidence, not proof of personal student understanding or invented hours.
+
+Updated tasks/status/plan and conservative data-policy handoff: preserve test,
+group duplicates/verified physical groups in training-derived validation, mark unknown
+independence, keep geometry blocked without reviewed repair and hash real policy
+receipts. These rules do not themselves clear real data or approve unseen receipts.
+Next: consume current main evaluator, bind findings/partition and qualify the pilot.
+Unrelated 6G MENA move remains untouched. Documentation diff checks required before push.
+
+### T42 validation handoff update — 21 November 2026
+
+Owner relayed Ali's update; agent inspected PR #18 metadata and selected source via
+`gh pr view 18 --json ...` and GitHub contents API for evaluation/validation_objective.
+Head `6dfa7d6` contains required approved-GT hash and clean matching code safeguards,
+validation objective helper/evaluator and common-parent candidate comparison. Hosted
+Linux/Windows CPU checks pass; existing changes-requested review remains pending
+human re-review. Ali reports synthetic interop with Ahmed's validate_objective_result;
+not locally rerun. No real metrics or model execution established.
+
+Updated T42 state/next actions and current plan/status/protocol/demo handoffs. Ahmed
+can set config objective from validation_objective.objective() and wire actual
+hash-bound validation predictions. Source inspection confirms hash equality checks
+use caller-supplied identities; real file hashing, prediction provenance and partition
+verification remain adapter/preflight responsibilities. Data policy and HPC pilot
+remain open. Earlier dated reviews below describe prior heads, not current blockers.
+No student authorship/hours inferred; no GitHub review, message, commit or push made
+in this update. Documentation-only checks: diff whitespace and T42 row/link coverage.
+Next: available teammate integrates the interface, Ali/Ahmed settle data policy,
+and a qualified human re-reviews #18 before merge.
+
+### Shared execution policy amendment — 21 November 2026
+
+Subsequent owner clarification: focus on assigned tasks first; independently handle a
+small task from another lane when it blocks the main task. Keep the team informed and
+coordinate changes affecting active work. The broad permission below is narrowed by
+this clarification; it does not encourage abandoning assigned work for another lane.
+
+Owner explicitly authorizes teammates to complete one another's unfinished tasks without
+waiting for a named lead. Agent-assisted update to AGENTS, contribution guidance, tasks,
+plan, status and ML/demo plans records leads as contacts, notification without a permission
+wait, isolated edits, coordination of active collisions/GPU outputs, qualified independent
+review and credit for actual work. Removed the explicit prohibition on editing another
+lane's shared/evaluator files in the research protocol; older allocations are superseded.
+No student reassignment, contribution or execution is inferred. Scientific/qualification
+gates and protected-branch permissions remain. No code changed or external message sent.
+Validation: `git diff --check` and policy-reference checks; no software tests needed.
+Next: any available student claims a bounded blocking item and proceeds, recording real
+evidence and arranging an available qualified reviewer before merge.
+
+This file is the team-wide handoff for T39–T43 and the other project workstreams. Each student records **their own** verified work here when making a meaningful update; do not write another student's contribution for them. Use the matching task ID and the entry format below. The task state, owner and next action remain in [tasks.md](tasks.md), the only backlog.
+
+```text
+### T[ID] — [short workstream name] — [YYYY-MM-DD]
+
+Owner / GitHub handle: [student's name and handle]
+Status: [not started / in progress / blocked / verified complete]
+Completed since last update: [specific work; say “none” if this is a plan]
+Files / PR / commit: [repo-relative paths and human-authored link or hash, when available]
+Checks and evidence: [exact commands and outcomes; link the reviewed artifact or report]
+Blockers / decision needed: [what is blocked, who can decide, or “none known”]
+Next step: [one action and its owner]
+```
+
+Keep updates factual and concise. A plan is not completed work; an agent's output is not verified until the student reviews it. Do not invent time, authorship, results or metrics. Omit raw scans, credentials, private paths, per-image private identifiers and local session details. Students should not edit this file simultaneously: coordinate one editor at a time, submit the progress change in the student's own reviewed PR/commit, and have the coordinator merge adjacent updates without rewriting anyone else's attribution. For GUI implementation details, also update the [RayGuard-App progress file](https://github.com/abdalrahman-ismaik/RayGuard-App/blob/main/docs/progress.md); add a short summary and link to that entry here.
+
+## T40–T43 remote handoff review — 21 November 2026
+
+Agent-assisted coordination update requested by the owner after receiving teammate
+messages. This records inspected artifacts and attributed teammate reports, not a
+student-authored contribution entry or independently repeated execution. No hours
+or new owner availability inferred. Existing uncommitted report guidance and the
+user's 6G MENA move preserved.
+
+Commands: `gh pr list --state all`, `gh pr view 18/20/21 --json ...`, `gh api .../pulls/18/comments`,
+GitHub branch/compare/content reads, and `gh pr list -R abdalrahman-ismaik/RayGuard-App --state open`.
+PR #21 head b325c28 has passing Linux/Windows CPU checks, review required; #18 head
+15cb4a0 remains changes-requested with passing checks; #20 remains behind/review
+required with passing checks. No open T41 or app PR found. API read of an assumed
+T41 guide filename returned 404; inspected the actual branch file list and its
+`docs/finetuning.md` instead. No remote mutations, GitHub reviews or messages sent.
+
+Selected T41 `32091bc` sources inspected: planning CLIs always block live execution,
+research config/receipt validation, proposed validation request/result, documentation
+and Slurm template. Synthetic tests/check success are Ahmed's report, not rerun here.
+Branch is one commit ahead/three behind main at inspection; it adds planning files
+also present in #20, requiring reconciliation. Faisal's provenance document and
+receipt source inspected: exact official v1.1 file identity recorded, with evidence
+limits; reported file hashing/receipt interop were not repeated and upstream claims
+were not independently reverified. HPC transfer/hash and head-transfer behavior still
+need executed evidence. T43 research branch records assisted app acceptance work;
+app publication, exact shared app diff and human rehearsal not verified here.
+
+Updated task rows T40–T43, plan/dependency order, status, demo plan and protocol handoff.
+T41/T42 now in progress; real T07 training remains blocked and final T08 full-P1 metrics
+remain unfinished. Plan records main as shared-software PR target, Ali's two outstanding
+safeguards, validation AP interface and common-parent U/T comparison, reviewed data
+policy and one qualified pilot before searches. It preserves generic/specific scope
+without promising 40 attempts before report submission. No new model results claimed.
+
+Checks: `git -c core.safecrlf=false diff --check` passed; PowerShell checks passed
+for T40–T43 row uniqueness/column counts/in-progress states, integration coverage
+and the plan handoff link target. No code changed or software tests run.
+Next: human Abd reviews/reconciles PRs and report evidence;
+Ahmed opens software PR; Ali fixes #18 and supplies interface; Faisal/Ahmed verify HPC
+initialization. Students supply report-ready evidence by the 23 Nov review freeze,
+retaining 24 Nov 17:00 submission and 30 Nov collection obligations.
+
+## T38 report specification and persistent guidance — 21 November 2026
+
+Agent-assisted documentation prepared at the project owner's explicit request; human
+review is pending. No student authorship, hours, accepted assignment or report completion
+is inferred. The owner designated the Fall 2026 handbook as the primary course reference,
+confirmed 24 November as the report deadline, required canonical LaTeX with professional
+visuals, and chose a checked Word copy alongside the PDF unless PDF acceptance is confirmed.
+
+Added [report specification](final-report-requirements.md) with R01–R15 coverage,
+the six SDP I chapters, formatting guidance, research/project/meeting source policy,
+visual provenance, Gantt plan/actual distinctions, forms, confidentiality and submission
+gates. Reinspected the local handbook body and both SDP I rubric tables using PowerShell
+`System.IO.Compression.ZipArchive` and XML text extraction with shared read access.
+Original DOCX unchanged; no rendering, embedded form-artwork inspection or signatures
+verified. Risk Assessment and Health and Safety are listed for SDP I/II; clearance I/II
+is explicitly SDP II. Recorded supervisor/examiner weights separately and corrected the
+course checklist's implication that supervisor weights alone described course assessment.
+
+Updated root agent/contribution guidance, all four project workflow skills, documentation
+index, T38 deliverables, main/demo plans, course checklist and status. Requirements are
+centralized; `docs/tasks.md` remains the sole backlog. These are documentation changes;
+no LaTeX source/report, bibliography, figures, forms or measured model results were created.
+Existing user changes moving the 6G MENA record were preserved. No Git identity action,
+commit, push, external message or publication performed.
+
+Checks: `git diff --check` passed; PowerShell `Select-String`/regex/`Test-Path`
+checks passed for all 13 guidance references, R01–R15 coverage and every relative
+file link in the new specification. Existing links to the user-moved 6G MENA record
+were not repaired as part of this update. No code changed; software tests were not run.
+Next: human coordinator reviews this diff, accepts report editor/reviewer assignments,
+maps actual evidence to R01–R15 and verifies official templates plus LaTeX/Word conversion.
+Target submission 24 Nov, 17:00 UTC+4; report assembly, actual approvals/signatures,
+distribution permission and submission remain unfinished. Retain the separate 30 Nov
+collection obligation and historical deadline conflicts.
+
+## T40–T42 — reproduction, Optuna and HPC planning — 18 November 2026
+
+Coordinator-prepared documentation at the project owner's request; student authorship,
+acceptance, hours and completed implementation are not inferred. Owner confirms
+HPC access and CVMI Lab provision of papers/data/models. Agreed generic then specific
+explosive studies, fresh general pretrained initialization for training-only validation,
+and 20 attempted Optuna trials per task. Updated T40–T42, T14 access evidence, sprint
+and single-scan plans, status and documentation index; added the detailed
+[research protocol](finetuning.md) and [HPC handoff](hpc-training.md).
+
+Evidence: read both local HPC student DOCX guides using standard-library ZIP/XML
+extraction; inspected the previous football project's current README/training files
+with `rg` and `Get-Content`; checked pinned upstream YOLOv10 trainer/default config
+and Optuna 4.5.0 documentation. Scheduler/environment statements are documented,
+not executed cluster verification. No SSH, training, search, environment installation,
+metrics, contribution credit or GPU job is claimed. Initial implementation files
+created during this session were removed after the owner clarified documentation-only
+scope; the resulting diff contains documentation only.
+
+Checks: `git diff --check` passed. Local Markdown links and documentation-only scope
+were checked with the locked Python interpreter. No code change remains, so Ruff/
+pytest were not required or run. Source manuals remain ignored; no private paths,
+scans, credentials or filled records were added.
+
+Next: Abd sends Ahmed the updated brief; Ahmed/Faisal/Ali accept owned files and
+agree initialization, split/data policy and evaluator interface, then implement
+and qualify an allocated pilot. Draft review remains 19 Nov; complete study dates
+follow pilot timing. The 24-versus-27 Nov report deadline conflict remains unresolved.
+
+## Conference register and completed 6G MENA record — 15 November 2026
+
+Repository documentation was updated at the project owner’s request. The active README no
+longer lists completed 6G MENA, expired CAISAIS/MoSICom calls, or non-publication exhibitions.
+The owner reports that the project team attended 6G MENA on 20 October; individual attendance,
+actual presentation, revised poster artifact and TDRA decision remain unverified. Historical
+requirements and poster artifacts remain archived for the final report.
+
+Created [the UAE conference and invitation register](conferences-2026-2027.md) from current
+official pages and the two invitation texts supplied by the owner. It records submission dates,
+venue/modality, paper fit, conditional publication routes, AI-use/policy constraints and conflicts
+between invitation and official CVCI dates. No submission, contact with organizers, publication,
+acceptance, or student contribution is claimed. Recheck official calls before acting because dates
+and publication terms can change.
+
+Files: `README.md`, `docs/README.md`, `docs/status.md`, `docs/tasks.md`, `docs/plan.md`,
+`docs/6g-mena-2026.md`, and `docs/conferences-2026-2027.md`. Documentation-only maintenance;
+no student ownership or hours assigned.
+
+## First-draft prototype plan aligned to original proposal — 14 November 2026
+
+The owner reports substantial GUI progress already exists in the local RayGuard-App working tree and asked to polish/refactor it against project outcomes with Mohammad (called Mohammed by the owner; roster spelling/handle to confirm). Updated T39/T43 so Abd owns requirement fit, integration and GUI polish; Mohammad owns a separate GUI flow/accessibility/acceptance slice. Both also review ML integration and truthful result/provenance display. Existing app changes remain uncommitted and were not edited in this documentation update.
+
+The owner also reports that currently only he is committing to the GitHub repository; this report was not independently audited against GitHub history. The new work split gives every student a distinct proposed deliverable and requires each student to make and explain their own commits. No earlier contribution is retroactively assigned to anyone.
+
+The single-scan ML plan now prioritizes the owner-identified CVMI model configured in the GUI and public IEDXray data, after exact checkpoint/source/hash/task verification. Existing records call the local weights author-supplied after a renewed link; reconcile those source descriptions before making a provenance claim. Faisal (T40) owns baseline adapter/shared prediction and run-manifest contracts plus HPC prerequisite coordination; Ahmed (T41) owns the fine-tuning candidate; Ali (T42) owns independent evaluation. Abd and Mohammad join design review and validate the app-facing outputs. Compare only compatible candidates under a shared protocol; the available generic/device/specific checkpoints represent different tasks. These proposed assignments remain unaccepted.
+
+The public IEDXray dataset is the proposed single-scan source. The 478 distinct dismantled images count toward the project's separate collection progress but are not for single-scan model training, baseline demo or evaluation; their task labels, QC and case links are unresolved. This resolves the workstream distinction without claiming the 500 positive/negative requirement complete. The prototype plan records evidence and gaps. No code, training or full-data evaluation was performed for this planning update.
+
+Added a human-only GitHub contribution policy to root and app contribution guidance: AI tools may help with analysis and drafts, but may not use contributor identities or perform GitHub mutations. Each student must personally review, verify their own Git identity and execute their commit/push commands. Agents may suggest commands but cannot run them. Keep agent sessions and client state out of Git; retain reviewed project guidance as team documentation.
+
+## Single-scan ML work refocused after owner review — 14 November 2026
+
+The owner rejected the first proposed Ahmed/Ali work allocation and directed those lanes to the single-scan model baseline/fine-tuning/evaluation pipeline. Verified the requirements against Meeting 01 A8, Meeting 02 A9 and the existing task/architecture record: single-scan train/fine-tune/test/documentation is a project requirement; the multi-package objective is a separate, higher-priority data-dependent workstream.
+
+Current artifact check: `data/IEDXray/model-weights/yolov10_generic_exp.pt` exists locally but is ignored and not tracked by Git; its SHA-256 matches `docs/first-inference.md`. The device and specific-explosive YOLOv10-M checkpoints are also local. T02/T04 and T06 record executed inference evidence, but the generic model has only three diagnostic samples and no project full-dataset metrics. No fine-tuning pipeline, training script or full-dataset evaluator was found in `scripts/`, `src/` or `tests/`. The managed environment locks are explicitly inference profiles without training extras. The local IEDXray train/test/COCO directories exist; the audit records cross-split exact duplicates and five generic-threat train box-boundary findings, with no approved correction/validation policy.
+
+Added the [single-scan ML plan](single-scan-ml-pipeline-plan-2026-11.md) with checkpoint hashes, public-data focus, requirements, existing evidence, data/environment gates and train/evaluation design. It now keeps tool-neutral student guidance rather than tool-specific prompt blocks. T40 is Faisal's baseline adapter/shared run contract; T41 Ahmed's fine-tuning pipeline; T42 Ali's evaluation pipeline. The [prototype sprint plan](implementation-plan-demo-2026-11.md) maps the original requirements to intended evidence and limits. No code, fine-tuning, full test evaluation or metrics are claimed complete. Multi-image work remains separate because dismantled scans lack reviewed detector labels/QC/case-group mappings.
+
+Evidence/commands: reviewed the existing app `docs/PRODUCT.md`, `docs/DESIGN.md`, app status and current Git status read-only; reviewed root project proposal/data/model/task records and current human-contribution guidance. Existing app files were left untouched. Documentation/planning only; no frontend audit/test, training or evaluation job run in this turn. Next: Abd/Mohammad confirm the GUI file split and audit the current screen flows; Faisal/Ahmed/Ali verify the exact GUI checkpoint, agree interfaces and resolve public-data validation policy before training or performance claims.
+
+## CS-HPC credential email recorded — 4 November 2026
+
+A CS Lab Engineer email received on **4 November 2026 at 12:52 pm** was addressed to the named SDP1 student recipients and Naoufel Werghi. It says credentials for the group's CS-HPC access were issued and that users will be prompted to change the initial password at first login. Job-submission manuals were attached, with further help offered. The email's timezone was not supplied.
+
+For security, the username and password are not copied into this shared progress file, the backlog or commits; retrieve them from the original email and complete the required password change at first login. The source email and attached manuals are not stored in Git. Receipt of credentials is documented; successful login, password rotation, account permissions, manual review, HPC job submission and compute results have not been verified. T14 is now in progress; next advisor review remains unbooked. No student hours or HPC work are inferred.
+
+## Distributed X-ray collection snapshot inventory — 14 November 2026
+
+The owner supplied access to six ZIPs and the extracted `DISMANTLE_DATA` directory on E:. Read archive entries, counted and hashed the extracted JPEGs, and decoded them with the locked project Pillow dependency. The extracted tree contains **577 JPEG paths**; all 577 decoded as RGB with zero errors. SHA-256 grouping found **478 distinct byte payloads** and 99 exact duplicate paths, all in Ahmed Almansoori's `total` folder matching bag-folder images. The five folder-label distinct counts are Abd Alrahman Ismaik 142, Ahmed Almansoori 100, Ali Arif Alshamsi 61, Faisal Daoud Alzarooni 124 and Mohammad Arwani 51. See [dated inventory](collection-progress-2026-11-14.md) for date/day counts, archive progression and limits.
+
+The dated archives contain 169, 199, 291, 478 and 577 JPEG paths. The first four snapshots are nested; from 9 Oct to 13 Oct, Ahmed's 100 root paths were reorganized into bag folders and 99 exact copies were placed under `total`. SHA-256 comparison confirms both archives contain the same 478 distinct byte payloads, with no new or missing image payloads. `DISMANTLE_DATA.zip` and the 13 Oct archive have the same 577 image paths but different ZIP hashes. Filename prefixes span 29 Sep–9 Oct; they do not establish scanner timestamps or which collection round each file belongs to. Against the planned 500, 478 is a provisional distinct-file count, not a QC-accepted count or confirmed shortfall. Annotation, catalogue mapping, physical/group provenance, round mapping, QC, student self-confirmation and lab acceptance remain open. No inference or training was run.
+
+Created a [member contribution guide](collection-contribution-guide.md) that keeps scans on the existing lab computer and directs each member to commit sanitized, attributable GitHub evidence. Updated T21/T27 acceptance evidence, status, data handling and docs index. The coordinator performed the inventory; folder labels are source metadata, not independent confirmation of student authorship. Individual effort/hours are not inferred. Commands: PowerShell/.NET archive listing, SHA-256 file inventory and path-set comparison; `uv run --locked python -c <Pillow verification script>` decoded 577/577. No code changed; no Ruff/pytest run. Next: each student verifies their own folder/date/count on the lab computer; coordinator reconciles private manifests against the approved catalogue/QC record with Dr. Divya; then record accepted counts. Resolve same-set shortfall before moving to the next set.
+
+## Course end-of-semester requirements recorded — 14 November 2026
+
+Recorded the supplied COSC 497 announcements, Blackboard details and local August 2026 handbook requirements in [the end-of-semester checklist](course-endgame-2026-11.md); added T38 to the sole backlog and linked the checklist from status/docs index. Handbook inspection confirmed the SDPI rubric is individually assessed: GitHub 15%, report 20%, presentation 20%, demo 25%, Q&A 20%. The checklist captures one Blackboard upload per group, email copy to supervisors/examiner, GitHub report/repository link, per-student contribution table, individual supervisor explain-back, GitHub documentation expectations, no separate progress report, LinkedIn categories and handbook forms/Gantt/report guidance.
+
+**Deadline conflict retained:** Blackboard due-date details and one announcement say 24 Nov, 5:00 pm UTC+4; another pasted notice says 27 Nov. The working cutoff is the earlier explicit Blackboard due-date field; coordinator confirmation remains open. One notice specifies presentation 27 Nov, 8 am–12 pm, 20+10 minutes; exact slot and room are unverified. Filename forms also differ (`COSCXX.SDP1 Final Report` versus `COSC# SDP1 Final report`); verify the project number and current-link convention. No report, submission, email, student contribution, LinkedIn item, demo or rehearsal was asserted complete.
+
+Commands/evidence: read required project docs and latest meeting companions; inspected handbook DOCX text/XML locally with PowerShell/.NET because Python `python-docx` is unavailable. Documentation-only change; no tests or model jobs run. Owner: repository coordinator; individual student ownership and effort remain unreported. Next: confirm current Blackboard deadline/name and presentation assignment, assign/evidence deliverables in T38, then update with actual outcomes.
+
+## T37 Flow reference/prompt preparation - 19 October 2026
+
+Prepared [three reference-image prompts and eight video prompts](flow-reference-prompts.md)
+for the one-passenger/four-bag and different-passenger scenarios. The owner requested images
+here for later upload into Flow. Read imagegen and HyperFrames entry guidance; user-selected
+Flow remains the target, with no HyperFrames project/install or local video rendering.
+Built-in image generation failed with HTTP 429 `usage_limit_reached` before producing an
+image. No CLI fallback was attempted without the explicit authorization required by the
+imagegen skill. **No reference image or video was generated.** Image prompts provide an
+immediate Flow-native route; eight-second scene prompts and consistent bag/character
+references are prepared, with illustrative alerts and external case linkage labelled.
+
+No student hours or model execution evidence are inferred. T37 actual deliverables remain
+open; next is to generate/review the reference stills, then one test clip in the user's
+Flow account. No code changed; no Ruff/pytest or artifact QA is claimed.
+
+## T37 Flow duration and prompting follow-up - 19 October 2026
+
+Expanded [the research](video-tools-research.md) from official credit, access, model,
+creation and scene-building guidance. Flagged inconsistent official access wording.
+A JavaScript integer-budget calculation verified 50-credit raw-footage maxima: Omni
+360p 70 seconds, Omni 720p 32 seconds, conditional Veo Lite 40 seconds and Fast 16 seconds.
+Documented consistent references/frames, single outputs and the Veo 8-second ingredients
+restriction. These are documented limits and calculated estimates, not account or media
+tests. No generated video, credits spent or student hours are claimed; actual T37 delivery
+remains open. Next: confirm in-account model costs and test one consistent airport shot.
+The attempted shell calculation/documentation command was blocked by execution policy;
+the calculation ran in the JavaScript tool runtime and documentation used apply_patch.
+No production code changed; no Ruff/pytest or shell diff check was run for this follow-up.
+
 This page records shareable project evidence. It is not a claim of individual student
 authorship, hours or understanding. Those must be recorded by the actual contributor and
 reviewer. Do not include personal paths, private contacts, raw correspondence or artifact files.
@@ -60,9 +341,9 @@ identified by hashes, with no local paths. The existing runner and scan-result c
 are unchanged. Fields, checks and notes for T41/T42 and the GUI are in the
 [baseline run contract](baseline-run-contract.md).
 
-Checks: `uv run --locked ruff check .` passed. `uv run --locked python -m pytest` gave
-182 passed and 9 skipped; the skips are existing symlink tests that need a privilege
-this Windows machine does not grant.
+Checks: `uv run --locked ruff check .` passed. The PR worktree passed
+`uv run --locked python -m pytest` with 196 passed on Windows. GitHub Ubuntu and Windows
+checks also passed. These are synthetic software checks, not model evaluation.
 
 Limitations: synthetic software checks only. No model was run and no real saved run has
 been converted. The model the GUI selects has not yet been confirmed against the catalog
@@ -72,12 +353,107 @@ T39–T43 rows are not yet on `main`.
 Next: confirm the GUI model and hash with Abd, convert one approved real saved run, and
 agree the candidate manifest with Ahmed and the record reader with Ali.
 
-Review follow-up, 15 November: Abd's review of pull request #16 found two provenance
+Review follow-up, 15 November: review of pull request #16 found two provenance
 gaps, both fixed. The class and category maps are now checked against the catalog for
 every combined run instead of only the first. A run that fails before its device is
 resolved now records `device: null` with a separate `requested_device`, so the requested
 device is no longer reported as the one that ran inference. After the fix the suite gave
-187 passed and 9 skipped.
+196 passed on Windows. PR #17 was merged into `main` on 15 November 2026.
+
+## T37 free online video-tool research - 19 October 2026
+
+The owner requested free online options for two advisor-reported airport scenarios:
+components across one passenger's bags and components across different passengers' bags.
+[Research](video-tools-research.md) compares Canva/Clipchamp motion graphics, Flow/Bing
+AI clips, CapCut editing and the restricted Runway/Firefly/Pika free offers. Official
+pricing/help pages were inspected with web search/open/find; Pika's current zero-monthly-credit
+pricing was distinguished from older FAQ snippets. Recommendation: controlled motion graphics
+for the complete explanation, optional generated airport shots, then manual evidence/UI overlays.
+
+This is documented research only: no account access, media generation, upload or export test.
+No student authorship/hours or model capability is inferred. Different-passenger case linkage
+must be explicitly supplied in the illustration; generated detections are not inference evidence.
+T37 remains not started for actual deliverables; research is preparatory work. Next: choose
+style, draft two storyboards and test one scene/export. Hardik/Fangzhou's F08 video assignment
+is not silently reassigned. No production code changed; Ruff/pytest were not required.
+
+## T37/T28 Secure Life Group visit requirements - 19 October 2026
+
+The owner supplied the invitation and advisor instructions, summarized in
+[F08](meeting_minutes/follow-up-slg-2026-10-19.md). Secure Life Group CEO visit is Wednesday
+21 October 2026, 2-5 pm; presence is required. SDP prepares a digital project/progress
+poster, Divya prepares the lab, and Hardik/Fangzhou prepare a high-quality video of their
+work/approaches. Times use project Asia/Dubai context; the pasted source has no explicit
+zone. Private room/calendar details are excluded from shared records.
+
+Added T37 as not started on available evidence, linked earlier T28 GUI rehearsal, and
+updated status, context/Q8, plan, poster preparation, conference guide, README and meeting
+index. F08 resolves SLG identity/date; it does not establish attendance, response status,
+lab readiness or completed materials. Tuesday 6G and Wednesday SLG remain separate,
+and conference display specs are not assumed for the visit. Historical prototype, collection,
+colorization and summit-video obligations remain; the visit video has the new dated scope.
+
+Ownership: agent-assisted requirements update at the owner's request; no student hours or
+completed work are inferred. No calendar response, external message or artifact production
+was performed. Validation: Python standard-library checks passed **193 local links/anchors
+across 11 affected files**, verified Wednesday 21 October and unique task IDs including T37.
+`git -c core.safecrlf=false diff --check` passed; `git check-ignore -v` confirmed the local
+logistics record remains ignored. No code changed; Ruff/pytest were not required.
+Next: name the SDP poster editor/presenter, confirm visit display/handoff requirements,
+review accurate progress evidence, rehearse GUI and coordinate lab/video readiness.
+
+## T23 accepted poster and digital revision follow-up — 19 October 2026
+
+The owner supplied the acceptance and subsequent revision/attendance email thread.
+[F07](meeting_minutes/follow-up-poster-2026-10-19.md) records the dated 12 October acceptance,
+14 October final-delivery request and 17 October screen-format revision request. Required
+format is digital portrait 9:16 at 1080 × 1920 px on a 55-inch display; latest revision
+permits PPT/PNG/PDF with proportional layout. Divya's new-template presentation handoff
+and Brahim's receipt are documented; his TDRA check remains pending. No attachment was
+provided or inspected, and repository v6 was not relabelled or modified.
+
+Updated the conference guide, poster preparation/bundle notes, README, status, T23,
+context/questions, plan and meeting index. Added only the sanitized F07 Markdown to the
+meeting-record allowlist. Tuesday-only team attendance means 20 October by calendar;
+the undated advisor's “today” wording is flagged, alongside exact session/setup and
+2 pm photo-day clarification. Continuous presenter coverage is requested, not evidenced.
+The generic Monday setup instruction is qualified by the team-specific Tuesday reply.
+
+Ownership: agent-assisted documentation at the owner's request. No student hours,
+actual attendance, successful display or TDRA approval are inferred. T23 stays in progress;
+collection follow-up F06 and its November 30 deadline remain unchanged. No presentation
+binary, private contacts or raw email were added; no external message was sent.
+Validation: Python standard-library checks passed **187 local links/anchors across 12
+files**, verified Tuesday 20 October by calendar and matched both earlier v6 artifact
+SHA-256 hashes. `git -c core.safecrlf=false diff --check` passed. The sanitized F07 file
+is not ignored. No code changed; Ruff/pytest were not required.
+Next: obtain TDRA response and actual revised artifact, confirm Tuesday logistics/photo
+and agree the private presenter rota; retain final digital file on USB as requested.
+
+## T21/T26/T27/T30 collection follow-up — 19 October 2026
+
+Documentation maintenance from the owner-supplied email thread is recorded in
+[F06](meeting_minutes/follow-up-collection-2026-10-19.md). Updated the README, short handoff,
+canonical tasks, context, plan, architecture, meeting index and blank schedule worksheet.
+The current requirements are individual first-round counts against 500, completion of any
+shortfall on the same set before moving on, the requested second-round schedule and overall
+collection completion by 30 November 2026. Around 5 pm is optional where feasible.
+
+T21 is in progress on Faisal's documented self-report only: reported 102, formula 104,
+catalogue allocation 100. Other individual counts, the accepted team total and QC remain
+unverified. T26 stays in progress; T30 actual collection remains not started on available
+evidence. The historical 15 October Batch 1 milestone and unresolved prototype deadlines
+are retained. C01 Session A/B are within Round 1, distinct from pre-/post-midterm rounds.
+Source email timestamps, exact second-round dates and current availability were not supplied.
+
+Ownership: documentation update assisted by the agent at the owner's request; student
+collection hours, scan verification and schedule-sending ownership are not inferred.
+Validation: the Python standard-library Markdown check passed **174 local links/anchors
+across 12 affected files**; `git -c core.safecrlf=false diff --check` passed. No production
+code changed; Ruff/pytest were not required.
+No scans, model runs, filled personal schedules or raw email were added; no email was sent.
+Next: each student supplies a count, the team reconciles files/logs and QC, then the sender
+consolidates current availability into dated second-round slots for lab acceptance.
 
 ## T23 poster v6 repository review bundle — 30 September 2026
 
@@ -113,6 +489,285 @@ local work. Only the review bundle, its exact PDF allowlist and poster-related R
 status, task, conference/index and preparation records are included. Source PDFs,
 raw scans, weights, personal records and earlier drafts remain untracked. No production
 code, inference, training, student hours or advisor approval are claimed.
+
+## T23 research figure refinement, version 6 — 30 September 2026
+
+The owner liked v5, supplied an edited file and requested clearer scientific figures and
+larger/zoomed evidence in sections 03 and 04. Automated production preserved the supplied
+credits, title and headings, added two IEDXray context/detail pairs and replaced the small
+FALCON strip with one larger scene and three numbered close-ups. The coordinator integrated
+independent scientific and visual reviews. No student hours or advisor approval are inferred.
+
+The exact embedded FALCON Figure 9 JPEG (410 × 367, PDF p. 22, xref 904) was extracted without
+re-encoding; its SHA-256 is `03db22a40b38832f744ec3ff50b2de657ddae7f67dd3f6fe8919e687d5db41f8`.
+It retains all original boxes/masks, avoids intermediate resampling and restores native
+proportions from the PDF's horizontally stretched placement. IEDXray Figure 6 source bytes
+and six-color annotations are unchanged. No AI-generated scan detail, sharpening, new
+inference or evaluation was used. All thirteen paper values and four bar lengths are unchanged.
+
+Actual commands: `node inspect_template_deck.mjs --workspace ... --pptx ... --scale 4`;
+`node build-v6.mjs` imported the duplicated edited source and exported with artifact-tool;
+`node validate_template_plan.mjs --workspace ... --map ... --inspect ... --source-slide-count 1`;
+`& ./finalize-native.ps1` restored the eight original justified text boxes through the
+previously documented compatibility exception. PowerPoint SaveAs wrote a distinct staging
+copy after Save reported a file-use conflict; user source decks were never saved by this pass.
+Native text, geometry and media were checked unchanged across formatting.
+
+`.venv/Scripts/python.exe qa/package_check.py` and `node check_template_fidelity.mjs ...`
+passed. Native QA verifies **182 objects, 93 text boxes, 11 pictures, seven native crops,
+10 connectors and eight justified text boxes**, no vertical overflow or out-of-slide objects,
+and at most 1.13 pt of justified glyph overhang with no visible clipping. Checks cover ZIP
+integrity, dimensions, full annotations, source hashes, thirteen metrics, common chart axis,
+owner-supplied text, source/privacy notes and native formatting preservation. Independent
+scientific and visual reviews passed. A later source-v5 save changed only metadata and a
+run's dirty flag; reviewed visible content, style and geometry remained equivalent.
+
+Final ignored local file: `docs/6g-mena-poster/drafts/RayGuard-Research-Poster-v6.pptx`,
+SHA-256 `c86dd26155b2c4cad3099b82b70a4f6726bb959cfe3eb3088a40e9b347bcd5fe`.
+Earlier files and showcase v3 remain intact. No production code, model execution, sending,
+commit or push was performed. Next: owner/advisor review, print-size confirmation and
+submission coordination; recorded deadlines and unresolved scheduling conflicts remain.
+
+## T23 unified research poster, version 5 — 30 September 2026
+
+The owner requested equal treatment of single-baggage and multi-package explosive detection,
+replacement of the generic methods figure, consistent professional sections based on both
+papers/proposal/repository evidence, richer demonstrations and justified text. Automated
+production created research v5; separate agents reviewed scientific content, original figures,
+repository implementation and native visuals. The coordinator integrated their findings.
+No student authorship/hours or advisor approval is inferred.
+
+Source coverage: both full papers and the full three-page SDP proposal; current meeting/
+follow-up and project records; source modules, scripts, tests and configuration; 81 tracked
+entries inventoried, dependency locks/manifests structurally inspected, and 18 active private
+records reviewed. The review also verified saved model predictions, overlays and image hashes.
+Generated/vendor/obsolete app trees and arbitrary model/data binaries were not claimed as
+fully read scientific sources. No new inference or test benchmark was run.
+
+The poster now pairs two explicit problems/objectives with two methods lanes. P1 demonstrates
+actual independent YOLOv10-M task execution and saved Train000003 input/output (confidence
+0.970), while future device-conditioned localization/host association remain explicit. P2
+shows illustrative four-package case membership, proposed component evidence and comparison
+of late fusion with a learned multi-input approach. It does not invent cross-bag outcomes.
+Two IEDXray Figure 6 examples and three FALCON Figure 9 examples retain original annotations;
+FALCON examples are explicitly independent single images. Nine AP table entries and four
+mIoU chart values/lengths match the papers. Existing collection counts remain absent from
+poster body and notes. Showcase v3 and all earlier research versions remain unchanged.
+
+Actual commands: `node inspect_template_deck.mjs --workspace ... --pptx ... --scale 2`;
+`node validate_template_plan.mjs --workspace ... --map ... --source-slide-count 1`;
+`node build.mjs` imported an exact template duplicate and exported through artifact-tool
+2.8.4. Independent alignment probes found that public, range, default-style and native
+round-trip approaches all drop justification during PPTX conversion. To satisfy the owner's
+explicit formatting request, `& ./qa/apply-justification.ps1` applied native Justify=4 only
+to seven named prose boxes after export. This narrow compatibility exception changed no
+text, shape coordinates/dimensions or source-media hashes. No installed runtime was patched.
+
+`& ./qa/verify.ps1` opened/rendered the final file read-only. It has **150 objects, 80 text
+boxes, 6 pictures, 3 native crops and 8 connectors**. Native COM and saved XML verify all
+seven justified boxes. No vertical overflow or out-of-slide objects were found. PowerPoint
+reports 0.88–1.13 pt of glyph overhang for justified lines; raw measurements were retained
+and independently inspected without visible clipping. Titles/labels and numeric columns
+retain semantic alignment. Text, diagrams, bars, table and legend remain editable.
+
+`uv run --locked python qa/package_check.py` passed CRC, dimensions, removed-count/privacy,
+native-justification, all thirteen numeric entries, four bar lengths, original media and
+eight preserved-file hash checks. Native formatting preserved text/geometry/media; comparison
+normalizes omitted zero-rotation attributes written by PowerPoint. `node qa/inspect_final.mjs`
+read the final PPTX for geometry without resaving it; `node check_template_fidelity.mjs
+--workspace ... --starter-pptx ... --final-pptx ... --map ... --starter-layout-dir ...
+--final-layout-dir ... --edit-dir ...` passed. Independent scientific and visual reviews
+passed after changing the next-step wording to preserve the open localization design choice.
+
+Final ignored local file: `docs/6g-mena-poster/drafts/RayGuard-Research-Poster-v5.pptx`,
+SHA-256 `b8c5db9cfafb1ba16df707328fa3249eeea49b483baae9857adb1459042be4d3`.
+No production code, training, new inference, sending, commit or push was performed. Next:
+owner/advisor review and author/print/submission confirmation. The 30 September poster
+obligation and unresolved prototype/collection deadline conflict remain unchanged.
+Final handoff passed: 52 local documentation links/anchors, `git diff --check`,
+`git check-ignore -v` and final SHA-256 readback.
+
+## T23 research poster revision, version 4 — 29 September 2026
+
+The owner requested a compact title, richer scientific text, more published scan examples
+and professional results graphics, removing the collection-plan graphic and its counts.
+Automated production created a new research-only editable draft; independent agents
+extracted/verified paper figures, reviewed source values and inspected the native render.
+The coordinator integrated their work, clarified the AP definition and verified the final
+file. No student authorship, hours, new experiments or advisor acceptance are inferred.
+
+Research v4 has descriptive introduction/methods, three objectives, an editable protocol
+diagram, four original Figure 6(a,c,d,f) examples with matching legend, an eleven-model
+generic AP50 ranking and a three-model/three-task AP table. All eleven chart and nine table
+values were checked against the supplied paper. Published single-image results remain
+distinct from the proposed multi-package direction; FALCON §15 motivates the extension.
+The removed graphic/counts are absent from poster text and notes. Historical collection
+requirements are preserved in project records. Showcase v3 and all earlier files are unchanged.
+
+Actual commands: `node inspect_template_deck.mjs --workspace ... --pptx ... --scale 2`;
+`node validate_template_plan.mjs --workspace ... --map ... --source-slide-count 1`;
+`node build.mjs` imported a duplicated original template and exported through artifact-tool
+2.8.4; `& ./qa/verify.ps1` opened/rendered the draft read-only in PowerPoint. Native checks
+report **162 objects, 86 text boxes, 5 pictures, 4 native crops and 3 connectors**, with
+zero measured text overflows and zero out-of-slide objects. Text, protocol, chart bars,
+table cells and legend are editable; original paper annotations remain in raster scans.
+
+`uv run --locked python qa/package_check.py` passed CRC, one-slide/source dimensions,
+original template and figure/logo media hashes, all bar lengths/labels, table values,
+notes/privacy, removed-count absence and seven preserved-file hashes. An initial exact
+decimal-size assertion was corrected to allow sub-EMU rounding; native dimensions match
+the template. `node check_template_fidelity.mjs --workspace ... --starter-pptx ...
+--final-pptx ... --map ... --starter-layout-dir ... --final-layout-dir ... --edit-dir ...`
+passed against raw layouts, with no normalization. Independent scientific and visual
+reviews found no remaining material issue after the metric wording correction.
+
+Final ignored local file: `docs/6g-mena-poster/drafts/RayGuard-Research-Poster-v4.pptx`,
+SHA-256 `4019649b2f59cd4e301c4f666e70b5ed1b881bf3d252dde5363102a79e9c7c81`.
+No production code, inference, training, sending, commit or push was performed. Next:
+owner/advisor review of research v4 and showcase v3; author credits, print dimensions,
+actual CT/video material and submission details remain open. The 30 September obligation
+and earlier prototype/collection deadline conflict remain unresolved.
+Final handoff checks passed: 52 local documentation links/anchors, `git diff --check`,
+final SHA-256 readback and `git check-ignore -v` for the new presentation.
+
+## T23 paper-based poster revision, version 3 — 29 September 2026
+
+The owner accepted the direction of the methods, CT and multi-package figures and requested
+research sections in place of the large GUI, removal of the missed example and substantive
+use of the two supplied research papers. Automated production created new editable copies;
+independent agents reviewed the benchmark tables, FALCON motivation/results and native
+PowerPoint layouts. The coordinator integrated their corrections. Student authorship/hours
+and advisor acceptance are not inferred.
+
+Both posters now show IEDXray's 17,360 images, 12,224/5,136 train/test split, three tasks and
+eleven benchmarked models. The selected published AP50 comparison uses YOLOv10-M
+73.4/58.0/59.1 and Grounding DINO 72.0/67.6/61.2 for device/generic/specific detection
+(Tables 2–4, PDF pp. 7–8). Research also shows FALCON's Table 3 single-image RFG mIoU:
+fine-tuned Groma 29.55 versus FALCON 69.58. Its §15 future-work discussion motivates the
+proposed related-scan study. These paper findings are visibly attributed, not local results.
+The successful training-image example retains its original bytes, exact saved box and
+0.970 confidence. The GUI and missed example are removed from poster bodies; known misses
+remain recorded elsewhere. CT is conceptual; 125 groups/500 images remain planned.
+
+Actual commands: `node inspect_template_deck.mjs --workspace ... --pptx ... --scale 2`
+inspected the source; `node validate_template_plan.mjs --workspace ... --map ...
+--source-slide-count 1` passed; `node build.mjs` imported separate template copies and
+exported through artifact-tool 2.8.4; `& ./verify.ps1` opened and rendered them read-only
+in PowerPoint. Native chart objects were tested but automatic padding omitted a category
+label in the compact layout. Final charts therefore use editable shapes/text; all six bar
+lengths and value labels were checked against source numbers. Final native checks report
+**220 / 317 objects**, **59 / 57 text boxes**, **5 / 4 pictures**, **1 / 0 native crops**,
+and **36 / 46 connectors** for research/showcase. Both have zero measured text overflows
+and zero out-of-slide objects. Final visual, numeric and scientific reviews passed.
+
+`uv run --locked python qa/package_check.py` passed CRC, one-slide/dimension, preserved
+template media, source scan/logo hashes, numeric bar geometry, notes/privacy, absent GUI/miss
+media and unchanged v1/v2 checks. `node check_template_fidelity.mjs --workspace ...
+--starter-pptx ... --final-pptx ... --map ... --starter-layout-dir ... --final-layout-dir ...`
+passed separately for both against raw source/final layouts. No layout projection was needed.
+
+Final files remain local and ignored under `docs/6g-mena-poster/drafts/`:
+
+- `RayGuard-Research-Poster-v3.pptx`, SHA-256
+  `2fa792d34c178aa352f0a3a708d0596c55b02d977b4bc93f1cd1204922de1c6d`.
+- `Xray-Project-Showcase-v3.pptx`, SHA-256
+  `e929129286d50943277f8dcc3dc63c22b9384fa60680c5256d20b33bf6c212ef`.
+
+Original template/source media and earlier versions are unchanged. No inference, new model
+evaluation, production code, training, sending, commit or push was performed. Next: owner/
+advisor review, actual CT/video material, authors/credits, confirmed print size and submission
+details. The 30 September obligation and prototype/collection deadline conflict remain open.
+Final handoff checks passed: 52 local documentation links/anchors, `git diff --check`,
+final SHA-256 readback and `git check-ignore -v` for both new presentations.
+
+## T23 poster visual redesign, version 2 — 29 September 2026
+
+The owner rejected both first PowerPoint drafts as too simple and requested finer detail,
+figures and visuals. Automated production redesigned the body of each copied template;
+separate agents reviewed asset provenance, scientific concepts and native PowerPoint renders.
+The coordinator integrated their corrections. No student authorship or hours are inferred.
+
+Research now uses an editable detector/review diagram, a distinct planned group branch,
+large original X-rays with saved prediction/reference boxes, reversible detail crops,
+figure labels/legends and a discussion band. Showcase now uses a large genuine GUI crop
+with numbered callouts, editable CT projection/color concepts, a four-bag group schematic
+and video programme strip. The approved A03 symbol is embedded unchanged. No new evidence,
+accuracy, CT implementation, collection completion or material-color mapping is claimed.
+The training score and retained test miss remain selected per-image diagnostics.
+
+Actual commands in the thread-scoped workspace: `node build.mjs` imported independent
+template copies and exported both files with artifact-tool 2.8.4; `& ./verify.ps1` opened
+them read-only and rendered them in native PowerPoint; `uv run --locked python
+qa/package_check.py` verified CRC, single-slide counts, original dimensions, original media
+hashes, notes/privacy and unchanged v1 files. Research/showcase contain **138 / 183 native
+objects**, including **44 / 42 text boxes**, **7 / 2 pictures** and **2 / 1 native crops**.
+Both have zero measured text overflows and zero out-of-slide objects. Independent final
+visual review confirmed inset captions inside panels, clear introduction spacing and
+unobscured screenshot text; scientific review found no unsupported CT linkage/material claim.
+
+`node check_template_fidelity.mjs --workspace ... --starter-pptx ... --final-pptx ...
+--map ... --starter-layout-dir ... --final-layout-dir ...` passed for both. Its initial
+raw-layout comparison falsely treated dormant master-layout subtitle prompts as visible
+content. Read-only XML inspection confirmed that none of the five source-layout
+placeholders is instantiated on any slide. `uv run --locked python qa/rendered_layouts.py`
+produced rendered-object layout projections for this check, retaining every master artwork
+and visible slide object; raw exports and final PPTX packages were not altered by QA.
+
+Final local files in ignored `docs/6g-mena-poster/drafts/`:
+
+- `RayGuard-Research-Poster-v2.pptx`, SHA-256
+  `7f741b31e80311a8ac52fdc99be2d44eaefc7bc579c1fef2ff9a5c2e053f377b`.
+- `Xray-Project-Showcase-v2.pptx`, SHA-256
+  `198a1c86d75537a32363924d51f21d0c54403b5d4d515a5a77dc4402489bf261`.
+
+Original template and v1 files remain unchanged. These are reviewed editable drafts;
+owner/advisor acceptance, final project scope, author order, actual CT/video content and
+print enlargement remain open. Next: obtain that content/scope decision, then print proof,
+rehearsal and submission review. The 30 September obligation and earlier prototype/data
+deadline conflict remain. No production code, inference, model tests, commit, push or
+external sending was performed.
+Final handoff checks passed: 52 local documentation links/anchors, `git diff --check`,
+final file hashes and `git check-ignore -v` for both version 2 presentations.
+
+## T23 editable poster alternatives — 29 September 2026
+
+The owner requested two PowerPoint drafts copied from the supplied 6G MENA template:
+conventional research and the advisor's broader introduction/context/SDP-aspects/video
+outline. Automated production used artifact-tool 2.8.4 to import separate source copies,
+add native editable content and export one-slide PPTX files. Independent read-only agents
+reviewed source/template geometry, factual claims and native rendered layouts; the
+coordinator integrated corrections. No student authorship or hours are inferred.
+
+The research draft contains background, objective, methods, real single-scan positive/miss
+diagnostics and discussion. The showcase presents CT/colorization and multi-baggage work
+in parallel, with an actual saved GUI image and explicit editable CT/video/author fields.
+Source scan/export/screenshot hashes were verified; canonical image bytes and the original
+template are unchanged. Native overlay geometry follows saved original-image `xyxy` boxes.
+Natnael Takele is the dataset's credited author (Figshare v1, CC BY 4.0); Takele et al.
+is the separate paper citation. No new inference, collection, training, CT implementation,
+fusion, metric or submission is claimed. Files remain in ignored `docs/6g-mena-poster/drafts/`.
+
+Actual commands in the thread-scoped presentation workspace:
+`node build.mjs` exported both files; `& ./verify.ps1` opened/rendered them read-only
+in native PowerPoint; `uv run --locked python qa/package_check.py` checked package CRC,
+single-slide count, source dimensions, source-image hashes, notes and privacy;
+`node check_template_fidelity.mjs --workspace ... --starter-pptx ... --final-pptx ...
+--map ... --starter-layout-dir ... --final-layout-dir ...` passed separately for both.
+Native checks report **32 / 37 editable text boxes**, **2 / 1 embedded content pictures**,
+**zero text overflows** and **zero out-of-slide objects**. The source header gradient renders
+correctly in native PowerPoint; the artifact preview alone displayed it flat. Initial
+showcase text overflow and research footer/overlay contrast issues were corrected and
+rechecked. Final package and template-fidelity checks passed. No production code changed;
+the checks here concern document editing/layout, not model validation.
+
+Final SHA-256: research `3582a899078243fd9ff424dd88bb88383ee85c262b9c0c2e21e59bff1c71c06a`;
+showcase `d54c258d4465af09ede302f8adf588575051d2d88c1735c74d5abb9797f5df2b`.
+The template's **318.875 × 425.5 pt** dimensions are retained; final print enlargement is
+unconfirmed. Next: advisor decision on combined/separate scope and earlier embedded-device
+topic, approved author order/credits and CT/video assets, then final content/print/submission
+review. The clarification email remains a draft. The **30 September** deadline and earlier
+prototype/collection deadline conflict remain unresolved; no commit, push or external sending
+was performed for these drafts.
 
 ## T18 README collection tables and publication preparation — 28 September 2026
 
@@ -223,6 +878,43 @@ student contributions or hours are inferred. Next: send the dated proposal, obta
 protocol/guidance confirmation, then record actual collection. No message, commit or push
 was sent by the assistant.
 
+## T28 A03 approval and archive of earlier logo designs — 28 September 2026
+
+The owner selected **A03 · Cobalt / controlled refinement**, superseding the 27 September
+A04-02 Optical/Manrope 650 choice, and requested earlier designs archived with a dedicated
+folder for the selected asset. Automated organization/documentation support performed this
+work; no student authorship or hours are inferred.
+
+The exact selected transparent PNG now lives in RayGuard-App's
+`assets/logo/a03-cobalt-controlled-refinement/`, with approval and provenance records.
+It is 1254 × 1254 RGBA, SHA-256
+`e6477f1b87abe86afd1e3527c47ac2aaf2d0da33962b44fa83a20f7ebd0c7883`.
+No image modification, alternative palette, wordmark or vector reconstruction was performed.
+
+The complete former `outputs/logo/` and `assets/scroll-eye/` packages were moved into
+the separate app's ignored `assets/archive/logo-designs/2026-09-28/` archive. It includes
+the native/AI refinements, darker-blue comparison, A04 brand study, source references,
+presentations and ZIPs, plus snapshots of the previous runtime artwork and older eye media.
+All 472 original files matched their pre-operation SHA-256 inventory. Local README pointers
+identify the new locations; already-deleted older material was not recreated.
+
+Executed `& ./tmp/archive-rayguard-logos-2026-09-28.ps1` with native PowerShell operations.
+The helper verified absolute path containment and absence of existing destination/reparse
+conflicts before moving, verified the approved PNG copy, then verified every archive file.
+The owner approval, task, shared handoff and app identity records were updated. Existing
+working-tree edits and runtime copies remain preserved; no reset, commit or push occurred.
+
+Independent file readback via a PowerShell here-string piped to `uv run --locked python -`
+verified 472 archived originals (147,989,515 bytes), both ZIP CRCs, 23 unchanged runtime
+artwork/media/icon files, the approved PNG's hash/dimensions/transparency and 110 local
+Markdown links. `git diff --check` passed in both repositories. No application source was
+changed, so code/browser tests were not rerun for this asset/documentation operation.
+
+Approval/archive work is complete. The application still renders A04; A03 runtime adoption
+is pending under T28. No fresh browser, inference or model-performance evidence is claimed.
+Next: use the approved master for subsequent brand work; complete any app adoption/rehearsal
+as its own implementation increment. Existing collection, poster and advisor deadlines remain.
+
 ## T21/T26/T27/T30 item allocations and protocol handoff — 28 September 2026
 
 The owner supplied a further email from Dr. Divya (F03); its original send timestamp was not
@@ -300,6 +992,127 @@ Shared status, tasks, plan, context and event checklist now reflect the report. 
 shared schedule and historical meeting requirements remain intact. Existing working-tree
 edits were preserved. Next: send the consolidated email, obtain lab confirmation and protocol,
 then record actual sessions; complete GUI rehearsal and the intended model/scanner handoff.
+
+## T31 teammate collaborator invitations — 27 September 2026
+
+The repository owner explicitly requested access for four supplied GitHub accounts.
+Root coordinated the authenticated GitHub API operation and shared documentation;
+a separate read-only agent reviewed the scope against the contribution rules.
+No student authorship, work hours or code understanding is inferred.
+
+Before mutation, authenticated read-only API checks verified owner administration
+access, the exact `abdalrahman-ismaik/SDP-I-RayGuard` repository, all four account
+identities, no existing teammate collaborators and no pending invitations. GitHub
+canonicalizes the supplied `Blitzict` handle to `blitzict`.
+
+| GitHub account | Repository permission | Verified outcome |
+|---|---|---|
+| `mohd2k5` | Write | Invitation sent; pending acceptance |
+| `blitzict` | Write | Invitation sent; pending acceptance |
+| `Boshahab` | Write | Invitation sent; pending acceptance |
+| `Alshamisi10987` | Write | Invitation sent; pending acceptance |
+
+Executed through the existing noninteractive Git credential helper, with credentials
+kept in process memory: `GET /user`, `GET /users/{username}`, repository/collaborator/
+invitation/ruleset GETs, then four serial
+`PUT /repos/abdalrahman-ismaik/SDP-I-RayGuard/collaborators/{username}` requests.
+For this personal-account repository, GitHub returned **Write** on each invitation.
+A fresh invitation-list GET confirmed all four pending. API creation timestamps
+are 26 September 21:51:43–45 UTC, or 27 September 01:51:43–45 Asia/Dubai.
+Private invitation receipts remain ignored; no credentials are written to shared files.
+
+The two active ruleset summaries matched before/after. CODEOWNERS, required reviews,
+CI and bypass configuration were not changed. RayGuard-App permissions were not
+modified. `git diff --check` passed; this was an access/documentation change, with
+no code, model jobs, commit, push or publication of local working-tree changes.
+
+T31 is now in progress. Next: each teammate accepts the GitHub invitation, confirms
+required repository/material access and records their own explain-back/contributions.
+An invitation is not proof of accepted access, a code contribution or material access.
+Earlier dated records describing invitations as unsent retain their historical meaning.
+
+## T28 repository exclusions and T23 design feedback — 27 September 2026
+
+The user requested that application files remain versioned only in RayGuard-App
+and that the main documentation/progress reflect the current state. Root
+coordinated `.gitignore` and documentation changes; an independent read-only
+agent audited the Git boundary. No student contribution or review hours are inferred.
+
+Existing exclusions already covered local `app/`, `assets/`, `run-app.ps1` and the
+old GUI workflow; none was tracked. Added anchored exclusions for accidentally
+nested `RayGuard-App/` and copied `frontend/` / `backend/` roots. Expanded the
+generated-output exclusion from `output/playwright/` to all of `output/`.
+Git uses `.gitignore`; no ineffective `.ignore` substitute was created. Shared
+contracts, model catalog, inference scripts and runtime profiles remain tracked
+here and are consumed by the separate app's pinned engine submodule.
+
+Executed checks: `git ls-files -- app assets run-app.ps1 .github/workflows/gui.yml frontend backend RayGuard-App output`
+returned **zero tracked app/output files**. `git check-ignore -v --` with eleven
+representative app/output paths matched all eleven. Five shared engine/documentation/test
+paths remained tracked and unignored. `git add --dry-run --all .` listed only
+ignore/documentation changes, including pre-existing work; it staged nothing.
+The sibling app's `git status --short` remained clean. A local Markdown check
+validated **128 relative links** across the updated documentation with no missing
+targets; `git diff --check` passed. No code changed, so runtime/model tests were
+not repeated for this housekeeping step.
+
+README, contribution/index/architecture guides, status, tasks and poster records
+now reflect the repository split and the user's design feedback: the first
+poster is too generic and unprofessional, and **was not accepted**. Earlier render
+checks establish file correctness only; redesign remains outstanding and poster
+work is set aside for now. T23/T28 remain in progress, with existing deadlines and
+human acceptance obligations unchanged. Local legacy files and services were
+preserved; no tracked removal, app checkout edit, deletion, commit or push occurred.
+
+## T23 application-led poster draft — 27 September 2026
+
+The user chose the working application/live demonstration as the poster lead,
+provisional A1 portrait, and unconfirmed author/supervisor credits. The
+[poster plan](poster-plan.md) records this direction, content/evidence mapping,
+review sequence and remaining acceptance. Automated assistance coordinated the
+copy, HTML/PDF design and shared records; independent read-only agents inspected
+source assets, scientific claims and the rendered layout. No student authorship,
+presenter assignment, contribution hours or advisor approval is inferred.
+
+A self-contained HTML draft, one-page A1 PDF, PNG preview, presenter notes and
+private provenance/audit records were created. The main figure is an unchanged
+actual app capture of the known missed laptop target. Two diagnostic figures use
+unchanged canonical PNG bytes and vector boxes bound to saved exports: Test000001
+has one reference and zero predictions; Train000003 has one generic prediction
+and is explicitly labelled a bare-IED training example. Hashes, dimensions, run
+IDs and box types were checked. No new model run, training, service change or
+publication occurred; the September 24 content draft remains preserved.
+
+Executed from the repository root:
+
+```text
+.venv/Scripts/python.exe outputs/poster/6g-mena-2026/build_poster.py
+node outputs/poster/6g-mena-2026/render_poster.cjs
+pdfinfo output/pdf/rayguard-poster-v1.pdf
+pdffonts output/pdf/rayguard-poster-v1.pdf
+pdftoppm -scale-to 1900 -singlefile -png output/pdf/rayguard-poster-v1.pdf outputs/poster/6g-mena-2026/rayguard-poster-v1-preview
+pdftotext -layout output/pdf/rayguard-poster-v1.pdf outputs/poster/6g-mena-2026/poster-text.txt
+uv run --locked ruff check .
+uv run --locked python -m pytest
+```
+
+The final render has **one A1 page**, embedded fonts, 380 poster words including
+captions/references, no page overflow, no missing assets, no page errors and no
+external network requests. Text extraction and visual inspection passed. Ruff
+passed; **143 CPU software tests passed in 6.45 seconds**, separate from model
+evidence. Initial private-render helper checks caught a relative module path and
+font-loading timing issue; both were corrected before the final export. Private
+artifacts and manifests are ignored; the shared plan contains no scans or personal
+paths. Existing unrelated documentation changes were preserved.
+
+Remaining limitations: source scans have limited native resolution and the hero's
+small interface text is supporting context, with large external explanations.
+Actual-size print proof, printer/PDF requirements, author/order/supervisor credits,
+approved branding/figures, advisor review, intended host/lab pairing and human
+rehearsal remain open. The demo script is proposed, with saved real outputs clearly
+labelled as fallback. T23 remains in progress; next action is advisor/content and
+organizer-format review, not submission without those details. The 30 September
+deadline and ASAP SLG obligation remain, with exact cutoff/route/visit unknown.
 
 ## T28 standalone public application — 27 September 2026
 
@@ -1197,46 +2010,6 @@ centers at every sample. Desktop/mobile opening captures were inspected; the
 scoped design detector was clear. These are software/media checks with synthetic
 API fixtures. T28 still needs human presentation review and the existing model/scanner handoff.
 
-## T28 logo exploration — 26 September 2026
-
-At the user's request, root inspected the completed-eye poster and generated
-32 distinct numbered RayGuard concepts with the built-in `image_gen` tool.
-Two first-pass images received cleanup edits, making 34 generation/edit calls.
-The selected output is 32 opaque RGB PNGs, each 1254 × 1254, totaling 26,898,465
-bytes. A local browser gallery, numbered overview, exact prompt record and
-SHA-256 manifest accompany the images under ignored
-`outputs/logo-exploration-2026-09-26/`. [Shared scope](logo-exploration.md)
-explains the families and local-only delivery without depending on these files.
-
-Root owns generation and shared records; a separate agent implemented the
-gallery, checked its behavior and independently reviewed the art. No student
-authorship/hours or user selection are inferred. Existing application, animation
-and concurrent work were preserved; no model execution or publication occurred.
-
-`uv run --locked ruff check .` passed; `uv run --locked python -m pytest` passed
-85 in 4.50 s. `node tmp/check-logo-gallery.cjs` passed 12 Chromium checks with
-all 32 images loaded and none pending: filtering, file-based shortlist persistence,
-text download, full-image dialog/Escape/focus, print-media visibility and layouts
-at 1440, 390 and 320 px. PIL inspection read dimensions/modes and generated a
-relative-path SHA-256 manifest; it did not create or modify the artwork. Software
-checks and visual inspection do not establish model performance. Next is user
-evaluation by concept number; vector/production refinement follows a selection.
-T28's human rehearsal, intended model pairing and scanner handoff remain open.
-Final independent visual coverage included all 32 current images and both revised
-files. The browser-captured overview is 3040 × 1930 with all numbers visible.
-`Compress-Archive -LiteralPath outputs/logo-exploration-2026-09-26 -DestinationPath
-outputs/RayGuard-32-logo-concepts.zip` created a 31,110,324-byte local package;
-Python `zipfile.testzip()` passed and its inventory contains all 32 selected PNGs.
-
-## T28 HTML logo showcase opened — 26 September 2026
-
-The user explicitly requested an HTML page showing the complete logo set. Root
-reused the existing standalone gallery, and an independent read-only check
-confirmed all 32 embedded concepts and PNGs plus the filters, full-image viewer,
-shortlist and export controls. The browser connector opened the local `index.html`
-in a preserved tab. No duplicate page, application change or publication was needed;
-user evaluation by logo number remains pending under T28.
-
 ## T28 Instrument Serif throughout — 26 September 2026
 
 The user requested trying the reference font on all website text. Root added
@@ -1273,7 +2046,7 @@ style warnings; the supplied reference explicitly pins Instrument Serif.
 Private evidence: `output/playwright/instrument-serif/`. These are software and
 presentation checks, not fresh inference or hardware validation. No commit or push.
 T28 remains open for human font/presentation review, intended model pairing and
-the real scanner handoff. Concurrent logo and eye-media changes were preserved.
+the real scanner handoff. Concurrent eye-media changes were preserved.
 
 ## T28 dashboard reference refinement — 26 September 2026
 
@@ -1405,64 +2178,6 @@ Private captures: `output/playwright/eye-layout/` and `eye-layout-start/`.
 Next: user presentation review; T28's human rehearsal/model pairing/scanner
 handoff remain open. No media re-encode, inference, commit or publication.
 
-## T28 second logo batch — 26 September 2026
-
-The user requested more professional, premium and distinctive logo exploration
-around eyes, iris, X-ray, computer vision and protection, and authorized downloading
-logo-design skills. Root coordinated 24 new raster symbol concepts B01–B24, six
-color variations, exact prompts, provenance and a SHA-256 inventory in ignored
-`outputs/logo-exploration-batch-02/`. A separate agent owns the offline HTML
-gallery and browser verification; another independently inspected all 24 symbols.
-No student contribution, hours or acceptance are inferred.
-
-The reviewed MIT-licensed RampStack `logo-design` skill was installed with
-`install-skill-from-github.py --repo rampstackco/claude-skills --path
-skills/logo-design --ref 3d4510a94a76ead80122c691b5c480f92f3fbe40` through the
-system skill installer. Imagegen, Impeccable and Playwright also informed the work.
-The personal skill installation remains outside the repository.
-
-Built-in image generation produced each symbol separately and six color edits.
-B21 received a targeted edit to remove an unintended pupil notch; its initial
-image was retained under `iterations/`. Metadata records generator deviations
-separately from exact prompts. The gallery supplies six family filters, four local
-licensed wordmark pairings, 32px/64px preview tiles, persistent favorites and text
-shortlist export. File-URL PNG links open the original in a separate tab; hosted
-links offer direct download. The earlier batch remains available alongside it.
-
-**Executed and verified:**
-
-- `uv run --locked ruff check .` passed.
-- `uv run --locked python -m pytest` passed **85 in 2.36 s**. These remain
-  software checks, not detector or real-data evaluation.
-- `uv run --locked python tmp/inventory-logo-batch2.py` decoded all **30**
-  selected PNGs, with 30 distinct hashes; 29 are 1254 × 1254 and B04 is 1402 × 1122.
-- `node tmp/check-logo-batch2.cjs --http` passed gallery checks for final labels,
-  all images/fonts, filters, favorites/persistence, export, preview arrows/Escape,
-  offline original opening, empty-state recovery and 320px/390px layouts without
-  horizontal overflow. No page/console errors, failed requests or external
-  requests were recorded for the offline gallery. A hosted PNG download matched
-  source bytes. Temporary browser/server resources were closed.
-- Root visually reviewed the white-backed artwork, final four-column/six-row
-  overview, color sheet and mobile layout. Evidence is under
-  `output/playwright/logo-batch2/`; overview/color sheets and browser results
-  are included in the local pack.
-- `Compress-Archive -LiteralPath outputs/logo-exploration-batch-02
-  -DestinationPath outputs/RayGuard-Batch-02-24-logo-concepts.zip` produced a
-  **24,743,760-byte** archive. Python `zipfile` checked all CRCs and confirmed
-  **51 entries**, including the 30 selected artwork files and HTML page.
-
-These are raster identity studies, not final vectors or finished favicon exports;
-small previews retain source margins. Related shape explorations remain in the
-collection for comparison. B01/B10/B08 were the independent review's strongest
-starting shortlist, with B15/B24 as technical/fluid eye alternatives. User selection
-is pending. No app branding was replaced, inference run, commit or publication
-performed. T28 remains in progress for human presentation review, model pairing
-and scanner handoff; the 30 September poster and unresolved 8/15 October versus
-collection-first schedule conflict remain unchanged.
-
-Next: the user evaluates B-number, palette and wordmark combinations; refine the
-selected identity into precise production artwork. See [shared scope](logo-exploration.md).
-
 ## T28 light-mode text readability — 26 September 2026
 
 The user reported thin light-mode text and requested bold text. Root added a
@@ -1504,7 +2219,7 @@ npx.cmd playwright test tests/e2e/appearance.spec.ts tests/e2e/dashboard.spec.ts
 Private evidence is in `output/playwright/light-readability/`. These are software
 and presentation checks, not new inference or human usability acceptance. No
 commit or push. T28 remains open; next is user readability review and the existing
-model/scanner/showcase handoff. Concurrent logo and intro work was preserved.
+model/scanner/showcase handoff. Concurrent intro work was preserved.
 
 ## T28 IEDXray test reference and model comparison — 26 September 2026
 
@@ -1591,107 +2306,13 @@ Synthetic tests verify software; the nine saved comparisons verify this feature
 against actual prior predictions. Neither establishes model accuracy, new lab data,
 physical scanner integration or completed P1. Independent final review found no
 remaining concrete pairing/claim issue. `git diff --check` passed, no files were
-staged, and local config, snapshots and evidence remain ignored. Existing logo,
+staged, and local config, snapshots and evidence remain ignored. Existing
 intro, typography and other local work were preserved; no commit or push.
 
 Next: the user reviews reference/model overlays and actual misses; the human
 model/showcase owner confirms the intended laptop/pager pairing and rehearses the
 presentation. Dataset-quality/provenance issues still gate fair full-test
 evaluation; do not adjust thresholds using this test demonstration.
-
-## T28 B20-focused logo variations — 26 September 2026
-
-The user preferred B20 Dual Energy because it reads as an X, with 09 Iris Crest
-and 07 Ribbon Sight as secondary references. Root coordinated 24 focused raster
-variations C01–C24 and four separate palette studies of the original B20 using
-built-in image generation. The three originals were inspected and copied unchanged
-as references. Exact prompts, intended geometry and actual-art review notes are
-preserved in the ignored local pack. The installed logo-design skill informed
-silhouette and typography review; Imagegen, Impeccable and Playwright supported
-generation and gallery checks.
-
-Separate agents owned `outputs/logo-exploration-batch-03/index.html` and independent
-art inspection, with root owning generation, packaging and shared records. The
-gallery provides four families, four offline wordmark pairings, persistent
-favorites, shortlist export, enlarged previews, 32px/64px comparison tiles and
-original PNG links. Root inspected the final 24-concept overview, color sheet
-and cleaned C21 white-backed preview. Image-generation edits removed artifacts
-from C21, C22 and the B20 reverse study; their earlier iterations were retained.
-C10's description now reflects the rendered layered cuts. No student authorship,
-effort or acceptance is inferred.
-
-Executed and verified:
-
-- `uv run --locked ruff check .` — passed.
-- `uv run --locked python -m pytest` — 85 passed in 2.95 seconds.
-- `uv run --locked python tmp/inventory-logo-batch3.py` — all 28 selected PNGs
-  decoded at 1254 × 1254, with 28 distinct SHA-256 hashes; only C21 retains alpha.
-- `node tmp/check-logo-batch3.cjs` — gallery agent's final Chromium check passed
-  for metadata agreement, all 31 selected/reference images, four fonts, family
-  filters, persistence, saved-only comparisons, focus after removal, export,
-  preview navigation, local PNG opening and 320px/390px layouts. No page/console
-  errors, failed requests or external requests. Evidence is local under
-  `output/playwright/logo-batch3/`; checks and overview/color sheets are also
-  copied into the deliverable. This batch was checked as an offline file gallery.
-- `Compress-Archive -LiteralPath 'outputs/logo-exploration-batch-03' -DestinationPath
-  'outputs/RayGuard-Batch-03-X-variations.zip'` — completed. Python `zipfile`
-  CRC/read-back verification passed: 53 entries, 28 selected artwork files,
-  29,943,183 bytes, and the HTML entry point present.
-
-These are related raster concepts for evaluation; final production work needs
-vector construction and optical adjustment. Small tiles retain artboard margins;
-palette edits may contain minor geometric/color differences. Suggested comparison
-points C01/C02, C08/C14, C15/C19 and C23 are design judgments, not user approval.
-The previous two packs remain available. This work changed no app branding,
-detector behavior or model evidence, and performed no publication or commit.
-Next: user chooses C-numbers, palette and wordmark for refinement. T28 remains
-in progress for human showcase review and its existing model/scanner handoff;
-the 30 September poster deadline and unresolved prototype/collection schedule
-conflict remain unchanged.
-
-## T28 simpler logo directions — 26 September 2026
-
-The user did not find a final identity in batch 03 and asked for a simple,
-creative mark that is clear and easy to understand. Root generated eight
-distinct directions D01–D08 with built-in image generation, continuing B20
-through two X concepts and exploring simpler eye, iris, guard and R constructions.
-An image edit smoothed D05's lower contour. Exact prompts, original D05,
-metadata and hashes are in ignored `outputs/logo-exploration-batch-04/`.
-
-Root coordinated art, packaging and shared records; a separate agent owned the
-offline HTML gallery and browser checks; another independently inspected all
-eight images and a limited set of category precedents. A separate UI review
-found no material fixes. No student authorship, hours or final approval is inferred.
-The logo-design, Imagegen, Impeccable and Playwright skills supported this work.
-Review favored D02 Cross Eye, D07 Sight R and D05 Shelter Eye; these are design
-recommendations, not user selections or measured audience recognition.
-
-Executed and verified:
-
-- `uv run --locked ruff check .` — passed at the time of this logo work's check.
-- `uv run --locked python -m pytest` — 85 passed in 2.45 seconds at that check;
-  concurrent model-runtime development is separate from this result.
-- `uv run --locked python tmp/inventory-logo-batch4.py` — eight selected PNGs
-  decoded at 1254 × 1254 RGBA, all with alpha 0–255 and distinct SHA-256 hashes.
-- Gallery agent ran `node tmp/sync-logo-batch4.cjs` and
-  `node tmp/check-logo-batch4.cjs` after the D05 replacement. Passed: metadata,
-  eight images on white, two fonts, favorites/persistence/export, keyboard focus,
-  modal navigation, original PNG opening and 320px/390px layouts. No browser
-  errors or external requests. Root inspected the final overview and all-eight
-  16/32/64/128px proof. Evidence is under `output/playwright/logo-batch4/`;
-  overview, small-size proof and check JSON are also in the review pack.
-- `Compress-Archive -LiteralPath 'outputs/logo-exploration-batch-04'
-  -DestinationPath 'outputs/RayGuard-Batch-04-Simple-Directions.zip'` — completed.
-  Python `zipfile` CRC/read-back verification passed: 24 entries, eight selected
-  artworks, 4,247,336 bytes, and the HTML entry point present.
-
-All marks remain raster concepts. At 16px, D02/D07 retain X/R silhouettes but
-their secondary eye details weaken; the tiles retain original artboard margins.
-No final favicon, print or embroidery suitability is claimed. App branding and
-detector behavior were not changed by this work; no publication or commit was
-performed. Next: user selects a simpler structure for vector and optical refinement.
-T28's human showcase review and model/scanner handoff remain open. The 30 September
-poster obligation and unresolved prototype/collection deadline conflict are unchanged.
 
 ## T28 wheel zoom, pan and hover magnifier — 26 September 2026
 
@@ -1765,50 +2386,6 @@ and screenshots remain ignored.
 Next: user review of wheel sensitivity and the hover lens, followed by the existing
 human presentation-laptop rehearsal and model/scanner handoff. These display tools
 do not complete P1/P2 evaluation or change the current collection/poster obligations.
-
-## T28 iris-focused logo studies — 26 September 2026
-
-After rejecting batch 04 as too basic, the user clarified that the logo should
-look like an iris. Root inspected the completed animation frame and 09 Iris Crest,
-then generated six initial studies, two refinements and two replacements with
-built-in image generation. Four studies are selected in the local batch-05 HTML
-gallery. Wheel/scoop/rosette outcomes were excluded and retained only as local
-iteration history. Exact prompts and selected-image provenance are bundled.
-
-Root owned generation, curation, packaging and shared records. A gallery agent
-owned the offline HTML and browser verification; another independently inspected
-all selected images and rejected attempts. A separate ideation agent contributed
-iris construction proposals. No student authorship, hours or approval is inferred.
-Review favors E01 for a controlled logo and E04 for a more natural iris; E04's
-illustrative detail needs further reduction for small production use. Earlier
-X/R/eye recommendations do not establish a selected identity.
-
-Executed and verified:
-
-- `uv run --locked ruff check .` — passed.
-- `uv run --locked python -m pytest` — 129 passed in 11.65 seconds at this check;
-  concurrent runtime implementation is separate from the logo work.
-- `uv run --locked python tmp/inventory-logo-batch5.py` — four selected
-  1254 × 1254 RGBA PNGs decoded, each with alpha 0–255 and a distinct SHA-256 hash.
-- Gallery agent ran `node tmp/build-logo-batch5.cjs` and
-  `node tmp/check-logo-batch5.cjs` against the final four studies. Offline image/
-  reference/font loading, favorites, persistence, export, preview navigation,
-  original PNG links and focus passed; 320px/390px layouts had no overflow.
-  No page/console errors, failed requests or external requests. Root inspected
-  the final white-backed overview and 16/32/64/128px sheet. Evidence is under
-  `output/playwright/logo-batch5/`, with final proofs/check JSON in the pack.
-- `Compress-Archive -LiteralPath 'outputs/logo-exploration-batch-05'
-  -DestinationPath 'outputs/RayGuard-Batch-05-Iris-Studies.zip'` — completed.
-  Python `zipfile` CRC/read-back verification passed: 27 entries, four selected
-  artworks, 9,632,229 bytes, HTML entry point present.
-
-These remain raster review concepts. Internal features merge at very small sizes;
-the preview tiles retain artboard margins and are not final favicon exports.
-App branding, detector behavior and inference evidence were unchanged by this
-work; no commit or publication was performed. Next: user selects the iris structure
-and detail level for vector/optical refinement. T28 human showcase/model/scanner
-handoffs, the 30 September poster obligation and the unresolved prototype versus
-collection-first schedule conflict remain open.
 
 ## T28 portable GPU runtime implementation — 26 September 2026
 
@@ -1908,50 +2485,6 @@ scanner validation. Other vendors/platforms, second NVIDIA laptop and separate C
 host execution remain unqualified. T28 remains in progress for those checks and
 human showcase/model/scanner acceptance. The 30 September poster obligation and
 M01/M02 prototype-versus-collection deadline conflict remain unresolved.
-
-## T28 iris-inside-shield variations — 26 September 2026
-
-The user requested an iris contained inside a shield, in multiple variations
-from simple to complex. Codex root coordinated the artwork and shared summary;
-separate gallery and review agents owned the offline page/checks and independent
-visual review. No student authorship or hours are inferred. Earlier work and
-concurrent app/runtime edits were preserved.
-
-The local `outputs/logo-exploration-batch-06/` contains twelve selected concepts
-F01–F12, four each at Simple/Balanced/Detailed levels. Built-in image generation
-used the existing Iris Crest, iris studies and animation references. Four
-targeted edits removed gray inner shadows; the initial files and exact prompts
-are retained. Every selected shield is closed and fully contains its iris/pupil.
-Review suggests F02/F05/F10 for an initial cross-level comparison, with F07/F11
-as useful alternatives; these are recommendations rather than user selections.
-
-Executed and verified:
-
-- `uv run --locked ruff check .` — passed.
-- `uv run --locked python -m pytest` — 138 passed in 3.68 seconds; software
-  checks, not real-model or data evidence for this logo work.
-- `uv run --locked python tmp/inventory-logo-batch6.py` — twelve distinct
-  1254 × 1254 RGBA PNGs, four per level; dimensions/alpha/hashes recorded.
-- `node tmp/build-logo-batch6.cjs` and `node tmp/check-logo-batch6.cjs` — offline
-  desktop/320px/390px checks passed for artwork, fonts, filters, cross-level
-  favorites, empty states, export, preview navigation and keyboard focus.
-  No browser errors, failed requests or external requests were recorded.
-- Root and the independent reviewer inspected all final marks, four cleanup
-  edits, the overview and the 16/32/64/128px proof. Detailed fibers are intended
-  for larger display; the proof retains original artwork margins.
-- `Compress-Archive -LiteralPath 'outputs/logo-exploration-batch-06'
-  -DestinationPath 'outputs/RayGuard-Batch-06-Iris-Shields.zip'` and Python
-  `zipfile` read-back — CRC passed, 35 entries, all twelve selected images,
-  17,173,358 bytes. The gallery, fonts/licenses, originals, prompts, metadata,
-  review, proofs and browser evidence are bundled.
-
-These remain raster concept studies. F05/F08 need optical clearance refinement;
-generated pixel colors are not final vector specifications. No identity was
-adopted, and no model job, commit or publication was performed for this work.
-Artifacts are local/ignored and need separate transfer. Next: user selects an
-F-number/detail level for vector refinement. T28 remains in progress for human
-showcase/model/scanner acceptance; the 30 September poster obligation and
-unresolved M01/M02 schedule conflict remain unchanged.
 
 ## T28 workspace CPU/GPU choice — 26 September 2026
 
@@ -2081,52 +2614,6 @@ association/decisions remain open. T28 also remains in progress: intended lab
 pairing, human rehearsal, scanner handoff and second-host acceptance are pending.
 The 30 September poster obligation and unresolved M01/M02 schedule conflict remain.
 
-## T28 C19/C21 logo variations — 26 September 2026
-
-The user asked to revisit C19 Eye Weave and C21 Guarded Cross and create many
-creative variations. Codex root coordinated artwork and shared documentation;
-separate agents proposed construction ideas, built/checked the gallery and
-independently reviewed actual artwork. No student authorship or hours are inferred.
-Earlier artifacts and concurrent app/runtime work were preserved.
-
-`outputs/logo-exploration-batch-07/` presents sixteen G-series concepts across
-Eye Weaves, Guarded Forms, Iris Hybrids and New Constructions. Both requested
-references remain unchanged and visible. Sixteen initial built-in image calls
-and one G13 fill-cleanup edit produced the selected artwork; exact prompts and
-the superseded G13 are retained. G08's generated counter was closed rather than
-open, so its name/caption were corrected to Tapered Crest. G04/G05/G16 are review
-suggestions, not user selections. Near-duplicates and alternate visual readings
-are documented rather than claiming sixteen unrelated or globally unique marks.
-
-Executed and verified:
-
-- `uv run --locked ruff check .` — passed.
-- `uv run --locked python -m pytest` — 143 passed in 3.74 seconds.
-- `uv run --locked python tmp/inventory-logo-batch7.py` — sixteen distinct
-  1254 × 1254 PNGs, four per family; four RGBA and twelve RGB files. Inventory
-  was refreshed after the G13 replacement.
-- `node tmp/build-logo-batch7.cjs` and `node tmp/check-logo-batch7.cjs` — offline
-  desktop/320px/390px checks passed for images, two local fonts, family filters,
-  cross-family favorites, export, preview navigation, PNG access and focus.
-  Full checks passed again after G13 cleanup; no browser errors, failed requests
-  or external requests were recorded.
-- Root and the independent reviewer inspected all selected marks, the overview,
-  original-margin 16/32/64/128px proof and G13 cleanup on white. Both fill blemishes
-  were removed while retaining its contours and pupil.
-- `Compress-Archive -LiteralPath 'outputs/logo-exploration-batch-07'
-  -DestinationPath 'outputs/RayGuard-Batch-07-Weave-and-Guard.zip'` and Python
-  `zipfile` CRC/read-back verification — passed, 33 entries, sixteen selected
-  images, 15,088,134 bytes.
-
-The pack includes the offline gallery, originals, references, exact prompts,
-metadata/hash inventory, review, proofs, browser evidence and font licenses.
-These are raster selection studies; several fine distinctions disappear at
-16/32px and need optical/vector refinement. No identity was applied to the app,
-and no model job, commit or publication was performed for this work. Generated
-artifacts remain local/ignored. Next: the user selects G-numbers for refinement.
-T28 human showcase/model/scanner acceptance stays open; the 30 September poster
-obligation and unresolved M01/M02 schedule conflict remain unchanged.
-
 ## T28 Folder receiver first — 26 September 2026
 
 At the user's request, root reordered the dashboard shortcut array to **Folder
@@ -2144,48 +2631,6 @@ passed **1 existing browser check in 7.1 s**, covering setup selection and no se
 writes. Synthetic software checks only; no new tests, model execution or hardware
 validation. No commit/push. T28 remains open for human showcase/model/scanner
 acceptance; next action is user review of the dashboard order.
-
-## T28 fresh sharp-eye logo direction — 26 September 2026
-
-The user explicitly rejected earlier designs and requested thirty new AI logo
-ideas: a sharp, serious eye that watches the viewer, integrated with X-ray and
-project-related inspection ideas. Root coordinated concept generation, selection,
-prompt/provenance records and shared documentation. Separate agents prepared the
-offline gallery and independently reviewed every selected image and proof.
-No student authorship or hours are inferred.
-
-The local batch-08 pack contains thirty H-series PNGs across six families,
-an offline HTML gallery, two licensed local wordmark pairings, family filters,
-favorites/shortlist export, enlarged previews, overview and small-size proof.
-Fifty generation/edit calls produced thirty selected results; eighteen were
-revised for sharper gaze, cleaner details or framing. All fresh generations had
-no image references, and edits used only this batch's new artwork. Earlier
-artwork remains historical and is not referenced by this gallery.
-
-Actual commands and outcomes:
-
-- `uv run --locked ruff check .` passed; `uv run --locked python -m pytest`
-  passed **143 tests in 4.43 s**. These are software checks, not detector evidence.
-- `uv run --locked python tmp/inventory-logo-batch8.py` decoded thirty PNGs,
-  verified distinct hashes and six groups of five, and wrote `manifest.json`.
-- `node tmp/build-logo-batch8.cjs` and `node tmp/check-logo-batch8.cjs` passed
-  **22 browser check categories**, including all images, offline controls,
-  local fonts, saved choices, export and desktop/320px/390px layouts. No browser
-  errors, failed requests or external requests. Proofs and checks are bundled.
-- `uv run --locked python tmp/package-logo-batch8.py` checked source/browser/
-  manifest hash agreement and created `outputs/RayGuard-Batch-08-Sharp-Eyes.zip`:
-  **44 files, 30 selected PNGs, 10,465,121 bytes**. CRC and full read-back passed.
-
-Root and independent review favor comparing H01/H11/H13/H21 first, with H26 as
-a heavier alternative. The local review describes all thirty actual renders,
-related variants, H27's retained pupil highlight, H28's mascot reading and tiny-
-size limitations. These remain raster concepts, not approved vector masters;
-no uniqueness or model-performance claim is made. No app identity change,
-model job, publication or commit/push was part of this work.
-
-Next: user chooses H-numbers for vector/optical refinement. T28 remains open for
-human showcase/model/scanner acceptance. The 30 September poster obligation and
-unresolved M01 8/15 October versus collection-first schedule conflict remain.
 
 ## T28 processing and completed scan view — 26 September 2026
 
@@ -2245,6 +2690,418 @@ human showcase/model/scanner acceptance. Next: review this interaction during th
 next deliberate inference/replay, then continue the human showcase rehearsal.
 The 30 September poster obligation and unresolved M01/M02 schedule conflict remain.
 
+## T28 removal of logo work — 27 September 2026
+
+At the user's explicit request, root removed all nine local logo exploration
+batches and ZIP archives, browser proofs, prompts, helper scripts and dedicated
+design documentation. A separate agent independently audited the removal scope.
+The generated-image cache contained 223 PNGs matched to the logo work by content
+hash or recorded provenance; all were removed. PowerShell `Remove-Item -LiteralPath`
+ran after absolute-path, reparse-point and cache-hash checks: 62 workspace targets
+and 223 cache PNGs, 747 files totaling 494,266,140 bytes, with no target remaining.
+Temporary cleanup helpers were removed after verification.
+
+Final checks: `uv run --locked ruff check .` passed;
+`uv run --locked python -m pytest` passed 143 tests in 10.41 s;
+`git diff --check` passed. Independent inspection confirmed no active gallery
+artifacts or stale links remain and the original animation/poster files exist.
+
+The ten obsolete logo progress sections and active gallery/selection references
+were removed. Original app/animation/poster assets and unrelated project work
+were preserved; Git history and historical migration snapshots were not rewritten.
+No logo selection or refinement is pending. T28 continues with human showcase,
+model/scanner acceptance and existing schedule obligations. No student authorship
+or hours are inferred, and no publication or commit/push was performed.
+
+## T28 confirmed logo review — 27 September 2026
+
+The user supplied and explicitly confirmed an X-and-eye logo, then requested
+design feedback and color/font recommendations. This is a new selected reference
+after the earlier exploration was deleted; those deleted files were not restored.
+Root and an independent agent visually inspected the supplied raster. Its SHA-256
+is `90f7bb585d6ca4719784d0f0abbbd94e818b444f8076aa7f0797b2fb994ada83`.
+
+Artifact inspected: integrated X/eye silhouette, curved channels, two gold accent
+wedges and a heavy wordmark with a cut R. Recommendations preserve the silhouette,
+refine narrow convergences and wordmark spacing, and prepare separate small-size,
+single-color and reverse artwork. Small-size concerns are visual predictions;
+no recognition test, production export or uniqueness finding is claimed.
+
+Recommended palette: deep ink `#142B38`, teal `#008F9C`, cool off-white `#F4F7F8`.
+Alternatives retain muted gold or use cobalt. Recommended wordmark: Manrope 700,
+with the approved R adapted to match its letter weight and spacing. Google Fonts
+metadata/specimen and Vercel's official Geist specimen were consulted. Read-only
+`rg`/`Get-Content` inspection confirmed Manrope/Geist declarations and several
+existing app palettes; `Get-FileHash -Algorithm SHA256` identified the source.
+
+Colors and typography are recommendations, not further user approvals. The
+original image and app were unchanged. Only shared status/task/progress records
+were updated; no software tests were required for this design review. Root owns
+the record; student authorship/hours are unreported. Next: user chooses color/type,
+then production refinement can proceed. T28 showcase acceptance and schedule
+obligations remain open.
+
+## T28 confirmed logo refinement gallery — 27 September 2026
+
+The user authorized applying the earlier design review and comparing enhanced
+versions of the confirmed X-and-eye in an HTML page. Root coordinated separate
+vector-construction, gallery and independent-review agents. This records agent
+work, not student authorship or hours. Earlier deleted explorations were not restored.
+
+The local, ignored `outputs/logo/refinements/index.html` compares three native
+constructions, three palettes and three actual outlined wordmarks. There are nine
+geometry/color choices, with symbol, stacked and horizontal arrangements, plus
+monochrome/reverse treatments: 93 SVG assets and 93 matching transparent PNGs.
+Four additional built-in image-generation edits use the confirmed reference and
+are labeled interpretive raster studies. Exact prompts, local fonts/licenses,
+construction notes, size proofs and export metadata travel with the gallery.
+These hand-built SVG redraws are not recovered original vector artwork.
+
+Executed and verified:
+
+- `uv run --with fonttools --with brotli --with uharfbuzz --with skia-pathops python tmp/refined-logo-vectors.py`
+  and `node tmp/refined-logo-vectors.cjs` constructed the outlined vectors and PNG exports.
+- `node tmp/refined-logo-build-gallery.cjs` and `node tmp/refined-logo-check-gallery.cjs`
+  produced the final page and passed 21 browser-check categories at 1440, 390 and
+  320 pixels. Every image decoded; local fonts, controls, exact-byte downloads,
+  saved font/layout combinations, reload persistence and shortlist export passed.
+  There were no browser errors, failed requests or horizontal overflow.
+  Final HTML SHA-256: `f3f97bad8633867e92a68a37c17fe8f9ee1d95416a5a9e6fd80768d4651d1303`.
+- `uv run --locked ruff check .` passed. `uv run --locked python -m pytest`
+  passed 143 tests in 5.32 seconds. These are software checks, not model validation.
+- `Invoke-Item` opened the local HTML gallery for the user.
+- `uv run --locked python tmp/refined-logo-inventory.py` validated the unchanged
+  source hash, all 93 native SVGs, their exact palette fills and geometry consistency,
+  all PNG decodes and transparent exports. The final inventory covers 209 files.
+- `uv run --locked python tmp/refined-logo-package.py` produced the 210-entry
+  `outputs/logo/RayGuard-Identity-Refinements.zip` (19,234,035 bytes). Manifest
+  hashes, archive CRCs and complete byte-for-byte archive readback passed.
+  `git diff --check` passed.
+
+Root and independent inspection of the final overview and actual-size proof support
+P02 Optical / Ink + Teal / Manrope 700 custom R as the recommended starting point.
+P03 provides a compact alternative but did not demonstrate a decisive small-size
+advantage in the proof. At 16 pixels the X is clearer than the eye; 24 pixels remains
+subtle, and 32 pixels is a safer starting point when eye recognition matters.
+No audience-recognition, fabrication or trademark clearance is claimed.
+The supplied PNG is unchanged; the application identity was not modified.
+
+Next: the user chooses a final construction, palette and wordmark before application
+adoption. No model job, publication, commit or push was performed. T28 human
+showcase/model/scanner acceptance, the 30 September poster obligation and the
+unresolved 8/15 October versus collection-first schedule conflict remain open.
+
+## T28 darker-blue logo palettes — 27 September 2026
+
+At the user's request, root added six darker-blue palette studies to the confirmed
+logo pack. The comparison fixes P02 Optical geometry and the Manrope 700 custom-R
+wordmark: Midnight Navy, Deep Sapphire, Oxford + Gold, Deep Indigo, Prussian Blue
+and Navy Monochrome. The local `outputs/logo/refinements/dark-blues/index.html`
+compares the palettes on the same light field and offers reverse versions on
+their corresponding navy backgrounds. The main refinement gallery links to it.
+
+Root owned palette assets, packaging and shared records; a separate agent owned
+the comparison page/browser checks, with an independent visual reviewer. No
+student hours or authorship are inferred. No application code or identity changed.
+
+Executed: `uv run --locked python tmp/dark-blue-assets.py` generated 36 SVGs and
+asserted exact fills and unchanged geometry/type attributes against existing P02
+artwork. `node tmp/dark-blue-render.cjs` rendered 36 matching transparent PNGs.
+The complete pack now contains 129 SVGs and 129 corresponding PNG exports, plus
+the preserved original and earlier AI studies. These are controlled color
+variations; no new AI image generation or shape redesign was needed.
+
+After adding the darker-blue link, `node tmp/refined-logo-build-gallery.cjs` and
+`node tmp/refined-logo-check-gallery.cjs` rebuilt the main gallery and passed all
+21 existing browser-check categories at 1440/390/320 pixels. Main HTML SHA-256:
+`2a10d02a8f3731d536442744a5e5930d37a09ac4a238128162c56828e021c720`.
+`uv run --locked ruff check .` passed; `uv run --locked python -m pytest` passed
+143 tests in 3.54 seconds. These are software checks, not detector validation.
+
+`node tmp/dark-blue-gallery-build.cjs` and `node tmp/dark-blue-gallery-check.cjs`
+produced the darker-blue page and passed 15 check categories, all 36 palette/layout/
+treatment combinations and 72 exact-byte SVG/PNG downloads. The local font and
+images loaded, links resolved, and 1440/390/320 layouts had no overflow, browser
+errors or failed requests. Darker-blue HTML SHA-256:
+`ff117a1cf5d6c4bf45666d8300f9d75ceb3d667c13dab260328c8d07731d1abc`.
+Root and the independent reviewer inspected the rendered six-option overview;
+the reviewer agreed with D01 as the restrained choice and D02 for a more visibly
+blue mark. D03 retains the original warm accent; no color defect required revision.
+
+Final inventory/package commands were `uv run --locked python tmp/refined-logo-inventory.py`
+and `uv run --locked python tmp/refined-logo-package.py`. The unchanged source,
+129 SVGs and transparent export decodes passed inspection. The revised ZIP has
+287 entries, 25,239,055 bytes, and passed manifest hashes, CRCs and full byte-for-byte
+readback. `Invoke-Item` opened the darker-blue page; `git diff --check` passed.
+
+The user has not selected a final palette. Midnight Navy is the restrained
+recommendation; Deep Sapphire is a more visibly blue alternative. Existing
+small-size limitations, T28 human acceptance, the 30 September poster obligation
+and the unresolved prototype/collection schedule conflict remain unchanged.
+
+## T28 A04 monochrome branding study — 27 September 2026
+
+The user requested deeper exploration of the A04 monochrome/compact study and
+branding/presentation applications. Root coordinated separate native-art and
+presentation agents. Root reviewed the actual reference, native construction and
+size proofs, and contextual images. No student authorship or hours are inferred.
+
+The local `outputs/logo/a04-brand-study/` package preserves A04 unchanged (SHA-256
+`5208d0b9148e55390d7aceff858111a1d2e1caf8c1ed1ecf75aa3c6ce7affc74`). Three native
+constructions directly interpret that raster, with black, deep navy and warm-white
+treatments. This is a hand-built interpretation, not recovered original vector art
+or a reuse of the earlier P03. Default lockups use outlined Manrope 650 with its
+standard R; three standalone wordmarks offer further comparison.
+
+`uv run --locked python tmp/a04-vectors.py`, `node tmp/a04-vectors-render.cjs` and
+`uv run --locked python tmp/a04-vectors-verify.py` produced and verified 36 SVGs and
+36 transparent PNGs. Checks passed for exact fills, geometry consistency across
+colors, native paths/circles, portable proof links, absence of raster/live-text or
+external artwork dependencies, PNG alpha and unchanged source. The author corrected
+an overly fine upper-blade taper before delivery. Actual-size proofs support 32 px
+or larger where the eye must read clearly; a 16 px recognition claim is not made.
+
+Four built-in image-generation mockups visualize stationery, environmental signage,
+a research equipment carry case and a debossed black folio. One targeted image edit
+repaired incomplete transparent corners in the signage image; the selected v2 is
+opaque RGB. Exact prompts and the selected paths are in the package. These images
+show proposed applications, not installed signage, existing hardware or fabrication
+tests. The source reference, original galleries and application identity are unchanged.
+
+`uv run --locked ruff check .` passed; `uv run --locked python -m pytest` passed
+143 tests in 3.71 seconds. These are software checks, not model validation.
+
+`uv run --with fonttools --with brotli python tmp/a04-brand-fonts.py` created local
+static Manrope instances. `node tmp/a04-brand-build.cjs` and
+`node tmp/a04-brand-check.cjs` built the responsive gallery and ten-slide HTML/PDF
+presentation. Fifteen browser-check categories passed, covering offline fonts/assets,
+controls, exact SVG/PNG downloads, 1440/390/320 layouts, navigation/fullscreen,
+ten distinct slide views, PDF readiness and text boundaries, without browser errors
+or failed requests. A first screenshot loop captured repeated views; the author
+corrected screen-media navigation and verified distinct final hashes.
+
+`pdftoppm -png -r 96 outputs/logo/a04-brand-study/presentation.pdf outputs/logo/a04-brand-study/rendered/slide`,
+`pdftotext -layout`, `pdfinfo`, `pdffonts`, and
+`uv run --locked python tmp/a04-brand-contact.py` verified/rendered the final ten
+16:9 PDF pages. Static fonts replaced the first variable-font export; final PDF
+font subsets are embedded CID TrueType. Root and the presentation author inspected
+the final contact sheet and full PDF pages 01, 06 and 10. Local browser and visual
+audits passed; the PDF is not a tagged accessibility edition.
+
+Final gallery SHA-256:
+`61bfbcbd6fb26b8b33e4eb286f283cc4fbb2f41ea555209fb6e82d0a65dcbbf0`.
+Final PDF SHA-256:
+`ae064d21d449650161028b9c55928b561995032cd6bc02910fb68bdb24e7b8dc`.
+`uv run --locked python tmp/a04-package.py` checked current gallery/deck/PDF hashes,
+unchanged A04 source, native SVGs and transparent export decodes, then produced
+`outputs/logo/RayGuard-A04-Brand-Study.zip`: 134 entries, 35,927,232 bytes.
+Archive CRC and full byte-for-byte readback passed. `Invoke-Item` opened the gallery;
+`git diff --check` passed. Root recommends A04-02 Optical with Manrope 650 as the
+starting comparison, with black/ivory and a midnight-navy alternative.
+
+Final identity selection and application adoption remain with the user. T28 human
+showcase/model/scanner acceptance, the 30 September poster deadline and the
+unresolved prototype/collection schedule conflict remain open. No model job,
+publication, commit or push is part of this branding study.
+
+## 27 September 2026 — approved A04 adoption in RayGuard App (T28)
+
+The owner approved the A04 direction and requested its use throughout the app.
+The implemented selection is **A04-02 Optical with outlined Manrope 650, standard R**.
+The separate RayGuard-App checkout now uses the approved native identity in
+expanded/compact/mobile navigation, the bounded introduction, activity marks,
+browser/home-screen icons, Design Studio previews and README artwork. Ivory
+`#F5F3EF`, navy `#0B1F3A` and near-black `#111418` are the canonical treatments.
+Application UI preferences and detector/status semantics remain available.
+
+Automated implementation used separate asset and UI ownership, independent
+read-only coverage review, and coordinator-owned integration/documentation.
+Twelve SVG masters match the approved study hashes byte-for-byte. Earlier studies,
+the original confirmed image and historical execution footage remain intact;
+the deleted exploration batches were not restored. No student hours are inferred.
+The app's `docs/branding.md` and `frontend/public/brand/provenance.json` record
+the identity contract and provenance. These changes are local and not yet published.
+
+Actual checks: in the app, `npm --prefix frontend run build` and
+`uv run --project backend --locked ruff check backend` passed;
+`uv run --project backend --locked python -m pytest backend/tests` passed
+280 tests in 18.72 seconds; `npm --prefix frontend run test:e2e` passed 147 tests
+in 3.6 minutes. The former three video-failure cases are replaced by one
+missing-brand-asset entry check. In this shared repository,
+`uv run --locked ruff check .` passed and `uv run --locked python -m pytest`
+passed 143 tests in 3.93 seconds. These are software checks, not real-data validation.
+The mechanical interface detector reported no findings. Production browser review
+covered dark/light marks, compact navigation and a 320-pixel open menu with no
+horizontal overflow. The updated app runs locally on port 8780; older services
+and the ignored recovery app remain untouched. No new inference or publication
+was performed for branding adoption.
+
+Brand choice/adoption is complete locally. T28 remains in progress for human
+rehearsal, intended lab pairing and scanner handoff. The 30 September poster
+obligation and unresolved prototype/collection deadline conflict remain open.
+Next: rehearse the updated app on the presentation laptop and complete the
+remaining human acceptance steps; branding approval is not model/scanner approval.
+
+## 21 November 2026 — T38 report draft build
+
+Task T38 (report). The untracked `docs/report/` LaTeX draft (`main.tex` plus six chapters,
+appendices, `references.bib`, four original figures) was compiled with MiKTeX
+`lualatex` and `bibtex` into the ignored `docs/report/build/`. The build produced a
+36-page PDF with no LaTeX errors, no `??` references and no BibTeX warnings. The Gantt
+figure was inspected visually. The top-axis labels for 24, 27 and 30 November sit close
+together but remain legible. The draft is not committed; the team has not yet reviewed it.
+A Word draft was generated with Pandoc 3.9 from a prepared copy of the source
+(`build/main-word-draft.docx`, ignored). The prepared copy converts the two equation
+environments to display math, writes the 14 figure and table captions with their
+PDF numbers and replaces the cross-references with those numbers. The DOCX has
+46 native Word equations, 4 embedded figures, 11 tables and no leftover TeX
+commands in the text. Pandoc emitted no conversion warnings. Layout, pagination and
+visual fidelity against the PDF are still unverified. The Word draft is not a
+submission copy. Still open: the institutional cover and roster, student contribution
+confirmations, the risk/H&S forms and signatures, approved screenshots, eligible
+final metrics, and the course distribution decision. Software checks (`ruff`,
+`pytest`) were not run; no code changed. Next: a named editor/reviewer compares the
+DOCX with the PDF page by page, maps the draft to R01–R15, and confirms the handbook
+distribution route before any upload.
+
+## 21 November 2026 — T28, T34, T39 working pass
+
+- **T39 (proposed owner Abd):** drafted the proposal-to-screen requirement map (10 requirements; 3 implemented, 7 partial) and a prioritized fix list in [demo requirement map](demo-requirement-map-2026-11.md). Not reviewed by Mohammad. No RayGuard-App code changed; its working tree has 23 uncommitted files from earlier work.
+- **T28 (Abd):** RayGuard-App backend `uv run --locked ruff check .` passed; `uv run --locked python -m pytest -q` gave 280 passed, 1 warning; `npm run build` passed. Local browser replay (agent-driven, CPU, scratch config with `runtime_profile` manual): dataset replay of Test000001–003 completed 3/3, with one missed target shown and the empty-result text "not a safe or benign verdict". Not done: upload path, service-stop recovery, export, human rehearsal on the laptop, clean-start timing. Runbook is in the same map.
+- **T34 (Abd, action A17):** the owner reports the Meeting 02 minutes were already sent to the advisor and team. Date, recipients and channel are not yet recorded here; the draft in [meeting-02-distribution-draft.md](meeting_minutes/meeting-02-distribution-draft.md) was not used to send anything.
+
+Next: owner confirms recipients to send A17; Mohammad reviews the T39 map; a person runs the T28 rehearsal runbook on the presentation laptop.
+
+## 22 November 2026 — latest PR review and T41 policy handoff
+
+Review activity: AI-assisted inspection of the current GitHub PR list and visible diffs;
+this is not a student contribution or formal GitHub review. No comments, approvals or
+merges were submitted. PR #22 (`ali/data-policy`, `ea9a21b`) covers unchanged published
+test data, shared seed-17 ~80/20 validation, exact-duplicate grouping and exploratory
+status without physical groups. Both hosted CPU runs (push and pull request, two matrix
+jobs each) succeeded. Abd/Ahmed's supplied decision supports those rules and makes the
+box clamp conditional on checking the five actual training boxes and every <0.001 px
+overshoot; the real dataset check, findings hash and partition have not run. Review items
+before human acceptance: receipt example defaults to approved, the derived annotation
+retains stale COCO `area` after `bbox` changes, and the test-only guard depends on
+filename conventions. Raw test source was inaccessible in this review, and no local
+tests were run. The reviewer receipt remains for the human student.
+
+PR #20 (`docs/semester-progress-2026-11`, five commits/38 files) also has passing current
+PR CI, but its prior approval was dismissed as stale after later commits. It needs a new
+independent human review of the current diff and overlap with #22/T38 before merge.
+PR #21 initialization is recorded merged as `29d6d0f`; PR #18 evaluator remains merged
+as `9350482`. No model training or real evaluation was run. Next: authorized dataset
+holder runs read-only generic/specific box checks; Abd completes the human policy receipt
+after resolving review items; Ahmed creates real findings/partition artifacts only after
+that, then connects trainer/evaluator and qualifies the HPC pilot. See [plan](plan.md#pull-request-review--22-november)
+and current [task rows](tasks.md).
+
+## 22 November 2026 — T38 report compliance pass (partial)
+
+Task T38. Work followed the approved plan in `docs/report/`:
+- Chapter 5 retitled to "Implementation and Fabrication" with a software-only note.
+- Bibliography switched to IEEEtran. Three verified references added and cited:
+  velayudhan2023survey (ACM Computing Surveys 55(8), DOI 10.1145/3549932), astolfo2022darkfield
+  (Nature Communications 13(1), DOI 10.1038/s41467-022-32402-0; the supplied reference list's
+  "Partridge" author is not the published first author), miao2019sixray (CVPR 2019).
+- Appendix A now has a dated semester record (Table A.2), open conflicts (Table A.3) and a
+  handbook-form task table (Table A.4). Effort is "unreported" throughout.
+- Build: `lualatex` x2 with `bibtex` gives 40 pages, no errors, no undefined citations or references.
+- Word draft regenerated with Pandoc 3.9 to `docs/report/build/main-word-draft.docx`: 46 equations,
+  4 figures, 17 captions, no unresolved references. Layout not yet compared with the PDF.
+
+Not done: Gantt figure (Fig. A.1) not rebuilt; the handbook-form table covers the required elements
+instead. Literature and patent-search record not written. Abstract length not checked against about
+200 words. Full page-by-page visual check not complete. `docs/report/handbook-compliance-matrix.md`
+was changed on disk by someone else after my edit; the current version was kept.
+
+Gantt rebuild (22 Nov, later): `docs/report/figures/gantt.tex` now has two panels. Panel A shows
+recorded semester evidence by status; Panel B gives the forward schedule T1–T9 from 21 Nov, with
+durations, dependency arrows and responsibilities. Effort is unreported throughout. Compiled with
+`lualatex` to `figures/gantt.png`; the report builds at 40 pages with no errors, and the Word draft
+was regenerated. The Gantt page was viewed at page size; the small labels are legible but compact.
+`appendices.tex` was changed on disk by someone else during this step; the current version was kept.
+
+Abstract and search record (22 Nov, later): the abstract is 198 words, within the handbook's
+roughly 200-word guidance. Chapter 1 now has a literature and patent search record (Table 1.2)
+from three scoping web queries accessed 22 Nov 2026. It is explicitly not a complete patent
+search: no patent database was queried by classification or claim text, and no patent claiming
+cross-image threat-detection fusion was found in the snippets. The report builds at 40 pages with
+no errors, and the Word draft was regenerated with 18 captions. `appendices.tex` and
+`01-introduction.tex` were also changed on disk by someone else during this work; the current
+versions were kept.
+
+Next: compare the Word draft with the PDF page by page; run a full patent-database search if the handbook requires it.
+
+Patent search (22 Nov, later): three more scoping web searches with patent terms, added to Table 1.2.
+They surfaced older related patents (EP0476070A1, US5153439A, US5600700A, US20040258199A1, US9915752) and
+no patent for deep-learning detection of explosives in modified electronics or for cross-image detection
+fusion. This is still not a patent-database search: the available tools cannot query Google Patents,
+USPTO full text or Espacenet by classification or claim text. A database search with CPC G01V 5/20 is
+still required. The report builds at 40 pages with no errors; the Word draft was regenerated.
+
+## 22 November 2026 — Ahmed's T41 HPC/data handoff (reported)
+
+Ahmed reports that all 124 transferred files, dataset inputs and exact starting weights
+were verified; an audit covered 17,360 images and confirmed five matching sub-0.001 px
+box findings in each training export. Job 740 failed during font discovery; GPU
+environment job 741 completed after cache preparation. Ahmed reports 442 local checks
+passed, 11 skipped and Ruff clean; exact command lines were not included in the message.
+Original annotations/test data and existing local changes were preserved; there were no
+Git mutations, no annotation repair, no partition, no task trials, and no jobs remain
+running. The linked handoff was not found in this checkout, so these results are recorded
+as teammate-reported, not independently inspected here. Job 741 confirms environment
+setup only; it does not establish full trainer qualification or model performance.
+
+Next: Abd completes the independent PR #22 implementation review and human policy receipt
+after outstanding code questions are resolved. Then Ahmed may create the derived repair,
+findings hash and partition, qualify the full trainer, and start the bounded T41 study.
+No real training has started. See T40/T41 in [tasks](tasks.md) and the [plan](plan.md).
+
+## 22 November 2026 — owner-authorized report source publication
+
+The owner explicitly authorized publishing the working LaTeX report source and original
+project figures to the research repository's GitHub branch. This is a draft-source
+distribution decision only: the compiled PDF and Word copy remain ignored local build
+outputs, and no signed forms, handbook source, scans, credentials or private receipts are
+included. The source is not submission-ready; the final assembled report's audience,
+Word/PDF fidelity review, official forms/signatures and course distribution conflict
+remain open. T38 tracks final acceptance and submission.
+
+## 22 November 2026 — PR #22 follow-up review
+
+Inspected current GitHub PR #22 at head `053c95c` and its changed policy, CLI, repair
+implementation and synthetic test files. Hosted Ubuntu/Windows CPU checks are green;
+Ali reports 288 synthetic tests passed. No tests were rerun locally and no private data
+files were accessed. The update addresses the prior pending-receipt, area-recording and
+test-split-guard findings. Inspection of T41 `training_partition.py` at Ahmed's
+`32091bc` confirms `make_partition` requires decision `approved`, nonempty owner/reference
+and a findings hash matching the supplied inventory. Inspection of T42's evaluator confirms
+the frozen objective is overall AP@[.50:.95].
+
+Follow-up commit `3ee9c87` on PR #22 corrects the area-metric explanation and clarifies that
+the implementation receipt is pending; it also renames a synthetic helper that pytest had
+collected accidentally. On the isolated PR worktree, `uv run --locked ruff check .` passed.
+`uv run --locked python -m pytest` reported 272 passed, 2 skipped because `pycocotools` was
+unavailable, and no warnings. Hosted Linux/Windows checks for `3ee9c87` passed. No real test export
+was verified here. No repair, findings hash, partition, training or performance evaluation
+has run. Next: after hosted checks, Abd records the human receipt; Ahmed verifies the actual
+test-export hash, runs read-only check then repair, creates findings/partition hashes and
+completes trainer qualification before a pilot.
+
+Patent search update (22 Nov): a team member supplied the Google Patents result page for the multi-view
+query with CPC G01V 5/20 (about 230 results; run on 22 November 2026). The top ten are hardware or imaging
+patents, not detection fusion. Recorded in report Table 1.2. Still open: the USPTO full-text search and the
+claims of any relevant-looking hit. The mybrowser tool is not available in this
+session; it was not installed from the bootstrap folder.
+
+USPTO search (pasted result page): query "multi-view" AND "x-ray" AND ("detection" OR "detecting") AND ("baggage" OR "security") over US-PGPUB, USPAT and USOCR. The visible top 12 hits are mostly unrelated; one 2026 hit, "Detection of disassembled items" (Infosys), may relate to dismantled components and is not yet read. Run date and total hit count are still to be confirmed. Recorded in Table 1.2; no claims read.
+
+USPTO result total (22 Nov 2026): 863 hits for the query recorded above. The Infosys "Detection of disassembled items" applications (US20260301145 A1, US20260301379 A1) were read from their abstracts: container imaging, material segmentation, a learned embedding and a restriction score based on distances between objects. This is the closest match so far to the distributed-component idea, but the applications are not granted, and their claims are not read.
+
+Patent reading (22 Nov, later): the two Infosys applications (US20260301145, US20260301379) returned HTTP 404 on Google Patents with and without the kind code, so their claims and status are unread. A web search found US10977755B2 (IBM, filed 2017, granted 2021), which describes detecting disassembled components across multiple sensor scan images. It is the closest multi-scan match so far, but its first claim was not read verbatim and its legal-status fields conflict in the fetched summary. Recorded in Table 1.2 with these limits.
+
 ## Add the next actual result
 
 For each meaningful result record:
@@ -2256,3 +3113,51 @@ For each meaningful result record:
 
 Keep detailed machine/run manifests in authorized private storage. A command someone plans
 to execute is not a completed experiment, and a generated draft is not a student contribution.
+
+## 22 November 2026 — T41 authorized-data read-only preflight
+
+Independent preflight was performed against the current PR #22 box-check implementation
+(`3ee9c870fc82fc7ebe2ed9de5ed34983913db7e5`) and Ahmed's T41 inventory/fingerprint code
+(`32091bcd1f46782ed39ac1233ad70e6ecf70451d`). It read the authorized local IEDXray copies
+without modifying source or test annotations. Results: 12,224 training and 5,136 test image
+files; both generic and specific training exports contain the same five out-of-bounds box
+findings, each below 0.001 px (maximum `0.00027450000000789343` px); paired train/test
+exports share zero image filenames. Exact byte inventory: 5 within-train groups, 112
+within-test groups, 4 exact train/test overlaps; physical-group metadata was unavailable,
+so the 0 verified groups value is not evidence that physical groups do not exist.
+
+`findings_sha256`: `4e5ff81087cc7a7b0bcbbf1abf45806e96ebd7936aca35b583d7f33e471ce9f7`.
+Train/test image inventory hashes are `58f4e58b3d42a81d46e3436cefe77d3524942e9aef792bad9dbfb6eafc0b4a94` and
+`6e438bb41a8520f005065fec321230cd8afc0c97491f4ac3a70d486b1ad96db6`; source annotation
+hashes and detailed ignored receipts are retained under
+`runs/t41-policy-preflight-2026-11-22/`. This is a local authorized-copy result; Ahmed must
+recompute/confirm the inventory hashes against the HPC transfer before partitioning. No
+box repair, derived annotation, partition, task trial, model training or evaluation was
+performed. The human implementation-review receipt is still pending.
+
+T41 readiness check: inspection of the `32091bc` CLI and trainer code found `--execute`
+explicitly blocked (`execution:software_draft_only`, `integration:live_trainer_not_connected`).
+Its Slurm template therefore does not launch actual training. The available documentation
+for `gpu-student` allows up to six hours; no HPC scheduler session is connected here. A
+valid training run tonight requires a real trainer integration and qualified HPC job path;
+this draft cannot produce reportable model-performance results. Job 741 remains environment
+setup evidence only, as reported by Ahmed.
+
+T38 report update (22 Nov): the verified read-only preflight was added to Chapter 5 of the
+canonical LaTeX draft, explicitly labeled as a local-copy audit with no approved partition,
+repair, training or performance result. `lualatex` + BibTeX + three LuaLaTeX passes completed
+without fatal errors; current PDF is 42 pages. Page 17 was rendered and visually inspected;
+the added subsection and surrounding table are legible. Existing underfull-box warnings remain
+in unrelated compact tables. The Word draft was not regenerated in this session because
+Pandoc is unavailable on PATH, so the current DOCX must be rebuilt and compared before
+submission. This is a working draft, not a final submission artifact.
+
+## 22 November 2026 — patent reading and report rebuild (later pass)
+
+- IBM US10977755B2: the USPTO PDF is a scanned image with no text layer (not readable without OCR). The Google Patents text page was read partially through a web fetch (quotes capped; claims 7–10 and the grant date rest on the page summary). Claim 1 recites detecting a component in a scan image of one owner's container and another in a second owner's container, storing records with contextual information, and flagging owners by correlation and danger thresholds. Three independent claims. Page status: expired for non-payment of maintenance fees; grant dates conflict on the page. Not a freedom-to-operate finding.
+- Infosys US20260301145 and US20260301379: still HTTP 404; a web search did not find them. Claims and status remain unread.
+- PR state checked read-only: #21 is MERGED (21 Nov 15:20 UTC), so the "PR #21 needs review" wording in status.md and tasks.md T40 is stale. #22 and #20 are open with REVIEW_REQUIRED.
+- Report rebuilt with lualatex and bibtex (bibtex run against build/main with BIBINPUTS set): 42 pages, 0 errors, 0 undefined citations.
+- Word draft not regenerated: the DOCX preparation script is not present in the current scratchpad, so main-word-draft.docx predates the Table 1.2 edit. Page-by-page fidelity review remains open.
+- Handbook matrix updated: abstract (198 words) done; IEEE citation style done; patent-search row reworded with the limits above.
+- Not done: no commit, push or PR action (no explicit owner authorization in this session); no human review or approval; no forms or signatures.

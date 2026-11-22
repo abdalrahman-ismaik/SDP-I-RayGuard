@@ -1,0 +1,5 @@
+asset,kind,source,evidence_boundary,reuse
+coordinates.png,original diagram,coordinates.tex,illustrative geometry not a prediction,project-created
+architecture.png,original diagram,architecture.tex and docs/architecture.md,implemented prototype versus unqualified research path distinguished,project-created
+experiments.png,original diagram,experiments.tex and docs/finetuning.md,controlled study planned not executed,project-created
+gantt.png,original schedule,gantt.tex with semester record and task records,panel A dated evidence statuses; panel B proposed work windows; effort unreported,project-created

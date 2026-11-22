@@ -1,8 +1,11 @@
 # RayGuard — 6G MENA poster review draft
 
-Updated 30 September 2026. **Version 6 is a draft for Prof. Naoufel and the team to
-review and improve.** Advisor approval, final print size and conference submission
-are not yet recorded.
+Updated 19 October 2026. **These files remain the 30 September version 6 review draft.**
+[F07](../../meeting_minutes/follow-up-poster-2026-10-19.md) separately documents poster
+acceptance and Brahim's receipt of Divya's new-template revision, pending TDRA response.
+That revised file was not supplied/inspected and is not established as these artifacts.
+The event requires digital portrait 9:16 at 1080 × 1920 px; no compliance claim for v6
+is added here. Its recorded hashes and original files remain unchanged.
 
 - [View the poster (PDF)](RayGuard-Research-Poster-v6.pdf)
 - [Download and edit the PowerPoint](RayGuard-Research-Poster-v6.pptx)

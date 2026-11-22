@@ -1,0 +1,83 @@
+\chapter{System Overview}\label{ch:system}
+\section{Stakeholders and use context}
+The prototype supports a human inspecting an authorized X-ray image. The
+operator needs visible task identity, localized findings, usable review
+controls and honest handling of missing inputs and failed execution. Students
+and supervisors also need reproducible artifacts and enough provenance to
+explain implementation decisions. Physical scanner integration requires a
+separate observed interface handoff; public documentation and image replay do
+not establish compatibility with the lab machine.
+
+The research dataset and the lab collection serve different purposes. Public
+IEDXray supports the single-scan baseline and planned training/evaluation.
+Dismantled scans support the distributed collection workstream. Their counts
+do not supply detector labels, independent cases or accepted negatives.
+
+\section{Functional requirements}
+\begin{longtable}{p{0.1\textwidth}p{0.49\textwidth}p{0.31\textwidth}}
+\caption{Requirement-to-evidence map for the SDP I prototype.}\label{tab:requirements}\\
+\toprule ID & Requirement & Evidence and disposition\\\midrule\endfirsthead
+\toprule ID & Requirement & Evidence and disposition\\\midrule\endhead
+FR1 & Accept authorized images and identify the source explicitly & Upload, folder receipt and finite replay documented; physical scanner not qualified\\
+FR2 & Apply declared preprocessing consistently before inference & Canonical image and backend transforms documented; no measured enhancement benefit\\
+FR3 & Detect and localize the selected task with a verified checkpoint & Bounded generic/device/specific execution records; no full-test accuracy claim\\
+FR4 & Display original-coordinate boxes, scores and task identity & Shared contract and GUI implementation evidence\\
+FR5 & Preserve execution failure and missing-input states & Contract/software behavior; empty results imply no benign verdict\\
+FR6 & Support operator review and export traceable records & Notes, session review and JSON export; persistence beyond session remains limited\\
+FR7 & Evaluate with matching ground truth and frozen settings & Evaluator software integrated; real eligible evaluation pending\\
+FR8 & Associate distributed scans using justified case provenance & Contract direction only; case labels and fusion unfinished\\
+\bottomrule
+\end{longtable}
+
+The proposal's acquisition objective remains broader than the present inventory.
+The recorded catalogue plans 500 images across 125 four-bag groups. The inventory
+contains 478 distinct byte payloads; the numerical difference is not an accepted
+shortfall until the lab confirms round mapping and usable-count criteria.
+
+\section{System specification}
+\subsection{Inputs and outputs}
+A successful scan result contains version, scan ID, execution status, original
+image dimensions, model/task identity and provenance, threshold, and a detection
+list. Each detection carries an ID, original-pixel corner coordinates, a category
+namespace and label, a confidence value, and explicit host association where
+available. An unmatched region retains no invented host link.
+
+The run manifest binds checkpoint hash, inference-code identity, task maps,
+input identities, backend settings and actual execution device. Training settings
+and study records remain separate from the inference manifest. This separation
+allows a candidate to be evaluated without extending every consumer with
+training-specific fields.
+\projectrecord{docs/contracts.md; docs/baseline-run-contract.md}
+
+\subsection{Failure and empty-result semantics}
+Execution success and detection count are separate. A successful run can contain
+zero detections; it means the model reported no regions at the chosen settings.
+A failed or missing scan is not an empty successful scan. Application messages
+and downstream evaluation must retain this distinction. It is particularly
+important for distributed cases, where a missing package cannot be treated as
+evidence that a component is absent.
+
+\subsection{Nonfunctional requirements}
+Reproducibility requires matching revisions, hashes, dependency profiles and
+documented settings. Local processing reduces unnecessary transfer of sensitive
+imagery; raw scans, credentials and private manifests stay outside Git. Usability
+requires readable overlays, keyboard review, responsive layouts and explicit
+source/result identity. The team must verify these properties on the actual
+presentation machine before claiming demo readiness.
+
+Latency has at least two meanings: model execution time and total time from
+accepted input to a visible completed result. Hardware, precision, batch size,
+warm-up, synchronization and preprocessing/postprocessing boundaries must be
+reported before comparing speeds. No stable percentile latency is inferred
+from a few diagnostic samples.
+
+\section{Acceptance boundaries}
+The existing vertical slice is accepted only to its demonstrated extent.
+Full P1 requires an agreed host/threat association or cascade and decision policy.
+P2 additionally requires component-level evidence, justified cases and case-level
+ground truth. Neither is supplied automatically by choosing a checkpoint in the
+GUI. Table~\ref{tab:requirements} therefore records partial and unfinished
+requirements rather than presenting all boxes as complete.
+
+\pending{Formal supervisor acceptance of the current requirement/specification
+mapping, current presentation-machine qualification and live scanner interface.}
