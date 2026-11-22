@@ -119,12 +119,16 @@ pretending that one was initialized from the other's result. Same-parent metadat
 must be accompanied by training receipts, paired seeds, partition identity and
 comparable budgets before interpreting a delta as a controlled comparison.
 
-The planned data policy preserves the published test split, groups exact-byte
-duplicates with verified physical groups inside a training-derived partition,
-and labels unknown physical independence explicitly. Invalid geometry remains
-blocked until a reviewed derived-data procedure exists. Actual policy receipts
-must bind the inspected findings and partition; a document describing policy
-does not clear real artifacts automatically.
+The data policy merged in PR~22 preserves the published test split and keeps
+exact-byte duplicates on the same side of a training-derived partition. No
+verified physical groups are available, so that partition is labeled
+exploratory and physical independence is not claimed. For the five training
+boxes that extend less than 0.001 pixels outside their image, the policy adds a
+training-only clamp that writes a derived copy and a change record and never
+edits the source annotations. That tool has synthetic tests only and has not
+been run on the real files; larger excursions stay blocked. Actual policy
+receipts must bind the inspected findings and partition; a document describing
+policy does not clear real artifacts automatically.
 
 No real full-test AP, fine-tuned checkpoint, improvement delta or reproducible
 model/pipeline latency is available in this draft. Those values must be inserted

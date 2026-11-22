@@ -1,6 +1,7 @@
 """Synthetic checks for the training-only box clamp. Not real-data or model evidence."""
 
 import copy
+import hashlib
 import importlib.util
 import json
 from pathlib import Path
@@ -141,6 +142,8 @@ def test_script_check_then_repair(tmp_path, capsys):
     assert source.read_bytes() == original
     record = json.loads((out / "repair-record.json").read_text(encoding="utf-8"))
     derived = json.loads((out / record["derived_file_name"]).read_text(encoding="utf-8"))
+    written = (out / record["derived_file_name"]).read_bytes()
+    assert record["derived_file_sha256"] == hashlib.sha256(written).hexdigest()
     assert find_overshoots(derived) == []
     assert record["split_check"]["test_file_name"] == split.name
     assert str(tmp_path) not in json.dumps(record)
@@ -150,3 +153,18 @@ def test_script_check_then_repair(tmp_path, capsys):
     assert _script().main(["repair", "--annotations", str(source), "--expected", "5",
                            "--output-dir", str(tmp_path / "other"), *guard]) == 2
     assert not (tmp_path / "other").exists()
+
+
+@pytest.mark.parametrize("edit", [
+    lambda image: image.pop("width"),
+    lambda image: image.update(height=0),
+    lambda image: image.update(width="100"),
+    lambda image: image.pop("file_name"),
+])
+def test_image_without_usable_size_or_name_is_refused(edit):
+    doc = train_doc()
+    edit(doc["images"][0])
+    with pytest.raises(ValueError, match="positive width/height"):
+        find_overshoots(doc)
+    with pytest.raises(ValueError, match="positive width/height"):
+        repair(doc)

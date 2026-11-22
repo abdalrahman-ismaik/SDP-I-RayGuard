@@ -55,8 +55,11 @@ def main(argv: list[str] | None = None) -> int:
 
     args.output_dir.mkdir(parents=True)
     name = args.annotations.stem + ".derived.json"
-    (args.output_dir / name).write_text(json.dumps(derived), encoding="utf-8")
+    written = json.dumps(derived).encode("utf-8")
+    (args.output_dir / name).write_bytes(written)
     record["derived_file_name"] = name
+    # Hash of the file on disk, so it can be checked with any SHA-256 tool.
+    record["derived_file_sha256"] = hashlib.sha256(written).hexdigest()
     (args.output_dir / "repair-record.json").write_text(
         json.dumps(record, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps({"status": "ok", "changed_boxes": len(record["changes"]),

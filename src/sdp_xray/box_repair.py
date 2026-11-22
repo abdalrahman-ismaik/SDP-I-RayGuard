@@ -37,6 +37,10 @@ def _images(document: dict[str, Any]) -> dict[int, dict[str, Any]]:
     for image in document["images"]:
         if type(image.get("id")) is not int or image["id"] in images:
             raise ValueError("image IDs must be unique integers")
+        if (not isinstance(image.get("file_name"), str) or not image["file_name"]
+                or any(type(image.get(key)) not in (int, float) or not math.isfinite(image[key])
+                       or image[key] <= 0 for key in ("width", "height"))):
+            raise ValueError(f"image {image['id']}: file_name and positive width/height required")
         images[image["id"]] = image
     return images
 

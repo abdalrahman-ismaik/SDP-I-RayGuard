@@ -77,7 +77,10 @@ Implementation, pending review: `sdp_xray.box_repair` and `scripts/repair_train_
   first on the real generic and specific training files to verify the five boxes.
 - `repair --test-annotations <test.json> --expected 5 --output-dir runs/<name>` writes a derived copy plus
   `repair-record.json`. The record holds the source hash and, for each change, the
-  annotation, the original and new box, and the overshoot. It refuses all of these:
+  annotation, the original and new box, and the overshoot. It also holds two hashes of the
+  derived copy: `derived_file_sha256` is the SHA-256 of the written file and is the one to
+  compare with `sha256sum`; `derived_content_sha256` is of its canonical JSON form. It
+  refuses all of these:
   - the published test file of the task, identified by its hash, and any training file that
     shares an image file name with it. This guard rests on the published split itself; the
     filename check (`test` in the name) is an extra, not the only guard. The record stores the
