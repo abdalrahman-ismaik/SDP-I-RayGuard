@@ -6,33 +6,44 @@ the work without assigning availability or claiming completion.
 
 ## Pull request review — 22 November
 
-**PR #22 — data policy and training-only box helper.** Current head `ea9a21b` has
-successful Linux/Windows CPU CI. The policy direction is agreed in the supplied Abd/Ahmed
-messages: preserve the published test set, use the shared seed-17 ~80/20 partition, keep
-exact duplicate training images together, and mark validation exploratory without verified
-physical groups. Ahmed reports an audit of 17,360 images with five matching sub-0.001 px
-findings in each training export; its per-box evidence is not present in this checkout.
-No repair has run. Review before accepting the code:
-default the policy receipt to pending (not approved), explicitly handle the COCO `area`
-field when deriving corrected boxes, and verify test split enforcement beyond filename
-conventions. The raw synthetic test source was not fully accessible and tests were not run
-locally. Human reviewer receipt and real findings hash/partition are outstanding. Ahmed
-reports transferred inputs and starting weights verified, and GPU environment job 741
-passed after job 740's font-discovery failure. This is environment evidence, not full
-trainer qualification. After review, Ahmed may create the derived repair and hash-bound
-partition, then qualify the trainer for a pilot.
+**PR #22 — data policy and training-only box helper.** Latest head `3ee9c87` has
+successful hosted Linux/Windows CPU checks; Ali reports 288 synthetic tests passed. The
+policy direction is agreed: preserve the published test set, use the shared seed-17 ~80/20
+partition, keep exact duplicate training images together, and mark validation exploratory
+without verified physical groups. Ahmed reports an audit of 17,360 images and five matching
+sub-0.001 px findings in each training export; per-box evidence remains teammate-reported
+and was not inspected here. No repair has run.
 
-**PR #20 — semester/progress/documentation update.** Five commits, 38 changed files,
-including shared guidance/ignore rules and several planning/status records. Latest PR CI
-passes; its prior approval is stale and dismissed after subsequent changes. Have an
+The latest code addresses the earlier findings: the receipt example is `pending`; T41's
+`make_partition` requires approved decision plus owner/reference and a matching findings
+hash; the repair record retains original COCO `area` and logs the bbox-implied change; and
+the repair guard hashes the supplied test export and refuses shared image names. Independent
+inspection confirms the T42 objective reports overall AP@[.50:.95]; COCOeval's area-specific
+metrics can still be affected for a validation subset derived from the repaired training
+copy. Commit `3ee9c87` corrects the policy wording and clarifies that Abd's policy message
+was not the implementation receipt. The exact real test file/hash must still be verified
+by Ahmed's run; a CLI argument alone does not establish provenance. In the isolated PR
+worktree, Ruff passed and pytest reported 272 passed / 2 skipped because `pycocotools` was
+unavailable, with no warnings. Hosted checks for `3ee9c87` passed. The human receipt,
+findings hash, partition, trainer qualification and pilot remain outstanding.
+
+Ahmed reports transferred inputs and starting weights verified, and GPU environment job 741
+passed after job 740's font-discovery failure. This is environment evidence, not full
+trainer qualification. After hosted checks pass and Abd fills the human receipt, Ahmed may
+run the read-only checks, create the derived repair and hash-bound partition, then qualify
+the trainer.
+
+**PR #20 — semester/progress/documentation update.** Seven commits, 70 changed files,
+including shared guidance, ignore rules, report sources, event materials and planning/status
+records. CI passes at `56b8a4c`; its prior approval is stale and dismissed after subsequent changes. Have an
 independent human reviewer inspect the current diff against main and reconcile overlapping
 PR #22/T38 records, then decide whether to merge. The assistant did not submit a GitHub
 review, comment or merge. PR #21 is merged as `29d6d0f`; #18 is merged as `9350482`.
 
-The open pilot gates remain review of the per-box evidence and repair implementation,
-completed human policy receipt, findings hash and partition, trainer/evaluator
-connection, transfer/head-handling receipt and full trainer qualification. No real
-training or model-performance evaluation is verified.
+The open pilot gates remain human approval of the reviewed policy receipt; the data owner's
+real test-export/hash verification; check/repair records, findings hash and partition;
+trainer/evaluator connection; transfer/head-handling receipt; and full trainer qualification.
+No real training or model-performance evaluation is verified.
 
 ## Latest team integration review — 21 November
 

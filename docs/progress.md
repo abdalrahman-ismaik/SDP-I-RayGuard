@@ -3024,6 +3024,37 @@ included. The source is not submission-ready; the final assembled report's audie
 Word/PDF fidelity review, official forms/signatures and course distribution conflict
 remain open. T38 tracks final acceptance and submission.
 
+## 22 November 2026 — PR #22 follow-up review
+
+Inspected current GitHub PR #22 at head `053c95c` and its changed policy, CLI, repair
+implementation and synthetic test files. Hosted Ubuntu/Windows CPU checks are green;
+Ali reports 288 synthetic tests passed. No tests were rerun locally and no private data
+files were accessed. The update addresses the prior pending-receipt, area-recording and
+test-split-guard findings. Inspection of T41 `training_partition.py` at Ahmed's
+`32091bc` confirms `make_partition` requires decision `approved`, nonempty owner/reference
+and a findings hash matching the supplied inventory. Inspection of T42's evaluator confirms
+the frozen objective is overall AP@[.50:.95].
+
+Follow-up commit `3ee9c87` on PR #22 corrects the area-metric explanation and clarifies that
+the implementation receipt is pending; it also renames a synthetic helper that pytest had
+collected accidentally. On the isolated PR worktree, `uv run --locked ruff check .` passed.
+`uv run --locked python -m pytest` reported 272 passed, 2 skipped because `pycocotools` was
+unavailable, and no warnings. Hosted Linux/Windows checks for `3ee9c87` passed. No real test export
+was verified here. No repair, findings hash, partition, training or performance evaluation
+has run. Next: after hosted checks, Abd records the human receipt; Ahmed verifies the actual
+test-export hash, runs read-only check then repair, creates findings/partition hashes and
+completes trainer qualification before a pilot.
+
+Patent search update (22 Nov): a team member supplied the Google Patents result page for the multi-view
+query with CPC G01V 5/20 (about 230 results; run on 22 November 2026). The top ten are hardware or imaging
+patents, not detection fusion. Recorded in report Table 1.2. Still open: the USPTO full-text search and the
+claims of any relevant-looking hit. The mybrowser tool is not available in this
+session; it was not installed from the bootstrap folder.
+
+USPTO search (pasted result page): query "multi-view" AND "x-ray" AND ("detection" OR "detecting") AND ("baggage" OR "security") over US-PGPUB, USPAT and USOCR. The visible top 12 hits are mostly unrelated; one 2026 hit, "Detection of disassembled items" (Infosys), may relate to dismantled components and is not yet read. Run date and total hit count are still to be confirmed. Recorded in Table 1.2; no claims read.
+
+USPTO result total (22 Nov 2026): 863 hits for the query recorded above. The Infosys "Detection of disassembled items" applications (US20260301145 A1, US20260301379 A1) were read from their abstracts: container imaging, material segmentation, a learned embedding and a restriction score based on distances between objects. This is the closest match so far to the distributed-component idea, but the applications are not granted, and their claims are not read.
+
 ## Add the next actual result
 
 For each meaningful result record:

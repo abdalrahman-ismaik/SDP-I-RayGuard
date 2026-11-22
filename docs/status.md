@@ -12,23 +12,24 @@ and [the plan](plan.md) for the authoritative backlog and requirements.
 ## Pull request review — 22 November
 
 The current GitHub PR list has two open requests. **PR #22** (`ali/data-policy`, head
-`ea9a21b`) proposes the frozen test split, shared seed-17 ~80/20 training partition,
-exact-byte duplicate grouping and an exploratory label; its Linux/Windows CPU CI
-passes. The supplied decision agrees with those policy points and allows a training-copy
-box clamp only after the five real boxes and each <0.001 px overshoot are verified.
-Ahmed now reports an audit of 17,360 images confirmed five matching sub-0.001 px boxes
-in each training export; the linked per-box evidence has not been inspected in this
-checkout. No repair has run and no findings hash or partition has been generated. The
-reviewer receipt remains blank. Review
-found items to resolve before accepting the code: the example receipt defaults to
-`decision: approved` despite being a template, the repair implementation preserves the
-original COCO `area` after changing `bbox`, and the test-only guard relies on filename
-conventions. The raw test source was not accessible during review, so no independent
-local test claim is made.
+`3ee9c87`) proposes the frozen test split, shared seed-17 ~80/20 training partition,
+exact-byte duplicate grouping and an exploratory label; hosted Linux/Windows CPU checks
+pass, and Ali reports 288 synthetic tests passed. Ahmed reports an audit of 17,360 images
+confirmed five matching sub-0.001 px boxes in each training export; per-box evidence was
+not inspected in this checkout. No repair, findings hash or partition has run. The update
+addresses the pending-receipt default, source-area recording and split guard; T41's
+partition builder requires approved owner/reference and matching findings hash. Review
+identified one wording correction: unchanged COCO `area` may affect size-specific validation
+metrics on a repaired training-derived validation split, even though T42's frozen objective
+uses overall AP@[.50:.95]. Commit `3ee9c87` corrects that rationale and clarifies the receipt
+attribution. Isolated-worktree checks: Ruff clean; pytest 272 passed / 2 skipped because
+`pycocotools` was unavailable, with no warnings. Hosted checks passed. The human
+receipt remains unfilled; Ahmed must verify the actual published test export/hash during the
+data run.
 
-**PR #20** (`docs/semester-progress-2026-11`) remains open at five commits. Its latest
-PR CI passes, but the approving review was dismissed as stale after later commits; 38
-files span project guidance, ignore rules, and progress/planning records. It needs a
+**PR #20** (`docs/semester-progress-2026-11`) remains open at seven commits / 70 files,
+including report draft sources and event materials. CI passes at `56b8a4c`, but the
+approving review was dismissed as stale after later commits. It needs a
 fresh independent human review of the current diff and reconciliation with the 22 Nov
 policy handoff. No GitHub review or merge was submitted in this review. See [T38/T40–T42](tasks.md)
 and [the current plan](plan.md#pull-request-review--22-november).
