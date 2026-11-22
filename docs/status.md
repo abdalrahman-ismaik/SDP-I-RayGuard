@@ -9,6 +9,38 @@ Retain independent review, scientific gates, protected branches and accurate cre
 Updated 21 November 2026. Read [tasks](tasks.md), [meeting records](meeting_minutes/README.md)
 and [the plan](plan.md) for the authoritative backlog and requirements.
 
+## Pull request review — 22 November
+
+The current GitHub PR list has two open requests. **PR #22** (`ali/data-policy`, head
+`ea9a21b`) proposes the frozen test split, shared seed-17 ~80/20 training partition,
+exact-byte duplicate grouping and an exploratory label; its Linux/Windows CPU CI
+passes. The supplied decision agrees with those policy points and allows a training-copy
+box clamp only after the five real boxes and each <0.001 px overshoot are verified.
+Ahmed now reports an audit of 17,360 images confirmed five matching sub-0.001 px boxes
+in each training export; the linked per-box evidence has not been inspected in this
+checkout. No repair has run and no findings hash or partition has been generated. The
+reviewer receipt remains blank. Review
+found items to resolve before accepting the code: the example receipt defaults to
+`decision: approved` despite being a template, the repair implementation preserves the
+original COCO `area` after changing `bbox`, and the test-only guard relies on filename
+conventions. The raw test source was not accessible during review, so no independent
+local test claim is made.
+
+**PR #20** (`docs/semester-progress-2026-11`) remains open at five commits. Its latest
+PR CI passes, but the approving review was dismissed as stale after later commits; 38
+files span project guidance, ignore rules, and progress/planning records. It needs a
+fresh independent human review of the current diff and reconciliation with the 22 Nov
+policy handoff. No GitHub review or merge was submitted in this review. See [T38/T40–T42](tasks.md)
+and [the current plan](plan.md#pull-request-review--22-november).
+
+**HPC handoff — 22 November:** Ahmed reports all 124 transferred files, the dataset and
+exact starting weights verified; image audit of 17,360 images completed; GPU environment
+job 740 failed at font discovery and job 741 passed after cache preparation; local checks
+reported 442 passed/11 skipped and Ruff clean. No annotation repair, partition or T41
+trials ran, and no jobs remain active. This evidence is in Ahmed's referenced handoff,
+which is not present in this checkout. Job 741 validates environment setup; full trainer
+qualification remains after PR #22 review and the human-filled policy receipt.
+
 ## Report priority — 21 November
 
 Owner confirms the 24 Nov report deadline; target **17:00 UTC+4**. The primary handbook
@@ -16,10 +48,13 @@ requirements and owner-approved **LaTeX/PDF plus checked Word** workflow are rec
 the [report specification](final-report-requirements.md), including six SDP I chapters,
 paper/project/meeting sources, figures/tables, Gantt chart, applicable forms and both
 assessment rubrics. T38 and the [delivery sequence](plan.md#report-delivery-sequence-agreed-21-november)
-track remaining work. Requirements documentation is prepared; report content/build,
-official form review/signatures, human owners, distribution permission and submission
-are not verified complete. Next: name the report editor/reviewer and map actual evidence
-to the specification before assembling the report. The older 27 Nov notice remains a
+track remaining work. A 40-page LaTeX draft PDF and a generated Word draft now exist
+locally; DOCX pagination/fidelity review against the PDF and requirement-by-requirement
+review remain open. Official form review/signatures, student ownership/contribution
+confirmations, full patent-database search, distribution permission and submission are
+not verified complete. Next: compare the Word copy page by page, map actual evidence to
+the handbook/rubrics, complete the required patent search and close official forms and
+submission route. The older 27 Nov notice remains a
 recorded conflict; plan around 24 Nov.
 
 ## Latest software and PR handoff — 21 November

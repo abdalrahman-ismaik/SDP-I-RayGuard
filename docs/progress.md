@@ -2897,6 +2897,123 @@ obligation and unresolved prototype/collection deadline conflict remain open.
 Next: rehearse the updated app on the presentation laptop and complete the
 remaining human acceptance steps; branding approval is not model/scanner approval.
 
+## 21 November 2026 — T38 report draft build
+
+Task T38 (report). The untracked `docs/report/` LaTeX draft (`main.tex` plus six chapters,
+appendices, `references.bib`, four original figures) was compiled with MiKTeX
+`lualatex` and `bibtex` into the ignored `docs/report/build/`. The build produced a
+36-page PDF with no LaTeX errors, no `??` references and no BibTeX warnings. The Gantt
+figure was inspected visually. The top-axis labels for 24, 27 and 30 November sit close
+together but remain legible. The draft is not committed; the team has not yet reviewed it.
+A Word draft was generated with Pandoc 3.9 from a prepared copy of the source
+(`build/main-word-draft.docx`, ignored). The prepared copy converts the two equation
+environments to display math, writes the 14 figure and table captions with their
+PDF numbers and replaces the cross-references with those numbers. The DOCX has
+46 native Word equations, 4 embedded figures, 11 tables and no leftover TeX
+commands in the text. Pandoc emitted no conversion warnings. Layout, pagination and
+visual fidelity against the PDF are still unverified. The Word draft is not a
+submission copy. Still open: the institutional cover and roster, student contribution
+confirmations, the risk/H&S forms and signatures, approved screenshots, eligible
+final metrics, and the course distribution decision. Software checks (`ruff`,
+`pytest`) were not run; no code changed. Next: a named editor/reviewer compares the
+DOCX with the PDF page by page, maps the draft to R01–R15, and confirms the handbook
+distribution route before any upload.
+
+## 21 November 2026 — T28, T34, T39 working pass
+
+- **T39 (proposed owner Abd):** drafted the proposal-to-screen requirement map (10 requirements; 3 implemented, 7 partial) and a prioritized fix list in [demo requirement map](demo-requirement-map-2026-11.md). Not reviewed by Mohammad. No RayGuard-App code changed; its working tree has 23 uncommitted files from earlier work.
+- **T28 (Abd):** RayGuard-App backend `uv run --locked ruff check .` passed; `uv run --locked python -m pytest -q` gave 280 passed, 1 warning; `npm run build` passed. Local browser replay (agent-driven, CPU, scratch config with `runtime_profile` manual): dataset replay of Test000001–003 completed 3/3, with one missed target shown and the empty-result text "not a safe or benign verdict". Not done: upload path, service-stop recovery, export, human rehearsal on the laptop, clean-start timing. Runbook is in the same map.
+- **T34 (Abd, action A17):** the owner reports the Meeting 02 minutes were already sent to the advisor and team. Date, recipients and channel are not yet recorded here; the draft in [meeting-02-distribution-draft.md](meeting_minutes/meeting-02-distribution-draft.md) was not used to send anything.
+
+Next: owner confirms recipients to send A17; Mohammad reviews the T39 map; a person runs the T28 rehearsal runbook on the presentation laptop.
+
+## 22 November 2026 — latest PR review and T41 policy handoff
+
+Review activity: AI-assisted inspection of the current GitHub PR list and visible diffs;
+this is not a student contribution or formal GitHub review. No comments, approvals or
+merges were submitted. PR #22 (`ali/data-policy`, `ea9a21b`) covers unchanged published
+test data, shared seed-17 ~80/20 validation, exact-duplicate grouping and exploratory
+status without physical groups. Both hosted CPU runs (push and pull request, two matrix
+jobs each) succeeded. Abd/Ahmed's supplied decision supports those rules and makes the
+box clamp conditional on checking the five actual training boxes and every <0.001 px
+overshoot; the real dataset check, findings hash and partition have not run. Review items
+before human acceptance: receipt example defaults to approved, the derived annotation
+retains stale COCO `area` after `bbox` changes, and the test-only guard depends on
+filename conventions. Raw test source was inaccessible in this review, and no local
+tests were run. The reviewer receipt remains for the human student.
+
+PR #20 (`docs/semester-progress-2026-11`, five commits/38 files) also has passing current
+PR CI, but its prior approval was dismissed as stale after later commits. It needs a new
+independent human review of the current diff and overlap with #22/T38 before merge.
+PR #21 initialization is recorded merged as `29d6d0f`; PR #18 evaluator remains merged
+as `9350482`. No model training or real evaluation was run. Next: authorized dataset
+holder runs read-only generic/specific box checks; Abd completes the human policy receipt
+after resolving review items; Ahmed creates real findings/partition artifacts only after
+that, then connects trainer/evaluator and qualifies the HPC pilot. See [plan](plan.md#pull-request-review--22-november)
+and current [task rows](tasks.md).
+
+## 22 November 2026 — T38 report compliance pass (partial)
+
+Task T38. Work followed the approved plan in `docs/report/`:
+- Chapter 5 retitled to "Implementation and Fabrication" with a software-only note.
+- Bibliography switched to IEEEtran. Three verified references added and cited:
+  velayudhan2023survey (ACM Computing Surveys 55(8), DOI 10.1145/3549932), astolfo2022darkfield
+  (Nature Communications 13(1), DOI 10.1038/s41467-022-32402-0; the supplied reference list's
+  "Partridge" author is not the published first author), miao2019sixray (CVPR 2019).
+- Appendix A now has a dated semester record (Table A.2), open conflicts (Table A.3) and a
+  handbook-form task table (Table A.4). Effort is "unreported" throughout.
+- Build: `lualatex` x2 with `bibtex` gives 40 pages, no errors, no undefined citations or references.
+- Word draft regenerated with Pandoc 3.9 to `docs/report/build/main-word-draft.docx`: 46 equations,
+  4 figures, 17 captions, no unresolved references. Layout not yet compared with the PDF.
+
+Not done: Gantt figure (Fig. A.1) not rebuilt; the handbook-form table covers the required elements
+instead. Literature and patent-search record not written. Abstract length not checked against about
+200 words. Full page-by-page visual check not complete. `docs/report/handbook-compliance-matrix.md`
+was changed on disk by someone else after my edit; the current version was kept.
+
+Gantt rebuild (22 Nov, later): `docs/report/figures/gantt.tex` now has two panels. Panel A shows
+recorded semester evidence by status; Panel B gives the forward schedule T1–T9 from 21 Nov, with
+durations, dependency arrows and responsibilities. Effort is unreported throughout. Compiled with
+`lualatex` to `figures/gantt.png`; the report builds at 40 pages with no errors, and the Word draft
+was regenerated. The Gantt page was viewed at page size; the small labels are legible but compact.
+`appendices.tex` was changed on disk by someone else during this step; the current version was kept.
+
+Abstract and search record (22 Nov, later): the abstract is 198 words, within the handbook's
+roughly 200-word guidance. Chapter 1 now has a literature and patent search record (Table 1.2)
+from three scoping web queries accessed 22 Nov 2026. It is explicitly not a complete patent
+search: no patent database was queried by classification or claim text, and no patent claiming
+cross-image threat-detection fusion was found in the snippets. The report builds at 40 pages with
+no errors, and the Word draft was regenerated with 18 captions. `appendices.tex` and
+`01-introduction.tex` were also changed on disk by someone else during this work; the current
+versions were kept.
+
+Next: compare the Word draft with the PDF page by page; run a full patent-database search if the handbook requires it.
+
+Patent search (22 Nov, later): three more scoping web searches with patent terms, added to Table 1.2.
+They surfaced older related patents (EP0476070A1, US5153439A, US5600700A, US20040258199A1, US9915752) and
+no patent for deep-learning detection of explosives in modified electronics or for cross-image detection
+fusion. This is still not a patent-database search: the available tools cannot query Google Patents,
+USPTO full text or Espacenet by classification or claim text. A database search with CPC G01V 5/20 is
+still required. The report builds at 40 pages with no errors; the Word draft was regenerated.
+
+## 22 November 2026 — Ahmed's T41 HPC/data handoff (reported)
+
+Ahmed reports that all 124 transferred files, dataset inputs and exact starting weights
+were verified; an audit covered 17,360 images and confirmed five matching sub-0.001 px
+box findings in each training export. Job 740 failed during font discovery; GPU
+environment job 741 completed after cache preparation. Ahmed reports 442 local checks
+passed, 11 skipped and Ruff clean; exact command lines were not included in the message.
+Original annotations/test data and existing local changes were preserved; there were no
+Git mutations, no annotation repair, no partition, no task trials, and no jobs remain
+running. The linked handoff was not found in this checkout, so these results are recorded
+as teammate-reported, not independently inspected here. Job 741 confirms environment
+setup only; it does not establish full trainer qualification or model performance.
+
+Next: Abd completes the independent PR #22 implementation review and human policy receipt
+after outstanding code questions are resolved. Then Ahmed may create the derived repair,
+findings hash and partition, qualify the full trainer, and start the bounded T41 study.
+No real training has started. See T40/T41 in [tasks](tasks.md) and the [plan](plan.md).
+
 ## Add the next actual result
 
 For each meaningful result record:
