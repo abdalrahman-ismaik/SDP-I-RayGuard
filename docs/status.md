@@ -27,8 +27,8 @@ attribution. Isolated-worktree checks: Ruff clean; pytest 272 passed / 2 skipped
 receipt remains unfilled; Ahmed must verify the actual published test export/hash during the
 data run.
 
-**PR #20** (`docs/semester-progress-2026-11`) remains open at seven commits / 70 files,
-including report draft sources and event materials. CI passes at `56b8a4c`, but the
+**PR #20** (`docs/semester-progress-2026-11`) remains open at head `b283587` with 70 files,
+including report draft sources and event materials. Fresh hosted CI is running; the
 approving review was dismissed as stale after later commits. It needs a
 fresh independent human review of the current diff and reconciliation with the 22 Nov
 policy handoff. No GitHub review or merge was submitted in this review. See [T38/T40–T42](tasks.md)

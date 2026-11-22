@@ -33,10 +33,10 @@ trainer qualification. After hosted checks pass and Abd fills the human receipt,
 run the read-only checks, create the derived repair and hash-bound partition, then qualify
 the trainer.
 
-**PR #20 — semester/progress/documentation update.** Seven commits, 70 changed files,
+**PR #20 — semester/progress/documentation update.** Current head `b283587` changes 70 files,
 including shared guidance, ignore rules, report sources, event materials and planning/status
-records. CI passes at `56b8a4c`; its prior approval is stale and dismissed after subsequent changes. Have an
-independent human reviewer inspect the current diff against main and reconcile overlapping
+records. Fresh hosted CI is running; its prior approval is stale and dismissed after subsequent
+changes. Have an independent human reviewer inspect the current diff against main and reconcile overlapping
 PR #22/T38 records, then decide whether to merge. The assistant did not submit a GitHub
 review, comment or merge. PR #21 is merged as `29d6d0f`; #18 is merged as `9350482`.
 
