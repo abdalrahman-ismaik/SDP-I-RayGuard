@@ -6,8 +6,8 @@ the work without assigning availability or claiming completion.
 
 ## Pull request review — 22 November
 
-**PR #22 — data policy and training-only box helper.** Latest head `3ee9c87` has
-successful hosted Linux/Windows CPU checks; Ali reports 288 synthetic tests passed. The
+**PR #22 — merged into main at `3ee9c87` (22 Nov) after a recorded approval.** The data-policy helper had
+passed hosted Linux/Windows CPU checks; Ali reports 288 synthetic tests passed. The
 policy direction is agreed: preserve the published test set, use the shared seed-17 ~80/20
 partition, keep exact duplicate training images together, and mark validation exploratory
 without verified physical groups. Ahmed reports an audit of 17,360 images; independent local
@@ -38,12 +38,10 @@ trainer qualification. After the human receipt is independently recorded, Ahmed 
 hash on HPC, run the approved check and training-only repair, create the hash-bound partition,
 then connect and qualify the real trainer/evaluator.
 
-**PR #20 — semester/progress/documentation update.** Current head `2fcb87d` changes 70 files,
-including shared guidance, ignore rules, report sources, event materials and planning/status
-records. Hosted Linux/Windows checks passed; its prior approval is stale and dismissed after subsequent
-changes. Have an independent human reviewer inspect the current diff against main and reconcile overlapping
-PR #22/T38 records, then decide whether to merge. The assistant did not submit a GitHub
-review, comment or merge. PR #21 is merged as `29d6d0f`; #18 is merged as `9350482`.
+**PR #20 — semester/progress/documentation update.** Merged at head `7fe234f` (70 files) by the
+owner with no recorded approval. Its content, including the agent-merge rule in `AGENTS.md`
+(`8723b0d`), still needs independent teammate review. Hosted Linux/Windows checks passed on
+main at `6948559`. PR #21 is merged as `29d6d0f`; #18 is merged as `9350482`.
 
 The open pilot gates remain human approval of the reviewed policy receipt; Ahmed's confirmation
 that the HPC inventory matches the local findings hash; check/repair records and partition;
