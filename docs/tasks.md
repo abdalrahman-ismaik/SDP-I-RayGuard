@@ -58,8 +58,8 @@ T40/T41/T42 have evidenced student activity; T41/T42 are **in progress**, not ab
 T43 has a branch handoff record pending verification of its separate app artifacts.
 The proposed-owner and no-code language above describes the earlier plan; the current
 rows and [integration review](plan.md#latest-team-integration-review--21-november)
-supersede it. PR #21 needs human review, #18 has safeguards/interface implemented and needs re-review/integration,
-Ahmed needs a software PR to **main**, and #20 needs documentation reconciliation.
+supersede it. PRs #18, #21, #22 are merged; #20 was merged by the owner without a recorded approval and
+its content needs a teammate review. Ahmed's T41 branch remains a software draft outside main.
 Passing hosted/synthetic checks do not establish live training/evaluation readiness.
 T07 stays blocked for real training; T08's final full-P1 evaluation remains unstarted
 even though its T42 evaluator software draft exists. T39 acceptance remains unverified.

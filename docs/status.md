@@ -11,7 +11,14 @@ and [the plan](plan.md) for the authoritative backlog and requirements.
 
 ## Pull request review — 22 November
 
-The current GitHub PR list has two open requests. **PR #22** (`ali/data-policy`, head
+**Update after merges (22 Nov, later):** PR #22 was merged into `main` at `3ee9c87`
+with a recorded approval, and PR #20 was merged at `7fe234f` by the owner without a
+recorded approval. Hosted checks passed on `main` at `6948559`. The agent-merge rule in
+`AGENTS.md` (commit `8723b0d`) reached `main` through #20 and needs a teammate review.
+No other PRs were open at this update. The detail below records the
+state at the time of review.
+
+**PR #22** (`ali/data-policy`, head
 `3ee9c87`) proposes the frozen test split, shared seed-17 ~80/20 training partition,
 exact-byte duplicate grouping and an exploratory label; hosted Linux/Windows CPU checks
 pass, and Ali reports 288 synthetic tests passed. Ahmed reports an audit of 17,360 images
@@ -26,11 +33,9 @@ attribution. Isolated-worktree checks: Ruff clean; pytest 272 passed / 2 skipped
 `pycocotools` was unavailable, with no warnings. Hosted checks passed. The human receipt remains unfilled. Ahmed must confirm the same hashes
 on HPC before deriving the partition.
 
-**PR #20** (`docs/semester-progress-2026-11`) remains open at head `2fcb87d` with 70 files,
-including report draft sources and event materials. Hosted Linux/Windows checks passed; the
-approving review was dismissed as stale after later commits. It needs a
-fresh independent human review of the current diff and reconciliation with the 22 Nov
-policy handoff. No GitHub review or merge was submitted in this review. See [T38/T40–T42](tasks.md)
+**PR #20** (`docs/semester-progress-2026-11`) was merged at head `7fe234f` (70 files, report
+sources and event material) with no recorded approval; a fresh independent review of the merged
+content is still needed. The review at the time was against head `2fcb87d`. See [T38/T40–T42](tasks.md)
 and [the current plan](plan.md#pull-request-review--22-november).
 
 **HPC/data preflight — 22 November:** Ahmed reports all 124 transferred files, dataset and
