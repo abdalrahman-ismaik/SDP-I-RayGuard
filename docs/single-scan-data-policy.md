@@ -1,7 +1,14 @@
 # Single-scan data policy: duplicates, invalid boxes and grouping (proposal)
 
-**Status: proposed, not approved.** Drafted for T41/T42 review by Ahmed, with Abd
-coordinating. Nothing in this proposal changes a source file, and no partition or training
+**Status: proposed; agreed by Ahmed (T41) on 22 Nov 2026; the reviewer's record is still
+pending.** Drafted for T41/T42 review by Ahmed, with Abd coordinating.
+
+Ahmed's agreement covers: the unchanged test set, the shared 80/20 seed-17 split, keeping
+identical training images on the same side, and an exploratory label until physical groups
+are verified. His condition for the box clamp: verify the five actual boxes and confirm each
+overshoot is below 0.001 px, keep the original annotations unchanged, record every change,
+and review the implementation before training. Ahmed will generate the findings hash and
+partition from the real data once the review is recorded. Nothing in this proposal changes a source file, and no partition or training
 run has been created. It applies to the public IEDXray **generic** and **specific**
 explosive tasks only.
 
@@ -53,8 +60,24 @@ Proposal for review:
   these boxes to the image edge, recording the details from rule 4. This changes each box by
   less than 0.001 px. It does not touch the source files.
 - **Anything larger, or any new finding:** stays blocked. It is never clipped automatically.
-- **Until a reviewed implementation exists**, training is blocked on these five boxes, as
-  agreed. No clipping code is part of this proposal.
+- **Until the implementation is reviewed and run on the real files**, training on these five
+  boxes stays blocked.
+
+Implementation, pending review: `sdp_xray.box_repair` and `scripts/repair_train_boxes.py`.
+
+- `check` lists every box outside the image, with its overshoot, and changes nothing. Run it
+  first on the real generic and specific training files to verify the five boxes.
+- `repair --expected 5 --output-dir runs/<name>` writes a derived copy plus
+  `repair-record.json`. The record holds the source hash and, for each change, the
+  annotation, the original and new box, and the overshoot. It refuses all of these:
+  - test files
+  - any overshoot of 0.001 px or more
+  - a count other than `--expected`
+  - an existing output directory
+
+  The source file is never written, and `area` is left as in the source.
+- Synthetic tests only (`tests/test_box_repair.py`). The tool has **not** been run on the
+  real annotations, because the dataset is not on the drafting machine.
 
 ## Policy record for `make_partition`
 
