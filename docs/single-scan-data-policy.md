@@ -12,8 +12,9 @@ partition from the real data once the review is recorded.
 
 On 22 Nov Ahmed verified the HPC inputs and confirmed five matching sub-0.001 px box findings
 in each training export (generic and specific). No repair, partition or training run was
-performed. Abd reviewed this PR on 22 Nov and agreed the policy direction, subject to the
-three points addressed under [invalid boxes](#invalid-boxes) and in the receipt template.
+performed. Abd's 22 Nov message agreed with the policy direction and set conditions for the
+training-only clamp. The implementation review receipt remains pending until the human
+reviewer records a decision.
 
 Nothing in this proposal changes a source file, and no partition or training
 run has been created. It applies to the public IEDXray **generic** and **specific**
@@ -86,10 +87,15 @@ Implementation, pending review: `sdp_xray.box_repair` and `scripts/repair_train_
   - an existing output directory
 
   The source file is never written.
-- **COCO `area`: kept unchanged from the source.** The YOLO trainer reads only `bbox`. `area`
-  matters only to COCOeval size ranges on test ground truth, which is never repaired. Each
-  change records the source `area` and the bbox-implied area change, which is below 0.001 px
-  times the box side (far below one pixel). The record states this treatment in `area_field`.
+- **COCO `area`: kept unchanged from the source.** The YOLO trainer derives labels from
+  `bbox`; `area` is not used for training. The frozen T42 validation objective is overall
+  AP@[.50:.95] across all area ranges, so retaining source `area` does not change that
+  objective. COCOeval's size-specific validation metrics can be affected when validation is
+  derived from repaired training annotations; do not interpret those metrics without a
+  caveat or a separately justified area policy. Published test annotations are never repaired.
+  Each change records the source `area` and the bbox-implied area change, which is below
+  0.001 px times the box side (far below one pixel). The record states this treatment in
+  `area_field`.
 - Synthetic tests only (`tests/test_box_repair.py`). The tool has **not** been run on the
   real annotations, because the dataset is not on the drafting machine.
 

@@ -31,7 +31,7 @@ def train_doc():
     }
 
 
-def test_doc():
+def make_test_doc():
     """Published test export stand-in; its file names define the split guard."""
     return {"images": [{"id": 1, "file_name": "Test000001.jpg", "width": 100, "height": 80}],
             "annotations": [], "categories": [{"id": 0, "name": "Explosive"}]}
@@ -40,7 +40,7 @@ def test_doc():
 def repair(doc, name="binary_explosive_det_train.json", expected=2, test=None, test_sha=TEST_SHA,
            source_sha=SHA):
     return repair_training_copy(doc, name, source_sha, expected,
-                                test if test is not None else test_doc(), test_sha)
+                                test if test is not None else make_test_doc(), test_sha)
 
 
 def _script():
@@ -79,6 +79,8 @@ def test_repair_clamps_into_a_copy_and_records_every_change():
     assert record["split_check"] == {"test_sha256": TEST_SHA, "test_images": 1,
                                      "shared_file_names": 0}
     assert "unchanged" in record["area_field"]
+    assert "overall AP@[.50:.95]" in record["area_field"]
+    assert "size-specific validation metrics can be affected" in record["area_field"]
     for change in record["changes"]:
         assert {"bbox", "derived_bbox", "overshoot_px", "file_name", "image_id"} <= set(change)
         assert change["area"] == source["annotations"][change["annotation_id"] - 10]["area"]
@@ -113,7 +115,7 @@ def test_test_annotations_are_never_repaired(name, edit):
 
 def test_images_in_published_test_split_are_refused_whatever_their_name():
     doc = train_doc()
-    split = test_doc()
+    split = make_test_doc()
     split["images"][0]["file_name"] = "Train000002.jpg"  # same image, misleading name
     with pytest.raises(ValueError, match="published test split"):
         repair(doc, test=split)
@@ -128,7 +130,7 @@ def test_script_check_then_repair(tmp_path, capsys):
     source = tmp_path / "binary_explosive_det_train.json"
     source.write_text(json.dumps(train_doc()), encoding="utf-8")
     split = tmp_path / "binary_explosive_det_test.json"
-    split.write_text(json.dumps(test_doc()), encoding="utf-8")
+    split.write_text(json.dumps(make_test_doc()), encoding="utf-8")
     original = source.read_bytes()
     guard = ["--test-annotations", str(split)]
     assert _script().main(["check", "--annotations", str(source)]) == 0

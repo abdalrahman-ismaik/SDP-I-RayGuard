@@ -19,8 +19,11 @@ TOLERANCE_PX = 0.001
 REASON = ("box extends outside the image by less than 0.001 px, consistent with numerical "
           "rounding; clamped to the image edge in a training-only derived copy")
 AREA_TREATMENT = (
-    "kept unchanged from source. The YOLO trainer reads only bbox; area matters only to COCOeval "
-    "size ranges on test ground truth, which is never repaired. Each change records the "
+    "kept unchanged from source. The YOLO trainer derives labels from bbox, not area. The frozen "
+    "T42 validation objective is overall AP@[.50:.95] across all area ranges and is unchanged. "
+    "COCOeval size-specific validation metrics can be affected when validation is derived from "
+    "repaired training annotations; report them only with a caveat or separate justified area "
+    "policy. Published test annotations are never repaired. Each change records the "
     "bbox-implied area change, which is below 0.001 px times the box side."
 )
 
