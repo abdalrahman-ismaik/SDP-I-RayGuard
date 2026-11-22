@@ -51,8 +51,10 @@ assessment rubrics. T38 and the [delivery sequence](plan.md#report-delivery-sequ
 track remaining work. A 40-page LaTeX draft PDF and a generated Word draft now exist
 locally; DOCX pagination/fidelity review against the PDF and requirement-by-requirement
 review remain open. Official form review/signatures, student ownership/contribution
-confirmations, full patent-database search, distribution permission and submission are
-not verified complete. Next: compare the Word copy page by page, map actual evidence to
+confirmations, full patent-database search, final PDF/Word distribution clearance and
+submission are not verified complete. The owner authorized the working LaTeX source and
+original figures for GitHub publication on 22 Nov; this does not clear the assembled
+report or signed/private materials. Next: compare the Word copy page by page, map actual evidence to
 the handbook/rubrics, complete the required patent search and close official forms and
 submission route. The older 27 Nov notice remains a
 recorded conflict; plan around 24 Nov.
@@ -99,7 +101,7 @@ is a draft/review target; study completion depends on pilot timing.
 
 - **T14 — CS-HPC access handoff:** email received **4 November 2026 at 12:52 pm** says credentials and job-submission manuals were issued to the named SDP1 recipients; change the initial password at first login. Credentials are intentionally not recorded here or in Git. The owner now confirms HPC access; individual password-change/permissions and new RayGuard job/backend qualification are not inferred. Supplied manuals were inspected for the current training plan. Next advisor appointment is still TBD.
 
-- **T39–T43 — proposed first-draft prototype sprint:** Abd and Mohammad/Mohammed (name/handle to confirm) own GUI requirement fit and polish, preserving the extensive in-progress app work; both also review ML integration. Faisal (T40) owns baseline/run integration, Ahmed (T41) fine-tuning, and Ali (T42) evaluation. Use the exact CVMI model configured in the GUI and public IEDXray data after verifying artifact/task identity. Dismantled scans count toward their collection-progress workstream only, not this single-scan dataset. Every student must make their own GitHub commits under their own identity; AI agents may advise but cannot commit or push. Owners remain proposed. Target an integrated draft by **19 Nov**; preserve all existing uncommitted work. No new code, training run or full-data evaluation is claimed by this plan.
+- **T39–T43 — proposed first-draft prototype sprint:** Abd and Mohammad/Mohammed (name/handle to confirm) own GUI requirement fit and polish, preserving the extensive in-progress app work; both also review ML integration. Faisal (T40) owns baseline/run integration, Ahmed (T41) fine-tuning, and Ali (T42) evaluation. Use the exact CVMI model configured in the GUI and public IEDXray data after verifying artifact/task identity. Dismantled scans count toward their collection-progress workstream only, not this single-scan dataset. Contributions must remain accurately attributed. Since 22 Nov, explicitly owner-authorized agents may commit/push with clear agent metadata; human review and protected-branch integration remain required. Owners remain proposed. Target an integrated draft by **19 Nov**; preserve all existing uncommitted work. No new code, training run or full-data evaluation is claimed by this plan.
 
 - **T38 — end-of-semester submissions and assessment:** use **24 November 2026, 5:00 pm UTC+4** as the working Blackboard report deadline (one attempt; no late submission); another pasted notice says 27 Nov, so confirm the active course link/deadline. Email the same report to supervisors and examiner and put it in GitHub. Include the repository link and per-student contribution table. Each student should prepare a GitHub contribution explain-back with the supervisor. Prepare for **Friday 27 November, 8 am–12 pm** presentations, 20 minutes plus 10 minutes Q&A; assigned slot/room and demo timing remain to confirm. See the [course checklist](course-endgame-2026-11.md). No report, submission, rehearsal or individual contribution evidence has been verified.
 

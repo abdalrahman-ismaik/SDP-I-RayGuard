@@ -1,0 +1,145 @@
+\chapter{Introduction}
+\label{ch:introduction}
+\section{Problem and motivation}
+Security screening of baggage involves recognizing suspicious objects under
+occlusion, overlap and variable clutter. Embedded threats within electronic
+devices make this problem more difficult because the host device and the
+threat region are distinct concepts. A device box alone cannot establish a
+threat, and a detector confidence is not an operational safety decision.
+The IEDXray benchmark supplies a relevant research setting for studying these
+distinctions in X-ray imagery~\citep{takele2026iedxray}.
+
+RayGuard investigates a practical path from an authorized scan to localized
+model findings, operator review and a traceable result record. The project
+also considers a broader setting in which component evidence is distributed
+across multiple packages. That setting requires externally justified grouping
+and component labels; it cannot be obtained by arbitrarily combining unrelated
+benchmark images. The second advisor meeting prioritized collection for that
+distributed work while retaining a simple existing-model GUI showcase.
+\projectrecord{docs/meeting_minutes/SDP_Meeting_02_Minutes_Fall_2026.md}
+
+\section{Objectives and scope}
+The original proposal calls for a 500-sample dataset with positive and negative
+examples, image preprocessing, contemporary object detection, unseen-data
+evaluation and a GUI supporting control and recording. The report evaluates
+these objectives against actual evidence rather than treating a working screen
+as completion of the full research problem.
+
+The immediate SDP I implementation objectives are to preserve an explicit
+task and category map, execute a verified detector, display original-coordinate
+boxes and scores, distinguish failures from empty results, and retain provenance
+through review and export. The experimental objectives are to reproduce a
+supplied checkpoint's evaluation and to compare untuned and tuned models under
+a controlled training-only validation design. These experiments remain distinct
+from reproducing the authors' full training procedure.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Scope boundaries used throughout this report.}
+\label{tab:scope}
+\begin{tabular}{p{0.21\textwidth}p{0.31\textwidth}p{0.35\textwidth}}
+\toprule Workstream & Current evidence & Remaining acceptance\\\midrule
+Single-scan prototype & Bounded real inference and implemented operator workflow & Human rehearsal, eligible accuracy evaluation and full P1 decisions\\
+Research software & Shared contracts, evaluator and initialization helper integrated; training draft available & Real trainer connection, reviewed data policy and qualified pilot\\
+Distributed collection & Sanitized inventory and catalogue targets & QC, physical/case labels, accepted counts and collection completion\\
+Distributed inference & Interface and research direction documented & Component evidence, case ground truth, fusion and evaluation\\\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Research background}
+Baggage threat detection has been surveyed for both 2D and 3D screening
+\citep{velayudhan2023survey}. Dark-field X-ray imaging combined with neural
+networks has been reported to discriminate threat materials from benign
+materials in proof-of-concept experiments \citep{astolfo2022darkfield}, and large
+X-ray benchmarks such as SIXray address prohibited-item discovery in overlapping
+images \citep{miao2019sixray}. These sources motivate the problem but do not
+establish this project's performance.
+The literature offers several detector architectures rather than one universal
+solution. Faster R-CNN shares learned features with a region-proposal network,
+providing a representative two-stage approach~\citep{ren2015faster}.
+RetinaNet's focal loss addresses the imbalance encountered in dense detection,
+which motivates attention to hard and rare cases without proving transfer to
+this X-ray task~\citep{lin2017focal}. DETR formulates detection as set prediction
+with bipartite matching~\citep{carion2020detr}; Grounding DINO incorporates grounded
+pretraining for open-set detection~\citep{liu2023grounding}.
+These papers motivate design alternatives, not claims that those models were
+trained or evaluated by this team.
+
+YOLOv10 proposes consistent dual assignments and an efficient architecture for
+end-to-end detection~\citep{wang2024yolov10}. Its available task-matched checkpoint
+and executed project backend make YOLOv10-M a practical reference for RayGuard.
+This selection is based on implementation evidence and project constraints;
+it does not imply that it is the highest-scoring model in the IEDXray paper.
+
+The IEDXray release covers device, generic-explosive and specific-explosive
+detection, alongside a complete annotation export. The inspected paper reports
+17,360 images with a published 12,224/5,136 train/test split. Its protocol describes
+separation of physical configurations and concealment setups, while the local
+audit identifies four exact image-byte overlaps across the supplied splits.
+The published claim and local finding must both be retained.
+\projectrecord{docs/iedxray-paper-review.md}
+
+FALCON studies component grounding and compositional reasoning within X-ray
+scenes~\citep{michael2026falcon}. The project inspected its paper and release as
+a research option; the release observations recorded in the repository do not
+establish a running multi-package solution. Grounded component presence and
+plausible language do not prove physical connectivity or dangerous assembly.
+\projectrecord{docs/research.md}
+
+\section{Literature and patent search record}
+A scoping search was made on 22 November 2026 to locate related work and patents. It was limited to three web queries and is not a complete patent landscape; patent databases were not queried by classification or claim text. Table~\ref{tab:search} lists the searches, and the sources were read at the level of their abstracts and snippets.
+
+\begin{table}[htbp]
+\centering
+\caption{Scoping literature and patent search, accessed 22 November 2026.}\label{tab:search}
+\begin{tabular}{p{0.28\textwidth}p{0.38\textwidth}p{0.28\textwidth}}
+\toprule
+Query focus & Result found & Limit\\
+\midrule
+YOLO detectors for concealed IEDs in X-ray & Academic YOLO studies on IED replicas and small threat objects; one USPTO baggage-inspection patent that names YOLO as a detector & Snippets only; patent claims, assignee and status not verified\\
+Multi-view or multi-scan fusion of detections & Multi-view detection with epipolar constraints; dual-view feature fusion; a dual-view dataset with auxiliary-view networks & Academic results only; no patent claiming cross-image detection fusion was found\\
+Dark-field and multi-energy material discrimination & Reported in the supplied benchmark and survey citations & Cited through supplied papers; not independently re-read\\
+Patent-focused queries (three further web searches, 22 Nov 2026) & Older related patents only: multi-sensor explosives detection with a neural network (EP0476070A1, US5153439A); X-ray and transmitted/scattered-ray baggage screening (US5600700A); dual-energy CT threat resolution (US20040258199A1); two-scanner dual-energy inspection (US9915752). No patent found for deep-learning detection of explosives hidden in modified electronics or for cross-image detection fusion & Web search snippets, not a patent-database query by classification or claim text; claims, status and assignees not verified. A Google Patents or USPTO full-text search with CPC G01V 5/20 is still required\\
+Google Patents records of three hits (fetched 22 Nov 2026) & US8885938B2, Detecting concealed threats (Analogic; filed 2008, granted 2014): laptop-type object classification, neural network one option among SVM and PCA, mainly CT; KR102063859B1, airport AI baggage screening (Deepnoid; filed 2019): deep-learning X-ray classification of prohibited items; JP6678192B2, firearm detection with a neural network (Tsinghua University; filed 2018): not explosives & Status shown on the pages as active; claim text summarized by a fetch tool, not read verbatim, so claims are unverified. Not a complete database search: one of two Google Patents queries rendered; USPTO full-text search not run\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Method and research contribution}
+The engineering method begins with requirements and evidence inspection,
+followed by dataset auditing, strict interfaces, bounded real inference and
+application integration. Experimental preparation separates model execution
+from evaluation. COCO conventions provide a common annotation and evaluation
+language~\citep{lin2014coco}; the actual source category IDs remain task-specific.
+For controlled improvement, Optuna supplies a framework for defining and
+pruning search trials~\citep{akiba2019optuna}. Search is planned, not completed.
+The selected optimization alternatives include SGD and AdamW; decoupled weight
+decay motivates treating optimizer settings explicitly~\citep{loshchilov2019adamw}.
+
+The current contribution is an auditable prototype and research-software path,
+with documented findings and limitations. No new detector accuracy, tuning gain,
+novel fusion method or operational safety claim is made in this draft.
+
+\section{Repositories and individual contributions}
+The shared research repository is
+\url{https://github.com/abdalrahman-ismaik/SDP-I-RayGuard}.
+The separate GUI repository is
+\url{https://github.com/abdalrahman-ismaik/RayGuard-App}.
+The application pins shared engine code through a Git submodule. GUI source
+changes belong in the application checkout; its ignored predecessor is a recovery
+copy. Appendix~\ref{app:contributions} records contribution evidence and outstanding
+student verification. AI-assisted implementation and documentation must be disclosed
+accurately; assistance does not establish a student's independent understanding.
+
+\pending{Student-confirmed contributions, sanitized relevant prompt excerpts,
+formal project number, final roster and institutional cover template. A scoped patent
+search is not evidenced; this draft makes no patentability or clearance claim.}
+
+\section{Report organization}
+Chapter~\ref{ch:system} defines requirements and interfaces.
+Chapter~\ref{ch:theory} explains the engineering model and evaluation quantities.
+Chapter~\ref{ch:design} compares alternatives and documents constraints.
+Chapter~\ref{ch:implementation} describes actual implementation and verification.
+Chapter~\ref{ch:conclusions} evaluates progress and remaining work.
+The appendices provide project-management evidence, requirement coverage,
+risk preparation and contribution records.

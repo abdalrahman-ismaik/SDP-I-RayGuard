@@ -1,0 +1,125 @@
+\chapter{Implementation and Fabrication}\label{ch:implementation}
+This project has no physical hardware build. Its fabrication-equivalent work is the
+assembly of the software pipeline, the interface and the verification records below.
+\section{Implemented software}
+The research package contains CPU audit tools, task/model metadata, shared scan
+and run contracts, runtime preparation and standalone inference tooling. The
+GUI lives in RayGuard-App and consumes an explicit engine revision. Its
+documented implementation includes upload, completed-image folder receipt,
+finite published-image replay, actual boxes and scores, viewing adjustments,
+linked findings, notes, review and JSON export. These features do not establish
+a physical scanner connection or persistent case-management system.
+
+The baseline adapter validates saved predictions against manifest identity and
+task class maps. The evaluator converts original-pixel corner boxes to COCO
+coordinates and retains dataset category IDs, including generic category zero.
+It refuses a full evaluation if required scans failed or are missing, unless
+an explicitly labeled subset mode is requested. Approved protocols require a
+ground-truth hash; matched comparisons require clean identical inference code.
+
+PR~18 integrated evaluation software into main as \file{9350482}. Its validation
+objective checks supplied checkpoint/annotation identities, task, requested image
+coverage and frozen evaluator settings, and returns AP on a 0--1 scale. The
+caller must compute real file hashes and bind predictions to the producing
+checkpoint; echoing a partition hash is not proof of the partition itself.
+
+PR~21 integrated the initialization helper as \file{29d6d0f}. It hashes a local
+copy of the official YOLOv10-M starting file and rejects mismatches without
+loading the model. Documentary evidence and COCO metadata support its use as
+general pretraining; this is not proof of training contents or a verified HPC
+copy. Head-transfer behavior remains a pilot-log requirement.
+
+Ahmed's T41 draft at \file{32091bc} contains data checks, partition/provenance
+planning, synthetic orchestration and a Slurm template. Its CLIs deliberately
+block live training/search. This is substantive software preparation, not
+completed training. Figure~\ref{fig:experiments} shows the intended separation
+between supplied-checkpoint reproduction and controlled improvement.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{experiments.png}
+\caption{Original experiment-flow diagram. The controlled-study path is planned;
+it does not show completed training or measured improvement.}
+\label{fig:experiments}
+\end{figure}
+
+\section{Dataset inspection and collection evidence}
+The documented IEDXray audit decoded 17,360 images and inspected eight annotation
+files. Findings include 4,955 cross-export device-label disagreements, four
+cross-split byte duplicates, 13 distinct boundary findings and unresolved physical
+group provenance. Some tiny numerical excursions are qualitatively different
+from semantic class disagreements; they should not be treated as interchangeable
+errors. The audit does not authorize a global label swap or silent clipping.
+\projectrecord{docs/iedxray-audit.md; docs/iedxray-paper-review.md}
+
+The separate dismantled collection inventory reports 577 JPEG paths and 478
+distinct byte payloads, with 99 exact duplicate copies. All files decoded in
+the recorded inventory check. The metadata does not establish accepted QC,
+case grouping, negative controls or the completion of the 500-scan target.
+\projectrecord{docs/collection-progress-2026-11-14.md}
+
+\begin{table}[htbp]\centering
+\caption{Collection inventory facts and limits, from the dated project record.}
+\label{tab:collection}
+\begin{tabular}{p{0.25\textwidth}p{0.13\textwidth}p{0.49\textwidth}}
+\toprule Quantity & Recorded value & Interpretation\\\midrule
+JPEG paths & 577 & File-path count, including copies\\
+Distinct payloads & 478 & Exact-byte identity, not independent physical cases\\
+Duplicate copies & 99 & Recorded copies in one total folder\\
+Decoded images & 577 & Decode success, not QC or annotation acceptance\\
+Catalogue target & 500 & Planned images; accepted completion unresolved\\\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Verification results and interpretation}
+Software tests exercise contracts and failure handling using synthetic fixtures.
+Real diagnostic inference is a separate evidence level. The initial generic
+reference executed three inspected images on CPU and retained a modified-laptop
+test miss. Later app records describe bounded CPU/CUDA diagnostics for all three
+YOLO tasks. These observations establish bounded compatibility, not benchmark
+accuracy. The report must retain known failures alongside positive examples.
+
+\begin{table}[htbp]\centering\small
+\caption{Executed software checks recorded during integration on 21 November.}
+\label{tab:checks}
+\begin{tabular}{p{0.22\textwidth}p{0.23\textwidth}p{0.42\textwidth}}
+\toprule Checked revision & Result & Scope and limitation\\\midrule
+PR 18 updated head \file{6edcd68} & Ruff passed; 273 tests passed & Windows, evaluation dependencies enabled; synthetic software checks\\
+PR 21 updated head \file{3b5fa3a} & Ruff passed; 286 tests passed & Includes integrated evaluator and initialization helper; synthetic checks\\
+Required CI & Linux/Windows checks passed & Hosted CPU software checks before normal merge; no GPU/model accuracy evidence\\\bottomrule
+\end{tabular}
+\end{table}
+
+Both commands use the locked root environment, with the evaluator dependencies
+added only for the evaluation-enabled run. The exact recorded check is
+\file{uv run --locked --with-requirements environments/evaluation.in python -m pytest}.
+Counts depend on the checked revision; they are not a product-quality percentage.
+
+\section{Evaluation protocol and outstanding runs}
+The evaluation software supports separate baseline/candidate and common-parent
+candidate/candidate modes. The latter compares untuned and tuned outputs without
+pretending that one was initialized from the other's result. Same-parent metadata
+must be accompanied by training receipts, paired seeds, partition identity and
+comparable budgets before interpreting a delta as a controlled comparison.
+
+The planned data policy preserves the published test split, groups exact-byte
+duplicates with verified physical groups inside a training-derived partition,
+and labels unknown physical independence explicitly. Invalid geometry remains
+blocked until a reviewed derived-data procedure exists. Actual policy receipts
+must bind the inspected findings and partition; a document describing policy
+does not clear real artifacts automatically.
+
+No real full-test AP, fine-tuned checkpoint, improvement delta or reproducible
+model/pipeline latency is available in this draft. Those values must be inserted
+only from eligible saved runs and a frozen protocol. The comparison table must
+keep published paper scores, supplied-checkpoint reproduction and matched local
+U/T results in separate rows with clear units and provenance.
+
+\section{Application acceptance remaining}
+Human rehearsal must cover clean startup, authorized input, selected model,
+real localization, review/export and a known miss or error. A recorded fallback
+must be labeled as recorded. The presentation machine, actual scanner/export
+handoff and current app/engine revision need a dated acceptance record. No
+new GUI feature is required merely to generate contribution evidence.
+
+\pending{Approved screenshots and their exact app revision, real-run references,
+current end-to-end rehearsal, eligible final metrics and student-reviewed explanations.}

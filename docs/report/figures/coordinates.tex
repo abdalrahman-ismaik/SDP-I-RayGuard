@@ -1,0 +1,18 @@
+\documentclass[tikz,border=8pt]{standalone}
+\usepackage{fontspec}
+\setsansfont{Arial}
+\usetikzlibrary{arrows.meta}
+\begin{document}
+\begin{tikzpicture}[font=\sffamily\small,>=Stealth]
+\fill[gray!5] (0,0) rectangle (9,4.6);
+\draw[->] (0,4.6)--(9.4,4.6) node[right]{$x$};
+\draw[->] (0,4.6)--(0,-0.4) node[below]{$y$};
+\node[above left] at (0,4.6){$(0,0)$};
+\draw[blue!55!black,thick,fill=blue!7] (2,1) rectangle (6.8,3.5);
+\fill (2,3.5) circle (2pt) node[above right]{$(x_1,y_1)=(x,y)$};
+\fill (6.8,1) circle (2pt) node[below left]{$(x_2,y_2)$};
+\draw[<->] (2,0.5)--(6.8,0.5) node[midway,below]{$w=x_2-x_1$};
+\draw[<->] (7.3,1)--(7.3,3.5) node[midway,right]{$h=y_2-y_1$};
+\node[below] at (4.5,-0.3){Illustrative original-image coordinates; not a detection};
+\end{tikzpicture}
+\end{document}

@@ -3014,6 +3014,16 @@ after outstanding code questions are resolved. Then Ahmed may create the derived
 findings hash and partition, qualify the full trainer, and start the bounded T41 study.
 No real training has started. See T40/T41 in [tasks](tasks.md) and the [plan](plan.md).
 
+## 22 November 2026 — owner-authorized report source publication
+
+The owner explicitly authorized publishing the working LaTeX report source and original
+project figures to the research repository's GitHub branch. This is a draft-source
+distribution decision only: the compiled PDF and Word copy remain ignored local build
+outputs, and no signed forms, handbook source, scans, credentials or private receipts are
+included. The source is not submission-ready; the final assembled report's audience,
+Word/PDF fidelity review, official forms/signatures and course distribution conflict
+remain open. T38 tracks final acceptance and submission.
+
 ## Add the next actual result
 
 For each meaningful result record:

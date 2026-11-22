@@ -25,6 +25,10 @@ subsequent report writing, research, figures, implementation evidence and rehear
   meeting records; produce meaningful figures, images, tables and a Gantt chart;
   include the applicable handbook forms and all required report parts. Prepare a
   checked Word copy alongside the LaTeX PDF unless PDF acceptance is confirmed.
+- **Draft source publication, 22 November:** the owner explicitly authorized publishing
+  the working LaTeX source and original project figures to this repository's GitHub
+  branch. This is not final report acceptance or permission to publish an assembled
+  PDF/Word copy, signed forms or private receipts; keep those distribution decisions open.
 - **Deadline:** owner confirms **24 November 2026**; plan for **17:00 UTC+4** from
   the supplied Blackboard field. The older 27 November report notice remains a
   recorded conflict, not permission to delay. [Course checklist](course-endgame-2026-11.md)
@@ -119,11 +123,12 @@ forms are not automatically new final-report deliverables.
 
 Handbook §5.1.2 mentions five final copies plus a personal copy and calls report/IP
 confidential, requiring written permission to publish/distribute. The later course
-notice requests Blackboard upload, email and GitHub. Obtain clarification for physical
-copies and public GitHub distribution; a course delivery instruction does not settle
-confidentiality. Prepare privately meanwhile. Original PDFs, scans, weights, credentials,
-private paths and session records remain excluded from Git. Do not commit the handbook
-or silently expose a signed report. Record actual permission and permitted audience.
+notice requests Blackboard upload, email and GitHub. The owner's 22 November written
+instruction authorizes the working source bundle only; confirm the final assembled
+report's permitted audience and physical-copy requirement with the course. Original
+PDFs, scans, weights, credentials, private paths, signed forms and session records remain
+excluded from Git. Do not commit the handbook or silently expose a signed report. Record
+actual permission and permitted audience.
 
 ## LaTeX production and submission workflow
 
