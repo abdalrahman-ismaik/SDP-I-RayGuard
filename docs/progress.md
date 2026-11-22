@@ -3055,6 +3055,8 @@ USPTO search (pasted result page): query "multi-view" AND "x-ray" AND ("detectio
 
 USPTO result total (22 Nov 2026): 863 hits for the query recorded above. The Infosys "Detection of disassembled items" applications (US20260301145 A1, US20260301379 A1) were read from their abstracts: container imaging, material segmentation, a learned embedding and a restriction score based on distances between objects. This is the closest match so far to the distributed-component idea, but the applications are not granted, and their claims are not read.
 
+Patent reading (22 Nov, later): the two Infosys applications (US20260301145, US20260301379) returned HTTP 404 on Google Patents with and without the kind code, so their claims and status are unread. A web search found US10977755B2 (IBM, filed 2017, granted 2021), which describes detecting disassembled components across multiple sensor scan images. It is the closest multi-scan match so far, but its first claim was not read verbatim and its legal-status fields conflict in the fetched summary. Recorded in Table 1.2 with these limits.
+
 ## Add the next actual result
 
 For each meaningful result record:
