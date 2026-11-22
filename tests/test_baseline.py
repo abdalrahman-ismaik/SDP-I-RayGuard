@@ -10,7 +10,14 @@ import json
 
 import pytest
 
-from sdp_xray.baseline import load_run_dir, read_record, shared_baseline, write_record
+from sdp_xray.baseline import (
+    load_run_dir,
+    plan_runs,
+    read_record,
+    shared_baseline,
+    summarize,
+    write_record,
+)
 from sdp_xray.cli import main
 from sdp_xray.model_catalog import DEFAULT_MODEL_ID, get_model
 
@@ -198,6 +205,65 @@ def test_cli_writes_record_and_reports_counts(tmp_path, capsys):
                       "scans": 2, "failed_scans": 0, "detections": 2}
     manifest, results = read_record(output)
     assert manifest["run_id"] == "shared-cli" and len(results) == 2
+
+
+def scan_input(name, folder="images"):
+    return {"schema_version": "1.0", "scan_id": name, "image_path": f"{folder}/{name}.jpg"}
+
+
+def test_plan_lists_runner_arguments_with_catalog_hash():
+    runs = plan_runs([scan_input("scan-a"), scan_input("scan-b")], SPEC.id, "weights.pt", "runs/x")
+    assert [run["scan_id"] for run in runs] == ["scan-a", "scan-b"]
+    assert runs[0]["arguments"] == [
+        "scripts/infer_generic_yolov10.py", "weights.pt", "images/scan-a.jpg", "runs/x/scan-a",
+        "--checkpoint-sha256", SPEC.sha256, "--model", SPEC.id]
+
+
+def test_plan_rejects_inputs_the_runner_would_rename():
+    renamed = {**scan_input("scan-a"), "scan_id": "case-1"}
+    for inputs in ([], [renamed], [scan_input("scan-a"), scan_input("scan-a", "other")]):
+        with pytest.raises(ValueError):
+            plan_runs(inputs, SPEC.id, "weights.pt", "runs/x")
+    with pytest.raises(ValueError):
+        plan_runs([scan_input("scan-a")], "not-in-catalog", "weights.pt", "runs/x")
+
+
+def test_summary_counts_failures_and_empty_scans_separately():
+    empty = source_run("scan-b")
+    empty[1]["detections"] = []
+    manifest, results = shared_baseline(
+        "shared-1", [source_run("scan-a"), empty, source_run("scan-c", status="error")], WHEN)
+    summary = summarize(manifest, results)
+    assert summary["scans"] == 3
+    assert summary["failed_scans"] == 1
+    assert summary["scans_without_detections"] == 1
+    assert summary["detections_by_label"] == {"Explosive": 1}
+    assert summary["role"] == "baseline" and summary["status"] == "error"
+
+
+def test_cli_check_record(tmp_path, capsys):
+    manifest, results = shared_baseline("shared-1", [source_run("scan-a")], WHEN)
+    write_record(tmp_path / "shared-1", manifest, results)
+    assert main(["check-record", str(tmp_path / "shared-1")]) == 0
+    assert json.loads(capsys.readouterr().out)["detections"] == 1
+    # A record edited by hand after writing must not pass.
+    lines = tmp_path / "shared-1" / "predictions.jsonl"
+    lines.write_text(lines.read_text().replace("Explosive", "Laptop"))
+    assert main(["check-record", str(tmp_path / "shared-1")]) == 2
+    assert json.loads(capsys.readouterr().out)["ok"] is False
+    assert main(["check-record", str(tmp_path / "absent")]) == 2
+    capsys.readouterr()
+
+
+def test_cli_baseline_plan(tmp_path, capsys):
+    inputs = tmp_path / "inputs.jsonl"
+    inputs.write_text("".join(json.dumps(scan_input(name)) + "\n" for name in ("a", "b")))
+    assert main(["baseline-plan", str(inputs), "weights.pt", "runs/x"]) == 0
+    report = json.loads(capsys.readouterr().out)
+    assert report["executed"] is False and len(report["runs"]) == 2
+    inputs.write_text(json.dumps({"scan_id": "a"}) + "\n")
+    assert main(["baseline-plan", str(inputs), "weights.pt", "runs/x"]) == 2
+    capsys.readouterr()
 
 
 def test_cli_fails_closed_on_bad_source(tmp_path, capsys):

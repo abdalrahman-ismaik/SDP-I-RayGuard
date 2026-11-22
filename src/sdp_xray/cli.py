@@ -115,11 +115,61 @@ def main(argv: list[str] | None = None) -> int:
     )
     record.add_argument("output", type=Path, help="New directory; its name is the run ID")
     record.add_argument("runs", type=Path, nargs="+", help="Saved runner output directories")
+    check = commands.add_parser(
+        "check-record", help="Validate a shared baseline or candidate record and count its contents"
+    )
+    check.add_argument("record", type=Path, help="Directory with run_manifest.json")
+    plan = commands.add_parser(
+        "baseline-plan", help="List runner arguments for a scan-input list; runs nothing"
+    )
+    plan.add_argument("inputs", type=Path, help="JSON Lines file of scan inputs")
+    plan.add_argument("checkpoint", help="Checkpoint path to place in the listed arguments")
+    plan.add_argument("output_root", help="Parent directory for the per-scan run directories")
+    plan.add_argument("--model", default=None, help="Catalog model ID; default is the generic model")
+    receipt = commands.add_parser(
+        "init-receipt",
+        help="Hash local general starting weights and print the initialization receipt",
+    )
+    receipt.add_argument("weights", type=Path, help="Local copy of the recorded yolov10m.pt")
+    receipt.add_argument("--task", required=True, choices=("generic", "specific"))
+    receipt.add_argument("--owner", required=True, help="Person verifying the file")
+    receipt.add_argument("--seed", type=int, default=17)
+    receipt.add_argument("--output", type=Path, help="New JSON file; never overwritten")
     args = parser.parse_args(argv)
     try:
         if args.command == "doctor":
             report = doctor(args.config)
             code = 0  # Missing optional artifacts are findings, not a broken doctor.
+        elif args.command == "check-record":
+            from sdp_xray.baseline import read_record, summarize
+
+            try:
+                report = summarize(*read_record(args.record))
+            except (KeyError, TypeError) as exc:
+                raise ValueError("record is missing an expected field") from exc
+            code = 0
+        elif args.command == "init-receipt":
+            from sdp_xray.initialization import initialization_receipt
+
+            report = initialization_receipt(args.weights, args.task, args.owner, args.seed)
+            if args.output:
+                with args.output.open("x", encoding="utf-8") as handle:
+                    handle.write(json.dumps(report, indent=2, allow_nan=False) + "\n")
+            code = 0
+        elif args.command == "baseline-plan":
+            from sdp_xray.baseline import plan_runs
+            from sdp_xray.model_catalog import DEFAULT_MODEL_ID
+
+            lines = args.inputs.read_text(encoding="utf-8").splitlines()
+            model_id = args.model or DEFAULT_MODEL_ID
+            runs = plan_runs(
+                [json.loads(line) for line in lines if line.strip()],
+                model_id,
+                args.checkpoint,
+                args.output_root,
+            )
+            report = {"ok": True, "model_id": model_id, "executed": False, "runs": runs}
+            code = 0
         elif args.command == "baseline-record":
             from datetime import UTC, datetime
 

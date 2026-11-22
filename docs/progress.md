@@ -284,6 +284,51 @@ No production code changed; no Ruff/pytest or shell diff check was run for this 
 This page records shareable project evidence. It is not a claim of individual student
 authorship, hours or understanding. Those must be recorded by the actual contributor and
 reviewer. Do not include personal paths, private contacts, raw correspondence or artifact files.
+## T42 evaluation pipeline draft — 15 November 2026
+
+Contributor: Ali Arif Saeed Alshamsi. Review pending: evaluator/model interfaces with
+Ahmed and Faisal, GUI presentation with Abd and Mohammad. Branch `ali/evaluation`.
+
+Added a draft evaluation path for the generic explosive task. `sdp_xray.evaluation` reads
+a T40 shared record, checks the COCO ground truth against the model's category map
+(ID 0 `Explosive` kept), converts `box_xyxy` to COCO `[x, y, width, height]`, counts
+results at a fixed 0.25 threshold (not tuned) and checks that a baseline and a candidate
+are a matched pair. `sdp_xray.coco_metrics` calls the official `pycocotools` evaluator,
+installed from the separate `environments/evaluation.in`, not the root lock.
+`scripts/evaluate_generic_yolov10.py` writes evaluate/compare reports. The draft protocol
+is in [single-scan evaluation protocol](single-scan-evaluation-protocol.md). No existing
+files were changed.
+
+Checks: `uv run --locked ruff check .` passed. `uv run --locked python -m pytest` gave
+225 passed and 10 skipped. With `--with-requirements environments/evaluation.in` it gave
+232 passed and 9 skipped, including 45 new synthetic tests.
+
+Limitations: synthetic software checks only. No model was run, no real evaluation was
+performed and there are no project metrics. The protocol stays draft until the GUI
+checkpoint is confirmed, the duplicate/boundary/validation policy is approved and the
+ground-truth file hash is recorded.
+
+Next: confirm the GUI checkpoint with Faisal and Abd, agree the candidate record with
+Ahmed, and name an owner for the full test prediction run.
+
+## T40 run planning and record check — 15 November 2026
+
+Contributor: Faisal Daoud Alzarooni. Review pending. Branch `faisal/baseline-tools`,
+following the first T40 change in pull request #17.
+
+Added `baseline-plan`, which turns a scan-input list into the per-scan runner arguments
+with the catalog hash and runs nothing, and `check-record`, which re-validates any
+baseline or candidate record and reports scan, failure and per-label counts. The
+[baseline run contract](baseline-run-contract.md) now gives the steps from scan list to
+checked record and lists the HPC prerequisites that are still unconfirmed.
+
+Checks: `uv run --locked ruff check .` passed. `uv run --locked python -m pytest` gave
+192 passed and 9 skipped (existing Windows symlink tests).
+
+Limitations: synthetic software checks only; no model run and no real record yet. The
+HPC list is a set of open questions, not verified access.
+
+Next: same as below, plus trying `check-record` on Ahmed's first candidate manifest.
 
 ## T40 baseline run contract and adapter — 15 November 2026
 
