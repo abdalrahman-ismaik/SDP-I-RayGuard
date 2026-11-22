@@ -52,8 +52,13 @@ filled schedules and personal/session records stay local. Read `docs/README.md` 
   push a reviewed branch update only when the owner explicitly authorizes those Git actions
   in the active session. Agent-created commits must use truthful, clearly labeled agent
   author/committer metadata; never use a student's identity to attribute agent work. Agents
-  may not approve or merge pull requests, impersonate a human reviewer, or bypass protected
-  branch rules. Human review and acceptance remain required for protected-branch integration.
+  may not approve pull requests, impersonate a human reviewer, dismiss or bypass reviews, or
+  change branch protection. An AI agent may merge a pull request into a protected branch only
+  when all of these hold: (1) a named human reviewer other than the agent has approved the
+  current head commit in GitHub; (2) required CI checks pass on that head commit; (3) the
+  approval is recorded in the PR and the merge does not impersonate the reviewer. A new commit
+  pushed after approval voids that approval, so review is required again. Human review and
+  acceptance remain required for protected-branch integration.
   Keep agent sessions, transcripts, generated client settings and local state out of Git.
   The reviewed project guidance in `AGENTS.md` and `.agents/skills/` remains team-owned
   documentation.
