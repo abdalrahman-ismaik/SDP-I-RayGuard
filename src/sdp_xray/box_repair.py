@@ -18,6 +18,11 @@ from typing import Any
 TOLERANCE_PX = 0.001
 REASON = ("box extends outside the image by less than 0.001 px, consistent with numerical "
           "rounding; clamped to the image edge in a training-only derived copy")
+AREA_TREATMENT = (
+    "kept unchanged from source. The YOLO trainer reads only bbox; area matters only to COCOeval "
+    "size ranges on test ground truth, which is never repaired. Each change records the "
+    "bbox-implied area change, which is below 0.001 px times the box side."
+)
 
 
 def _images(document: dict[str, Any]) -> dict[int, dict[str, Any]]:
@@ -82,12 +87,30 @@ def repair_training_copy(
     source_file_name: str,
     source_sha256: str,
     expected_count: int,
+    test_document: dict[str, Any],
+    test_sha256: str,
     tolerance: float = TOLERANCE_PX,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    """Return (derived training annotations, change record). The input is not modified."""
+    """Return (derived training annotations, change record). The input is not modified.
+
+    ``test_document`` is the published test export of the same task. The source is refused
+    if it is that file or shares any image file name with it, so the guard rests on the
+    published split itself, not only on naming conventions.
+    """
     if "test" in PurePath(source_file_name).name.lower():
         raise ValueError("test annotations are never repaired")
+    if source_sha256 == test_sha256:
+        raise ValueError("source is the published test annotation file; never repaired")
     images = _images(document)
+    test_names = {PurePath(str(i.get("file_name", ""))).name
+                  for i in _images(test_document).values()}
+    if not test_names:
+        raise ValueError("published test annotations contain no images")
+    shared = sorted(test_names & {PurePath(str(i.get("file_name", ""))).name
+                                  for i in images.values()})
+    if shared:
+        raise ValueError(f"{len(shared)} images are in the published test split; only "
+                         f"training annotations may be repaired: {shared[:5]}")
     if any(PurePath(str(i.get("file_name", ""))).name.lower().startswith("test")
            for i in images.values()):
         raise ValueError("annotations contain test images; only training annotations may be repaired")
@@ -109,7 +132,9 @@ def repair_training_copy(
         annotation = by_id[item["annotation_id"]]
         image = images[item["image_id"]]
         annotation["bbox"] = _clamp(annotation["bbox"], image["width"], image["height"])
-        changes.append({**item, "derived_bbox": annotation["bbox"]})
+        old, new = item["bbox"], annotation["bbox"]
+        changes.append({**item, "derived_bbox": new, "area": annotation.get("area"),
+                        "bbox_area_change_px2": new[2] * new[3] - old[2] * old[3]})
 
     if find_overshoots(derived):
         raise ValueError("a box is still outside the image after clamping")
@@ -123,13 +148,15 @@ def repair_training_copy(
         "purpose": "training-only derived annotations; source file unchanged",
         "source_file_name": PurePath(source_file_name).name,
         "source_sha256": source_sha256,
+        "split_check": {"test_sha256": test_sha256, "test_images": len(test_names),
+                        "shared_file_names": 0},
         "derived_content_sha256": _sha256_json(derived),
         "tolerance_px": tolerance,
         "reason": REASON,
-        "area_field": "unchanged from source",
+        "area_field": AREA_TREATMENT,
         "changes": changes,
     }
     return derived, record
 
 
-__all__ = ["REASON", "TOLERANCE_PX", "find_overshoots", "overshoot", "repair_training_copy"]
+__all__ = ["AREA_TREATMENT", "REASON", "TOLERANCE_PX", "find_overshoots", "overshoot", "repair_training_copy"]

@@ -8,7 +8,14 @@ identical training images on the same side, and an exploratory label until physi
 are verified. His condition for the box clamp: verify the five actual boxes and confirm each
 overshoot is below 0.001 px, keep the original annotations unchanged, record every change,
 and review the implementation before training. Ahmed will generate the findings hash and
-partition from the real data once the review is recorded. Nothing in this proposal changes a source file, and no partition or training
+partition from the real data once the review is recorded.
+
+On 22 Nov Ahmed verified the HPC inputs and confirmed five matching sub-0.001 px box findings
+in each training export (generic and specific). No repair, partition or training run was
+performed. Abd reviewed this PR on 22 Nov and agreed the policy direction, subject to the
+three points addressed under [invalid boxes](#invalid-boxes) and in the receipt template.
+
+Nothing in this proposal changes a source file, and no partition or training
 run has been created. It applies to the public IEDXray **generic** and **specific**
 explosive tasks only.
 
@@ -67,27 +74,36 @@ Implementation, pending review: `sdp_xray.box_repair` and `scripts/repair_train_
 
 - `check` lists every box outside the image, with its overshoot, and changes nothing. Run it
   first on the real generic and specific training files to verify the five boxes.
-- `repair --expected 5 --output-dir runs/<name>` writes a derived copy plus
+- `repair --test-annotations <test.json> --expected 5 --output-dir runs/<name>` writes a derived copy plus
   `repair-record.json`. The record holds the source hash and, for each change, the
   annotation, the original and new box, and the overshoot. It refuses all of these:
-  - test files
+  - the published test file of the task, identified by its hash, and any training file that
+    shares an image file name with it. This guard rests on the published split itself; the
+    filename check (`test` in the name) is an extra, not the only guard. The record stores the
+    test file's hash and name and confirms zero shared images.
   - any overshoot of 0.001 px or more
   - a count other than `--expected`
   - an existing output directory
 
-  The source file is never written, and `area` is left as in the source.
+  The source file is never written.
+- **COCO `area`: kept unchanged from the source.** The YOLO trainer reads only `bbox`. `area`
+  matters only to COCOeval size ranges on test ground truth, which is never repaired. Each
+  change records the source `area` and the bbox-implied area change, which is below 0.001 px
+  times the box side (far below one pixel). The record states this treatment in `area_field`.
 - Synthetic tests only (`tests/test_box_repair.py`). The tool has **not** been run on the
   real annotations, because the dataset is not on the drafting machine.
 
 ## Policy record for `make_partition`
 
 T41 requires a reviewed policy bound to the exact findings. The template below is the
-proposal. The `review` receipt must be filled in by the human reviewer, not by an agent.
+proposal. Its decision is **pending**, which `make_partition` rejects, so it cannot pass as
+approved. Only the human reviewer changes it to `approved` and fills in owner and reference,
+never an agent.
 `findings_sha256` is computed from the real inventory by whoever owns the data run.
 
 ```json
 {
-  "review": {"decision": "approved", "owner": "<reviewer name>", "reference": "<PR or minutes link>"},
+  "review": {"decision": "pending", "owner": "<reviewer name>", "reference": "<PR or minutes link>"},
   "findings_sha256": "<fingerprint(partition_findings(train, test)) from the real inventory>",
   "duplicate_action": "preserve_and_group",
   "test_overlap_action": "preserve_and_report",
@@ -111,8 +127,8 @@ under exploratory grouping. Labels are task-prefixed, for example `generic:Explo
 ## Decisions needed
 
 1. **Abd/Ahmed:** accept or amend rules 1–5 and the table above.
-2. **Abd/Ahmed:** approve or reject the sub-0.001 px training-only clamp. If approved,
-   implementation and tests are a separate, reviewed change.
+2. **Abd:** approve or reject the clamp implementation (`sdp_xray.box_repair`), now with the
+   published-split guard and the recorded `area` treatment.
 3. **Lab/model owners:** say whether physical-configuration group data exists.
 4. **Reviewer:** fill in the `review` receipt. The data-run owner then generates
    `findings_sha256` and the partition.

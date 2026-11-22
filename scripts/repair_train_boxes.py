@@ -1,8 +1,9 @@
 """Check, then clamp, the tiny out-of-image training boxes into a derived copy (T41/T42).
 
 Reads one COCO training annotation file and never writes to it. Writes two new files:
-the derived annotations and a change record. Refuses test files, any overshoot of 0.001 px
-or more, a count other than --expected, and existing outputs.
+the derived annotations and a change record. Refuses the published test file (or any file
+sharing an image with it), any overshoot of 0.001 px or more, a count other than
+--expected, and existing outputs.
 
   uv run --locked python scripts/repair_train_boxes.py check --annotations <train.json>
   uv run --locked python scripts/repair_train_boxes.py repair --annotations <train.json> \
@@ -27,6 +28,8 @@ def main(argv: list[str] | None = None) -> int:
     repair = commands.add_parser("repair", help="write a derived training-only copy")
     for command in (check, repair):
         command.add_argument("--annotations", type=Path, required=True)
+    repair.add_argument("--test-annotations", type=Path, required=True,
+                        help="published test export of the same task (split guard)")
     repair.add_argument("--expected", type=int, required=True)
     repair.add_argument("--output-dir", type=Path, required=True)
     args = parser.parse_args(argv)
@@ -41,8 +44,11 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         if args.output_dir.exists():
             raise ValueError("output directory already exists; outputs are never overwritten")
-        derived, record = repair_training_copy(document, args.annotations.name,
-                                               hashlib.sha256(source).hexdigest(), args.expected)
+        test = args.test_annotations.read_bytes()
+        derived, record = repair_training_copy(
+            document, args.annotations.name, hashlib.sha256(source).hexdigest(),
+            args.expected, json.loads(test), hashlib.sha256(test).hexdigest())
+        record["split_check"]["test_file_name"] = args.test_annotations.name
     except (OSError, ValueError) as error:
         print(json.dumps({"status": "error", "message": str(error)}), file=sys.stderr)
         return 2
