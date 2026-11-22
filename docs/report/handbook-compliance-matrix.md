@@ -7,10 +7,10 @@ Working document for the report. Sources: `docs/final-report-requirements.md`, t
 | Requirement (handbook) | Where in draft | Status | Action |
 |---|---|---|---|
 | Title page | `main.tex` title page | partial | Official cover, project number, roster: **human** |
-| Abstract about 200 words | `main.tex` abstract | open | Count words and trim or extend to about 200 |
+| Abstract about 200 words | `main.tex` abstract | done | 198 words (22 Nov count) |
 | Table of contents | `main.tex` | done | — |
 | Ch.1 Introduction: goals, motivation, method | `chapters/01-introduction.tex` | done | — |
-| Ch.1 technical background and literature and patent search | Chapter 1 background | partial | Add literature search record; patent search **not evidenced**; state it |
+| Ch.1 technical background and literature and patent search | Chapter 1, Table 1.2 | partial | Literature and patent search record added; IBM US10977755B2 claims partly read from text page; Infosys applications unread (404); USPTO full-text search not exhaustive |
 | Ch.1 GitHub details and AI-prompt disclosure | Appendix C; Chapter 1 | partial | Sanitized prompts and per-student contributions: **human** |
 | Ch.2 Requirements and system specification | `chapters/02-system-overview.tex` | done | — |
 | Ch.3 Engineering model, limitations and assumptions | `chapters/03-theory.tex` | done | — |
@@ -29,7 +29,7 @@ Working document for the report. Sources: `docs/final-report-requirements.md`, t
 | Prefer papers and books | partial (9 of 10 are arXiv/misc) | Replace or add journal and conference sources |
 | Access dates for internet sources | partial | Add access dates to every web or arXiv entry |
 | No Wikipedia or non-credible sources | done | Keep |
-| Citation style | open | Switch `unsrtnat` to IEEE (`IEEEtran`) |
+| Citation style | done | IEEEtran in `main.tex`; build has 0 undefined citations (22 Nov) |
 | Cite reproduced figures | done (figures are original) | Keep provenance register |
 
 ## C. Writing and figures

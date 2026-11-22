@@ -6,7 +6,7 @@ notify affected teammates and proceed in isolation; coordinate active collisions
 shared GPU/output use. Names in task handoffs are contacts, not exclusive implementers.
 Retain independent review, scientific gates, protected branches and accurate credit.
 
-Updated 21 November 2026. Read [tasks](tasks.md), [meeting records](meeting_minutes/README.md)
+Updated 22 November 2026. Read [tasks](tasks.md), [meeting records](meeting_minutes/README.md)
 and [the plan](plan.md) for the authoritative backlog and requirements.
 
 ## Pull request review — 22 November
@@ -15,33 +15,38 @@ The current GitHub PR list has two open requests. **PR #22** (`ali/data-policy`,
 `3ee9c87`) proposes the frozen test split, shared seed-17 ~80/20 training partition,
 exact-byte duplicate grouping and an exploratory label; hosted Linux/Windows CPU checks
 pass, and Ali reports 288 synthetic tests passed. Ahmed reports an audit of 17,360 images
-confirmed five matching sub-0.001 px boxes in each training export; per-box evidence was
-not inspected in this checkout. No repair, findings hash or partition has run. The update
-addresses the pending-receipt default, source-area recording and split guard; T41's
+confirmed five matching sub-0.001 px boxes in each training export. Independent read-only
+local preflight confirms these and computes the inventory findings hash; no repair or
+partition has run. The update addresses the pending-receipt default, source-area recording and split guard; T41's
 partition builder requires approved owner/reference and matching findings hash. Review
 identified one wording correction: unchanged COCO `area` may affect size-specific validation
 metrics on a repaired training-derived validation split, even though T42's frozen objective
 uses overall AP@[.50:.95]. Commit `3ee9c87` corrects that rationale and clarifies the receipt
 attribution. Isolated-worktree checks: Ruff clean; pytest 272 passed / 2 skipped because
-`pycocotools` was unavailable, with no warnings. Hosted checks passed. The human
-receipt remains unfilled; Ahmed must verify the actual published test export/hash during the
-data run.
+`pycocotools` was unavailable, with no warnings. Hosted checks passed. The human receipt remains unfilled. Ahmed must confirm the same hashes
+on HPC before deriving the partition.
 
-**PR #20** (`docs/semester-progress-2026-11`) remains open at head `b283587` with 70 files,
-including report draft sources and event materials. Fresh hosted CI is running; the
+**PR #20** (`docs/semester-progress-2026-11`) remains open at head `2fcb87d` with 70 files,
+including report draft sources and event materials. Hosted Linux/Windows checks passed; the
 approving review was dismissed as stale after later commits. It needs a
 fresh independent human review of the current diff and reconciliation with the 22 Nov
 policy handoff. No GitHub review or merge was submitted in this review. See [T38/T40–T42](tasks.md)
 and [the current plan](plan.md#pull-request-review--22-november).
 
-**HPC handoff — 22 November:** Ahmed reports all 124 transferred files, the dataset and
-exact starting weights verified; image audit of 17,360 images completed; GPU environment
-job 740 failed at font discovery and job 741 passed after cache preparation; local checks
-reported 442 passed/11 skipped and Ruff clean. No annotation repair, partition or T41
-trials ran, and no jobs remain active. This evidence is in Ahmed's referenced handoff,
-which is not present in this checkout. Job 741 validates environment setup; full trainer
-qualification remains after PR #22 review and the human-filled policy receipt.
-
+**HPC/data preflight — 22 November:** Ahmed reports all 124 transferred files, dataset and
+starting weights verified; GPU environment job 741 passed after job 740's font-discovery
+failure. Independent local read-only checks confirmed 12,224 training and 5,136 test images;
+five matching sub-0.001 px box findings in both task training exports (maximum
+`0.00027450000000789343` px); no shared train/test filenames; 5 within-train exact-byte
+groups, 112 within-test groups and 4 exact train/test byte overlaps. No verified physical-group
+metadata was available. Findings SHA-256:
+`4e5ff81087cc7a7b0bcbbf1abf45806e96ebd7936aca35b583d7f33e471ce9f7`. Ignored local receipts
+are in `runs/t41-policy-preflight-2026-11-22/`. No annotation was changed; no repair,
+partition, trainer qualification, training or evaluation ran. PR #22 still requires a human
+review receipt. Ahmed must confirm the same inventory hashes on HPC. The current T41 CLI
+blocks live execution, so its Slurm template would not train; no HPC scheduler session is
+connected here. The inspected `gpu-student` limit is six hours, so a single all-night job is
+outside the documented allocation.
 ## Report priority — 21 November
 
 Owner confirms the 24 Nov report deadline; target **17:00 UTC+4**. The primary handbook

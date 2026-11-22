@@ -42,6 +42,7 @@ it does not show completed training or measured improvement.}
 \label{fig:experiments}
 \end{figure}
 
+\clearpage
 \section{Dataset inspection and collection evidence}
 The documented IEDXray audit decoded 17,360 images and inspected eight annotation
 files. Findings include 4,955 cross-export device-label disagreements, four
@@ -50,6 +51,23 @@ group provenance. Some tiny numerical excursions are qualitatively different
 from semantic class disagreements; they should not be treated as interchangeable
 errors. The audit does not authorize a global label swap or silent clipping.
 \projectrecord{docs/iedxray-audit.md; docs/iedxray-paper-review.md}
+
+\subsection{Read-only preflight for the T41 study}
+An additional read-only check of the authorized local IEDXray copies counted
+12,224 training and 5,136 test images. The generic and specific training exports
+contained the same five out-of-image boxes, with the largest boundary overshoot
+measured at 0.0002745 pixels. Their paired train and test exports shared no image
+filenames. Exact-byte inspection found five duplicate groups within training,
+112 within the published test set, and four exact-byte overlaps between train and
+test. No verified physical-group identifiers were available; this does not show
+that physical groups are absent. The published test data and original annotations
+were left unchanged. The inventory findings hash is
+\file{4e5ff81087cc7a7b0bcbbf1abf45806e96ebd7936aca35b583d7f33e471ce9f7}.
+This is an observation of local authorized copies, not an approved partition or
+training result; the data owner must confirm the matching inventory on HPC before
+creating derived training data. No repair, partition, model training or evaluation
+was performed. These limitations prevent reporting a new model-performance result.
+\projectrecord{docs/progress.md}
 
 The separate dismantled collection inventory reports 577 JPEG paths and 478
 distinct byte payloads, with 99 exact duplicate copies. All files decoded in

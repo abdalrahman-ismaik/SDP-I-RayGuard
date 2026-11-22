@@ -1,6 +1,6 @@
 # Current plan - Meeting 02 and follow-up
 
-Updated **21 November 2026 (Asia/Dubai)**. Source precedence and exact action IDs are in the
+Updated **22 November 2026 (Asia/Dubai)**. Source precedence and exact action IDs are in the
 [meeting index](meeting_minutes/README.md). [Tasks](tasks.md) holds status; this page sequences
 the work without assigning availability or claiming completion.
 
@@ -10,9 +10,14 @@ the work without assigning availability or claiming completion.
 successful hosted Linux/Windows CPU checks; Ali reports 288 synthetic tests passed. The
 policy direction is agreed: preserve the published test set, use the shared seed-17 ~80/20
 partition, keep exact duplicate training images together, and mark validation exploratory
-without verified physical groups. Ahmed reports an audit of 17,360 images and five matching
-sub-0.001 px findings in each training export; per-box evidence remains teammate-reported
-and was not inspected here. No repair has run.
+without verified physical groups. Ahmed reports an audit of 17,360 images; independent local
+read-only checks confirmed 12,224 train/5,136 test images and the five matching sub-0.001 px
+findings in each training export (maximum overshoot `0.00027450000000789343` px). There are
+no shared train/test filenames, 5 within-train and 112 within-test exact-byte groups, 4 exact
+train/test overlaps, and no verified physical-group records. Findings SHA-256 is
+`4e5ff81087cc7a7b0bcbbf1abf45806e96ebd7936aca35b583d7f33e471ce9f7`; ignored receipts are
+in `runs/t41-policy-preflight-2026-11-22/`. Ahmed must reproduce/confirm these hashes on HPC.
+No repair or partition has run.
 
 The latest code addresses the earlier findings: the receipt example is `pending`; T41's
 `make_partition` requires approved decision plus owner/reference and a matching findings
@@ -24,26 +29,28 @@ copy. Commit `3ee9c87` corrects the policy wording and clarifies that Abd's poli
 was not the implementation receipt. The exact real test file/hash must still be verified
 by Ahmed's run; a CLI argument alone does not establish provenance. In the isolated PR
 worktree, Ruff passed and pytest reported 272 passed / 2 skipped because `pycocotools` was
-unavailable, with no warnings. Hosted checks for `3ee9c87` passed. The human receipt,
-findings hash, partition, trainer qualification and pilot remain outstanding.
+unavailable, with no warnings. Hosted checks for `3ee9c87` passed. The findings hash is computed; the human receipt, approved partition, real trainer
+connection/qualification and pilot remain outstanding.
 
 Ahmed reports transferred inputs and starting weights verified, and GPU environment job 741
 passed after job 740's font-discovery failure. This is environment evidence, not full
-trainer qualification. After hosted checks pass and Abd fills the human receipt, Ahmed may
-run the read-only checks, create the derived repair and hash-bound partition, then qualify
-the trainer.
+trainer qualification. After the human receipt is independently recorded, Ahmed should confirm the same findings
+hash on HPC, run the approved check and training-only repair, create the hash-bound partition,
+then connect and qualify the real trainer/evaluator.
 
-**PR #20 — semester/progress/documentation update.** Current head `b283587` changes 70 files,
+**PR #20 — semester/progress/documentation update.** Current head `2fcb87d` changes 70 files,
 including shared guidance, ignore rules, report sources, event materials and planning/status
-records. Fresh hosted CI is running; its prior approval is stale and dismissed after subsequent
+records. Hosted Linux/Windows checks passed; its prior approval is stale and dismissed after subsequent
 changes. Have an independent human reviewer inspect the current diff against main and reconcile overlapping
 PR #22/T38 records, then decide whether to merge. The assistant did not submit a GitHub
 review, comment or merge. PR #21 is merged as `29d6d0f`; #18 is merged as `9350482`.
 
-The open pilot gates remain human approval of the reviewed policy receipt; the data owner's
-real test-export/hash verification; check/repair records, findings hash and partition;
+The open pilot gates remain human approval of the reviewed policy receipt; Ahmed's confirmation
+that the HPC inventory matches the local findings hash; check/repair records and partition;
 trainer/evaluator connection; transfer/head-handling receipt; and full trainer qualification.
-No real training or model-performance evaluation is verified.
+No real training or model-performance evaluation is verified. The current Slurm template invokes
+a planning CLI that refuses live execution, so submitting it now would not train. The documented
+`gpu-student` allocation is capped at six hours; an all-night single job exceeds that limit.
 
 ## Latest team integration review — 21 November
 

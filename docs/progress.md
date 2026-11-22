@@ -3068,3 +3068,51 @@ For each meaningful result record:
 
 Keep detailed machine/run manifests in authorized private storage. A command someone plans
 to execute is not a completed experiment, and a generated draft is not a student contribution.
+
+## 22 November 2026 — T41 authorized-data read-only preflight
+
+Independent preflight was performed against the current PR #22 box-check implementation
+(`3ee9c870fc82fc7ebe2ed9de5ed34983913db7e5`) and Ahmed's T41 inventory/fingerprint code
+(`32091bcd1f46782ed39ac1233ad70e6ecf70451d`). It read the authorized local IEDXray copies
+without modifying source or test annotations. Results: 12,224 training and 5,136 test image
+files; both generic and specific training exports contain the same five out-of-bounds box
+findings, each below 0.001 px (maximum `0.00027450000000789343` px); paired train/test
+exports share zero image filenames. Exact byte inventory: 5 within-train groups, 112
+within-test groups, 4 exact train/test overlaps; physical-group metadata was unavailable,
+so the 0 verified groups value is not evidence that physical groups do not exist.
+
+`findings_sha256`: `4e5ff81087cc7a7b0bcbbf1abf45806e96ebd7936aca35b583d7f33e471ce9f7`.
+Train/test image inventory hashes are `58f4e58b3d42a81d46e3436cefe77d3524942e9aef792bad9dbfb6eafc0b4a94` and
+`6e438bb41a8520f005065fec321230cd8afc0c97491f4ac3a70d486b1ad96db6`; source annotation
+hashes and detailed ignored receipts are retained under
+`runs/t41-policy-preflight-2026-11-22/`. This is a local authorized-copy result; Ahmed must
+recompute/confirm the inventory hashes against the HPC transfer before partitioning. No
+box repair, derived annotation, partition, task trial, model training or evaluation was
+performed. The human implementation-review receipt is still pending.
+
+T41 readiness check: inspection of the `32091bc` CLI and trainer code found `--execute`
+explicitly blocked (`execution:software_draft_only`, `integration:live_trainer_not_connected`).
+Its Slurm template therefore does not launch actual training. The available documentation
+for `gpu-student` allows up to six hours; no HPC scheduler session is connected here. A
+valid training run tonight requires a real trainer integration and qualified HPC job path;
+this draft cannot produce reportable model-performance results. Job 741 remains environment
+setup evidence only, as reported by Ahmed.
+
+T38 report update (22 Nov): the verified read-only preflight was added to Chapter 5 of the
+canonical LaTeX draft, explicitly labeled as a local-copy audit with no approved partition,
+repair, training or performance result. `lualatex` + BibTeX + three LuaLaTeX passes completed
+without fatal errors; current PDF is 42 pages. Page 17 was rendered and visually inspected;
+the added subsection and surrounding table are legible. Existing underfull-box warnings remain
+in unrelated compact tables. The Word draft was not regenerated in this session because
+Pandoc is unavailable on PATH, so the current DOCX must be rebuilt and compared before
+submission. This is a working draft, not a final submission artifact.
+
+## 22 November 2026 — patent reading and report rebuild (later pass)
+
+- IBM US10977755B2: the USPTO PDF is a scanned image with no text layer (not readable without OCR). The Google Patents text page was read partially through a web fetch (quotes capped; claims 7–10 and the grant date rest on the page summary). Claim 1 recites detecting a component in a scan image of one owner's container and another in a second owner's container, storing records with contextual information, and flagging owners by correlation and danger thresholds. Three independent claims. Page status: expired for non-payment of maintenance fees; grant dates conflict on the page. Not a freedom-to-operate finding.
+- Infosys US20260301145 and US20260301379: still HTTP 404; a web search did not find them. Claims and status remain unread.
+- PR state checked read-only: #21 is MERGED (21 Nov 15:20 UTC), so the "PR #21 needs review" wording in status.md and tasks.md T40 is stale. #22 and #20 are open with REVIEW_REQUIRED.
+- Report rebuilt with lualatex and bibtex (bibtex run against build/main with BIBINPUTS set): 42 pages, 0 errors, 0 undefined citations.
+- Word draft not regenerated: the DOCX preparation script is not present in the current scratchpad, so main-word-draft.docx predates the Table 1.2 edit. Page-by-page fidelity review remains open.
+- Handbook matrix updated: abstract (198 words) done; IEEE citation style done; patent-search row reworded with the limits above.
+- Not done: no commit, push or PR action (no explicit owner authorization in this session); no human review or approval; no forms or signatures.
