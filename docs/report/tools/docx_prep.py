@@ -115,6 +115,20 @@ body = re.sub(r"\\bibliography\{[^}]*\}", lambda m: "\n" + BS + "chapter*{Refere
 body = body.replace(BS + "appendix", "")
 body = body.replace(BS + "makeatletter", "").replace(BS + "makeatother", "")
 
+# \IfFileExists{path}{yes}{no}: keep the branch LaTeX would take.
+def resolve_if_exists(text):
+    key = BS + "IfFileExists{"
+    while key in text:
+        i = text.index(key)
+        path, j = braced(text, i + len(key) - 1)
+        yes, k = braced(text, j)
+        no, end = braced(text, k)
+        text = text[:i] + (yes if (root / path).exists() else no) + text[end:]
+    return text
+
+
+body = resolve_if_exists(body)
+
 # Macros.
 body = re.sub(r"\\begingroup\\tablesetup|\\endgroup|\\tablesetup", "", body)
 body = re.sub(r"\\projectrecord\{([^}]*)\}", r"\\textit{Project evidence:} \\texttt{\1}.", body)

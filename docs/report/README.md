@@ -16,7 +16,7 @@ From this directory, with MiKTeX/TeX Live and Python-independent native tools:
 
 ```powershell
 New-Item -ItemType Directory -Force build | Out-Null
-foreach ($name in @('coordinates','architecture','experiments','gantt','method','workflow','t41-flow','t41-search','t41-test','t41-size','t41-oppoint','t41-gap','t41-curves')) {
+foreach ($name in @('coordinates','architecture','experiments','gantt','method','workflow','t41-flow','t41-search','t41-test','t41-size','t41-oppoint','t41-gap','t41-curves','t41-pr')) {
     lualatex -interaction=nonstopmode -halt-on-error -output-directory=build "figures/$name.tex"
     pdftoppm -png -singlefile -r 180 "build/$name.pdf" "figures/$name"
 }
@@ -70,6 +70,21 @@ Known differences from the PDF: equation numbers are typed text, the bibliograph
 simplified IEEE style, front matter has arabic page numbers and there is no running
 header. The title-page text is duplicated in `docx_prep.py`; the script stops if it no
 longer matches `main.tex`.
+
+## T41 figures from saved predictions
+
+`figures/t41-pr.csv` and the annotated example images in `figures/private/` come from the
+saved predictions of frozen-test job 820 (Ahmed's evidence archive, SHA-256
+`d8d5e039…`) and the local IEDXray test set. From the repository root:
+
+```powershell
+uv run --locked --with-requirements environments/evaluation.in --with pillow python docs/report/tools/t41_figures.py --run <extracted>/runs/generic-frozen-test-20261123 --annotations data/IEDXray/annotations/binary_explosive_det_test.json --images data/IEDXray/Test
+```
+
+The script checks the prediction and annotation hashes and stops unless AP@[.50:.95]
+reproduces 41.5886 and 48.0502 exactly. `figures/private/` holds dataset scans and is
+ignored by Git; without it the report builds with a placeholder note in place of the
+example figure.
 
 ## Acceptance review
 

@@ -498,6 +498,24 @@ against 50.70\%). Because the candidate was chosen on validation, where it was
 slightly worse, the test difference describes this one pair of models; it does
 not justify selecting a deployment model after seeing the test scores.
 
+Figure~\ref{fig:t41pr} shows the precision--recall curves behind these AP values,
+recomputed from the saved predictions; their averages reproduce AP@.50 and
+AP@.75 exactly. At IoU~0.50 the candidate's curve lies above the control's over
+almost the whole range, keeping precision above 90\% up to a recall of 0.56
+against 0.48 for the control. Both curves end at a recall of 0.70: even at the
+lowest score kept (0.001), about 30\% of the annotated threats receive no
+matching detection, so lowering the threshold cannot recover them. At the
+stricter IoU~0.75 the maximum recall falls to 0.51 and 0.58, which shows that
+many detections are found but poorly localized.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.85\textwidth]{t41-pr.png}
+\caption{Precision--recall curves on the published test set at IoU 0.50 (solid)
+and 0.75 (dashed), computed with pycocotools from the saved predictions of job
+820. Curves end at the highest recall each model reaches.}
+\label{fig:t41pr}
+\end{figure}
+
 \subsection{Fixed Operating Point}
 An operator sees detections above a confidence threshold, not an AP value. A
 threshold of 0.25 with matching at IoU~0.50 was fixed before the test as an
@@ -553,6 +571,27 @@ positive against that file; the image is not thereby certified as benign.
 \item \file{Test000071.jpg}: the image with the open question over its modified
 host label. Both scores are below 0.25 (0.017 and 0.001).
 \end{itemize}
+Figure~\ref{fig:t41examples} shows the three images with the annotated box and
+the models' detections.
+
+\begin{figure}[htbp]\centering
+\IfFileExists{figures/private/t41-ex-miss.png}{%
+\includegraphics[width=\textwidth]{private/t41-ex-miss.png}\\[2pt]
+{\small (a) \file{Test000001.jpg}: missed threat}\\[6pt]
+\includegraphics[width=\textwidth]{private/t41-ex-false-positive.png}\\[2pt]
+{\small (b) \file{Test004918.jpg}: detection with no annotation}\\[6pt]
+\includegraphics[width=\textwidth]{private/t41-ex-label-question.png}\\[2pt]
+{\small (c) \file{Test000071.jpg}: open label question}}{%
+\fbox{\parbox{0.9\textwidth}{\centering\small The annotated test images are kept
+outside the repository. Build them with \file{docs/report/tools/t41_figures.py}
+(see \file{docs/report/README.md}).}}}
+\caption{Inspected test images: untuned control (left) and candidate~4 (right).
+Magenta: annotated threat; blue or orange: detection at confidence $\geq 0.25$;
+grey: the model's highest-scoring detection below 0.25, with its score. Images
+from the published IEDXray test set~\citep{takele2026iedxray}, reproduced with
+attribution; overlays added by the team.}
+\label{fig:t41examples}
+\end{figure}
 
 \subsection{Latency and Resources}
 Table~\ref{tab:t41latency} reports inference time on the H100 NVL with batch size

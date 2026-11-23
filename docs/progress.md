@@ -3756,3 +3756,13 @@ identical to a test image can fall into validation.
   the same commit; Table 1.7 and Appendix C mark Ahmed as T41 lead with AI-assisted
   implementation; Table 1.10 quotes his actual prompt excerpts. His name spelling, contribution
   confirmation and forms remain his own actions.
+- Ahmed's frozen-test evidence archive received (`frozen-test-20261123.tar.gz`, SHA-256
+  `d8d5e039…` matches `docs/t41-results.md`); both prediction files and the local test
+  annotations and example images match the frozen-plan hashes. New `docs/report/tools/
+  t41_figures.py` recomputes COCO metrics from the saved predictions (pycocotools 2.0.11;
+  AP 41.5886 and 48.0502 reproduced exactly) and writes `figures/t41-pr.csv`
+  (precision–recall at IoU 0.50/0.75; curve averages equal AP50/AP75) plus annotated
+  example images in `figures/private/` (ignored by Git; dataset scans). Report adds the
+  precision–recall figure and the three inspected examples; the example figure falls back
+  to a note when the private images are absent. Build: 75 pages, 0 errors, 0 undefined,
+  0 overfull; Word copy 77 pages, 17 figures.
