@@ -8,10 +8,15 @@ from pathlib import Path
 
 import pytest
 
-from sdp_xray.box_repair import find_overshoots, overshoot, repair_training_copy
+from sdp_xray import box_repair
+from sdp_xray.box_repair import (
+    find_overshoots,
+    overshoot,
+    repair_training_copy,
+    verify_training_source,
+)
 
 SHA = "a" * 64
-TEST_SHA = "b" * 64
 SCRIPT = Path(__file__).parents[1] / "scripts" / "repair_train_boxes.py"
 
 
@@ -32,23 +37,25 @@ def train_doc():
     }
 
 
-def make_test_doc():
-    """Published test export stand-in; its file names define the split guard."""
-    return {"images": [{"id": 1, "file_name": "Test000001.jpg", "width": 100, "height": 80}],
-            "annotations": [], "categories": [{"id": 0, "name": "Explosive"}]}
-
-
-def repair(doc, name="binary_explosive_det_train.json", expected=2, test=None, test_sha=TEST_SHA,
-           source_sha=SHA):
-    return repair_training_copy(doc, name, source_sha, expected,
-                                test if test is not None else make_test_doc(), test_sha)
-
-
 def _script():
     spec = importlib.util.spec_from_file_location("repair_train_boxes", SCRIPT)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+
+def bind_fixture(monkeypatch, document, source_sha256=SHA):
+    """Test-only provenance substitution; never a real-data approval receipt."""
+    canonical = json.dumps(document, sort_keys=True, separators=(",", ":"), allow_nan=False)
+    monkeypatch.setattr(box_repair, "VERIFIED_TRAIN_SOURCES", {
+        source_sha256: {"task": "synthetic", "published_name": "synthetic-train.json",
+                        "content_sha256": hashlib.sha256(canonical.encode()).hexdigest(),
+                        "image_count": len(document["images"])}})
+
+
+@pytest.fixture(autouse=True)
+def synthetic_provenance(monkeypatch):
+    bind_fixture(monkeypatch, train_doc())
 
 
 def test_overshoot_measures_each_edge():
@@ -67,37 +74,42 @@ def test_find_overshoots_lists_only_affected_boxes():
 def test_repair_clamps_into_a_copy_and_records_every_change():
     source = train_doc()
     before = copy.deepcopy(source)
-    derived, record = repair(source)
+    derived, record = repair_training_copy(source, "binary_explosive_det_train.json", SHA, 2)
     assert source == before
     assert find_overshoots(derived) == []
     assert derived["annotations"][0] == source["annotations"][0]
     x, y, w, h = derived["annotations"][1]["bbox"]
     assert x == 50.1 and x + w <= 100 and abs(w - 49.9002) < 0.001
     assert derived["annotations"][2]["bbox"][1] == 0
-    assert derived["annotations"][1]["area"] == 998
+    assert derived["annotations"][1]["area"] == w * h
+    assert derived["annotations"][2]["area"] != source["annotations"][2]["area"]
     assert record["source_sha256"] == SHA and record["tolerance_px"] == 0.001
+    assert record["source_split"]["split"] == "published_train"
+    assert record["area_field"] == "derived bbox width * height for changed annotations only"
     assert [c["annotation_id"] for c in record["changes"]] == [11, 12]
-    assert record["split_check"] == {"test_sha256": TEST_SHA, "test_images": 1,
-                                     "shared_file_names": 0}
-    assert "unchanged" in record["area_field"]
-    assert "overall AP@[.50:.95]" in record["area_field"]
-    assert "size-specific validation metrics can be affected" in record["area_field"]
     for change in record["changes"]:
         assert {"bbox", "derived_bbox", "overshoot_px", "file_name", "image_id"} <= set(change)
-        assert change["area"] == source["annotations"][change["annotation_id"] - 10]["area"]
-        assert -0.001 * 100 < change["bbox_area_change_px2"] <= 0
+        original = next(a for a in source["annotations"] if a["id"] == change["annotation_id"])
+        assert change["source_area"] == original["area"]
+        assert change["derived_area"] == change["derived_bbox"][2] * change["derived_bbox"][3]
+    assert derived["images"] == source["images"]
+    assert derived["categories"] == source["categories"]
+    for original, changed in zip(source["annotations"], derived["annotations"], strict=True):
+        assert {k: v for k, v in original.items() if k not in {"bbox", "area"}} == {
+            k: v for k, v in changed.items() if k not in {"bbox", "area"}}
 
 
-def test_large_overshoot_is_blocked():
+def test_large_overshoot_is_blocked(monkeypatch):
     doc = train_doc()
     doc["annotations"][2]["bbox"] = [5, -4, 10, 10]
+    bind_fixture(monkeypatch, doc)
     with pytest.raises(ValueError, match="blocked"):
-        repair(doc, "train.json")
+        repair_training_copy(doc, "train.json", SHA, 2)
 
 
 def test_unexpected_count_stops():
     with pytest.raises(ValueError, match="expected 5"):
-        repair(train_doc(), "train.json", expected=5)
+        repair_training_copy(train_doc(), "train.json", SHA, 5)
 
 
 @pytest.mark.parametrize(
@@ -111,48 +123,83 @@ def test_test_annotations_are_never_repaired(name, edit):
     doc = train_doc()
     edit(doc)
     with pytest.raises(ValueError, match="test"):
-        repair(doc, name)
+        repair_training_copy(doc, name, SHA, 2)
 
 
-def test_images_in_published_test_split_are_refused_whatever_their_name():
-    doc = train_doc()
-    split = make_test_doc()
-    split["images"][0]["file_name"] = "Train000002.jpg"  # same image, misleading name
-    with pytest.raises(ValueError, match="published test split"):
-        repair(doc, test=split)
-
-
-def test_source_identical_to_published_test_file_is_refused():
-    with pytest.raises(ValueError, match="published test annotation file"):
-        repair(train_doc(), source_sha=TEST_SHA)
-
-
-def test_script_check_then_repair(tmp_path, capsys):
+def test_script_check_then_repair(tmp_path, capsys, monkeypatch):
     source = tmp_path / "binary_explosive_det_train.json"
     source.write_text(json.dumps(train_doc()), encoding="utf-8")
-    split = tmp_path / "binary_explosive_det_test.json"
-    split.write_text(json.dumps(make_test_doc()), encoding="utf-8")
     original = source.read_bytes()
-    guard = ["--test-annotations", str(split)]
-    assert _script().main(["check", "--annotations", str(source)]) == 0
-    assert json.loads(capsys.readouterr().out)["boxes_outside_image"] == 2
+    bind_fixture(monkeypatch, train_doc(), hashlib.sha256(original).hexdigest())
+    assert _script().main(["check", "--annotations", str(source), "--verify-training-source"]) == 0
+    checked = json.loads(capsys.readouterr().out)
+    assert checked["boxes_outside_image"] == 2
+    assert checked["verified_source"]["split"] == "published_train"
     out = tmp_path / "derived"
     assert _script().main(["repair", "--annotations", str(source), "--expected", "2",
-                           "--output-dir", str(out), *guard]) == 0
+                           "--output-dir", str(out)]) == 0
     assert source.read_bytes() == original
     record = json.loads((out / "repair-record.json").read_text(encoding="utf-8"))
     derived = json.loads((out / record["derived_file_name"]).read_text(encoding="utf-8"))
     written = (out / record["derived_file_name"]).read_bytes()
     assert record["derived_file_sha256"] == hashlib.sha256(written).hexdigest()
     assert find_overshoots(derived) == []
-    assert record["split_check"]["test_file_name"] == split.name
     assert str(tmp_path) not in json.dumps(record)
     # Never overwrite, and refuse a wrong count without writing anything.
     assert _script().main(["repair", "--annotations", str(source), "--expected", "2",
-                           "--output-dir", str(out), *guard]) == 2
+                           "--output-dir", str(out)]) == 2
     assert _script().main(["repair", "--annotations", str(source), "--expected", "5",
-                           "--output-dir", str(tmp_path / "other"), *guard]) == 2
+                           "--output-dir", str(tmp_path / "other")]) == 2
     assert not (tmp_path / "other").exists()
+
+
+def test_unknown_bytes_cannot_gain_training_identity_from_a_filename():
+    with pytest.raises(ValueError, match="verified published training"):
+        repair_training_copy(train_doc(), "train.json", "b" * 64, 2)
+
+
+@pytest.mark.parametrize("change", [
+    lambda d: d["images"][0].__setitem__("file_name", "renamed.jpg"),
+    lambda d: d["annotations"][0].__setitem__("category_id", 7),
+    lambda d: d["images"].pop(),
+])
+def test_claiming_a_known_hash_does_not_allow_changed_or_mixed_membership(change):
+    document = train_doc()
+    change(document)
+    with pytest.raises(ValueError, match="verified published training"):
+        verify_training_source(document, SHA)
+
+
+def test_renamed_test_like_export_is_rejected_without_writes(tmp_path, capsys):
+    document = train_doc()
+    # IDs can overlap across published splits; names and IDs do not prove provenance.
+    for row in document["images"]:
+        row["file_name"] = str(row["id"]) + ".jpg"
+    source = tmp_path / "train.json"
+    source.write_text(json.dumps(document), encoding="utf-8")
+    original = source.read_bytes()
+    output = tmp_path / "derived"
+    assert _script().main(["repair", "--annotations", str(source), "--expected", "2",
+                           "--output-dir", str(output)]) == 2
+    assert "verified published training" in capsys.readouterr().err
+    assert source.read_bytes() == original and not output.exists()
+
+
+@pytest.mark.parametrize("edit", [
+    lambda a: a.__setitem__("segmentation", [[1, 1, 2, 1, 2, 2]]),
+    lambda a: a.pop("area"),
+])
+def test_area_policy_refuses_segmentation_or_missing_area(monkeypatch, edit):
+    document = train_doc()
+    edit(document["annotations"][1])
+    bind_fixture(monkeypatch, document)
+    with pytest.raises(ValueError, match="box-only"):
+        repair_training_copy(document, "train.json", SHA, 2)
+
+
+def test_tolerance_cannot_be_relaxed_by_a_caller():
+    with pytest.raises(ValueError, match="fixed"):
+        repair_training_copy(train_doc(), "train.json", SHA, 2, tolerance=1)
 
 
 @pytest.mark.parametrize("edit", [
@@ -167,4 +214,4 @@ def test_image_without_usable_size_or_name_is_refused(edit):
     with pytest.raises(ValueError, match="positive width/height"):
         find_overshoots(doc)
     with pytest.raises(ValueError, match="positive width/height"):
-        repair(doc)
+        repair_training_copy(doc, "train.json", SHA, 2)

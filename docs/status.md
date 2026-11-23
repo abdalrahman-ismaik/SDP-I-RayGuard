@@ -1,5 +1,63 @@
 # Current project status
 
+## Final T41 evidence handoff — 23 November 2026
+
+The reduced generic training scope and frozen published-test comparison are now
+**executed and verified**. Job **820** completed at 08:45:31 UAE in 1m27s, exit 0:0,
+covering all 5,136 original test images. Test AP@[.50:.95] is **41.5886% control /
+48.0502% candidate** (+6.4616 percentage points); validation remains **87.7062% /
+87.4833%**. All test metrics and fixed-threshold counts independently recomputed
+exactly from saved predictions. Test data selected no model or setting.
+
+At confidence 0.25 and IoU 0.50, recall is 48.7516% / 48.2834%; 1,642 / 1,657
+annotated boxes were missed. Candidate small-object AP is lower. Keep these
+limitations, the large validation/test gap, retained duplicate images and
+unverified physical independence alongside the higher test AP. Specific,
+repeatability and the original 20-attempt protocol remain explicitly deferred.
+
+[Final results and provenance](t41-results.md) contain checkpoint/prediction/plan
+hashes, full metrics, failure examples and timing boundaries. The test evidence
+archive and all 46 manifest-listed files passed local hash verification; both
+selected weights and training evidence were already backed up. The LaTeX report
+now includes these results. The reduced T41 execution/report-evidence scope is
+complete; human PR review/integration and whole-report T38 acceptance are separate.
+No further training or parameter selection is scheduled.
+
+## Earlier training-only completion — 23 November 2026
+
+**The authorized six-attempt generic search and both 100-epoch confirmations
+completed at 05:13 UAE today.** Slurm accounting verified successful jobs
+758/759/762/764/767 (search), 770 (control) and 819 (candidate); failed attempt
+755 remains counted with null objective. No jobs were queued/running at 08:17 UAE.
+Every allocation stayed below four hours; no checkpoint continuation was used.
+
+On the shared 2,445-image validation partition, seed-17 confirmation AP@[.50:.95]
+was **87.7062% control versus 87.4833% best search candidate**. Tuning did not
+improve this comparison (candidate minus control: -0.2228 AP percentage points).
+Both started from the same verified general initializer. All 350 successful epoch
+prediction records and 237 bound runtime files were rehashed; Ali's objective
+recomputed both selected scores exactly. Checkpoint identities, real resource
+measurements and job timings are in [the execution handoff](t41-handoff.md).
+Both selected checkpoints and the full run evidence are backed up locally;
+archive identity and all 2,238 manifest-listed files passed hash verification.
+
+These are exploratory training-only validation results. Physical group
+independence is unverified; the published test set was not used. Specific,
+repeatability and the original 20-attempt protocol remain deferred/incomplete.
+The reduced execution scope is complete; broader T41 report/evaluation integration
+remains open. Next: use the verified comparison in the 23 November evidence
+freeze and 24 November 17:00 UAE report; report remaining stages accurately.
+
+The 08:16 monitoring-authentication block was resolved at 08:17. No password was
+saved. Existing changes, shared environments and unrelated projects/jobs remain
+preserved. The user's later push instruction authorizes publication of the
+implementation and result summaries on `ahmed/t41-software-draft`; integration
+with current main remains separate. Fresh publication checks passed Ruff and
+490 tests/13 skipped in 49.36s. Earlier no-publication statements are dated history.
+
+
+## Earlier team handoff (T41 update above supersedes older state)
+
 **Collaboration update, 21 November:** the owner prioritizes assigned work and authorizes a teammate blocked by a small dependency to
 finish another lane's work without waiting for its lead. Record scope/actual editor,
 notify affected teammates and proceed in isolation; coordinate active collisions and

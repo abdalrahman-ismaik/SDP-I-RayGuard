@@ -9,7 +9,7 @@ separate observed interface handoff; public documentation and image replay do
 not establish compatibility with the lab machine.
 
 The research dataset and the lab collection serve different purposes. Public
-IEDXray supports the single-scan baseline and planned training/evaluation.
+IEDXray supports the single-scan baseline and executed generic training/evaluation.
 Dismantled scans support the distributed collection workstream. Their counts
 do not supply detector labels, independent cases or accepted negatives.
 
@@ -20,11 +20,11 @@ do not supply detector labels, independent cases or accepted negatives.
 \toprule ID & Requirement & Evidence and disposition\\\midrule\endhead
 FR1 & Accept authorized images and identify the source explicitly & Upload, folder receipt and finite replay documented; physical scanner not qualified\\
 FR2 & Apply declared preprocessing consistently before inference & Canonical image and backend transforms documented; no measured enhancement benefit\\
-FR3 & Detect and localize the selected task with a verified checkpoint & Bounded generic/device/specific execution records; no full-test accuracy claim\\
+FR3 & Detect and localize the selected task with a verified checkpoint & Generic published-test measurements in Chapter 5; device/specific diagnostic scope remains bounded\\
 FR4 & Display original-coordinate boxes, scores and task identity & Shared contract and GUI implementation evidence\\
 FR5 & Preserve execution failure and missing-input states & Contract/software behavior; empty results imply no benign verdict\\
 FR6 & Support operator review and export traceable records & Notes, session review and JSON export; persistence beyond session remains limited\\
-FR7 & Evaluate with matching ground truth and frozen settings & Evaluator software integrated; real eligible evaluation pending\\
+FR7 & Evaluate with matching ground truth and frozen settings & Generic test job 820 verified; duplicate/group limitations retained\\
 FR8 & Associate distributed scans using justified case provenance & Contract direction only; case labels and fusion unfinished\\
 \bottomrule
 \end{longtable}
@@ -79,5 +79,5 @@ ground truth. Neither is supplied automatically by choosing a checkpoint in the
 GUI. Table~\ref{tab:requirements} therefore records partial and unfinished
 requirements rather than presenting all boxes as complete.
 
-\pending{Formal supervisor acceptance of the current requirement/specification
+\pending{Formal supervisor acceptance of the current requirements and
 mapping, current presentation-machine qualification and live scanner interface.}

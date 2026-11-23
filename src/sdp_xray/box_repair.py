@@ -16,16 +16,23 @@ from pathlib import PurePath
 from typing import Any
 
 TOLERANCE_PX = 0.001
+DATASET_ARCHIVE_SHA256 = "94b691e6a06830e45b84097fad33f937821712b1492272a1300dbad2a4e705f3"
+# Inspected from the checksum-verified public archive on 22 November 2026.
+# These identify published TRAIN exports, not policy approval or physical groups.
+VERIFIED_TRAIN_SOURCES = {
+    "95db51070c08927241cc1a0241ff9878dfdf5a9d5bc1d7af75b9f360290836dc": {
+        "task": "generic", "published_name": "binary_explosive_det_train.json",
+        "content_sha256": "bfa1f28e61b4f96df79976b2c2562cbb0c0726576f0d995e7ce7d357a3bf847b",
+        "image_count": 12224,
+    },
+    "3398e2366c4f07d98ea3bd3e83ca2519ead0c7bb2303d045afcd9e4b37c73500": {
+        "task": "specific", "published_name": "specific_explosive_det_train.json",
+        "content_sha256": "ad3f9005e04b6737d976e71abcf962aa2541e8139ccc71d9f18668638930da7e",
+        "image_count": 12224,
+    },
+}
 REASON = ("box extends outside the image by less than 0.001 px, consistent with numerical "
           "rounding; clamped to the image edge in a training-only derived copy")
-AREA_TREATMENT = (
-    "kept unchanged from source. The YOLO trainer derives labels from bbox, not area. The frozen "
-    "T42 validation objective is overall AP@[.50:.95] across all area ranges and is unchanged. "
-    "COCOeval size-specific validation metrics can be affected when validation is derived from "
-    "repaired training annotations; report them only with a caveat or separate justified area "
-    "policy. Published test annotations are never repaired. Each change records the "
-    "bbox-implied area change, which is below 0.001 px times the box side."
-)
 
 
 def _images(document: dict[str, Any]) -> dict[int, dict[str, Any]]:
@@ -89,38 +96,39 @@ def _sha256_json(value: Any) -> str:
                                      allow_nan=False).encode()).hexdigest()
 
 
+def verify_training_source(document: dict[str, Any], source_sha256: str) -> dict[str, Any]:
+    """Bind the full document to an inspected published training export; read only.
+
+    Byte identity is computed by the CLI from the actual input. Canonical content
+    identity also prevents API callers pairing a train hash with a test/mixed copy.
+    Unknown or reserialized exports need a new provenance review, not a filename fix.
+    """
+    source = VERIFIED_TRAIN_SOURCES.get(source_sha256)
+    if source is None or _sha256_json(document) != source["content_sha256"]:
+        raise ValueError("source is not a verified published training export; test/unknown copies blocked")
+    if len(_images(document)) != source["image_count"]:
+        raise ValueError("published training membership differs")
+    return {"split": "published_train", "archive_sha256": DATASET_ARCHIVE_SHA256,
+            "source_sha256": source_sha256, **source}
+
+
 def repair_training_copy(
     document: dict[str, Any],
     source_file_name: str,
     source_sha256: str,
     expected_count: int,
-    test_document: dict[str, Any],
-    test_sha256: str,
     tolerance: float = TOLERANCE_PX,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    """Return (derived training annotations, change record). The input is not modified.
-
-    ``test_document`` is the published test export of the same task. The source is refused
-    if it is that file or shares any image file name with it, so the guard rests on the
-    published split itself, not only on naming conventions.
-    """
+    """Return (derived training annotations, change record). The input is not modified."""
     if "test" in PurePath(source_file_name).name.lower():
         raise ValueError("test annotations are never repaired")
-    if source_sha256 == test_sha256:
-        raise ValueError("source is the published test annotation file; never repaired")
     images = _images(document)
-    test_names = {PurePath(str(i.get("file_name", ""))).name
-                  for i in _images(test_document).values()}
-    if not test_names:
-        raise ValueError("published test annotations contain no images")
-    shared = sorted(test_names & {PurePath(str(i.get("file_name", ""))).name
-                                  for i in images.values()})
-    if shared:
-        raise ValueError(f"{len(shared)} images are in the published test split; only "
-                         f"training annotations may be repaired: {shared[:5]}")
     if any(PurePath(str(i.get("file_name", ""))).name.lower().startswith("test")
            for i in images.values()):
         raise ValueError("annotations contain test images; only training annotations may be repaired")
+    split_identity = verify_training_source(document, source_sha256)
+    if tolerance != TOLERANCE_PX:
+        raise ValueError("the policy tolerance is fixed at 0.001 px")
     found = find_overshoots(document)
     too_large = [item for item in found if item["overshoot_px"] >= tolerance]
     if too_large:
@@ -138,10 +146,14 @@ def repair_training_copy(
     for item in found:
         annotation = by_id[item["annotation_id"]]
         image = images[item["image_id"]]
+        source_area = annotation.get("area")
+        if (annotation.get("segmentation") or type(source_area) not in (int, float)
+                or not math.isfinite(source_area) or source_area <= 0):
+            raise ValueError("area recomputation requires box-only annotations with finite positive area")
         annotation["bbox"] = _clamp(annotation["bbox"], image["width"], image["height"])
-        old, new = item["bbox"], annotation["bbox"]
-        changes.append({**item, "derived_bbox": new, "area": annotation.get("area"),
-                        "bbox_area_change_px2": new[2] * new[3] - old[2] * old[3]})
+        annotation["area"] = annotation["bbox"][2] * annotation["bbox"][3]
+        changes.append({**item, "derived_bbox": annotation["bbox"],
+                        "source_area": source_area, "derived_area": annotation["area"]})
 
     if find_overshoots(derived):
         raise ValueError("a box is still outside the image after clamping")
@@ -151,19 +163,19 @@ def repair_training_copy(
             raise ValueError("an unaffected annotation changed")
 
     record = {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "purpose": "training-only derived annotations; source file unchanged",
         "source_file_name": PurePath(source_file_name).name,
         "source_sha256": source_sha256,
-        "split_check": {"test_sha256": test_sha256, "test_images": len(test_names),
-                        "shared_file_names": 0},
+        "source_split": split_identity,
         "derived_content_sha256": _sha256_json(derived),
         "tolerance_px": tolerance,
         "reason": REASON,
-        "area_field": AREA_TREATMENT,
+        "area_field": "derived bbox width * height for changed annotations only",
         "changes": changes,
     }
     return derived, record
 
 
-__all__ = ["AREA_TREATMENT", "REASON", "TOLERANCE_PX", "find_overshoots", "overshoot", "repair_training_copy"]
+__all__ = ["REASON", "TOLERANCE_PX", "find_overshoots", "overshoot", "repair_training_copy",
+           "verify_training_source"]

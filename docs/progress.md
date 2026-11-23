@@ -1,5 +1,398 @@
 # Engineering progress and contribution records
 
+## T41 final test, report integration and completion — 23 November 2026
+
+The reduced generic training scope and frozen published-test comparison are now
+**executed and verified**. Job **820** completed at 08:45:31 UAE in 1m27s, exit 0:0,
+covering all 5,136 original test images. Test AP@[.50:.95] is **41.5886% control /
+48.0502% candidate** (+6.4616 percentage points); validation remains **87.7062% /
+87.4833%**. All test metrics and fixed-threshold counts independently recomputed
+exactly from saved predictions. Test data selected no model or setting.
+
+At confidence 0.25 and IoU 0.50, recall is 48.7516% / 48.2834%; 1,642 / 1,657
+annotated boxes were missed. Candidate small-object AP is lower. Keep these
+limitations, the large validation/test gap, retained duplicate images and
+unverified physical independence alongside the higher test AP. Specific,
+repeatability and the original 20-attempt protocol remain explicitly deferred.
+
+[Final results and provenance](t41-results.md) contain checkpoint/prediction/plan
+hashes, full metrics, failure examples and timing boundaries. The test evidence
+archive and all 46 manifest-listed files passed local hash verification; both
+selected weights and training evidence were already backed up. The LaTeX report
+now includes these results. The reduced T41 execution/report-evidence scope is
+complete; human PR review/integration and whole-report T38 acceptance are separate.
+No further training or parameter selection is scheduled.
+
+Actual editor/executor: Codex AI assistant under the user's instructions; no
+student authorship or hours inferred. An isolated branch based on current main
+retains the merged team/report changes. Code commit `54db37b` integrates the
+qualified T41 implementation and frozen evaluation runner with explicit agent
+author/committer metadata. The earlier task branch publication remains intact.
+
+Commands/evidence: Slurm `sbatch` job 820; `sacct` COMPLETED 0:0, 87 seconds;
+`evaluate_t41_frozen.py --plan ... --output ...`; independent CPU metric/hash
+verification; safe local extraction and all-manifest-file hash checks. The test
+plan was recorded before submission. Real failures were inspected without
+changing labels, predictions or thresholds. Full original logs/receipts remain
+private. No shared package, unrelated project/job or existing user file was reset.
+
+Integration software checks: Ruff passed; **515 tests passed, 13 skipped** in
+43.96s, using the existing locked environment and the integration worktree's
+source via PYTHONPATH. Seven frozen-plan fail-closed tests also passed separately.
+These are software checks, distinct from executed HPC model evidence.
+
+Report changes update the abstract, implementation/results, conclusions and
+dated schedule. The PR20 literature table now spans pages, the Gantt figure fits
+its page, literal table-rule typos are repaired, and moved 6G links resolve.
+The source preserves other contributors' content. Whole-report T38 acceptance,
+checked Word copy, official forms/signatures and submission remain separate.
+
+
+The updated LaTeX report built successfully with Tectonic to **42 pages**.
+Rendered page layouts were inspected, including detailed result tables. Final
+logs show no overfull boxes, oversized floats, unresolved references or missing
+glyphs. Underfull spacing warnings and the system Fontconfig warning remain;
+Times New Roman/Arial rendered correctly. The private PDF and its hash are
+retained locally; no assembled PDF, raw scan or private receipt is published.
+
+## T41 publication preparation authorized - 23 November 2026
+
+The user's subsequent instruction to push authorizes commits and publication of
+the qualified T41 implementation and verified result summaries on the existing
+`ahmed/t41-software-draft` task branch. Earlier no-publication statements describe
+their dated execution stages. Main remains unchanged; integration with the
+newer merged team work is separate. No force push, reset or merge is authorized
+by this preparation. The original draft and working files are preserved.
+
+The explicit publication set contains 44 source/configuration/test/documentation
+files, separated into implementation and evidence commits. Reviewed evaluator
+and initialization imports already present on main retain their documented
+provenance. Private paths and credential-pattern inspection found no matches in
+the publication set; unrelated untracked files, scans, weights, session helpers,
+logs and private receipts are excluded. The run artifacts remain in private
+hash-verified storage. Required `uv run --locked ruff check .` passed and
+`uv run --locked python -m pytest` returned **490 passed, 13 skipped in 49.36s**.
+The first attempt could not write the sandbox's default uv cache; rerunning with
+a project-local ignored cache resolved it. Skips cover unavailable local
+pycocotools and platform features; real HPC evaluator execution and independent
+score recomputation are separately recorded below. No new model execution was
+performed during publication checks. Student authorship/hours are not inferred.
+
+## T41 reduced generic completion and artifact verification - 23 November 2026
+
+User authentication restored monitoring at 08:17 UAE; the pending read-only
+request executed once. Slurm `sacct` confirmed search jobs 758/759/762/764/767 and
+confirmation jobs **770/819 COMPLETED**, all exit 0:0. Final job 819 ended at
+**05:13:01 UAE**. `squeue` showed no account jobs. Search attempt 0 (755) remains
+failed with null objective; all six attempts are accounted for. The finite chain
+wrote its reduced-protocol completion receipt and stopped without starting the
+deferred specific or repeatability stages. No new GPU job was submitted today.
+
+Control confirmation completed 100 epochs in 2h47m35s; the best search candidate
+(trial 4) completed 100 epochs in 2h46m49s. Both used the same verified general
+initializer, seed 17 and shared training-only partition. Validation-selected
+checkpoints were epochs 68 and 84 respectively. AP@[.50:.95] was
+**0.8770615927076139 control / 0.8748334372095157 candidate**: candidate minus
+control **-0.0022281554980981833**, or -0.2228 AP percentage points. This does
+not establish an improvement from tuning. Report the single-seed, exploratory
+physical-group limitation; no published-test score or full-protocol completion.
+
+A separate `CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+MKL_NUM_THREADS=1 PYTHONPATH=code/src env/bin/python` verification completed in
+6.18 seconds, with no inference/training. It checked the six-trial ledger,
+frozen objective, candidate selection, common initialization, task class map,
+partition and validation annotation identities; rehashed **237 bound runtime
+files**, selected checkpoints and **350 successful epoch prediction records**;
+and independently recomputed both selected Ali objectives exactly. Generic and
+specific original train/test annotation hashes match the prior four-file record.
+The selected prediction counts were 1,736/1,662, with zero outside-box events.
+All raw predictions, resource measurements, losses, failures and prior records
+remain retained. Detailed job/resource/checkpoint evidence is in
+[the handoff](t41-handoff.md).
+
+A private 378,802,473-byte backup was created on HPC with 2,239 files, including
+both selected final checkpoints, run logs, predictions, source and manifests;
+raw scan images are excluded. Archive SHA-256:
+`1d59c206c971b91c2bde673727fea5f4ba9d25c1095666f9a5b8944a2e696b1e`.
+Local download completed with the same archive hash. Safe extraction verified
+all 2,239 members and rehashed all 2,238 manifest-listed files, including both
+selected checkpoints; the manifest itself is covered by the archive hash.
+Existing local changes/untracked files and shared packages are preserved. No commit,
+push, merge, reset, colleague message or unrelated job action occurred. Student
+authorship/hours remain unreported. Next: report integration of the verified
+comparison before the 24 November 17:00 UAE deadline, with deferred work explicit.
+
+## T41 overnight monitoring attempt - 23 November 2026
+
+At 08:16 UAE, a command-tool TCP/22 probe reached the HPC. The initial sandboxed
+probe was denied by socket permissions; the authorized network probe succeeded.
+`ssh -o BatchMode=yes -o ConnectTimeout=5 -o NumberOfPasswordPrompts=0`
+returned `Permission denied (publickey,password)`. The saved private-session
+status records closure at 22:51 UAE on 22 November. Read-only request 158 for
+Slurm accounting, chain failures and the reduced-protocol completion receipt is
+queued, not executed. The user was given the exact existing helper command and
+asked to authenticate only at its local hidden prompt; no credential was saved.
+
+Reviewed the saved driver while access is unavailable: it requires six terminal
+attempts, two successful 100-epoch confirmations, verified per-epoch prediction
+hashes/counts and a completion receipt before reporting the reduced protocol done.
+This source inspection does not establish overnight execution. No new submission,
+restart, cancellation or change to running code occurred. Next: consume the same
+pending request after authentication, inspect results and independently verify
+selected checkpoint/prediction identities before reporting metrics. The last
+observed state remains three completed search configurations, one failed and
+configuration 4 running at 22:04 UAE on 22 November.
+
+## T41 monitoring and PR20/PR22 review - 22 November 2026
+
+At 22:04 UAE, authenticated read-only `squeue` and
+`sacct -j 755,758,759,762,764 --format=JobID,JobName,State,ExitCode,Elapsed,MaxRSS --parsable2 --noheader`
+confirmed three completed search allocations: **758** (52m41s), **759** (52m29s)
+and **762** (52m23s), all exit 0:0. **764** was running configuration 4 at
+10m38s elapsed. Failed configuration 0 remains counted; one further attempt
+remains after configuration 4 in the six-attempt scope. No confirmation or
+published-test result is claimed. The finite Slurm chain continues independently
+of the desktop. Next: verify the remaining search and control/best confirmations.
+
+Automated read-only review examined PR20 at `7fe234f` and PR22 at `3ee9c87`;
+student authorship, review sign-off and hours are not inferred. GitHub reported
+both merged by other activity during the review (PR22 `da0151e`, PR20 `6948559`).
+No review, message, approval, commit, push, reset or merge was performed here.
+The isolated PR20 report snapshot built with
+`tectonic --untrusted --keep-logs --keep-intermediates --outdir build-review main.tex`.
+The 42-page PDF was rendered with `pdftoppm`; the report sources were unchanged
+by the PR's final synchronization. Executed visual findings: Table 1.2 is cut
+off (float 492.93 pt too tall), Figure A.1's caption overlaps the footer
+(33.59 pt too tall), and malformed table rules print `midrule`/`bottomrule`.
+Moving the 6G page also left broken incoming and relative links. These require
+follow-up before report submission; successful compilation is not layout acceptance.
+
+The pinned PR22 repair module passed its **10 tests**. A separate synthetic
+reproduction showed that `tolerance=NaN` or `10.0` permits a four-pixel repair,
+contrary to the documented sub-0.001 px policy; the CLI uses the correct default.
+The merged code retains COCO area, whereas the authorized HPC implementation
+recomputes changed box-only areas and binds verified training-export identities.
+Record that implementation difference explicitly; the running experiment did not
+use the merged PR22 source unchanged. Private review snapshots, build logs,
+rendered pages and reproductions are retained outside shared source. The final
+Word copy, official filled forms and complete binary slide assets were not reviewed.
+
+## T41 failure diagnosis and user deadline amendment - 22 November 2026
+
+Job **755 failed**, exit 1:0, after 11m53s during epoch-6 validation. Five earlier
+epoch reports, both retained snapshots, full predictions, journal/RNG and resource
+measurements remain intact. It counts as failed configuration 0 with null study
+objective: one attempted, zero completed configurations. No optimizer continuation
+was attempted. Diagnostic **756 completed** in 25s: all 2,445 validation images,
+5,880 predictions, and 293 wholly outside positive boxes on 124 images that became
+zero-area after upstream clipping. Original class/score values were valid.
+
+Implemented a scoped bridge correction preserving the original pixel xyxy box
+only for this verified collapse case. It records original/clipped geometry and
+retains every prediction; partial-overlap behavior, classes/scores, annotations,
+partition and Ali's evaluator stay unchanged. Invalid raw geometry still fails.
+A bound implementation amendment permits proceeding only after the preserved first
+failed configuration and actual replacement qualification, without pooling completed
+configurations from different implementations. GPU qualification **757 completed**, exit 0:0, in 1m19s. Pilot and epoch-5
+predictions/AP matched exactly, and all 5,880 epoch-6 predictions were preserved
+with 293 original outside boxes. Diagnostic AP 0.7858186634414229 is excluded from
+selection; failed configuration 0 remains failed. Job **758 was submitted** for
+configuration 1 after the bound implementation amendment and deadline checks.
+At 19:20 UAE, job 758 was actually training, with one completed validation epoch:
+AP 0.5269629247129693 on all 2,445 images, 25,665 detections and zero outside-box
+events. A contemporaneous H100 NVL sample showed 94% utilization and 86,942 MiB
+used of 95,830 MiB; this is a sample, not peak memory or sustained throughput.
+No completion of that search attempt is claimed.
+
+The user explicitly selected **generic only, six attempts, control/best confirmation**
+after the full protocol's 80–100 GPU-hour estimate was explained. Revised execution:
+six attempts including failed configuration 0, then 100 epochs for the best completed
+candidate and original control, seed 17; specific and repeatability deferred. The
+original definition remains preserved with a separate bound deadline receipt. No
+full-protocol completion or TPE convergence is implied. Estimated remaining compute:
+10–13 GPU hours, subject to failures/queues. Account inspection showed 47.8 GiB free
+of 100 GiB, two concurrent jobs allowed, and no cumulative GPU-time cap listed;
+requested allocations remain one GPU, four CPUs, 32 GB and four hours each.
+
+Required local Ruff passed; **490 tests passed, 13 skipped in 43.06s**. Linux
+validation/workflow/allocation checks passed **90 tests**; Linux controller checks
+passed **4 tests**. The private Linux driver could not import `resource` during an
+initial Windows check; that failed check is preserved, and its Linux checks passed.
+Source updates 11/12 verified every transferred file and retained previous versions.
+No commit, push, merge, reset, shared-environment modification or unrelated job action.
+
+## T41 qualified pilot and study launch - 22 November 2026
+
+Pilot **750 completed** two real generic epochs and fresh reload (7m53s); pilot
+**752 failed** before updating weights because the offline guard blocked worker
+Unix IPC. After the scoped IPC fix, **754 completed** three epochs and reload
+(7m17s) with two loader workers. Ali validation AP values were
+0.5792557069477533, 0.7204527031792007 and 0.7826704420959958. All 2,445 validation
+images were evaluated; published test data was unused. The best checkpoint hash,
+class map, source identities, compressed predictions and two recorded unselected
+snapshot retirements were independently verified. Recomputing Ali's objective
+from the saved predictions reproduced 0.7826704420959958 exactly. These are
+exploratory pilot results, not a completed comparison.
+
+Implemented allocation boundaries between whole search attempts, optional
+best/latest retention with retirement hashes, explicit planned stage-run selection,
+and local worker IPC while retaining network/subprocess blocks. Private finite
+Slurm scheduling retains generic-first order, 20 attempted configurations, original
+confirmation/repeatability budgets, shared initialization and one output owner.
+It stops on failures/unresolved gates and never resumes optimizer checkpoints.
+Full predictions are preserved with lossless gzip and both byte hashes.
+
+Required local commands passed: Ruff and **465 pytest tests / 12 skips (34.18 s)**.
+Linux allocation/IPC/retention checks: **108 passed**; controller tests: **4 passed**
+(mocked scheduler only); final launch checks: **39 passed**. Real pilot and test
+evidence remain distinct. Generic search control configuration 0 was submitted as
+**job 755** for 30 epochs; no search completion is claimed. Measured steady pilot
+epochs (~99.4 s) and the 100-GiB account quota now inform each bounded allocation.
+The full protocol exceeds the 23 November evidence freeze. No commit, reset, push,
+merge, shared-package change or unrelated cancellation occurred. Student effort
+and explain-back remain unreported.
+
+## T41 first actual trainer dispatch - 22 November 2026
+
+Pilot **749** ran inside the requested one-GPU Slurm allocation and failed 1:0
+after 2m02s. Verified general initialization transferred **787/799** items to the
+generic head, and both prepared splits loaded with zero corrupt images. Python
+3.12 then rejected upstream multi-scale `random.randrange` float bounds before
+the first optimizer update. All logs, failure tracebacks and resource records
+are retained. No completed epoch, checkpoint, AP or search attempt is claimed.
+
+Added a scoped integral-bound compatibility adapter without changing upstream
+files or the multi-scale protocol. Tests verify exact seeded sample/RNG equality
+and rejection of fractional/nonfinite bounds. Required Ruff passed; full local
+pytest returned **457 passed, 11 skipped in 35.25 s**; targeted HPC tests returned
+**37 passed in 1.45 s**. Retry **750** is submitted with fresh outputs and the
+same initialization, partition, batch and protocol. Its outcome is pending.
+
+## T41 authorized data preparation and trainer fixes - 22 November 2026
+
+The user's explicit instruction to proceed without further human approval
+supersedes the earlier wait. Private receipts identify that authorization without
+claiming a colleague review. Agent-assisted execution completed training-only
+repair commands for both exports (`--expected 5`), recording source/derived bbox
+and area values and verifying all other annotation fields unchanged. Shared
+seed-17 partition: **9,779 fit / 2,445 validation**, all task classes represented,
+membership SHA-256 `3a1f364ff80e6e9f6db9cd5fbfc8783270fa42e2968aa136043611d09b1f9e85`.
+Both strict source audits and isolated bundles completed in 351.46 s; all four
+original annotation hashes remained unchanged. Physical independence remains
+unverified; no test data is passed to the trainer.
+
+Implemented scoped checkpoint loading for verified input/owned output files,
+hash-checked local Arial provisioning, in-memory label caches and recorded
+failure messages/tracebacks. `uv run --locked ruff check .` passed;
+`uv run --locked python -m pytest -rN` returned **453 passed, 11 skipped in
+41.05 s**. Targeted HPC CPU checks returned **91 passed in 2.54 s**. Pilot input
+validation passed every execution gate. Actual train/save/reload, class mapping,
+Ali-objective values and resource measurements remain the GPU pilot's purpose.
+The private SSH helper's malformed JSON request was preserved and repaired;
+per-request parsing failures now keep the authenticated session open. No
+commit, push, merge, shared-package change or unrelated-job cancellation occurred.
+
+## Historical T41 PR22 review follow-up - 22 November 2026
+
+Agent-assisted local changes to Ali's original implementation at `ea9a21b`, in
+response to the three supplied review requests. The example policy receipt now
+uses `decision: pending` with null owner/reference. Real read-only inspection
+confirmed the five affected annotations per task have no segmentation and source
+area equals bbox width × height. The proposed derived copy recomputes area only
+for changed boxes and records both source/derived values; all other fields stay
+unchanged. This supersedes the earlier derived-area preservation proposal and
+still needs human implementation approval.
+
+The repair guard now binds the actual file-byte hash and complete canonical JSON
+hash to the two verified public training exports, including image membership,
+annotations and categories. Filename checks are additional checks only. A new
+`check --verify-training-source` path verifies provenance without repair.
+On HPC, both actual train exports passed; both test exports and test documents
+paired with claimed train hashes were rejected. The pending example was confirmed
+not to satisfy the approval predicate. No real repair/partition/training occurred.
+
+`uv run --locked ruff check .` passed. Full requested local
+`uv run --locked python -m pytest -rN`: **450 passed, 11 skipped in 34.92 s**,
+no deselections. Revised repair tests on HPC: **16 passed**. Original PR22 source
+and before/after hashes were preserved, and a local four-file review patch was
+prepared. No commit, push, merge, remote PR edit or human approval was made.
+Next: human review of these concrete changes, then the already documented repair,
+partition and real trainer qualification sequence. Deadline/protocol unchanged.
+
+## T41 HPC preparation and environment checks - 22 November 2026
+
+Ahmed's workstream; agent-assisted execution, with student effort and explain-back
+unreported. Existing local changes were preserved; no commit, push, reset or merge.
+Authenticated SSH, inspected assigned storage and both existing environments,
+created an isolated project directory, and verified all 124 transferred files.
+Obtained the public IEDXray archive and exact general initializer; sizes and
+hashes matched the documented sources. Decoded and hashed 17,360 images.
+Read-only `repair_train_boxes.py check` plus explicit paired assertions confirmed
+exactly five corresponding sub-0.001 px boxes in both training exports.
+Duplicate/group findings and source identities are recorded in
+[the current handoff](t41-handoff.md). Source/test bytes were preserved.
+
+Integrated Ali's four unchanged PR22 files at `ea9a21b` after blob/byte checks.
+The user's policy agreement is recorded; Abd's implementation review and the
+human-filled policy receipt remain pending. PR18 approval does not clear PR22.
+The pending receipt binds the actual findings and retains `review: null`.
+No repair, partition, training bundle or task training was created.
+
+Installed an isolated Python 3.12.16 candidate with the exact fork (203 source
+files verified), CUDA Torch 2.9.0/torchvision 0.24.0, Optuna 4.5.0 and pycocotools
+2.0.11. Shared packages and unrelated projects were untouched. Fixed the offline
+guard's connectivity exception to match the pinned fork without allowing
+network dispatch. `uv run --locked ruff check .` passed; full local
+`uv run --locked python -m pytest -rN`: **442 passed, 11 skipped, 35.94 s**.
+Remote evaluator/objective/repair checks: **32 passed**; workflow checks:
+**36 passed**. Tests are software evidence, not model validation scores.
+
+Submitted bounded environment probes after creating logs, using the authorized
+one-GPU/four-CPU/32-GB/four-hour Slurm request. **Job 740 failed** after 8 seconds
+on Matplotlib's blocked font-discovery subprocess. After a local font-cache
+preparation, **job 741 completed**, exit 0:0, in 14 seconds on H100 NVL.
+Kernels and a tiny optimizer update, general-model synthetic forward/save/fresh
+reload, and synthetic Optuna persistence passed. Same-host concurrent journal
+writes on assigned storage also passed. Logs, timings, hashes, GPU samples,
+failures and dependency records remain private. No host-memory peak or training
+throughput is inferred. General-model reload does not qualify trainer checkpoint
+continuation, full-object loading/finalization, task heads or Ali's real-data AP.
+
+Next: obtain the pending human review, apply and verify the derived train-only
+repair, prepare the shared partition, qualify the real trainer pilot, then execute
+the agreed generic-first/specific-second protocol. **Zero task configurations
+attempted; no real model metric produced.** The 23 November freeze remains a
+deadline, not evidence of completed experiments.
+
+## T41 local software completion review - 21 November 2026
+
+Ahmed's T41 workstream; agent-assisted implementation and local verification.
+Student explain-back, human review and commit/push remain separate actions.
+Preserved the existing local training, evaluation and initialization integration.
+Fixed the dataset-preparation prerequisite cycle: reviewed data can be prepared
+before the pilot qualifies training, while source/partition/geometry and data
+review checks still block invalid preparation. Execution requirements remain
+unchanged. Added five regression cases and explicit single-node/single-task
+Slurm requests. After the user supplied HPC Python 3.10 inventory, added
+explicit supported-interpreter checks and three regression cases. [Current handoff](t41-handoff.md) records scope and earlier work.
+
+Commands: `uv run --locked ruff check .` passed;
+`uv run --locked python -m pytest -rN` returned **432 passed, 12 skipped in
+43.11 s**, with no deselections. Targeted backend checks returned **33 passed**.
+`git diff --check` passed. Default generic/specific planning stayed blocked
+without real evidence; the local inventory imported no model. Checks used a
+temporary uv cache because the default cache was not writable. The optional
+evaluation dependency invocation failed at PyPI DNS resolution; two metric
+modules remain skipped, alongside nine symlink and one Bash platform skips.
+
+These are synthetic software checks, not IEDXray validation or model results.
+The owner reports an HPC login through PuTTY; this session cannot access that
+separate connection. No model training, real Optuna study or Slurm submission
+was performed. Next: transfer/review current source, locate approved data and
+weights, resolve the real annotation findings, verify the shared environment
+and isolated overlay, then run an owned bounded pilot. T41 remains in progress
+until the required real experiments and comparisons are evidenced.
+
 ## Team update protocol
 
 ### T42 PR review and integration executed — 21 November 2026
