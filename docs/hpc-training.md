@@ -1,6 +1,75 @@
-# T41 local HPC template status — 19 November 2026
+# T41 HPC execution status - 22 November 2026
+
+## Verified completion - 23 November 2026
+
+The user-authorized reduced generic protocol completed at 05:13 UAE: six attempts
+(five complete, one failed), then two complete 100-epoch confirmations. Ali's
+validation AP was 87.7062% for the untuned control and 87.4833% for the best search
+candidate, independently recomputed exactly. All 350 successful epoch prediction
+records were verified. The published test set was unused; physical independence
+remains exploratory. Specific/repeatability are deferred; the original 20-attempt
+protocol is not complete. See [the current handoff](t41-handoff.md) for actual jobs,
+checkpoint hashes, timings, scope and limitations. No further GPU job was started.
+
+## Historical launch and implementation record
+
+Authenticated access, assigned-storage isolation and verified source transfer
+are now executed. Public IEDXray and the exact general initializer are present
+and hashed on HPC. The shared Python 3.10.22 environment is unsuitable and was
+left unchanged; a new isolated Python 3.12.16 candidate was installed from the
+account's separate interpreter, with no shared packages inherited. The user's
+explicit instruction authorizes this isolated alternative.
+
+Logs preceded submission. Environment job **740 failed** on blocked Matplotlib
+font discovery; **741 completed**, exit 0:0, in 14 seconds after local cache
+preparation. Both used `gpu-student` partition/QoS, one GPU/node/task, four CPUs,
+32 GB and a four-hour allocation, with a 20-minute probe process limit.
+H100 NVL kernels, the pinned fork's general initializer forward/save/fresh reload,
+and synthetic Optuna persistence were verified. These are not the T41 training
+pilot. No unrelated job was cancelled and no GPU work ran in the login shell.
+
+The user's subsequent explicit instruction to proceed without further human
+approval is recorded as execution authorization; no Abd review is claimed.
+Derived repairs, the shared 9,779/2,445 partition and both training bundles are
+complete. Scoped trainer loading/finalization, local font provisioning and
+in-memory label caches passed software and actual training checks. Generic pilots
+750 and 754 completed train/save/reload, class mapping and Ali validation. Pilot
+754 qualified batch 32 FP32 with two loader workers, full compressed predictions
+and best/latest retention; steady epochs took about 99.4 seconds. Generic search
+control job 755 failed during epoch-6 validation after five completed reports.
+Diagnostic 756 completed; GPU qualification 757 passed the bridge fix retaining
+all wholly outside detections and exactly preserving earlier valid predictions/AP.
+Configuration 1 was submitted as job 758; no completion is claimed. The user's revised
+scope is six generic attempts, then 100-epoch control/best confirmation at seed 17;
+specific and repeatability are deferred. The finite sequence uses one whole
+attempt/run per allocation, checks quota and duration, and stops at unresolved
+gates. Checkpoint continuation is unsupported. No search completion is claimed.
+See [the detailed handoff](t41-handoff.md) and
+[environment evidence](../environments/training/README.md).
+
+## Historical local template status - 21 November 2026
 
 The coordinator-prepared 18 November handoff from commit `6d57e5cb362164d12cb9338cf60bd72d3f9bdc6a` is retained below with its original attribution and evidence boundaries. The local `environments/training/train.slurm` template now exists for review; no cluster access, environment qualification or job submission was performed. See [current software usage](finetuning.md) and [activation/qualification details](../environments/training/README.md). The private source guides mentioned below were inspected for the coordinator's handoff, not reopened for this implementation.
+
+The coordinator's 21 November commit `1b911128e034c38f0087227f375f0f4d99856419`
+retains the brief below. Faisal's initialization receipt identifies the official
+v1.1 general pretrained file; its documented SHA-256 is
+`ff2c559f11d13701abc4e0345f82851d146ecfe7035efaafcc08475cfd8b5f2d`.
+No actual weights were read or transferred for this T41 update. Faisal's
+HPC transfer/rehash, the allocated environment qualification and the pilot's
+`Transferred N/M` log remain outstanding.
+
+Local code now connects the upstream saved-epoch API, isolated converted datasets,
+and Ali's PR18 validation interface through a conditionally gated workflow.
+It has been exercised only with fake trainers/predictors, not an executed pilot.
+Ali's common-parent matcher and two safeguards were inspected at `6dfa7d6`;
+their code still needs integration into the execution checkout. The Slurm template
+takes four private paths: config, evidence, execution authorization and runtime.
+It blocks without the complete receipts described in [the handoff](t41-handoff.md).
+Real checkpoint resume, download/install hooks and train/save/reload behavior
+still need qualification. No job submission is authorized by these local checks.
+Keep data-policy review and invalid-geometry blocks
+explicit. The report freeze on 23 November does not justify bypassing these checks.
 
 # KU H100 training handoff
 

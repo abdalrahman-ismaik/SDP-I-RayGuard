@@ -1,5 +1,39 @@
 # Current project status
 
+## T41 reduced generic protocol complete - 23 November 2026
+
+**The authorized six-attempt generic search and both 100-epoch confirmations
+completed at 05:13 UAE today.** Slurm accounting verified successful jobs
+758/759/762/764/767 (search), 770 (control) and 819 (candidate); failed attempt
+755 remains counted with null objective. No jobs were queued/running at 08:17 UAE.
+Every allocation stayed below four hours; no checkpoint continuation was used.
+
+On the shared 2,445-image validation partition, seed-17 confirmation AP@[.50:.95]
+was **87.7062% control versus 87.4833% best search candidate**. Tuning did not
+improve this comparison (candidate minus control: -0.2228 AP percentage points).
+Both started from the same verified general initializer. All 350 successful epoch
+prediction records and 237 bound runtime files were rehashed; Ali's objective
+recomputed both selected scores exactly. Checkpoint identities, real resource
+measurements and job timings are in [the execution handoff](t41-handoff.md).
+Both selected checkpoints and the full run evidence are backed up locally;
+archive identity and all 2,238 manifest-listed files passed hash verification.
+
+These are exploratory training-only validation results. Physical group
+independence is unverified; the published test set was not used. Specific,
+repeatability and the original 20-attempt protocol remain deferred/incomplete.
+The reduced execution scope is complete; broader T41 report/evaluation integration
+remains open. Next: use the verified comparison in the 23 November evidence
+freeze and 24 November 17:00 UAE report; report remaining stages accurately.
+
+The 08:16 monitoring-authentication block was resolved at 08:17. No password was
+saved. Existing changes, shared environments and unrelated projects/jobs remain
+preserved. The user's later push instruction authorizes publication of the
+implementation and result summaries on `ahmed/t41-software-draft`; integration
+with current main remains separate. Fresh publication checks passed Ruff and
+490 tests/13 skipped in 49.36s. Earlier no-publication statements are dated history.
+
+## Retained project handoff
+
 Updated 30 September 2026. Read [tasks](tasks.md), [meeting records](meeting_minutes/README.md)
 and [the plan](plan.md) for the authoritative backlog and requirements.
 
@@ -7,7 +41,7 @@ and [the plan](plan.md) for the authoritative backlog and requirements.
 
 - **T26/T27/T21:** Dr. Divya rejected the earlier overlap and requested final dates.
   The team revised two slots; the private rota now has no overlaps. The owner supplied
-  **29 September** as the first Tuesday: Week 1 is **29 Sep–1 Oct**, Week 2 **6–8 Oct**.
+  **29 September** as the first Tuesday: Week 1 is **29 Sepâ€“1 Oct**, Week 2 **6â€“8 Oct**.
   Send the dated proposal and obtain lab acceptance, including the shorter session.
   [Yonathan's catalogue F05/C01](meeting_minutes/follow-up-collection-2026-09-28.md#catalogue-handoff-f05c01)
   is received and inspected: **125 four-bag groups / 500 images planned**, 100 per student
