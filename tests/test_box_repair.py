@@ -141,6 +141,8 @@ def test_script_check_then_repair(tmp_path, capsys, monkeypatch):
     assert source.read_bytes() == original
     record = json.loads((out / "repair-record.json").read_text(encoding="utf-8"))
     derived = json.loads((out / record["derived_file_name"]).read_text(encoding="utf-8"))
+    written = (out / record["derived_file_name"]).read_bytes()
+    assert record["derived_file_sha256"] == hashlib.sha256(written).hexdigest()
     assert find_overshoots(derived) == []
     assert str(tmp_path) not in json.dumps(record)
     # Never overwrite, and refuse a wrong count without writing anything.
@@ -198,3 +200,18 @@ def test_area_policy_refuses_segmentation_or_missing_area(monkeypatch, edit):
 def test_tolerance_cannot_be_relaxed_by_a_caller():
     with pytest.raises(ValueError, match="fixed"):
         repair_training_copy(train_doc(), "train.json", SHA, 2, tolerance=1)
+
+
+@pytest.mark.parametrize("edit", [
+    lambda image: image.pop("width"),
+    lambda image: image.update(height=0),
+    lambda image: image.update(width="100"),
+    lambda image: image.pop("file_name"),
+])
+def test_image_without_usable_size_or_name_is_refused(edit):
+    doc = train_doc()
+    edit(doc["images"][0])
+    with pytest.raises(ValueError, match="positive width/height"):
+        find_overshoots(doc)
+    with pytest.raises(ValueError, match="positive width/height"):
+        repair_training_copy(doc, "train.json", SHA, 2)

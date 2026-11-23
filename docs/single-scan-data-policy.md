@@ -84,7 +84,10 @@ Executed implementation: `sdp_xray.box_repair` and `scripts/repair_train_boxes.p
   Add `--verify-training-source` to check the verified source identity without repairing.
 - `repair --expected 5 --output-dir runs/<name>` writes a derived copy plus
   `repair-record.json`. The record holds the source hash and, for each change, the
-  annotation, the original and new box, and the overshoot. It refuses all of these:
+  annotation, the original and new box, and the overshoot. It also holds two hashes of the
+  derived copy: `derived_file_sha256` is the SHA-256 of the written file and is the one to
+  compare with `sha256sum`; `derived_content_sha256` is of its canonical JSON form. It
+  refuses all of these:
   - test files, unknown/reformatted exports, and content that differs from either verified
     public training export (even if the JSON and image filenames are renamed)
   - any overshoot of 0.001 px or more
