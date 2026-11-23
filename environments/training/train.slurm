@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
-# T41 template only: live CLI remains blocked. Human submission requires qualification.
+# T41 template: human submission requires separately reviewed execution inputs.
 #SBATCH --job-name=t41-research
 #SBATCH --partition=gpu-student
 #SBATCH --qos=gpu-student
 #SBATCH --gres=gpu:1
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=32G
 #SBATCH --time=04:00:00
@@ -15,13 +17,15 @@ set -euo pipefail
 umask 077
 
 # Slurm opens logs before this script starts. Create logs BEFORE human submission.
-# Arguments: absolute config.json, evidence.json, new owned output directory.
-[[ $# -eq 3 ]] || { echo 'Expected CONFIG EVIDENCE NEW_OUTPUT' >&2; exit 2; }
+# Arguments: four private absolute JSON paths. Config names a NEW owned output.
+[[ $# -eq 4 ]] || { echo 'Expected CONFIG EVIDENCE AUTHORIZATION RUNTIME' >&2; exit 2; }
 config=$1
 evidence=$2
-output=$3
-[[ "$config" = /* && "$evidence" = /* && "$output" = /* ]] || exit 2
-[[ -f "$config" && -f "$evidence" && ! -e "$output" && ! -L "$output" ]] || exit 2
+authorization=$3
+runtime=$4
+for input in "$config" "$evidence" "$authorization" "$runtime"; do
+    [[ "$input" = /* && -f "$input" && ! -L "$input" ]] || exit 2
+done
 : "${SLURM_JOB_ID:?Run only in a separately approved allocation}"
 : "${CUDA_VISIBLE_DEVICES:?Allocated GPU mask is required}"
 : "${T41_PROJECT_ROOT:?Set the project checkout explicitly}"
@@ -39,7 +43,7 @@ export HF_HUB_OFFLINE=1
 # Preserve CUDA_VISIBLE_DEVICES exactly; device 0 is allocation-relative.
 
 cd "$T41_PROJECT_ROOT"
-mkdir -- "$output"  # Atomic collision check; never reuse a prior job directory.
+# The checked workflow atomically reserves config.output_directory before imports.
 child=''
 forward_term() {
     if [[ -n "$child" ]]; then
@@ -49,11 +53,11 @@ forward_term() {
 trap forward_term TERM INT
 
 # setsid gives this child tree a process group for termination forwarding.
-# This produces only a BLOCKED planning manifest with the present software.
-# A future qualified runner must also stop new trials before its wall-time margin.
+# The request sets the stage and bounded seconds, below the allocation time limit.
+# Missing qualification/approvals block before any optional model imports.
 setsid "$T41_OVERLAY/bin/python" scripts/tune_yolov10.py \
     --config "$config" --evidence "$evidence" \
-    --output "$output/training-plan.json" --execute &
+    --authorization "$authorization" --runtime "$runtime" --execute &
 child=$!
 set +e
 wait "$child"

@@ -1,4 +1,4 @@
-"""T41 planning CLI. No data/model access, dependency installation, or training."""
+"""T41 planning by default; execution requires separate reviewed inputs."""
 
 import argparse
 import json
@@ -6,6 +6,7 @@ import re
 from pathlib import Path
 
 from sdp_xray.training import training_plan, write_training_manifest
+from sdp_xray.training_workflow import add_execution_arguments, dispatch_cli
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -16,7 +17,7 @@ def main(argv=None) -> int:
     parser.add_argument("--evidence", type=Path, help="Previously produced, sanitized CPU evidence JSON")
     parser.add_argument("--output", type=Path, help="New training manifest file; parent must exist")
     parser.add_argument("--task", choices=("generic", "specific"), help="Explicit research task")
-    parser.add_argument("--execute", action="store_true", help="Always blocked in this software draft")
+    add_execution_arguments(parser)
     args = parser.parse_args(argv)
     try:
         config = json.loads(args.config.read_text(encoding="utf-8-sig"))
@@ -38,8 +39,7 @@ def main(argv=None) -> int:
         manifest = training_plan(config, evidence, tuple(missing))
         if args.output:
             write_training_manifest(args.output, manifest)
-        print(json.dumps({"status": "blocked", "training_started": False,
-                          "execution_requested": args.execute, "blockers": manifest["blockers"]}))
+        return dispatch_cli(manifest, args)
     except (OSError, UnicodeError, ValueError, TypeError, KeyError, AttributeError):
         # Do not echo exception strings that could contain private paths or input.
         print(json.dumps({"status": "blocked", "training_started": False,

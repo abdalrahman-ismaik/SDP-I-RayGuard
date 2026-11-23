@@ -10,6 +10,7 @@ from sdp_xray.common.run_manifest import validate_prediction_set
 from sdp_xray.model_catalog import MODELS, get_model
 from sdp_xray.training import PAIRS, SPLITS, UPSTREAM_REVISION, _digest, _sha256, _text
 from sdp_xray.training_partition import fingerprint, reviewed, validate_partition
+from sdp_xray.validation_objective import objective
 
 PROTOCOL_COMMIT = "6d57e5cb362164d12cb9338cf60bd72d3f9bdc6a"
 TASKS = {"generic": "author-yolov10m-generic", "specific": "author-yolov10m-specific"}
@@ -47,8 +48,7 @@ def example_research_config() -> dict:
         "sources": {split: None for split in SPLITS}, "source_provenance": None,
         "partition_sha256": None, "data_policy": None,
         "study": protocol_settings(), "batch": None, "precision": "float32",
-        "objective": {"name": "coco_bbox_AP_50_95", "direction": "maximize",
-                      "scale": "fraction", "evaluator_id": None, "settings": None},
+        "objective": objective(), "validation_prediction": {"conf": 0.001, "max_det": 300},
         "approvals": {name: None for name in APPROVALS}, "generic_completion": None,
         "environment": {"upstream_revision": UPSTREAM_REVISION, "optuna_version": "4.5.0",
                         "lock_sha256": None, "qualification": None,
@@ -66,8 +66,15 @@ def task_identity(task: str) -> dict:
             "source_category_map": spec.source_category_map}
 
 
-def validate_initialization(receipt: dict, task: str) -> None:
-    """Validate a supplied provenance receipt; do not claim fresh byte verification."""
+def validate_initialization(receipt: dict, task: str, *, expected_seed: int = 17) -> None:
+    """Check a receipt against the intended run seed, without hashing real weights.
+
+    Search/confirmation callers retain seed 17. Repeatability callers must name
+    29 or 43 explicitly and provide a matching receipt; never rewrite its seed.
+    """
+    if (type(expected_seed) is not int
+            or expected_seed not in protocol_settings()["repeatability"]["seeds"]):
+        raise ValueError("initialization seed must be one of the protocol's repeatability seeds")
     if not isinstance(receipt, dict):
         raise ValueError("initialization receipt is missing")
     expected = {"kind", "architecture", "checkpoint_sha256", "source_reference",
@@ -77,21 +84,22 @@ def validate_initialization(receipt: dict, task: str) -> None:
             or not _digest(receipt["checkpoint_sha256"])
             or receipt["checkpoint_sha256"] in {spec.sha256 for spec in MODELS.values()}
             or not all(_text(receipt[key]) for key in ("source_reference", "procedure", "task_head"))
-            or type(receipt["seed"]) is not int or receipt["seed"] != 17
+            or type(receipt["seed"]) is not int or receipt["seed"] != expected_seed
             or not reviewed(receipt["excludes_iedxray"])
             or not reviewed(receipt["verification"])
             or receipt["verification"].get("verified_sha256") != receipt["checkpoint_sha256"]):
         raise ValueError("general initialization identity/exposure/procedure/head evidence unresolved")
 
 
-def research_candidate_manifest(task, initialization, checkpoint, run, results, *, model_id):
+def research_candidate_manifest(task, initialization, checkpoint, run, results, *, model_id,
+                                expected_seed=17):
     """Candidate inference record with an explicitly supplied common starting identity.
 
     The new checkpoint is byte-hashed here. The parent's verification is a receipt
     from its owner, not a hash performed by this helper. Interface agreement remains
     an execution gate in research_plan; shared validators are unchanged.
     """
-    validate_initialization(initialization, task)
+    validate_initialization(initialization, task, expected_seed=expected_seed)
     if not _text(model_id) or not isinstance(run, dict) or any(
         key in run for key in ("schema_version", "role", "status", "model")
     ) or not isinstance(results, list) or not results:
@@ -108,9 +116,10 @@ def research_candidate_manifest(task, initialization, checkpoint, run, results, 
     return manifest
 
 
-def write_research_record(output, task, initialization, checkpoint, run, results, *, model_id):
+def write_research_record(output, task, initialization, checkpoint, run, results, *, model_id,
+                          expected_seed=17):
     manifest = research_candidate_manifest(task, initialization, checkpoint, run, results,
-                                           model_id=model_id)
+                                           model_id=model_id, expected_seed=expected_seed)
     write_record(Path(output), manifest, results)
     return manifest
 
@@ -249,7 +258,10 @@ def research_plan(config: dict, evidence: dict | None = None, missing_documents=
         raise ValueError("configuration and evidence must be objects")
     blocked = [f"document:{p}" for p in missing_documents]
     template = example_research_config()
-    if set(config) != set(template) or config.get("schema_version") != "t41-research-1":
+    # Older saved synthetic drafts remain inspectable; live execution requires
+    # the new explicit prediction controls without rewriting old fingerprints.
+    if (set(config) not in (set(template), set(template) - {"validation_prediction"})
+            or config.get("schema_version") != "t41-research-1"):
         blocked.append("config:schema")
     for key, value in (("dataset", "public_iedxray"), ("protocol_commit", PROTOCOL_COMMIT),
                        ("task_order", ["generic", "specific"]), ("precision", "float32")):
@@ -343,8 +355,15 @@ def research_plan(config: dict, evidence: dict | None = None, missing_documents=
     }
 
 
-def require_live_ready(plan):
+def require_live_ready(plan, authorization=None):
     """Recompute gates; a caller cannot remove blockers from a supplied plan."""
+    if authorization is not None:
+        from sdp_xray.training_workflow import execution_plan
+
+        checked = execution_plan(plan, authorization, check_output=False)
+        if checked["blockers"]:
+            raise ValueError("live execution blocked; execution evidence is incomplete")
+        return
     checked = research_plan(plan["configuration"], plan["evidence"], plan["missing_documents"])
     if checked["blockers"]:
         raise ValueError("live execution blocked; no model/Optuna backend may be loaded")

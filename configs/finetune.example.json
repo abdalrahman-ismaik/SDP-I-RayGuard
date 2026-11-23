@@ -88,9 +88,17 @@
     "name": "coco_bbox_AP_50_95",
     "direction": "maximize",
     "scale": "fraction",
-    "evaluator_id": null,
-    "settings": null
+    "evaluator_id": "sdp_xray.validation_objective/pycocotools-bbox-1",
+    "settings": {
+      "package": "pycocotools",
+      "version": "2.0.11",
+      "iou_type": "bbox",
+      "parameters": "COCOeval defaults; AP over IoU 0.50:0.95, maxDets 100",
+      "coordinates": "original-pixel xywh",
+      "categories": "dataset COCO IDs from source_category_map"
+    }
   },
+  "validation_prediction": {"conf": 0.001, "max_det": 300},
   "approvals": {
     "data_policy": null,
     "source_identity": null,

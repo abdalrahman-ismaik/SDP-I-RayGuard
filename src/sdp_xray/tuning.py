@@ -1,14 +1,14 @@
-"""Sequential T41 study bookkeeping and injectable boundaries; no built-in trainer.
+"""Sequential T41 study bookkeeping, with separate synthetic and authorized entries.
 
-Only run_synthetic_study is enabled. Its three injected collaborators must identify
-themselves as synthetic. The optional Optuna factory rejects live execution gates
-before importing Optuna. Nothing here evaluates COCO or imports model packages.
+The optional Optuna factory checks execution evidence before importing Optuna.
+Nothing here evaluates COCO or imports model packages.
 """
 
 import json
 import math
 import os
 import time
+import traceback
 from contextlib import contextmanager
 from copy import deepcopy
 from pathlib import Path
@@ -23,8 +23,10 @@ from sdp_xray.training_research import (
 )
 
 
-def make_study_definition(config, partition, annotation_sha256):
-    """Freeze a synthetic study's config, initialization, split and objective together."""
+def make_study_definition(config, partition, annotation_sha256, *, execution_kind="synthetic_software_check"):
+    """Freeze a study's config, initialization, split, objective and execution label."""
+    if execution_kind not in ("synthetic_software_check", "model_training"):
+        raise ValueError("unknown execution kind")
     validate_partition(partition)
     validate_initialization(config["initialization"], config["task"])
     objective = config["objective"]
@@ -40,7 +42,7 @@ def make_study_definition(config, partition, annotation_sha256):
             or type(config["batch"]) is not int or config["batch"] <= 0):
         raise ValueError("study settings/validation/objective identity are incomplete")
     return {
-        "schema_version": "t41-study-definition-1", "execution_kind": "synthetic_software_check",
+        "schema_version": "t41-study-definition-1", "execution_kind": execution_kind,
         "configuration": deepcopy(config), "task": task_identity(config["task"]),
         "partition": deepcopy(partition),
         "partition_sha256": partition["membership_sha256"],
@@ -202,19 +204,42 @@ def _prepare_attempt(ledger, definition, trial):
 
 def run_synthetic_study(definition, output, backend, trainer, evaluator, *, resume=False,
                         retry_interrupted=False, stop_requested=lambda: False,
-                        budget_seconds=None, clock=time.monotonic):
-    """Exercise the same state transitions with fake adapters, never a live study.
+                        budget_seconds=None, clock=time.monotonic, attempt_limit=None):
+    return _run_study(definition, output, backend, trainer, evaluator, resume=resume,
+                      retry_interrupted=retry_interrupted, stop_requested=stop_requested,
+                      budget_seconds=budget_seconds, clock=clock, attempt_limit=attempt_limit)
+
+
+def run_approved_study(definition, output, backend, trainer, evaluator, plan, authorization, **options):
+    require_live_ready(plan, authorization)
+    if authorization["stage"] != "search" or definition["configuration"] != plan["configuration"]:
+        raise ValueError("search authorization/configuration mismatch")
+    if options.get("budget_seconds", authorization["max_seconds"]) != authorization["max_seconds"]:
+        raise ValueError("study time budget differs from authorization")
+    options["budget_seconds"] = authorization["max_seconds"]
+    return _run_study(definition, output, backend, trainer, evaluator,
+                      live=True, **options)
+
+
+def _run_study(definition, output, backend, trainer, evaluator, *, resume=False,
+                retry_interrupted=False, stop_requested=lambda: False,
+                budget_seconds=None, clock=time.monotonic, live=False, attempt_limit=None):
+    """Shared state transitions, with the public live entry checking authorization.
 
     backend: ask/report/should_prune/tell/snapshot/restore; trainer: run(request)
-    yields completed-epoch checkpoint events; evaluator: evaluate(request).
-    All three must explicitly declare synthetic=True. No model library is needed.
+    yields completed-epoch events, or run_with_callback(request, on_epoch) reports
+    them synchronously. Evaluator: evaluate(request) or the private-path binding
+    evaluate_checkpoint(request, checkpoint). Portable request/result fields stay unchanged.
+    Synthetic adapters must explicitly declare synthetic=True. No model imports here.
     """
-    if definition.get("execution_kind") != "synthetic_software_check" or any(
-        getattr(adapter, "synthetic", False) is not True for adapter in (backend, trainer, evaluator)
+    execution_kind = "model_training" if live else "synthetic_software_check"
+    if definition.get("execution_kind") != execution_kind or any(
+        (getattr(adapter, "synthetic", False) is True) != (not live)
+        for adapter in (backend, trainer, evaluator)
     ):
-        raise ValueError("only explicitly synthetic adapters are enabled in this draft")
+        raise ValueError("synthetic adapters cannot be mixed with live training")
     if definition != make_study_definition(definition["configuration"], definition["partition"],
-                                           definition["annotation_sha256"]):
+                                           definition["annotation_sha256"], execution_kind=execution_kind):
         raise ValueError("inconsistent study definition")
     if budget_seconds is not None and (type(budget_seconds) not in (int, float)
                                       or not math.isfinite(budget_seconds) or budget_seconds < 0):
@@ -222,7 +247,9 @@ def run_synthetic_study(definition, output, backend, trainer, evaluator, *, resu
     settings = definition["configuration"]["study"]
     if settings != protocol_settings():
         raise ValueError("study protocol changed")
-    started = clock()
+    if attempt_limit is not None and (type(attempt_limit) is not int or not 1 <= attempt_limit <= 20):
+        raise ValueError("allocation attempt limit must be an integer in [1,20]")
+    started, attempted_here = clock(), 0
     def stopping():
         return stop_requested() or (budget_seconds is not None and clock() - started >= budget_seconds)
     ledger = StudyLedger(output, definition, resume=resume)
@@ -236,13 +263,17 @@ def run_synthetic_study(definition, output, backend, trainer, evaluator, *, resu
                 for record in (trial["last_checkpoint"], trial["best_checkpoint"]):
                     _resume_checkpoint(ledger.root, record)
             if any(t["status"] in ("running", "interrupted") for t in state["trials"]):
+                if live:
+                    raise ValueError("live checkpoint continuation is unqualified; preserve the interrupted attempt")
                 if not retry_interrupted:
                     raise ValueError("explicit retry_interrupted required; no new configuration")
         else:
             state = {"schema_version": "t41-study-state-1", "trials": [],
-                     "execution_kind": "synthetic_software_check", "training_started": False}
+                     "execution_kind": execution_kind, "training_started": False}
             ledger.save(state, backend)
         while not stopping():
+            if attempt_limit is not None and attempted_here >= attempt_limit:
+                break  # Stop only between attempts; never claim checkpoint continuation.
             unfinished = [t for t in state["trials"] if t["status"] in ("running", "interrupted")]
             if len(unfinished) > 1:
                 raise ValueError("sequential study has multiple unfinished trials")
@@ -267,11 +298,13 @@ def run_synthetic_study(definition, output, backend, trainer, evaluator, *, resu
                 state["trials"].append(trial)
                 ledger.save(state, backend)  # Keep ask's sampler state before invoking the trainer.
             request = _prepare_attempt(ledger, definition, trial)
+            attempted_here += 1
             ledger.save(state, backend)
             try:
-                for event in trainer.run(request):
+                def completed_epoch(event):
+                    state["training_started"] |= live and getattr(trainer, "training_started", False)
                     if event.get("phase") == "final_evaluation":
-                        continue  # Upstream calls on_fit_epoch_end again here.
+                        return  # Upstream calls on_fit_epoch_end again here.
                     epoch = event.get("completed_epoch")
                     if event.get("phase") != "fit" or type(epoch) is not int or not 1 <= epoch <= 30:
                         raise ValueError("completed fit epoch must be an integer in [1,30]")
@@ -281,11 +314,16 @@ def run_synthetic_study(definition, output, backend, trainer, evaluator, *, resu
                         previous = trial["reports"][epoch - 1]
                         if checkpoint["sha256"] != previous["checkpoint"]["sha256"]:
                             raise ValueError("duplicate epoch has a different checkpoint")
-                        continue
+                        return
                     if epoch != len(trial["reports"]) + 1:
                         raise ValueError("missing completed epoch; pruning steps must match")
                     validation = validation_request(definition, checkpoint["sha256"], epoch)
-                    value = validate_objective_result(validation, evaluator.evaluate(deepcopy(validation)))
+                    if hasattr(evaluator, "evaluate_checkpoint"):
+                        result = evaluator.evaluate_checkpoint(
+                            deepcopy(validation), ledger.root / checkpoint["path"])
+                    else:
+                        result = evaluator.evaluate(deepcopy(validation))
+                    value = validate_objective_result(validation, result)
                     trial["reports"].append({"epoch": epoch, "value": value, "checkpoint": checkpoint})
                     trial["last_checkpoint"] = checkpoint
                     if trial["best_checkpoint"] is None or value > max(
@@ -299,6 +337,12 @@ def run_synthetic_study(definition, output, backend, trainer, evaluator, *, resu
                     completed = sum(t["status"] == "complete" for t in state["trials"])
                     if epoch >= 10 and completed >= 5 and backend.should_prune(trial["number"]):
                         raise TrialPruned
+                    return value
+                if hasattr(trainer, "run_with_callback"):
+                    trainer.run_with_callback(request, completed_epoch)
+                else:
+                    for event in trainer.run(request):
+                        completed_epoch(event)
                 if not trial["reports"]:
                     raise ValueError("trainer returned no completed validation epochs")
                 # Early stop is valid only when the trainer explicitly records that decision.
@@ -313,7 +357,10 @@ def run_synthetic_study(definition, output, backend, trainer, evaluator, *, resu
                 trial["status"] = "pruned"
             except Exception as exc:
                 trial["status"], trial["failure"] = "failed", type(exc).__name__
+                trial["failure_message"] = str(exc)
+                traceback.print_exc()
             trial["attempts"][-1]["status"] = trial["status"]
+            state["training_started"] |= live and getattr(trainer, "training_started", False)
             if trial["status"] != "complete":
                 trial["value"] = None
             if trial["status"] != "interrupted":
@@ -331,7 +378,8 @@ def export_study(directory, output=None):
     state, digest = ledger.load()
     exported = {"definition": definition, "definition_sha256": ledger.identity,
                 "snapshot_sha256": digest, "execution_kind": state["execution_kind"],
-                "training_started": False, "attempted_configurations": len(state["trials"]),
+                "training_started": state["training_started"],
+                "attempted_configurations": len(state["trials"]),
                 "trainer_invocations": sum(len(t["attempts"]) for t in state["trials"]),
                 "trials": state["trials"]}
     if output is not None:
@@ -395,9 +443,9 @@ def repeatability_plan(exported, confirmed):
             for n, result in chosen.items() for seed in (17, 29, 43)]
 
 
-def open_optuna_backend(plan, directory, name):
+def open_optuna_backend(plan, directory, name, authorization=None):
     """Future integration boundary. Gates run BEFORE optional imports or storage access."""
-    require_live_ready(plan)
+    require_live_ready(plan, authorization)
     import optuna  # Optional, not installed or imported by this draft's checks.
     from optuna.storages import JournalStorage
     from optuna.storages.journal import JournalFileBackend

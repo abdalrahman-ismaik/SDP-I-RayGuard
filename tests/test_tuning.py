@@ -321,7 +321,9 @@ def test_slurm_resources_arguments_mask_and_signal_are_explicit():
         assert line in source
     assert "${CUDA_VISIBLE_DEVICES:?" in source and "export CUDA_VISIBLE_DEVICES=" not in source
     assert 'kill -TERM -- "-$child"' in source and 'trap forward_term TERM INT' in source
-    assert 'mkdir -- "$output"' in source and '--config "$config" --evidence "$evidence"' in source
+    assert '--authorization "$authorization" --runtime "$runtime" --execute' in source
+    assert '--config "$config" --evidence "$evidence"' in source
+    assert '[[ $# -eq 4 ]]' in source
     assert "pip install" not in source and "sbatch " not in source
 
 
