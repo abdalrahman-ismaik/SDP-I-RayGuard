@@ -1,49 +1,139 @@
 \chapter{Conclusions}\label{ch:conclusions}
-\section{Summary of work}
-RayGuard has a concrete single-scan prototype path and a growing research
-software foundation. Audits, strict contracts and bounded real execution
-support image-to-result integration. The separate application exposes localized
-findings and traceable operator review. Evaluation and initialization software
-have been integrated. The reduced generic study completed six attempted
-configurations, two 100-epoch confirmations and a frozen full published-test
-comparison, with saved predictions and independently recomputed metrics.
+This chapter summarizes the work of SDP~I (Section~\ref{sec:summary}), assesses it
+against the objectives of the proposal (Section~\ref{sec:achievement}), appraises
+its strengths and limitations critically (Section~\ref{sec:appraisal}), and sets
+out the further work planned for SDP~II (Section~\ref{sec:further}).
 
-\section{Critical appraisal}
-The current evidence includes reproducible software checks and measured generic
-detector performance, with a substantial validation-to-test AP gap. The dataset audits reveal why broad accuracy
-or unseen-data claims require care: task exports disagree, exact images cross
-the supplied split, boundary findings remain, and physical groups are not
-established locally. The collection inventory is useful progress evidence,
-but it does not yet establish independent labeled cases or accepted completion.
+%-----------------------------------------------------------------------------
+\section{Summary of Work}\label{sec:summary}
+RayGuard set out to detect explosives concealed in electronic devices in X-ray
+baggage scans and to present the findings to an operator in a traceable form.
+During SDP~I the team collected 500 positive scans of laboratory simulants
+following a multi-bag catalogue, and helped the CVML laboratory collect about
+7,000 negative scans. The supplied IEDXray release was audited before use, which
+exposed label disagreements between exports, exact duplicates across the
+published split and boundary errors in some boxes.
 
-The project has not demonstrated full P1 host/threat decisions, distributed-case
-fusion, a live scanner connection or repeatable benchmark improvement. The
-preselected candidate achieved higher test AP in one run, but lower small-object
-AP and fixed-threshold recall; both models missed roughly half the annotated
-boxes at confidence 0.25. These
-limits affect the system's permitted interpretation. An operator should not
-treat an empty detector output as clearance, nor a plausible component grouping
-as proof of a functional device. Explicit states and provenance help communicate
-these limits but cannot replace performance and safety validation.
+On the software side, the team defined versioned contracts for scans, detections
+and runs; executed YOLOv10-M checkpoints for the three IEDXray tasks on real
+images; and built RayGuard-App, an operator application that receives images,
+shows localized findings with their scores, and records the operator's review and
+export. A reduced fine-tuning study on the HPC cluster then trained an untuned
+and a tuned generic-explosive detector from the same verified starting weights
+and evaluated both once on all 5,136 published test images: test AP was 41.6\%
+and 48.1\%, precision at a fixed threshold reached 95.1\%, and recall stayed
+below 49\%. The work was carried out through a
+protected GitHub workflow with code-owner review and continuous integration on
+Windows and Linux.
 
-\section{Further work}
-The immediate handoff is review of the qualified implementation, frozen results
-and report evidence. No additional training is needed to finish the authorized
-deadline scope. Future experiments should establish physical groups and assess
-repeatability on training-derived validation before any new final test protocol.
-The deferred specific-task and original twenty-attempt studies must not be
-reported as completed. The report deadline remains 24 November 2026 at
-17:00 UTC+4; the completed generic results and their limitations support the
-23 November evidence freeze.
+%-----------------------------------------------------------------------------
+\section{Achievement of Objectives}\label{sec:achievement}
+Table~\ref{tab:achievement} compares the outcome with each requirement of the
+original proposal.
 
-The longer-term distributed work requires QC, accepted collection counts,
-component annotations, physical/case provenance and a case-disjoint evaluation
-design. A transparent independent-scan aggregation baseline should be assessed
-before introducing learned fusion, provided suitable ground truth exists.
-Human acceptance on the presentation machine and an observed scanner handoff
-remain separate deployment steps. The overall collection deadline of
-30 November is retained independently of report submission.
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Achievement of the proposal requirements at the end of SDP~I.}
+\label{tab:achievement}
+\begin{tabularx}{\textwidth}{@{}L{0.22\textwidth}YL{0.16\textwidth}c@{}}
+\toprule
+Requirement & Outcome & Status & Ch.\\
+\midrule
+Image acquisition (500 samples) & 500 positive scans collected; about 7,000
+negative scans collected with the laboratory & Met &
+\ref{ch:implementation}\\
+Pre-processing & Viewing adjustments in the interface; model normalization kept
+unchanged & Met & \ref{ch:design}\\
+Detection & YOLOv10-M executed for device, generic and specific tasks on real
+images & Met & \ref{ch:implementation}\\
+Evaluation & Frozen published-test evaluation of the generic detector: AP 41.6\%
+(untuned) and 48.1\% (tuned); specific task deferred & Met (generic) &
+\ref{ch:implementation}\\
+GUI & RayGuard-App with intake, localization, review, notes and export & Met &
+\ref{ch:implementation}\\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-The completed report should explain both the achieved prototype and the work
-still necessary to justify stronger claims. Its final contribution table,
-forms and conclusions require student and supervisor review.
+%-----------------------------------------------------------------------------
+\section{Critical Appraisal}\label{sec:appraisal}
+
+\subsection{Strengths}
+The strongest results of SDP~I are a reproducible software foundation, a new
+dataset and a first measured detector. The fine-tuned model is precise at the
+fixed threshold (95.1\% precision) and fast (about 7.4~ms per image on one GPU),
+and its evaluation is fully traceable: the test plan fixed every checkpoint,
+image and setting before the run, and the metrics were recomputed independently. Every result can be traced to its code revision, checkpoint hash and
+settings, and the contracts keep failed, missing and empty results distinct, so
+an empty output is never shown as a cleared bag. Auditing IEDXray before training
+prevented two errors that would have inflated later results: training on images
+that also appear in the test set, and silently mixing category maps between
+tasks. The collected scans follow a balanced catalogue of component families,
+clutter levels and orientations, and each group spreads a complete set of
+components over four bags, which prepares the data for SDP~II.
+
+\subsection{Limitations}
+The main limitation is recall: at the fixed threshold both detectors miss about
+half of the annotated threats, and the tuned model is weaker on small objects.
+Validation AP (about 87.5\%) overstated test AP by roughly 40 percentage points,
+because the validation split lacks verified physical groups; the test score is the
+more realistic estimate but is not an unseen-case benchmark, and all results come
+from one training seed. The collected scans still require quality control,
+annotation and recorded grouping before they can train or test a model, and the
+negative set has not been inventoried in the repository. The prototype does not
+yet link explosive regions to their host devices with an agreed rule, does not
+control the scanner directly, and has not been rehearsed end to end on the
+presentation machine. These limits govern how the system may be used: a detector
+score is evidence for an operator, not a clearance decision.
+
+\subsection{Lessons Learned}
+Three lessons emerged. First, auditing a dataset before training is worth its cost,
+because published splits and annotations can contain errors that change the
+meaning of a result; the large validation--test gap of the study confirmed this. Second, a small versioned contract between components allowed
+five students to work in parallel on the evaluator, the run contract, the training
+workflow and the interface without breaking each other's work. Third, a protected
+branch workflow with required checks and recorded reviews made each student's
+contribution visible and kept the shared branch working throughout the semester.
+
+%-----------------------------------------------------------------------------
+\section{Further Work}\label{sec:further}
+Table~\ref{tab:further} lists the work planned for SDP~II in order of dependency.
+The first two items complete the single-scan study; the remaining items address
+the distributed setting introduced at the second advisor meeting.
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Further work planned for SDP~II.}
+\label{tab:further}
+\begin{tabularx}{\textwidth}{@{}lL{0.25\textwidth}YL{0.15\textwidth}@{}}
+\toprule
+\# & Work item & Description & Depends on\\
+\midrule
+1 & Complete the fine-tuning study & Specific-explosive task, seeds 29 and 43 for
+repeatability, the full 20-attempt search, threshold calibration on a non-test
+set and a small-object experiment & T41 results\\
+2 & Laboratory data preparation & Quality control, bounding-box annotation and
+group records for the 500 positive scans; inventory of the negative set & Lab
+review\\
+3 & Evaluation on laboratory data & Measure detection on the new positive scans
+and false alarms on the negative scans & Items 1, 2\\
+4 & Host association & Agree and evaluate a rule linking each explosive region to
+its host device & Item 3\\
+5 & Distributed detection & Combine component detections across the four bags of
+a group, starting with a transparent aggregation baseline before learned or
+language-based fusion~\citep{michael2026falcon} & Items 2, 3\\
+6 & Deployment steps & Scanner export hand-off, rehearsal on the presentation
+machine and a study with operators & Items 3, 4\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+%-----------------------------------------------------------------------------
+\section{Concluding Remarks}
+SDP~I delivered the data, the software foundation, the operator application and
+an initial prototype detector whose accuracy has been measured under a frozen
+protocol. The prototype is precise but misses about half of the threats, so the
+remaining work is clearly defined: raise recall, confirm the result across seeds
+and on newly collected laboratory data, and extend the system from single scans
+to threats distributed across several bags. The project's emphasis on traceable evidence means that each
+of these steps can be verified as it is completed.

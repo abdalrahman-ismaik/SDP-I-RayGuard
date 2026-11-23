@@ -3554,3 +3554,161 @@ submission. This is a working draft, not a final submission artifact.
 - Word draft not regenerated: the DOCX preparation script is not present in the current scratchpad, so main-word-draft.docx predates the Table 1.2 edit. Page-by-page fidelity review remains open.
 - Handbook matrix updated: abstract (198 words) done; IEEE citation style done; patent-search row reworded with the limits above.
 - Not done: no commit, push or PR action (no explicit owner authorization in this session); no human review or approval; no forms or signatures.
+
+## 22 November 2026 — PR #22 review and deadline study scope
+
+Live GitHub metadata confirmed PR #22 remains at `3ee9c870fc82fc7ebe2ed9de5ed34983913db7e5`,
+with Ubuntu and Windows hosted checks passing and `REVIEW_REQUIRED`. Review of the isolated
+PR implementation confirms the receipt defaults to `pending` and the T41 partition builder
+requires an explicit approved decision, owner/reference and matching findings hash. The repair
+CLI requires the task's published test annotations; the helper rejects the test annotation
+file/hash and shared image filenames, preserves source `area`, and records the test hash and
+per-box bbox/area changes. Its record/documentation correctly warns that size-specific metrics
+on training-derived validation can be affected. Ali reports 288 synthetic tests; no live
+repair or training evidence follows from them. Technical review found these three requested
+implementation points addressed. The formal human review receipt and GitHub approval remain
+for Abd to enter personally.
+
+Owner direction for the 24 Nov report cutoff reduces the trial scope from 20 to six attempts
+per task, with the untuned control included in the six. Failed/pruned attempts count. Run the
+best completed tuned candidate and the control for up to 100 epochs each on the same task,
+starting weights, partition, fixed controls and training seed 17; choose only from validation.
+Defer top-three confirmation and multi-seed repeatability. This is a single-seed exploratory
+comparison, not a robust generalization claim. Preliminary runtime estimate (not measured):
+10--13 GPU-hours for generic; 20--26 for both tasks on one GPU. Generic proceeds first; specific
+is conditional on time/allocations. The six-hour per-job limit requires sequential resumable
+allocations. Estimates remain subject to trainer qualification and pilot measurement.
+
+The real-data preflight findings hash is already computed locally; Ahmed must verify it on HPC
+before repair/partition. No training backend is integrated and no scheduler session is available
+in this workspace, so this scope update does not make a job submit-ready. The report records the
+new scope as planned work; no model-performance values are claimed.
+
+T38 follow-up (22 Nov): after the deadline-scope update, the LaTeX report rebuilt to 42
+pages with no fatal compile errors. Rendered pages 17 and 18--19 were visually checked; the
+preflight and revised study scope are legible. The Word copy remains to be regenerated and
+compared, and it was not produced here because Pandoc is not available on PATH.
+
+### T38 report Chapter 1 rewrite — 22 November 2026
+
+Editor: AI agent (Claude) at the owner's request; not student work. Owner review pending.
+
+- Rewrote `docs/report/chapters/01-introduction.tex` to the handbook structure: 1.1 goals,
+  motivation, method, scope; 1.2 background, datasets, detectors, explosive/IED research,
+  research gap, patent search; 1.3 report overview; 1.4 repositories, student GitHub accounts,
+  branching, PR/review rules, documentation system and AI-use disclosure.
+- Sources: the proposal, IEDXray, FALCON and the SRC 2026 paper in `docs/research_papers/`.
+  SRC results are labelled as that paper's published results, not SDP I results.
+- `references.bib`: 9 new entries and 6 upgraded from arXiv to published venues (22 total);
+  metadata checked against Crossref on 22 Nov.
+- New TikZ figures `figures/method.tex` and `figures/workflow.tex`; full patent log moved to
+  Appendix A (`app:patentlog`); abbreviations extended; ragged-right table style `L{}` and
+  `\tablesetup` added to `main.tex`.
+- GitHub username mapping confirmed by the owner. Student contribution confirmations and AI
+  prompt excerpts (Table 1.10) remain pending for each student. New task T44 records the
+  AGENTS.md / CONTRIBUTING.md conflict.
+- Build: lualatex + bibtex + 2× lualatex: 54 pages, 0 errors, 0 undefined references or
+  citations, 0 BibTeX warnings; Chapter 1 is PDF pp. 10–21 with no overfull boxes. Nine
+  overfull warnings remain in older appendix tables. Pages were visually checked. Word copy
+  not regenerated.
+- Revision (22 Nov, owner direction): Table 1.1 now lists only the five original-proposal
+  requirements. The owner reports 500 positive scans collected by the team and about 7,000
+  negative scans collected with the CVML lab (SLG-supplied scanner) and shared by Dr. Divya.
+  Distributed (P2) work is scoped to SDP II. The AI-commit exception paragraph was removed at
+  the owner's request. Table 1.10 is filled with draft rows from each member's submitted work;
+  each student must confirm the tool and replace the prompt. Chapter 5 still reports 577 paths
+  / 478 distinct payloads and must be reconciled with the 500-scan statement. Rebuild: 54
+  pages, 0 errors, 0 undefined.
+- Chapter 5 collection rewrite (22 Nov, owner direction): new subsections on positive scans
+  (catalogue families E/D/B/W, four-bag groups, 125 groups / 500 configurations, sessions
+  29 Sep–9 Oct), negative scans (~7,000, owner report, no repository inventory) and data
+  handling. The owner states the 500 scans were collected and that the 14 Nov snapshot (478
+  distinct files) is partial; the remaining 22 are not inventoried. The abstract, Chapter 2
+  and Appendix A were aligned, and the "collection count" conflict row was removed. Build: 55
+  pages, 0 errors, 0 undefined.
+- Chapter 5 polish (23 Nov): rewritten in report style with title-case headings and section
+  labels; new tables for implemented components (5.1), IEDXray audit and preflight findings
+  (5.2) and the reduced study design (5.7); the rehearsal checklist is now a numbered list; the
+  test command renders correctly. Facts unchanged from the prior draft and project records.
+  Build: 57 pages, 0 errors, 0 undefined; no overfull lines in Chapter 5 (nine remain in
+  appendix tables).
+- Chapter 2 rewrite (23 Nov): restructured as problem and stakeholders, detection tasks,
+  functional requirements FR1–FR7 traced to the proposal (old FR8 distributed requirement moved
+  to the SDP II scope boundary), non-functional requirements NFR1–NFR6, system specification
+  (pipeline, scan result and detection fields from docs/contracts.md, status semantics, run
+  manifest), constraints, scope boundary. Six tables. Build: 59 pages, 0 errors, 0 undefined,
+  no duplicate labels.
+- Chapter 3 rewrite (23 Nov): added X-ray image formation (Beer–Lambert law, dual-energy
+  ratio), YOLOv10 consistent dual assignments and matching metric, letterbox inversion,
+  COCO AP/AR definitions with 101-point interpolation, group-preserving partition constraint,
+  AdamW update, and an assumptions/consequences table. Physics is cited to Wells & Bradley;
+  detector details to the YOLOv10 paper. Float pages are now top-aligned report-wide
+  (main.tex). Build: 62 pages, 0 errors, 0 undefined.
+- Chapter 4 rewrite (23 Nov): evaluation criteria C1–C5; qualitative evaluation of the six
+  supplied detector families from docs/checkpoint-catalog.md (YOLOv10-M selected; ratings are
+  a design assessment, not measured accuracy); system alternatives table drawn from
+  docs/decisions.md; selected architecture; pre-processing and host association; realistic
+  constraints table, standards, ethics. Build: 64 pages, 0 errors, 0 undefined.
+- Chapter 6 rewrite (23 Nov): summary of work; achievement table against the five proposal
+  requirements (evaluation "partly met"); critical appraisal split into strengths,
+  limitations and lessons learned; SDP II further-work table (fine-tuning study, lab data
+  preparation, lab-data evaluation, host association, distributed detection, deployment);
+  concluding remarks. Build: 65 pages, 0 errors, 0 undefined.
+- Title page and abstract (23 Nov): title page now lists the university, college,
+  department, project title, "Senior Design Project I — Final Report", the five students and
+  the supervisor (Prof. Naoufel Werghi, from the proposal); the earlier draft disclaimer is
+  removed and the running header reads "Final Report". Project number and any official cover
+  template remain to be added. Abstract rewritten to about 200 words to match the revised
+  chapters. Build: 65 pages, 0 errors.
+- Appendices rewrite (23 Nov): all appendix tables use the shared ragged-right style; the nine
+  overfull warnings are gone (0 report-wide). Semester record adds the 14–22 Nov PR merges and
+  report revision; the resolved PR #21 status conflict is removed; the risk worksheet,
+  official-forms text and contribution record are rewritten in report voice; the handbook
+  coverage table now cross-references the revised chapters. Build: 63 pages, 0 errors,
+  0 undefined, 0 overfull.
+- Word copy (23 Nov): regenerated `docs/report/build/main-word-draft.docx` from the current PDF
+  with Microsoft Word's PDF conversion (Pandoc is not installed). Check: 68 Word pages vs 63
+  PDF pages; 18,897 vs 19,322 words (98%); all chapters, appendices, figures and equations
+  present; title-page table fixed by hand. Long appendix tables (A.4 task schedule, A.5 patent
+  log) have misaligned cells after conversion and need manual tidying or a Pandoc conversion.
+- Word copy via Pandoc (23 Nov): installed Pandoc 3.14 (`winget install JohnMacFarlane.Pandoc`)
+  and rebuilt `docs/report/build/main-word-draft.docx` from the LaTeX source. A local
+  preprocessing script flattened the custom table macros and took heading, table, figure and
+  equation numbers from `build/main.aux` and `build/main.toc`; citations were rendered by
+  `--citeproc` from `references.bib` with a minimal numeric style; Word then applied A4,
+  25 mm margins, Times New Roman 12 pt, 1.5 spacing, booktabs-style table rules, the title
+  page, contents and lists of figures and tables. Check (exported to PDF): 64 pages; 39
+  tables, including A.4 and A.5, as real Word tables; 6 figures; citation numbers match the
+  LaTeX PDF; no field errors. Limits: equation numbers are typed text, not Word fields; the
+  bibliography follows a simplified IEEE style; front matter is numbered in arabic, not roman.
+  The conversion scripts are now in `docs/report/tools/` (`build-docx.ps1` wrapper,
+  `docx_prep.py`, `docx-refs.lua`, `ieee-min.csl`, `docx-format.ps1`), documented in
+  `docs/report/README.md`. Wrapper run from `docs/report` reproduced the same result
+  (64 pages, 39 tables, 6 figures). `uv run --locked ruff check .` passed; `uv run --locked
+  python -m pytest` 196 passed, 37 subtests passed.
+
+## 23 November 2026 — PR #24/#25 integration and report prototype results (T38/T41)
+
+- PR #25 (T41, Ahmed): reviewed locally at head `950ea84` — Ruff passed; pytest 525 passed,
+  3 skipped (`pycocotools` unavailable locally); no credentials, private paths, weights or
+  images in the diff; frozen-test runner checks hashes of code, checkpoints, annotations and
+  every test image before predicting. Owner approved head `950ea84` and merged it as
+  `f14fc3f` (merge commit; the frozen-test source commit `54db37b` stays in history). GitHub
+  records the merge 10 s before the approval on the same head (owner bypass).
+- PR #24 (Faisal): reviewed at `d5ae27c` (Ruff passed; 276 passed, 2 skipped). After #25 it
+  conflicted in the box-repair code. Merged `main` into `faisal/review-followups` as
+  `87094b1`: kept #25's hash-bound training-source design; re-applied Faisal's
+  `derived_file_sha256` field and the image name/size input check with their tests; dropped
+  its report hunks (already on main). Ruff passed; pytest 529 passed, 3 skipped. Needs
+  re-approval on `87094b1` before merge.
+- Report (branch `docs/final-report-results`): new §5.5 "Prototype Results: Generic Explosive
+  Detection" with the study design, hyperparameters, all T41 jobs, frozen test metrics,
+  fixed operating point, inspected examples, latency and limitations; six original pgfplots
+  figures (`figures/t41-*.tex`) with values copied from `docs/t41-results.md` and
+  `docs/t41-handoff.md` and rows in `provenance.csv`. Abstract, Chapters 1, 2, 4 and 6,
+  appendices and the Gantt chart updated; Gantt panel A day offsets for 4, 21 and 30 Nov
+  corrected by one day. `chapters/05-t41-results.tex` from #25 is folded into Chapter 5 and
+  removed. Build: 72 pages, 0 errors, 0 undefined, 0 overfull.
+- Not yet available: detection-example images and precision–recall curves (need Ahmed's
+  test-evidence archive of predictions), per-epoch training curves (need an export from
+  jobs 770/819) and approved RayGuard-App screenshots.

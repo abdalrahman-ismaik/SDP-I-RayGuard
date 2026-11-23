@@ -1,83 +1,232 @@
 \chapter{System Overview}\label{ch:system}
-\section{Stakeholders and use context}
-The prototype supports a human inspecting an authorized X-ray image. The
-operator needs visible task identity, localized findings, usable review
-controls and honest handling of missing inputs and failed execution. Students
-and supervisors also need reproducible artifacts and enough provenance to
-explain implementation decisions. Physical scanner integration requires a
-separate observed interface handoff; public documentation and image replay do
-not establish compatibility with the lab machine.
+This chapter defines what the RayGuard system must do and how its parts exchange
+information. It states the problem and the users (Section~\ref{sec:problem}), the
+detection tasks (Section~\ref{sec:tasks}), the functional and non-functional
+requirements (Sections~\ref{sec:fr} and~\ref{sec:nfr}), the system specification
+(Section~\ref{sec:spec}), and the constraints and scope boundaries under which
+the requirements are judged (Sections~\ref{sec:constraints}
+and~\ref{sec:boundary}).
 
-The research dataset and the lab collection serve different purposes. Public
-IEDXray supports the single-scan baseline and executed generic training/evaluation.
-Dismantled scans support the distributed collection workstream. Their counts
-do not supply detector labels, independent cases or accepted negatives.
+%-----------------------------------------------------------------------------
+\section{Problem Statement and Stakeholders}\label{sec:problem}
+Given an authorized X-ray image of a bag or tray, the system must localize
+electronic devices and explosive material concealed in them, present the findings
+to a human operator, and record the operator's review in a traceable form. The
+system is an assistive tool: a detector confidence is evidence for the operator,
+not an operational safety decision.
 
-\section{Functional requirements}
-\begin{longtable}{p{0.1\textwidth}p{0.49\textwidth}p{0.31\textwidth}}
-\caption{Requirement-to-evidence map for the SDP I prototype.}\label{tab:requirements}\\
-\toprule ID & Requirement & Evidence and disposition\\\midrule\endfirsthead
-\toprule ID & Requirement & Evidence and disposition\\\midrule\endhead
-FR1 & Accept authorized images and identify the source explicitly & Upload, folder receipt and finite replay documented; physical scanner not qualified\\
-FR2 & Apply declared preprocessing consistently before inference & Canonical image and backend transforms documented; no measured enhancement benefit\\
-FR3 & Detect and localize the selected task with a verified checkpoint & Generic published-test measurements in Chapter 5; device/specific diagnostic scope remains bounded\\
-FR4 & Display original-coordinate boxes, scores and task identity & Shared contract and GUI implementation evidence\\
-FR5 & Preserve execution failure and missing-input states & Contract/software behavior; empty results imply no benign verdict\\
-FR6 & Support operator review and export traceable records & Notes, session review and JSON export; persistence beyond session remains limited\\
-FR7 & Evaluate with matching ground truth and frozen settings & Generic test job 820 verified; duplicate/group limitations retained\\
-FR8 & Associate distributed scans using justified case provenance & Contract direction only; case labels and fusion unfinished\\
+Three groups of stakeholders shape the requirements. The \emph{screening operator}
+needs to see which task and model produced each finding, the localized regions
+with their scores, usable review controls, and honest reporting of missing inputs
+and failed runs. The \emph{supervisors and laboratory} need reproducible
+artifacts, protected data and results that can be traced to a dataset, a
+checkpoint and a run. The \emph{students} need clear interfaces so that each
+contributor can develop and explain one part of the system independently.
+
+Two data sources serve different purposes. The public IEDXray benchmark supports
+the single-scan detector, its reproduction and its evaluation. The laboratory
+collection (Section~\ref{sec:collection}) provides new positive and negative scans
+for training and for the distributed work of SDP~II.
+
+%-----------------------------------------------------------------------------
+\section{Detection Tasks}\label{sec:tasks}
+The system follows the three tasks defined by the IEDXray benchmark
+(Table~\ref{tab:dettasks})~\citep{takele2026iedxray}. Each task has its own
+annotation export, category map and YOLOv10-M checkpoint. The task is always
+stated explicitly in the input, the model record and the result, because the same
+category identifier can have different meanings in different tasks.
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Detection tasks supported by the system, following the IEDXray
+benchmark.}
+\label{tab:dettasks}
+\begin{tabularx}{\textwidth}{@{}L{0.26\textwidth}YL{0.26\textwidth}@{}}
+\toprule
+Task & Output & Role for the operator\\
+\midrule
+Electronic device detection & Boxes around host devices such as laptops, phones,
+pagers and walkie-talkies & Shows where concealment is possible\\
+Generic explosive detection & Boxes around explosive material, without type &
+Primary threat cue\\
+Specific explosive detection & Boxes around explosive material, labelled by
+category & Finer description of the threat\\
 \bottomrule
-\end{longtable}
+\end{tabularx}
+\end{table}
 
-The proposal's acquisition objective remains broader than the present inventory.
-The recorded catalogue plans 500 images across 125 four-bag groups. The inventory
-contains 478 distinct byte payloads; the numerical difference is not an accepted
-shortfall until the lab confirms round mapping and usable-count criteria.
+%-----------------------------------------------------------------------------
+\section{Functional Requirements}\label{sec:fr}
+Table~\ref{tab:requirements} lists the functional requirements of SDP~I. Each one
+is traced to the requirement of the original proposal it serves and to its status
+on 22~November~2026.
 
-\section{System specification}
-\subsection{Inputs and outputs}
-A successful scan result contains version, scan ID, execution status, original
-image dimensions, model/task identity and provenance, threshold, and a detection
-list. Each detection carries an ID, original-pixel corner coordinates, a category
-namespace and label, a confidence value, and explicit host association where
-available. An unmatched region retains no invented host link.
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Functional requirements of the SDP~I system, their source in the
+proposal and their status.}
+\label{tab:requirements}
+\begin{tabularx}{\textwidth}{@{}lYL{0.15\textwidth}L{0.27\textwidth}@{}}
+\toprule
+ID & Requirement & Proposal source & Status\\
+\midrule
+FR1 & Accept authorized images by upload, watched folder or replay, and record
+their source & GUI & Met; no direct scanner connection\\
+FR2 & Apply the declared pre-processing consistently before inference &
+Pre-processing & Met; benefit not measured\\
+FR3 & Detect and localize objects for the selected task with a verified
+checkpoint & Detection & Met; generic task measured on the full test set\\
+FR4 & Display boxes in original image coordinates with scores and task identity &
+Detection, GUI & Met\\
+FR5 & Report failed and missing inputs separately from empty results & GUI & Met\\
+FR6 & Support operator review and notes, and export a traceable record &
+GUI (recording) & Met within a session\\
+FR7 & Evaluate predictions against matching ground truth under frozen settings &
+Evaluation & Met for the generic task (Section~ef{sec:results})\\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-The run manifest binds checkpoint hash, inference-code identity, task maps,
-input identities, backend settings and actual execution device. Training settings
-and study records remain separate from the inference manifest. This separation
-allows a candidate to be evaluated without extending every consumer with
-training-specific fields.
-\projectrecord{docs/contracts.md; docs/baseline-run-contract.md}
+%-----------------------------------------------------------------------------
+\section{Non-functional Requirements}\label{sec:nfr}
+Table~\ref{tab:nfr} lists the non-functional requirements. They are verified on the
+presentation machine before the system is described as ready for demonstration.
 
-\subsection{Failure and empty-result semantics}
-Execution success and detection count are separate. A successful run can contain
-zero detections; it means the model reported no regions at the chosen settings.
-A failed or missing scan is not an empty successful scan. Application messages
-and downstream evaluation must retain this distinction. It is particularly
-important for distributed cases, where a missing package cannot be treated as
-evidence that a component is absent.
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Non-functional requirements and how each is verified.}
+\label{tab:nfr}
+\begin{tabularx}{\textwidth}{@{}lL{0.2\textwidth}YL{0.24\textwidth}@{}}
+\toprule
+ID & Quality & Requirement & Verification\\
+\midrule
+NFR1 & Reproducibility & Every result identifies the code revision, checkpoint
+hash, dependency lock and settings & Run manifest; locked environments\\
+NFR2 & Data protection & Scans are processed locally; scans, credentials and
+private manifests stay outside the repository & Repository rules; review of each
+PR\\
+NFR3 & Usability & Readable overlays, keyboard review, responsive layout,
+visible source and result identity & Human rehearsal\\
+NFR4 & Portability & Engine code runs on Windows and Linux & Required CI on both
+systems\\
+NFR5 & Performance & Latency reported with hardware, precision, batch size,
+warm-up and measured boundaries & Met for model inference (Table~ef{tab:t41latency}); full workflow not timed\\
+NFR6 & Maintainability & Code small enough for its contributor to explain;
+typed contracts with tests & Code review; synthetic tests\\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-\subsection{Nonfunctional requirements}
-Reproducibility requires matching revisions, hashes, dependency profiles and
-documented settings. Local processing reduces unnecessary transfer of sensitive
-imagery; raw scans, credentials and private manifests stay outside Git. Usability
-requires readable overlays, keyboard review, responsive layouts and explicit
-source/result identity. The team must verify these properties on the actual
-presentation machine before claiming demo readiness.
+Latency is defined in two ways: model execution time, and total time from an
+accepted input to a visible result. Speeds are compared only when hardware,
+numerical precision, batch size, warm-up and the pre- and post-processing
+boundaries are reported. No percentile latency is inferred from a few diagnostic
+samples.
 
-Latency has at least two meanings: model execution time and total time from
-accepted input to a visible completed result. Hardware, precision, batch size,
-warm-up, synchronization and preprocessing/postprocessing boundaries must be
-reported before comparing speeds. No stable percentile latency is inferred
-from a few diagnostic samples.
+%-----------------------------------------------------------------------------
+\section{System Specification}\label{sec:spec}
 
-\section{Acceptance boundaries}
-The existing vertical slice is accepted only to its demonstrated extent.
-Full P1 requires an agreed host/threat association or cascade and decision policy.
-P2 additionally requires component-level evidence, justified cases and case-level
-ground truth. Neither is supplied automatically by choosing a checkpoint in the
-GUI. Table~\ref{tab:requirements} therefore records partial and unfinished
-requirements rather than presenting all boxes as complete.
+\subsection{Processing Pipeline}
+A scan passes through four stages. An \emph{input} stage registers the image with
+an externally assigned scan identifier. An \emph{inference} stage runs the
+verified checkpoint of the selected task and converts its boxes to original image
+coordinates. A \emph{result} stage packages the detections, status and provenance
+in a validated scan result. A \emph{review} stage displays the result to the
+operator, records notes and decisions, and exports the record. The architecture
+that implements these stages is described in Chapter~\ref{ch:design}.
 
-\pending{Formal supervisor acceptance of the current requirements and
-mapping, current presentation-machine qualification and live scanner interface.}
+\subsection{Scan Result Contract}
+All components exchange a versioned JSON scan result (Table~\ref{tab:result}).
+Validation rejects missing fields, unknown fields and unsupported versions. Each
+detection in the result carries the fields in Table~\ref{tab:detection}.
+\projectrecord{docs/contracts.md}
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Fields of the scan result, schema version 1.0.}
+\label{tab:result}
+\begin{tabularx}{\textwidth}{@{}L{0.2\textwidth}Y@{}}
+\toprule
+Field & Meaning\\
+\midrule
+\texttt{scan\_id} & Externally assigned scan identifier\\
+\texttt{status} & \texttt{ok}, \texttt{missing\_input} or \texttt{error}\\
+\texttt{image} & Original width and height in pixels; may be null on failure\\
+\texttt{model} & Model identifier, task and provenance reference\\
+\texttt{run} & Run identifier and provenance reference\\
+\texttt{threshold} & Operating score threshold in $[0,1]$\\
+\texttt{detections} & List of detection objects (Table~\ref{tab:detection})\\
+\texttt{error} & Null when \texttt{ok}; otherwise an error code and message\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Fields of a detection object.}
+\label{tab:detection}
+\begin{tabularx}{\textwidth}{@{}L{0.2\textwidth}Y@{}}
+\toprule
+Field & Meaning\\
+\midrule
+\texttt{id} & Identifier unique within the scan\\
+\texttt{kind} & \texttt{device} or \texttt{suspicious\_region}\\
+\texttt{box\_xyxy} & $[x_{\min}, y_{\min}, x_{\max}, y_{\max}]$ in original-image
+pixels, inside the image bounds\\
+\texttt{category} & Category namespace and label from the inspected task map\\
+\texttt{confidence} & Model score in $[0,1]$; not a calibrated probability\\
+\texttt{device\_id} & Host device of a suspicious region, or null when the
+association is unknown\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Status and Empty-Result Semantics}
+Execution success and the number of detections are independent. A result with
+status \texttt{ok} and no detections means only that the model reported no region
+at the chosen threshold; it does not mean that the bag is benign. A failed or
+missing scan is never reported as an empty successful scan, and a failure always
+carries an empty detection list and an error description. The application and
+the evaluator both preserve this distinction.
+
+\subsection{Run Manifest}
+A set of scan results from one run is described by a run manifest. It binds the
+checkpoint hash, the identity of the inference code, the task category maps, the
+input identities, the backend settings and the device actually used. Training
+settings and study records are kept separate from the inference manifest, so that
+a candidate model can be evaluated without changing every consumer of the scan
+result.
+\projectrecord{docs/baseline-run-contract.md}
+
+%-----------------------------------------------------------------------------
+\section{Constraints and Assumptions}\label{sec:constraints}
+\begin{itemize}
+\item \textbf{Data.} The published IEDXray test split is never modified or used for
+model selection. Category identifiers are taken from the inspected task maps and
+are never invented.
+\item \textbf{Safety.} All collected threat items are laboratory simulants; scans
+are acquired only in the CVML laboratory under its supervision.
+\item \textbf{Scanner access.} Images reach the system as exported files; the
+system has no direct control of the SLG-supplied scanner.
+\item \textbf{Compute.} Training runs on the university HPC cluster with a six-hour
+limit per job, so long runs must resume across jobs.
+\item \textbf{Privacy.} Raw scans and per-image manifests remain on laboratory or
+authorized machines and are not published.
+\end{itemize}
+
+%-----------------------------------------------------------------------------
+\section{Scope Boundary}\label{sec:boundary}
+The SDP~I system is a single-scan prototype, accepted to the extent that it has
+been demonstrated. A full single-scan screening policy would further require an
+agreed rule linking explosive regions to their host devices and an operational
+decision rule; neither is implied by selecting a checkpoint in the interface.
+
+Detection of threats distributed across several bags is SDP~II work. Its input
+interface is already defined: a case groups several scan results under an
+externally supplied case identifier and records the provenance of the grouping.
+Component-level evidence, case ground truth and the fusion method remain to be
+developed in SDP~II.
+
+\pending{Supervisor acceptance of the requirement and specification mapping,
+qualification on the presentation machine, and confirmation of the scanner export
+hand-off.}
