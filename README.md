@@ -19,7 +19,7 @@ Yonathan's catalogue plans **500 images across 125 four-bag groups**; see the
 [collection table](#dataset-collection--round-1).
 
 The owner reports that the project team attended **6G MENA on 20 October 2026**. This is
-retained as historical project evidence in the [6G MENA record](docs/6g-mena-2026.md);
+retained as historical project evidence in the [6G MENA record](docs/6g-mena/6g-mena-2026.md);
 individual attendance, the actual presentation, and TDRA approval have not been independently
 verified. The separate Secure Life Group visit record and 6G poster artifacts remain available
 for the final report.

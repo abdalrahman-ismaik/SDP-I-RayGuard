@@ -42,38 +42,39 @@
 \vfill
 \begin{minipage}{0.86\textwidth}
 This report draft records the implemented single-scan prototype, research software
-and collection evidence available on 21 November 2026. Full benchmark evaluation,
-new training, physical scanner integration and distributed-case fusion remain
+and collection evidence available on 23 November 2026. A reduced generic detector
+study and frozen published-test comparison are complete. Specific-task training,
+repeatability, physical scanner integration and distributed-case fusion remain
 unfinished. The institutional cover format, project number, final student roster
 and supervisor details require confirmation before submission.
 \end{minipage}
 \vfill
-{\large Draft issued 21 November 2026\par}
+{\large Evidence update 23 November 2026\par}
 \end{titlepage}
 \hypersetup{pageanchor=true}
 \pagenumbering{roman}
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 X-ray baggage screening requires operators to interpret cluttered images in which
-electronic devices can conceal suspicious material. RayGuard investigates how
-object detection and an operator interface can support this inspection process
-while preserving traceable evidence and explicit limitations. The SDP I work
-combines a single-image prototype based on IEDXray and YOLOv10-M with preparation
-for distributed component analysis across separately acquired scans. The implemented
-software provides shared prediction and run contracts, dataset-audit tools, real
-bounded detector execution, and a separate application for image intake, localization,
-review and export. An evaluation pipeline and a general-initialization receipt
-helper have been integrated; training and study orchestration exist as a software
-draft. Audits identify category disagreements, cross-split duplicates, boundary
-findings and incomplete physical-group provenance. A separate lab-collection
-inventory contains 577 JPEG paths representing 478 distinct byte payloads, without
-established quality acceptance or case labels. These findings constrain experimental
-claims. Synthetic software checks and diagnostic inference demonstrate specific
-implementation behavior, but do not establish full-dataset accuracy or operational
-safety. The report explains requirements, models, alternatives, architecture,
-implemented evidence and remaining qualification gates. Further work requires
-reviewed data policies, training and evaluator integration, an owned compute pilot,
-eligible benchmark reporting and validation of distributed-case reasoning.
+electronic devices can conceal suspicious material. RayGuard investigates object
+detection and an operator interface while retaining traceable evidence and explicit
+limitations. SDP I combines an IEDXray/YOLOv10-M single-image prototype with
+preparation for distributed component analysis. The implemented software provides
+dataset audits, prediction contracts, real detector execution, evaluation and a
+separate application for image intake, localization, review and export. A reduced
+HPC experiment completed six attempted generic configurations, including one
+recorded failure, and two 100-epoch confirmations from identical general starting
+weights. Validation AP was 87.71\% for the control and 87.48\% for the search
+candidate. A subsequent frozen comparison on all 5,136 published test images
+measured 41.59\% and 48.05\% AP respectively. These single-seed results do not
+establish repeatability or unseen-physical-case performance: duplicate images,
+uncertain physical grouping and label questions remain. Fixed-threshold recall
+was below 49\% for both models, so higher AP does not establish safe clearance.
+The separate collection inventory contains 577 paths and 478 distinct image
+payloads without accepted case labels or QC. The report distinguishes software
+verification, real model measurements and operational acceptance. Specific-task
+training, repeated-seed studies, distributed-case validation and observed scanner
+integration remain future work.
 \tableofcontents
 \listoffigures
 \listoftables

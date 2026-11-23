@@ -229,7 +229,7 @@ C01 Session A/B both belong to Round 1, distinct from the pre-/post-midterm roun
 6G MENA participation is complete as an event; the owner reports that the project team
 attended on 20 October 2026. Individual attendance, actual presentation, final revised poster
 and TDRA approval remain unverified. Preserve the requirements and artifacts in the
-[historical dossier](6g-mena-2026.md). Current paper calls are tracked separately in the
+[historical dossier](6g-mena/6g-mena-2026.md). Current paper calls are tracked separately in the
 [conference register](conferences-2026-2027.md).
 
 ## Secure Life Group visit - F08

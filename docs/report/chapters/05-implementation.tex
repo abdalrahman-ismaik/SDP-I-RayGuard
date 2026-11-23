@@ -26,19 +26,21 @@ checkpoint; echoing a partition hash is not proof of the partition itself.
 PR~21 integrated the initialization helper as \file{29d6d0f}. It hashes a local
 copy of the official YOLOv10-M starting file and rejects mismatches without
 loading the model. Documentary evidence and COCO metadata support its use as
-general pretraining; this is not proof of training contents or a verified HPC
-copy. Head-transfer behavior remains a pilot-log requirement.
+general pretraining; this is not proof of every training example. The HPC copy
+was subsequently verified by its exact SHA-256 and size, and real pilots qualified
+head transfer, training, checkpoint saving/reloading and the task class map.
 
-Ahmed's T41 draft at \file{32091bc} contains data checks, partition/provenance
-planning, synthetic orchestration and a Slurm template. Its CLIs deliberately
-block live training/search. This is substantive software preparation, not
-completed training. Figure~\ref{fig:experiments} shows the intended separation
-between supplied-checkpoint reproduction and controlled improvement.
+The initial T41 draft at \file{32091bc} was extended with a qualified live trainer,
+validation bridge and finite Slurm study driver. The owner reduced the deadline
+scope to six generic attempts and paired 100-epoch confirmations. That scope
+completed on 23 November; the original twenty-attempt, two-task and repeatability
+plan remains deferred. Figure~\ref{fig:experiments} describes the broader study
+design; completed measurements are reported separately below.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\textwidth]{experiments.png}
-\caption{Original experiment-flow diagram. The controlled-study path is planned;
-it does not show completed training or measured improvement.}
+\caption{Original experiment-flow diagram for the broader study. Only the reduced
+generic controlled experiment is completed here; the diagram is not a results plot.}
 \label{fig:experiments}
 \end{figure}
 
@@ -52,7 +54,7 @@ from semantic class disagreements; they should not be treated as interchangeable
 errors. The audit does not authorize a global label swap or silent clipping.
 \projectrecord{docs/iedxray-audit.md; docs/iedxray-paper-review.md}
 
-\subsection{Read-only preflight for the T41 study}
+\subsection{Preflight and derived training partition}
 An additional read-only check of the authorized local IEDXray copies counted
 12,224 training and 5,136 test images. The generic and specific training exports
 contained the same five out-of-image boxes, with the largest boundary overshoot
@@ -63,10 +65,14 @@ test. No verified physical-group identifiers were available; this does not show
 that physical groups are absent. The published test data and original annotations
 were left unchanged. The inventory findings hash is
 \file{4e5ff81087cc7a7b0bcbbf1abf45806e96ebd7936aca35b583d7f33e471ce9f7}.
-This is an observation of local authorized copies, not an approved partition or
-training result; the data owner must confirm the matching inventory on HPC before
-creating derived training data. No repair, partition, model training or evaluation
-was performed. These limitations prevent reporting a new model-performance result.
+The matching HPC inventory was subsequently verified. Under the owner
+authorization, a separate derived training export repaired exactly five boxes
+per task; each repaired COCO area was recomputed as the repaired width times
+height. Original annotations and the published test split remain unchanged.
+The seed-17 partition groups exact duplicates and contains 9,779 fit and 2,445
+validation images shared across tasks. It remains exploratory because physical
+group identifiers have not been verified. This does not fabricate a colleague
+review or resolve the original train/test overlap.
 \projectrecord{docs/progress.md}
 
 The separate dismantled collection inventory reports 577 JPEG paths and 478
@@ -111,26 +117,12 @@ Both commands use the locked root environment, with the evaluator dependencies
 added only for the evaluation-enabled run. The exact recorded check is
 \file{uv run --locked --with-requirements environments/evaluation.in python -m pytest}.
 Counts depend on the checked revision; they are not a product-quality percentage.
+The later T41 integration worktree passed Ruff and 515 tests with 13 skipped
+on 23 November. The skips include optional local evaluator/platform features;
+real HPC evaluator execution and CPU recomputation of saved model predictions
+provide separate evidence below.
 
-\section{Evaluation protocol and outstanding runs}
-The evaluation software supports separate baseline/candidate and common-parent
-candidate/candidate modes. The latter compares untuned and tuned outputs without
-pretending that one was initialized from the other's result. Same-parent metadata
-must be accompanied by training receipts, paired seeds, partition identity and
-comparable budgets before interpreting a delta as a controlled comparison.
-
-The planned data policy preserves the published test split, groups exact-byte
-duplicates with verified physical groups inside a training-derived partition,
-and labels unknown physical independence explicitly. Invalid geometry remains
-blocked until a reviewed derived-data procedure exists. Actual policy receipts
-must bind the inspected findings and partition; a document describing policy
-does not clear real artifacts automatically.
-
-No real full-test AP, fine-tuned checkpoint, improvement delta or reproducible
-model/pipeline latency is available in this draft. Those values must be inserted
-only from eligible saved runs and a frozen protocol. The comparison table must
-keep published paper scores, supplied-checkpoint reproduction and matched local
-U/T results in separate rows with clear units and provenance.
+\input{chapters/05-t41-results}
 
 \section{Application acceptance remaining}
 Human rehearsal must cover clean startup, authorized input, selected model,
@@ -140,4 +132,5 @@ handoff and current app/engine revision need a dated acceptance record. No
 new GUI feature is required merely to generate contribution evidence.
 
 \pending{Approved screenshots and their exact app revision, real-run references,
-current end-to-end rehearsal, eligible final metrics and student-reviewed explanations.}
+current end-to-end rehearsal and student-reviewed explanations. Generic detector
+metrics above do not replace application or scanner acceptance.}
