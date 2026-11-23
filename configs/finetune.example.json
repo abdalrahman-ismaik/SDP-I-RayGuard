@@ -1,0 +1,123 @@
+{
+  "schema_version": "t41-research-1",
+  "protocol_commit": "6d57e5cb362164d12cb9338cf60bd72d3f9bdc6a",
+  "dataset": "public_iedxray",
+  "experiment": "controlled_improvement",
+  "task": "generic",
+  "task_order": [
+    "generic",
+    "specific"
+  ],
+  "initialization": null,
+  "author_training_details": null,
+  "sources": {
+    "train": null,
+    "validation": null,
+    "test": null
+  },
+  "source_provenance": null,
+  "partition_sha256": null,
+  "data_policy": null,
+  "study": {
+    "attempts": 20,
+    "sampler": "TPE",
+    "sampler_seed": 17,
+    "startup_trials": 5,
+    "workers": 1,
+    "trial_epochs": 30,
+    "imgsz": 640,
+    "training_seed": 17,
+    "pruner": "Median",
+    "prune_after_epochs": 10,
+    "prune_after_completed_trials": 5,
+    "search_space": {
+      "SGD_lr0": [
+        0.0001,
+        0.01
+      ],
+      "AdamW_lr0": [
+        1e-05,
+        0.001
+      ],
+      "weight_decay": [
+        1e-05,
+        0.001
+      ],
+      "lrf": [
+        0.01,
+        0.1
+      ],
+      "mosaic": [
+        0.0,
+        0.5
+      ]
+    },
+    "fixed": {
+      "fliplr": 0.5,
+      "multi_scale": true,
+      "hsv_h": 0.0,
+      "hsv_s": 0.0,
+      "mixup": 0.0,
+      "copy_paste": 0.0
+    },
+    "control": {
+      "optimizer": "SGD",
+      "lr0": 0.001,
+      "weight_decay": 0.0005,
+      "lrf": 0.01,
+      "mosaic": 0.0
+    },
+    "confirmation": {
+      "top_completed": 3,
+      "epochs": 100,
+      "seed": 17
+    },
+    "repeatability": {
+      "epochs": 100,
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "reuse_seed_17": true
+    }
+  },
+  "batch": null,
+  "precision": "float32",
+  "objective": {
+    "name": "coco_bbox_AP_50_95",
+    "direction": "maximize",
+    "scale": "fraction",
+    "evaluator_id": "sdp_xray.validation_objective/pycocotools-bbox-1",
+    "settings": {
+      "package": "pycocotools",
+      "version": "2.0.11",
+      "iou_type": "bbox",
+      "parameters": "COCOeval defaults; AP over IoU 0.50:0.95, maxDets 100",
+      "coordinates": "original-pixel xywh",
+      "categories": "dataset COCO IDs from source_category_map"
+    }
+  },
+  "validation_prediction": {"conf": 0.001, "max_det": 300},
+  "approvals": {
+    "data_policy": null,
+    "source_identity": null,
+    "validation_design": null,
+    "compute_scope": null,
+    "faisal_provenance_interface": null,
+    "ali_validation_interface": null,
+    "common_initialization_comparison": null
+  },
+  "generic_completion": null,
+  "environment": {
+    "upstream_revision": "453c6e38a51e9d1d5a2aa5fb7f1014a711913397",
+    "optuna_version": "4.5.0",
+    "lock_sha256": null,
+    "qualification": null,
+    "journal_locking": null,
+    "effective_defaults_sha256": null
+  },
+  "requested_device": null,
+  "owner": null,
+  "output_directory": null
+}

@@ -4,7 +4,7 @@ Canonical source is `main.tex` with six modular chapters, appendices and a BibTe
 bibliography. This is an initial evidence-based draft, not a submission-ready report.
 Follow [the requirements specification](../final-report-requirements.md); T38 is the
 sole backlog. Personal names/IDs, contribution confirmations, official cover/forms,
-signatures, approved screenshots, final real metrics and distribution clearance
+signatures, approved screenshots and distribution clearance
 remain outstanding. The owner explicitly authorized publishing this draft source to the
 project GitHub repository on 22 November 2026. This does not make the report submission-
 ready or clear distribution of an assembled PDF/Word copy, signed forms or private
@@ -54,6 +54,7 @@ pass. Keep any native tool downloads and conversion helpers in ignored local out
 
 Use appendix R01–R15 coverage, then both handbook rubrics. Check exact app/research
 revisions and actual run records, final contributions, reference metadata, official
-forms and filename. The report says no real final accuracy/training result exists at
-this cutoff; update only from eligible saved evidence. Retain report review on 23 Nov,
+forms and filename. Chapter 5 now includes the completed reduced generic training
+study and frozen test job 820, linked to `docs/t41-results.md`. This does not close
+whole-report acceptance, specific-task evaluation or repeated-seed studies. Retain report review on 23 Nov,
 submission 24 Nov 17:00 UTC+4 and separate collection obligation on 30 Nov.
