@@ -393,17 +393,19 @@ repository setup; coordination & PRs \#1--\#15, \#20, \#23; 13 commits on
 Ali Arif Saeed Alshamsi & \texttt{Alshamisi10987} & T42 evaluation & PR~\#18
 (evaluator), PR~\#22 (data policy); 6 commits on \file{main}\\
 Faisal Daoud Alzarooni & \texttt{blitzict} & T40 baseline contracts & PRs \#17,
-\#19, \#21, \#24 (box-repair follow-up and PR review)\\
+\#19, \#21, \#24; reviews of PRs \#20 and \#27\\
 Ahmed Almansoori & \texttt{Boshahab} & T41 training workflow & PR~\#25: qualified
 training, HPC study and frozen test comparison; T41 task lead, AI-assisted
 implementation and execution under his direction\\
-Mohammad Arwani & \texttt{mohd2k5} & T43 GUI validation & Branch
-\file{mohammad/guiflow}, commit \file{164d6cf}; not yet merged\\
+Mohammad Arwani & \texttt{mohd2k5} & T43 GUI validation & RayGuard-App PR~\#1,
+commit \file{d5d4baf} (open); branch \file{mohammad/guiflow}, commit
+\file{164d6cf}, not merged\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\pending{Each student's own confirmation of the contribution summary, the final
+\pending{The other students' own confirmation of the contribution summary (Faisal
+confirmed the T40 row on 23~November), the final
 roster spelling and a supervisor walkthrough of the GitHub record before the
 final presentation. Appendix~\ref{app:contributions} holds the detailed
 worksheet.}
@@ -538,7 +540,8 @@ assistance was used, a representative prompt and how the output was verified.
 \begin{table}[htbp]
 \centering\tablesetup
 \caption{AI prompt disclosure by student. Ahmed's row quotes actual prompt
-excerpts; the other rows are drafted from each student's submitted work, and each
+excerpts. Faisal supplied the wording of the T40 row, which reconstructs the
+purpose of the prompt and is not a verbatim copy. The other rows are drafted from each student's submitted work, and each
 student confirms the tool and replaces the prompt with their actual wording
 before submission.}
 \label{tab:prompts}
@@ -554,10 +557,14 @@ Ali Arif Saeed Alshamsi & T42 evaluator: evaluation and COCO metric modules & ``
 COCO format, keeps the dataset category IDs including zero, and refuses to report
 if required scans are missing.'' & Synthetic \texttt{pytest} fixtures; CI on
 PR~\#18\\
-Faisal Daoud Alzarooni & T40 run contract, run manifest and initialization receipt &
-``Define a run manifest that checks the class map of every run, and a helper that
-hashes the starting weights and rejects a mismatch without loading the model.''
-& Synthetic \texttt{pytest} tests; CI on PRs~\#17, \#19, \#21\\
+Faisal Daoud Alzarooni & T40 CI scripts and synthetic test data (AI coding
+assistant); remaining implementation with Google searches, including AI Overviews &
+Reconstructed: ``Generate CI scripts and synthetic test data to validate the
+baseline run contract, manifest validation, record consistency and initialization
+receipt. Use synthetic inputs, placeholder hashes and mock files without loading
+actual datasets, model weights or checkpoints.''
+& Synthetic \texttt{pytest} tests of software correctness, not model performance;
+CI on PRs~\#17, \#19, \#21\\
 Ahmed Almansoori & T41 training workflow, HPC study and frozen test runner
 (OpenAI Codex desktop app) & Actual excerpts: ``Run a bounded GPU pilot through
 Slurm, checking actual training, checkpoint saving/reloading, class mapping and
@@ -565,9 +572,10 @@ Ali's validation objective.'' ``Use the same verified general initialization for
 untuned/tuned comparisons. Never select models or parameters using the published
 test set.'' & Slurm pilots, six generic search attempts, jobs 770/819 and frozen
 test job 820; independent checks of saved metrics; CI on PR~\#25\\
-Mohammad Arwani & T43 GUI acceptance slice (RayGuard-App) & ``Add acceptance and
+Mohammad Arwani & T43 GUI acceptance slice, RayGuard-App PR~\#1 (OpenAI Codex) & ``Add acceptance and
 accessibility tests for the upload, review and export flows of the GUI.'' &
-Reported app test run; walkthrough pending\\
+Build and eight acceptance tests, repeated in a separate clone; walkthrough
+pending\\
 \bottomrule
 \end{tabularx}
 \end{table}

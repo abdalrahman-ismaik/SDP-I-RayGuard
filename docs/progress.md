@@ -3766,3 +3766,15 @@ identical to a test image can fall into validation.
   precision–recall figure and the three inspected examples; the example figure falls back
   to a note when the private images are absent. Build: 75 pages, 0 errors, 0 undefined,
   0 overfull; Word copy 77 pages, 17 figures.
+
+## 23 November 2026 — Faisal's confirmation and RayGuard-App PR #1 (T38/T43)
+
+- Faisal confirmed the T40 lead role and PRs #17, #19, #21 and #24, and supplied the
+  Table 1.10 disclosure (reconstructed prompt, not verbatim). Checked on GitHub: all four
+  PRs are Faisal's; reviews exist on #20 (later dismissed) and #27 (approved at `b7b9f2c`).
+  Open point: the disclosure names CI scripts, but none of those PRs changes `.github/`.
+- Mohammad's [RayGuard-App PR #1](https://github.com/abdalrahman-ismaik/RayGuard-App/pull/1)
+  at `d5d4baf` (tests and docs only; base `3488abd`) run in a separate clone on Windows with
+  installed Chrome: build passed; 8 T43 and 157 total browser tests passed; type check, backend
+  lint and 280 backend tests passed. Hosted CI had not run (fork approval required).
+  Software checks on synthetic data only; the walkthrough and acceptance remain open.
