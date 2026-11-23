@@ -3801,3 +3801,10 @@ identical to a test image can fall into validation.
   laptop threat in `Test001489` (0.954) and misses `Test002804` (best 0.137).
 - Screenshots stay in ignored `docs/report/figures/private/`. Next: recapture with the
   job 819 checkpoint after its hash and loading are verified.
+
+## 24 November 2026 — Landscape Gantt chart and schedule (T38)
+
+- Gantt chart redrawn as one landscape page (PDF and Word). The owner supplied the research
+  period (8 Sep–10 Nov) and the collection period (28 Sep–4 Nov); both are marked as
+  reported. The dated scan files (29 Sep–9 Oct) are marked inside the collection bar.
+- The owner confirmed that the SLG CEO visit (21 Oct) took place. Its outcome is not recorded.

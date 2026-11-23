@@ -105,6 +105,7 @@ for line in title.strip().splitlines():
 body = body[:tp_start] + title + body[tp_end:]
 
 # Front-matter commands Pandoc cannot render; TOC/LoF/LoT are inserted in Word.
+body = re.sub(r"\\(begin|end)\{landscape\}", "", body)  # Word: docx-format.ps1
 for cmd in ["hypersetup", "pagenumbering", "addcontentsline", "bibliographystyle"]:
     body = re.sub(BS * 2 + cmd + r"(\{[^{}]*\})+", "", body)
 body = body.replace(BS + "tableofcontents", "\nTOC-PLACEHOLDER\n")

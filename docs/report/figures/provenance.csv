@@ -2,7 +2,7 @@ asset,kind,source,evidence_boundary,reuse
 coordinates.png,original diagram,coordinates.tex,illustrative geometry not a prediction,project-created
 architecture.png,original diagram,architecture.tex and docs/architecture.md,implemented prototype versus unqualified research path distinguished,project-created
 experiments.png,original diagram,experiments.tex and docs/finetuning.md,controlled study planned not executed,project-created
-gantt.png,original schedule,gantt.tex with semester record and task records,panel A dated evidence statuses; panel B proposed work windows; effort unreported,project-created
+gantt.png,original schedule,gantt.tex with semester record and task records,landscape chart; research and collection periods reported by the team; effort unreported,project-created
 method.png,original diagram,method.tex,all six stages executed; stage 6 covers the generic-explosive task only,project-created
 workflow.png,original diagram,workflow.tex and CONTRIBUTING.md (T36 protection),configured repository rules; not a claim of every PR following the bypass-free path,project-created
 t41-flow.png,original diagram,t41-flow.tex with docs/t41-results.md and docs/t41-handoff.md,executed T41 reduced generic study flow; not the original 20-attempt protocol,project-created
