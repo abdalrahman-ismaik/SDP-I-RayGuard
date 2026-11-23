@@ -3699,8 +3699,8 @@ Editor: AI agent (Claude) at the owner's request; not student work. Owner review
   conflicted in the box-repair code. Merged `main` into `faisal/review-followups` as
   `87094b1`: kept #25's hash-bound training-source design; re-applied Faisal's
   `derived_file_sha256` field and the image name/size input check with their tests; dropped
-  its report hunks (already on main). Ruff passed; pytest 529 passed, 3 skipped. Needs
-  re-approval on `87094b1` before merge.
+  its report hunks (already on main). Ruff passed; pytest 529 passed, 3 skipped. Owner
+  approved head `87094b1`; merged into main as `c58dac7`.
 - Report (branch `docs/final-report-results`): new §5.5 "Prototype Results: Generic Explosive
   Detection" with the study design, hyperparameters, all T41 jobs, frozen test metrics,
   fixed operating point, inspected examples, latency and limitations; six original pgfplots
@@ -3712,3 +3712,26 @@ Editor: AI agent (Claude) at the owner's request; not student work. Owner review
 - Not yet available: detection-example images and precision–recall curves (need Ahmed's
   test-evidence archive of predictions), per-epoch training curves (need an export from
   jobs 770/819) and approved RayGuard-App screenshots.
+
+## 23 November 2026 — review follow-ups for merged PRs #22 and #20 (T40 review role)
+
+Faisal's review of the merged data policy (#22) and report draft (#20) from the T40
+provenance side. The box clamp, its script and its tests are Ali's work from #22; this
+change adds two small fixes to it and does not alter its behaviour on valid files.
+
+- `scripts/repair_train_boxes.py` now records `derived_file_sha256`, the SHA-256 of the
+  derived file as written. The existing `derived_content_sha256` is of the canonical JSON
+  form and does not match a plain file hash, which a later check on HPC would trip over.
+- `sdp_xray.box_repair` refuses an image entry without a file name or positive
+  width/height with the normal exit 2 instead of a traceback.
+- Report: five appendix tables had a doubled line break before `\midrule`, which prints
+  the word "midrule" and drops the rule. Chapter 5 still described the pre-#22 policy
+  (verified physical groups, geometry blocked); it now matches the merged policy.
+- `uv run --locked ruff check .` passed. `uv run --locked python -m pytest`: 267 passed,
+  11 skipped (nine Windows symlink tests, two that need `pycocotools`).
+
+Limits: the report was not compiled here because no LaTeX toolchain is installed on this
+machine, so the table fix needs one rebuild to confirm. No data, weights or model were
+used. Two review questions for the policy owners remain open and are on PR #22: whether
+the five within-train duplicate pairs carry identical boxes, and that a training image
+identical to a test image can fall into validation.
