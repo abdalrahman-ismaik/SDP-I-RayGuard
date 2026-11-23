@@ -279,8 +279,8 @@ PR~\#18 head \file{6edcd68} & Ruff passed; 273 tests passed & Windows, evaluatio
 dependencies enabled\\
 PR~\#21 head \file{3b5fa3a} & Ruff passed; 286 tests passed & Includes the
 integrated evaluator and initialization receipt\\
-PR~\#24 head \file{d5ae27c} & Ruff passed; 276 passed, 2 skipped & Box-repair
-fixes; skips need \file{pycocotools}\\
+PR~\#24 merged head \file{87094b1} & Ruff passed; 529 passed, 3 skipped &
+Box-repair fixes on top of PR~\#25\\
 PR~\#25 head \file{950ea84} & Ruff passed; 525 passed, 3 skipped & Training,
 tuning and frozen-test software\\
 Required CI & Ubuntu and Windows checks passed & Hosted CPU checks before merge;
@@ -431,6 +431,19 @@ sampler: the five sampled attempts all fall within its five random startup
 trials. On validation alone,
 therefore, tuning showed no benefit.
 
+Figure~\ref{fig:t41curves} shows validation AP after every epoch of the two
+confirmation runs. The candidate learned faster during roughly the first 40
+epochs, but both runs levelled off at about 87\% after epoch~50 and remained
+there; the selected epochs are the maxima of their runs. The plateau indicates
+that further epochs alone would not have raised validation AP.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.95\textwidth]{t41-curves.png}
+\caption{Validation AP after each epoch of the two 100-epoch confirmation runs;
+markers show the selected epochs.}
+\label{fig:t41curves}
+\end{figure}
+
 \subsection{Frozen Test Results}
 Before any test image was processed, a test plan fixed the two checkpoints, the
 code, the hash of every test image, the original annotations and all settings.
@@ -573,7 +586,7 @@ The prototype detects concealed explosives with moderate accuracy: about half of
 the annotated threats are found at the fixed threshold, and the boxes it does
 produce are mostly correct. Figure~\ref{fig:t41gap} shows the most important
 caveat. Both models scored about 87.5\% AP on the validation set but 41.6\% and
-48.1\% on the published test set. The validation images come from the same
+48.1\% on the published test set, a gap of 46.1 and 39.4 percentage points. The validation images come from the same
 training split, and without verified physical groups, near-identical scans of the
 same bag can appear on both sides of the fit/validation partition, which inflates
 validation scores. Four exact-byte overlaps between the published training and
@@ -583,9 +596,9 @@ realistic estimate, but it is not an unseen-case benchmark.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=0.62\textwidth]{t41-gap.png}
-\caption{Validation versus published-test AP for both models. The gap of about
-40 percentage points points to optimistic validation on a split without verified
-physical groups.}
+\caption{Validation versus published-test AP for both models. The gaps of 46.1
+(untuned) and 39.4 (tuned) percentage points indicate optimistic validation on a
+split without verified physical groups.}
 \label{fig:t41gap}
 \end{figure}
 

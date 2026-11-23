@@ -3735,3 +3735,24 @@ machine, so the table fix needs one rebuild to confirm. No data, weights or mode
 used. Two review questions for the policy owners remain open and are on PR #22: whether
 the five within-train duplicate pairs carry identical boxes, and that a training image
 identical to a test image can fall into validation.
+
+## 23 November 2026 — PR #27 review fixes and training curves (T38)
+
+- Faisal's review of PR #27 (five non-blocking points), all fixed: Chapter 6 no longer says
+  the audit prevented train/test overlap (the four overlaps were retained and are reported);
+  the evaluation requirement is "Partly met" in Table 1.1, Table 6.1 and the abstract
+  (published test set, not an unseen-case benchmark); validation–test gaps stated exactly
+  (46.1 and 39.4 percentage points); `method.png` provenance row corrected; PR #24 check row
+  now cites merged head `87094b1` (529 passed, 3 skipped).
+- Found and fixed three broken cross-references in Chapters 2 and 4 (a scripted edit had
+  turned `\ref` into a control character); no other control characters in the sources.
+- Ahmed supplied per-epoch validation AP for jobs 770 and 819 (100 epochs each, 0–1 scale);
+  epoch 68 (control, 0.877062) and epoch 84 (candidate, 0.874833) match the handoff and are
+  each run's maximum. Added as `figures/t41-val-ap.csv` with chart `figures/t41-curves.tex`
+  (Figure in §5.5.1) and a provenance row.
+- Ahmed's attribution note applied: §1.4 states that the two PR #25 commits were authored and
+  committed by OpenAI Codex under Ahmed's instructions through his account (two earlier draft-
+  branch commits likewise), CI passed, and the owner's approval is recorded 10 s after merge on
+  the same commit; Table 1.7 and Appendix C mark Ahmed as T41 lead with AI-assisted
+  implementation; Table 1.10 quotes his actual prompt excerpts. His name spelling, contribution
+  confirmation and forms remain his own actions.

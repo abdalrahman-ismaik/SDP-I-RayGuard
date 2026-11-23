@@ -47,7 +47,8 @@ unchanged & Met & \ref{ch:design}\\
 Detection & YOLOv10-M executed for device, generic and specific tasks on real
 images & Met & \ref{ch:implementation}\\
 Evaluation & Frozen published-test evaluation of the generic detector: AP 41.6\%
-(untuned) and 48.1\% (tuned); specific task deferred & Met (generic) &
+(untuned) and 48.1\% (tuned); not an unseen-case benchmark; specific task deferred
+& Partly met &
 \ref{ch:implementation}\\
 GUI & RayGuard-App with intake, localization, review, notes and export & Met &
 \ref{ch:implementation}\\
@@ -63,20 +64,23 @@ The strongest results of SDP~I are a reproducible software foundation, a new
 dataset and a first measured detector. The fine-tuned model is precise at the
 fixed threshold (95.1\% precision) and fast (about 7.4~ms per image on one GPU),
 and its evaluation is fully traceable: the test plan fixed every checkpoint,
-image and setting before the run, and the metrics were recomputed independently. Every result can be traced to its code revision, checkpoint hash and
-settings, and the contracts keep failed, missing and empty results distinct, so
-an empty output is never shown as a cleared bag. Auditing IEDXray before training
-prevented two errors that would have inflated later results: training on images
-that also appear in the test set, and silently mixing category maps between
-tasks. The collected scans follow a balanced catalogue of component families,
+image and setting before the run, and the metrics were recomputed independently.
+Every result can be traced to its code revision, checkpoint hash and settings,
+and the contracts keep failed, missing and empty results distinct, so an empty
+output is never shown as a cleared bag. Auditing IEDXray before training exposed
+two problems that would otherwise have distorted results unnoticed: four training
+images that also appear in the test set, which were kept to preserve the
+published split but are now reported with every test result, and category maps
+that differ between tasks, which the contracts now check. The collected scans follow a balanced catalogue of component families,
 clutter levels and orientations, and each group spreads a complete set of
 components over four bags, which prepares the data for SDP~II.
 
 \subsection{Limitations}
 The main limitation is recall: at the fixed threshold both detectors miss about
 half of the annotated threats, and the tuned model is weaker on small objects.
-Validation AP (about 87.5\%) overstated test AP by roughly 40 percentage points,
-because the validation split lacks verified physical groups; the test score is the
+Validation AP overstated test AP by 46.1 percentage points for the untuned model
+and 39.4 for the tuned one, because the validation split lacks verified physical
+groups; the test score is the
 more realistic estimate but is not an unseen-case benchmark, and all results come
 from one training seed. The collected scans still require quality control,
 annotation and recorded grouping before they can train or test a model, and the

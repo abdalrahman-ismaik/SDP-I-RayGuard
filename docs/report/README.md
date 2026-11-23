@@ -16,7 +16,7 @@ From this directory, with MiKTeX/TeX Live and Python-independent native tools:
 
 ```powershell
 New-Item -ItemType Directory -Force build | Out-Null
-foreach ($name in @('coordinates','architecture','experiments','gantt','method','workflow','t41-flow','t41-search','t41-test','t41-size','t41-oppoint','t41-gap')) {
+foreach ($name in @('coordinates','architecture','experiments','gantt','method','workflow','t41-flow','t41-search','t41-test','t41-size','t41-oppoint','t41-gap','t41-curves')) {
     lualatex -interaction=nonstopmode -halt-on-error -output-directory=build "figures/$name.tex"
     pdftoppm -png -singlefile -r 180 "build/$name.pdf" "figures/$name"
 }

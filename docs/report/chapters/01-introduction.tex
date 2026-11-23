@@ -78,7 +78,8 @@ generic-explosive and specific-explosive detection, executed on real scans &
 Met & \ref{ch:implementation}\\
 Evaluation on unseen test data & Fine-tuned generic detector evaluated once on all
 5,136 published test images under a frozen plan: AP 41.6\% (untuned) and 48.1\%
-(tuned) & Met for the generic task; specific task in SDP~II &
+(tuned) & Partly met: published test set, not an unseen-case benchmark; specific
+task in SDP~II &
 \ref{ch:implementation}\\
 GUI for system control and recording & RayGuard-App: upload, localization,
 review, notes and JSON export with provenance & Met & \ref{ch:implementation}\\
@@ -394,7 +395,8 @@ Ali Arif Saeed Alshamsi & \texttt{Alshamisi10987} & T42 evaluation & PR~\#18
 Faisal Daoud Alzarooni & \texttt{blitzict} & T40 baseline contracts & PRs \#17,
 \#19, \#21, \#24 (box-repair follow-up and PR review)\\
 Ahmed Almansoori & \texttt{Boshahab} & T41 training workflow & PR~\#25: qualified
-training, HPC study and frozen test comparison\\
+training, HPC study and frozen test comparison; T41 task lead, AI-assisted
+implementation and execution under his direction\\
 Mohammad Arwani & \texttt{mohd2k5} & T43 GUI validation & Branch
 \file{mohammad/guiflow}, commit \file{164d6cf}; not yet merged\\
 \bottomrule
@@ -520,11 +522,14 @@ diff, run the checks and personally execute \texttt{git add}, \texttt{git commit
 and \texttt{git push} under their own GitHub identity, and no AI identity may
 appear as author, committer or co-author. AI-assisted work counts as a student's
 contribution only after that student understands, verifies and commits it.
-In practice, some commits did not follow this rule: several commits on
-\file{main}, including the two T41 commits of PR~\#25, were created by an AI
-coding assistant under the direction of the responsible student and carry an
-AI-assistant label in the history. They passed the same review and CI process
-as every other PR, and the student remains responsible for their content. The
+In practice, some commits did not follow this rule. The two commits in PR~\#25
+were authored and committed by an AI coding assistant (OpenAI Codex) under Ahmed
+Almansoori's instructions and published through his GitHub account; two earlier
+commits on the unmerged T41 draft branch were created the same way. Linux and
+Windows CI passed on PR~\#25, the owner merged it, and GitHub records the owner's
+approval of the same final commit ten seconds after the merge. The AI tool is
+disclosed as assistance, not as a team member, and Ahmed remains responsible for
+confirming his contribution and explaining the implementation and results. The
 mismatch between the contribution guide and the agent instructions in
 \file{AGENTS.md} is tracked as task T44.
 Table~\ref{tab:prompts} records, for each student, the work in which AI
@@ -532,9 +537,10 @@ assistance was used, a representative prompt and how the output was verified.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{AI prompt disclosure by student. Each row is drafted from the student's
-own submitted work; each student confirms the tool and replaces the prompt with
-their actual wording before submission.}
+\caption{AI prompt disclosure by student. Ahmed's row quotes actual prompt
+excerpts; the other rows are drafted from each student's submitted work, and each
+student confirms the tool and replaces the prompt with their actual wording
+before submission.}
 \label{tab:prompts}
 \begin{tabularx}{\textwidth}{@{}L{0.15\textwidth}L{0.2\textwidth}YL{0.2\textwidth}@{}}
 \toprule
@@ -552,11 +558,13 @@ Faisal Daoud Alzarooni & T40 run contract, run manifest and initialization recei
 ``Define a run manifest that checks the class map of every run, and a helper that
 hashes the starting weights and rejects a mismatch without loading the model.''
 & Synthetic \texttt{pytest} tests; CI on PRs~\#17, \#19, \#21\\
-Ahmed Almansoori & T41 training workflow, HPC study and frozen test runner &
-``Integrate the YOLOv10 fine-tuning and Optuna search with Slurm, bind every run
-to hashed inputs, and evaluate the two selected checkpoints once on the frozen
-test set.'' & Pilot and qualification jobs; independent metric recomputation;
-CI on PR~\#25\\
+Ahmed Almansoori & T41 training workflow, HPC study and frozen test runner
+(OpenAI Codex desktop app) & Actual excerpts: ``Run a bounded GPU pilot through
+Slurm, checking actual training, checkpoint saving/reloading, class mapping and
+Ali's validation objective.'' ``Use the same verified general initialization for
+untuned/tuned comparisons. Never select models or parameters using the published
+test set.'' & Slurm pilots, six generic search attempts, jobs 770/819 and frozen
+test job 820; independent checks of saved metrics; CI on PR~\#25\\
 Mohammad Arwani & T43 GUI acceptance slice (RayGuard-App) & ``Add acceptance and
 accessibility tests for the upload, review and export flows of the GUI.'' &
 Reported app test run; walkthrough pending\\

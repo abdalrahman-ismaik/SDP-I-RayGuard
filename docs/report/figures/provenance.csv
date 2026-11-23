@@ -3,7 +3,7 @@ coordinates.png,original diagram,coordinates.tex,illustrative geometry not a pre
 architecture.png,original diagram,architecture.tex and docs/architecture.md,implemented prototype versus unqualified research path distinguished,project-created
 experiments.png,original diagram,experiments.tex and docs/finetuning.md,controlled study planned not executed,project-created
 gantt.png,original schedule,gantt.tex with semester record and task records,panel A dated evidence statuses; panel B proposed work windows; effort unreported,project-created
-method.png,original diagram,method.tex,stages 1-5 executed; stage 6 software only,project-created
+method.png,original diagram,method.tex,all six stages executed; stage 6 covers the generic-explosive task only,project-created
 workflow.png,original diagram,workflow.tex and CONTRIBUTING.md (T36 protection),configured repository rules; not a claim of every PR following the bypass-free path,project-created
 t41-flow.png,original diagram,t41-flow.tex with docs/t41-results.md and docs/t41-handoff.md,executed T41 reduced generic study flow; not the original 20-attempt protocol,project-created
 t41-search.png,original chart,t41-search.tex with values from docs/t41-handoff.md,validation AP on exploratory training-split validation; one seed,project-created
@@ -11,3 +11,4 @@ t41-test.png,original chart,t41-test.tex with values from docs/t41-results.md,fr
 t41-size.png,original chart,t41-size.tex with values from docs/t41-results.md,published-test AP/AR by COCO size; single seed,project-created
 t41-oppoint.png,original chart,t41-oppoint.tex with values from docs/t41-results.md,fixed illustrative threshold 0.25 not an optimized or safety-qualified operating point,project-created
 t41-gap.png,original chart,t41-gap.tex with values from docs/t41-results.md,validation-test gap shown; validation physical independence unverified,project-created
+t41-curves.png,original chart,t41-curves.tex with figures/t41-val-ap.csv (per-epoch validation AP exported by Ahmed from jobs 770 and 819),training-split validation; one seed,project-created
