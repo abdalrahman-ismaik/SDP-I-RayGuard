@@ -3778,3 +3778,14 @@ identical to a test image can fall into validation.
   installed Chrome: build passed; 8 T43 and 157 total browser tests passed; type check, backend
   lint and 280 backend tests passed. Hosted CI had not run (fork approval required).
   Software checks on synthetic data only; the walkthrough and acceptance remain open.
+
+## 24 November 2026 — Dismantled-project methods in the report (T38)
+
+- Follows the supervisor feedback in `meeting_minutes/follow-up-report-2026-11-24.md`.
+- Added Section 1.2.5 (literature), 3.7 (model) and 4.6 (proposed methods, pipeline and
+  evaluation plan), two figures (`p2-pipeline`, `p2-kofn`) and 12 references. Reference
+  metadata was checked against Crossref, PMLR or arXiv; FALCON details come from the
+  supplied v2 paper. The other new papers were checked through metadata and, for three of
+  them, abstracts; they were not read in full. No component detector or fusion method has been
+  trained, and the k-of-4 chart is analytical.
+- Aligned the scope table, research gap, abstract, Chapter 2 and further-work item 5.

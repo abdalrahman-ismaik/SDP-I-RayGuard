@@ -91,7 +91,8 @@ The second advisor meeting (M02, 24~September~2026) set a further direction:
 threats whose components are distributed across several packages. This
 direction was not part of the original proposal and is scoped as SDP~II work.
 SDP~I contributes to it through the data collection, because the positive scans
-follow the lab's multi-bag catalogue.
+follow the lab's multi-bag catalogue, and through the literature review and method
+proposal of Sections~\ref{sec:litdismantled} and~\ref{sec:dismantled}.
 \projectrecord{docs/meeting_minutes/SDP_Meeting_02_Minutes_Fall_2026.md}
 
 \subsection{Method}
@@ -142,8 +143,10 @@ Single-scan prototype (P1) & SDP~I & Real inference, an operator workflow and
 frozen test results for the generic task & Human rehearsal; specific task\\
 Research software & SDP~I & Contracts, evaluator, qualified training and a frozen
 test runner, executed on HPC & Repeated seeds and physical-group verification\\
-Distributed inference (P2) & SDP~II & Direction set at M02; interface
-documented & Component labels, case ground truth, fusion and evaluation\\
+Dismantled project, distributed inference (P2) & SDP~II & Grouped scans
+collected; interface documented; literature reviewed and methods proposed
+(Section~\ref{sec:dismantled}) & Component labels, case ground truth, training, fusion
+and evaluation\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -243,6 +246,81 @@ option for the distributed workstream; the inspection did not establish a runnin
 multi-package solution.
 \projectrecord{docs/research.md; docs/iedxray-paper-review.md}
 
+\subsection{Methods for Dismantled and Multi-Image Threats}\label{sec:litdismantled}
+The second advisor meeting extended the project to threats that are dismantled and
+carried in several bags. After reviewing the content of this report with the team on
+24~November~2026, the supervisor suggested adding the research on the methods proposed
+for that work.
+Table~\ref{tab:litmethods} groups the relevant literature by the problem it solves.
+
+\paragraph{Compositional reasoning in one scan.}
+FALCON is the closest published work. It detects regions with a class-agnostic
+RF-DETR~\citep{robinson2026rfdetr}, pools the region features into one learned slot
+per component type, and predicts component presence, pairwise functional links and
+a scene risk before a language model explains the result. On its Falcon-X test set,
+referring functional grounding reaches 50.45 cIoU against 20.07 for the next best
+fine-tuned model, while component-presence accuracy is about 98\% for several
+fine-tuned models~\citep{michael2026falcon}. Its authors conclude that the relation
+between parts, rather than their recognition, is the harder problem on that
+benchmark. FALCON works on one image; its authors list reasoning over related scans,
+where the evidence is distributed across images, as future work. Its three component
+types (battery, detonator and main charge) also do not include wires.
+
+\paragraph{Several views of one bag.}
+Multi-view X-ray R-CNN pools features from several views in 3D by using the known
+scanner geometry and reports clear accuracy gains over single views~\citep{steitz2018multiview}.
+Isaac-Medina et al.\ relate detections in different views through epipolar
+constraints~\citep{isaacmedina2021epipolar}. Dual-view benchmarks and detectors fuse
+a main and an auxiliary view of the same bag~\citep{ma2024dvxray,tao2025ldxray}.
+These methods assume that the views show the same objects under a known geometry.
+Scans of different bags share neither, so this family can strengthen the detection
+inside each bag if the scanner provides two views, but it cannot link components
+across bags.
+
+\paragraph{Decisions over a set of images.}
+A case of several bags is an unordered set of variable size. Multiple instance
+learning (MIL) assigns one label to a set of instances~\citep{dietterich1997mil}, and
+attention-based MIL learns how much each instance contributes to that
+label~\citep{ilse2018attention}. Deep Sets characterizes functions that do not depend
+on the order of the elements~\citep{zaheer2017deepsets}, and the Set Transformer also
+models interactions between the elements~\citep{lee2019settransformer}. These methods
+need case-level labels, but they accept missing scans and any bag order.
+
+\paragraph{Small objects and reliable scores.}
+Detonators and wires are expected to appear small or thin. Slicing-aided inference runs a detector on
+overlapping tiles to recover small objects~\citep{akyon2022sahi}. Because evidence
+from several scans is combined, the scores must also be comparable: modern networks
+are often over-confident, and temperature scaling is a simple
+correction~\citep{guo2017calibration}.
+\projectrecord{docs/meeting\_minutes/follow-up-report-2026-11-24.md}
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Literature considered for the dismantled project and its use in RayGuard.}
+\label{tab:litmethods}
+\begin{tabularx}{\textwidth}{@{}L{0.2\textwidth}L{0.27\textwidth}YL{0.21\textwidth}@{}}
+\toprule
+Problem & Methods & Limit for this project & Proposed use\\
+\midrule
+Find each component & YOLOv10~\citep{wang2024yolov10};
+RF-DETR~\citep{robinson2026rfdetr}; tiled inference~\citep{akyon2022sahi} &
+Needs component boxes or masks for the collected scans & Stage~1 detector and
+comparison\\
+Relate components in one scan & FALCON~\citep{michael2026falcon}; relation
+networks~\citep{hu2018relation} & Single image; no wire class; compatibility is not
+physical connection & Later research stage\\
+Combine views of one bag & Multi-view and dual-view
+detectors~\citep{steitz2018multiview,isaacmedina2021epipolar,ma2024dvxray,tao2025ldxray}
+& Needs shared geometry; scanner views to be confirmed & Optional, inside a bag\\
+Combine different bags & MIL, attention, Deep Sets, Set
+Transformer~\citep{dietterich1997mil,ilse2018attention,zaheer2017deepsets,lee2019settransformer}
+& Needs case labels and enough groups & Learned fusion\\
+Make scores comparable & Temperature scaling~\citep{guo2017calibration} & Needs
+independent validation groups & Before any fusion\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
 \subsection{Research Gap}
 The literature review identifies three gaps that shape the RayGuard workstreams:
 \begin{enumerate}
@@ -254,7 +332,8 @@ across the supplied splits (Chapter~\ref{ch:implementation}).
 \item \textbf{Threats distributed across packages.} Detection across separately
 acquired scans requires externally justified grouping and component labels. It
 cannot be obtained by combining unrelated benchmark images. SDP~I collected the
-grouped scans; the detection method itself is the subject of SDP~II.
+grouped scans and prepared a method proposal (Section~\ref{sec:dismantled}); the
+method is implemented and evaluated in SDP~II.
 \item \textbf{Operator-facing traceability.} Published detectors report accuracy,
 but a screening aid must also separate a model confidence from an operational
 decision and record provenance through review and export. This motivates the
@@ -325,7 +404,8 @@ interfaces and contracts\\
 Ch.~\ref{ch:theory}: Theoretical Foundations & Engineering model, coordinate and
 category conventions, evaluation quantities, assumptions and limitations\\
 Ch.~\ref{ch:design}: Concept Generation and Design Evaluation & Alternative
-detectors, architectures and data policies, with the evaluation criteria\\
+detectors, architectures and data policies, with the evaluation criteria; methods
+proposed for the dismantled project\\
 Ch.~\ref{ch:implementation}: Implementation and Fabrication & Implemented
 software, dataset and collection evidence, verification results, the
 fine-tuning study and the prototype results\\

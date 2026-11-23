@@ -5,7 +5,8 @@ and the YOLOv10 detector (Section~\ref{sec:detmodel}), fixes the coordinate
 conventions (Section~\ref{sec:coords}), and derives the evaluation metrics
 (Section~\ref{sec:metrics}). It then formalizes the independence of training and
 validation data (Section~\ref{sec:partition}) and the optimization problem of the
-planned study (Section~\ref{sec:optim}), and closes with the assumptions and
+planned study (Section~\ref{sec:optim}), models the evidence of a case spread over
+several scans (Section~\ref{sec:distmodel}), and closes with the assumptions and
 limitations of the model (Section~\ref{sec:limits}).
 
 %-----------------------------------------------------------------------------
@@ -197,6 +198,69 @@ comparison but not sufficient: the code, task, partition, settings, seeds and
 budget must also match.
 
 %-----------------------------------------------------------------------------
+\section{Distributed Component Evidence}\label{sec:distmodel}
+This section defines the quantities used by the methods proposed for the dismantled
+project (Section~\ref{sec:dismantled}). They are a model for SDP~II and have not been
+evaluated on data.
+
+A \emph{case} is a set of $n$ scans $X=\{I_1,\dots,I_n\}$ grouped by an external
+record. Let $\mathcal{C}=\{E,D,B,W\}$ be the component families of the collection
+catalogue: explosive simulant, detonator simulant, battery and wire. A component
+detector gives, for scan $b$ and family $c$, the calibrated score
+\begin{equation}
+ p_{b,c}=\max_{i:\,c_i=c}\ \sigma\!\left(z_i/T_c\right),
+\end{equation}
+where $z_i$ is the logit of detection $i$, $\sigma$ is the logistic function and $T_c$
+is a temperature fitted on validation groups; $p_{b,c}=0$ when nothing is detected.
+This is the per-class binary form of temperature scaling~\citep{guo2017calibration}.
+Under the assumption that scans give independent evidence, the case-level evidence for
+family $c$ is the noisy-OR
+\begin{equation}
+ P_c(X)=1-\prod_{b=1}^{n}\left(1-p_{b,c}\right).
+\end{equation}
+With a threshold $\tau_c$ for each family, a transparent rule flags the case when at
+least $k$ families are supported:
+\begin{equation}
+ N(X)=\sum_{c\in\mathcal{C}}\mathbf{1}\!\left[P_c(X)\ge\tau_c\right],\qquad
+ \text{flag if } N(X)\ge k .
+\end{equation}
+
+The value of $k$ follows from detector recall. If each of the four components is found
+independently with recall $r$, the probability of flagging a complete case is
+\begin{equation}
+ R_k=\sum_{j=k}^{4}\binom{4}{j}\,r^{j}(1-r)^{4-j}.
+\end{equation}
+Figure~\ref{fig:kofn} plots this relation. At $r=0.8$, requiring all four components
+flags only 41.0\% of complete cases, while three of four flags 81.9\%. At $r=0.49$,
+close to the recall that the prototype reached on its different single-scan task, the values are
+5.8\% and 29.8\%. A strict completeness rule is therefore unsuitable unless the
+component detector has very high recall.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.8\textwidth]{p2-kofn.png}
+\caption{Probability of flagging a complete four-component case against the recall of
+each component, for three rules. Analytical binomial model with independent
+components and equal recall; not a measured result. The dotted line marks $r=0.8$.}
+\label{fig:kofn}
+\end{figure}
+
+False alarms grow with the number of scans. If one scan falsely supports a family with
+probability $q$, a case of $n$ independent scans does so with probability $1-(1-q)^n$;
+for example, $q=0.05$ and $n=4$ give 18.5\%. Batteries and wires also occur in ordinary
+baggage, so their genuine presence alone says little about a threat.
+Section~\ref{sec:dismantled} therefore treats the families unequally.
+
+A learned alternative replaces the rule with a set function. In Deep Sets
+form~\citep{zaheer2017deepsets},
+\begin{equation}
+ S(X)=\rho\!\left(\sum_{b=1}^{n}\phi(\mathbf{h}_b)\right),
+\end{equation}
+where $\mathbf{h}_b$ describes the component evidence of scan $b$ and $\phi,\rho$ are
+small networks. Attention-based MIL replaces the sum with a weighted sum whose learned
+weights show which scan drove the decision~\citep{ilse2018attention}. Both forms give
+the same output for any order of the bags, and a missing scan is simply left out of the set.
+
+%-----------------------------------------------------------------------------
 \section{Assumptions and Limitations}\label{sec:limits}
 Table~\ref{tab:assumptions} lists the assumptions of the engineering model and the
 consequence if each is violated.
@@ -227,6 +291,6 @@ Single-image box detection represents appearance and location. It does not
 establish chemical composition, electrical connectivity or the intent to
 assemble a device. FALCON's compositional formulation shows how relations between
 components could be modelled, but it still requires suitable supervision and
-case-level evaluation~\citep{michael2026falcon}. No aggregation rule over several
-scans is presented here as an implemented detector; that problem is addressed in
-SDP~II.
+case-level evaluation~\citep{michael2026falcon}. The aggregation rules of
+Section~\ref{sec:distmodel} are a proposed model, not an implemented detector; they
+will be tested in SDP~II.
