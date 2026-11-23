@@ -86,6 +86,23 @@ reproduces 41.5886 and 48.0502 exactly. `figures/private/` holds dataset scans a
 ignored by Git; without it the report builds with a placeholder note in place of the
 example figure.
 
+## Application walkthrough figures
+
+`tools/app_walkthrough.mjs` drives a running RayGuard-App with Playwright and saves
+screenshots of real runs; `tools/app_walkthrough_figures.py` arranges them in
+`figures/private/` (ignored by Git because they show dataset scans). Copy the `.mjs` file
+into the app's `frontend/` folder, start the app on port 8771 with the generic model and
+`demo_dir`/`demo_annotations` configured, then:
+
+```powershell
+node app_walkthrough.mjs <captures> <IEDXray/Test> Test001489.jpg 1488 2803 3369 0
+node app_walkthrough.mjs --model <captures> <IEDXray/Test> Test001489.jpg device
+```
+
+The second form is for the device and specific models (one service start per model). The
+current figures use the supplied IEDXray checkpoints, as their captions state. Relabel
+them only after recapturing with a different checkpoint and checking its hash.
+
 ## Acceptance review
 
 Use appendix R01–R15 coverage, then both handbook rubrics. Check exact app/research

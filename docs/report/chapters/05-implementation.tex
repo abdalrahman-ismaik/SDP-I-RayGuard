@@ -6,7 +6,8 @@ claim. This chapter describes the implemented software (Section~\ref{sec:softwar
 the dataset audit and collection (Section~\ref{sec:data}), the verification
 results (Section~\ref{sec:verification}), the evaluation protocol and the executed
 fine-tuning study (Section~\ref{sec:protocol}), the resulting prototype detection
-results (Section~\ref{sec:results}), and the remaining application acceptance
+results (Section~\ref{sec:results}), a walkthrough of the application
+(Section~\ref{sec:walkthrough}), and the remaining application acceptance
 (Section~\ref{sec:acceptance}).
 
 %-----------------------------------------------------------------------------
@@ -650,6 +651,116 @@ planned for SDP~II (Section~\ref{sec:further}).
 \projectrecord{docs/t41-results.md}
 
 %-----------------------------------------------------------------------------
+\section{Application Walkthrough}\label{sec:walkthrough}
+This section follows one scan through RayGuard-App, from setup to a saved review. The
+screenshots were captured on 24~November~2026 from real runs of the application
+(application code at revision \file{3488abd}, engine \file{b7ec59e}) on a CPU, at the
+fixed threshold of 25\%. Each run took about 12--17~seconds, including the start of the
+model process. The scans come from the published IEDXray test
+set~\citep{takele2026iedxray}, reproduced with attribution.
+
+\textbf{Model shown.} The screenshots use the YOLOv10-M checkpoints supplied with
+IEDXray, not the detector fine-tuned in Section~\ref{sec:results}. The generic
+checkpoint has the same architecture, task and output class as the fine-tuned model,
+whose weights are not yet integrated in the application. The walkthrough demonstrates
+the application and is not evidence of accuracy. The scans were chosen after running
+the supplied models on 260 annotated and 60 unannotated test images: two clear
+detections, one image without an annotated threat, and the missed threat already shown
+in Figure~\ref{fig:t41examples}. None of the four has an exact copy in the training set.
+
+\subsection{Inspecting One Scan}
+\begin{enumerate}
+\item \textbf{Set up.} The operator chooses an input workflow and a model. The page
+shows the model classes, the device and the threshold (Figure~\ref{fig:appsteps}a).
+\item \textbf{Load.} A bag scan is uploaded and shown before any detection. Viewing
+adjustments change the display only (Figure~\ref{fig:appsteps}b).
+\item \textbf{Run.} The operator starts inference explicitly. The scan being processed
+is kept apart from the latest completed result (Figure~\ref{fig:appsteps}c).
+\item \textbf{Inspect.} The detector marks one region inside the laptop with a score of
+91.6\%, linked to its entry in the findings list (Figure~\ref{fig:appresult}).
+\item \textbf{Trace.} The provenance tab records the run, threshold, task and checkpoint
+hash (Figure~\ref{fig:appsteps}d).
+\item \textbf{Review.} The operator adds a note and flags the scan for follow-up. The
+application states that a review does not clear or classify the item
+(Figure~\ref{fig:appsteps}e).
+\item \textbf{Record.} The session page lists every run with its status and review, and
+each run can be exported as JSON (Figure~\ref{fig:appsteps}f).
+\end{enumerate}
+
+\begin{figure}[htbp]\centering
+\IfFileExists{figures/private/app-result.png}{%
+\includegraphics[width=\textwidth]{private/app-result.png}}{%
+\fbox{\parbox{0.9\textwidth}{\centering\small Screenshots showing dataset scans are kept
+outside the repository (see \file{docs/report/README.md}).}}}
+\caption{Detection result in RayGuard-App for IEDXray scan \file{Test001489}: one region localized inside the laptop by the supplied generic-explosive checkpoint. The score is not a calibrated probability.}
+\label{fig:appresult}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\IfFileExists{figures/private/app-steps.png}{%
+\includegraphics[width=\textwidth]{private/app-steps.png}}{%
+\fbox{\parbox{0.9\textwidth}{\centering\small Screenshots showing dataset scans are kept
+outside the repository (see \file{docs/report/README.md}).}}}
+\caption{Walkthrough of one scan: (a) workspace setup, (b) scan loaded, (c) inference running, (d) provenance with checkpoint hash, (e) operator review flagged for follow-up, (f) session records. Supplied generic checkpoint; the navigation sidebar is cropped.}
+\label{fig:appsteps}
+\end{figure}
+
+\subsection{Comparison with the Reference and Other Tasks}
+In dataset replay, the application compares a saved generic result with the published
+annotation. Figure~\ref{fig:appcompare} shows two matched threats, an image without an
+annotated target and a missed threat. The last two are displayed with the message that an
+empty result is not a safety verdict. Table~\ref{tab:appcases} adds the fine-tuned models'
+results for the same scans, taken from the saved predictions of job~820 and not produced in
+the application. The fine-tuned candidate also finds the laptop threat, but it misses the
+walkie-talkie threat that the supplied model finds.
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Highest score at or above 0.25 that matches the annotation with IoU $\geq$ 0.5 on
+the walkthrough scans. Four selected images; not a comparison of model accuracy.}
+\label{tab:appcases}
+\begin{tabularx}{\textwidth}{@{}L{0.17\textwidth}YL{0.17\textwidth}L{0.15\textwidth}L{0.15\textwidth}@{}}
+\toprule
+Scan & Content & Supplied model (application) & Control (job 820) & Candidate (job 820)\\
+\midrule
+\file{Test001489} & Annotated threat in a laptop & 0.916 & 0.968 & 0.954\\
+\file{Test002804} & Annotated threat in a walkie-talkie & 0.899 & 0.525 & none (best 0.137)\\
+\file{Test003370} & Laptop, no annotated threat & no detection & no detection & no detection\\
+\file{Test000001} & Annotated threat over electronics & none & none & none\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{figure}[htbp]\centering
+\IfFileExists{figures/private/app-compare.png}{%
+\includegraphics[width=\textwidth]{private/app-compare.png}}{%
+\fbox{\parbox{0.9\textwidth}{\centering\small Screenshots showing dataset scans are kept
+outside the repository (see \file{docs/report/README.md}).}}}
+\caption{Comparison with the published annotation (dashed cyan) for the supplied generic checkpoint (amber): (a) matched threat in a laptop, (b) matched threat in a walkie-talkie, (c) no annotated target and no detection, (d) missed threat.}
+\label{fig:appcompare}
+\end{figure}
+
+The same scan can be examined with the other supplied tasks
+(Figure~\ref{fig:appmodels}). The device model localizes the laptop (91.5\%) and the
+specific-explosive model labels the region as a laptop explosive (98.3\%). Both models
+passed the application's execution check before use. The application keeps the three
+tasks separate and does not combine them into a decision.
+
+\begin{figure}[htbp]\centering
+\IfFileExists{figures/private/app-models.png}{%
+\includegraphics[width=\textwidth]{private/app-models.png}}{%
+\fbox{\parbox{0.9\textwidth}{\centering\small Screenshots showing dataset scans are kept
+outside the repository (see \file{docs/report/README.md}).}}}
+\caption{Scan \file{Test001489} with the other supplied checkpoints: (a) device detection, (b) specific-explosive detection.}
+\label{fig:appmodels}
+\end{figure}
+
+\subsection{Interface Evidence from T43}
+The interface behaviour around these steps, such as failed runs, filters, unsaved notes
+and accessibility, is covered by the eight acceptance tests of RayGuard-App PR~\#1. They
+use synthetic images and do not involve a model.
+
+%-----------------------------------------------------------------------------
 \section{Application Acceptance}\label{sec:acceptance}
 The application is accepted for the demonstration after a dated human rehearsal on
 the presentation machine, recording the application and engine revisions. The
@@ -665,5 +776,5 @@ Any pre-recorded fallback must be labelled as recorded. The hand-off of images f
 the scanner export and the current application revision also require a dated
 acceptance record. No new feature is needed only to generate contribution evidence.
 
-\pending{Approved screenshots with their application revision, references to real
-runs, a current end-to-end rehearsal and student-reviewed explanations.}
+\pending{Walkthrough with the fine-tuned checkpoint after its validation in the
+application, a current end-to-end rehearsal and student-reviewed explanations.}

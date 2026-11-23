@@ -3789,3 +3789,15 @@ identical to a test image can fall into validation.
   them, abstracts; they were not read in full. No component detector or fusion method has been
   trained, and the k-of-4 chart is analytical.
 - Aligned the scope table, research gap, abstract, Chapter 2 and further-work item 5.
+
+## 24 November 2026 — Application walkthrough in the report (T38/T43)
+
+- Section 5.6 shows real RayGuard-App runs (app `3488abd`, engine `b7ec59e`, CPU, threshold
+  0.25) on four IEDXray test scans, with the supplied IEDXray checkpoints. The fine-tuned
+  checkpoint (job 819) is not on this machine; captions and text say which model is shown.
+- Scans were chosen after running the supplied models on 260 annotated and 60 unannotated
+  test images (seed 17), plus the known miss `Test000001`. None has an exact copy in Train.
+- The table of fine-tuned results uses the saved job 820 predictions. Candidate 4 finds the
+  laptop threat in `Test001489` (0.954) and misses `Test002804` (best 0.137).
+- Screenshots stay in ignored `docs/report/figures/private/`. Next: recapture with the
+  job 819 checkpoint after its hash and loading are verified.
