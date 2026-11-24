@@ -1,4 +1,4 @@
-# Apply the report layout to the Pandoc Word file with Microsoft Word (COM).
+﻿# Apply the report layout to the Pandoc Word file with Microsoft Word (COM).
 # Called by build-docx.ps1; needs Word installed. Sets A4, 25 mm margins,
 # Times New Roman 12 pt with 1.5 spacing, booktabs-like table rules, the title
 # page, and the contents / figure / table lists (from the markers docx_prep.py
@@ -72,12 +72,13 @@ try {
     foreach ($p in $tp.Paragraphs) {
       $txt = $p.Range.Text.Trim()
       if ($txt -eq 'Khalifa University of Science and Technology') { $p.Range.Font.Size = 16; $p.Range.Font.Bold = $true }
-      if ($txt -eq 'TITLE-RAYGUARD') { $p.SpaceBefore = 36 }
+      if ($txt -eq 'TITLE-RAYGUARD') { $p.SpaceBefore = 14 }
       if ($txt -eq 'AI-Powered Explosive Detection in X-ray Scans') { $p.Range.Font.Size = 20; $p.SpaceAfter = 24 }
-      if ($txt -eq 'Senior Design Project I') { $p.Range.Font.Size = 16 }
+      if ($txt -eq 'Senior Design Project I – Final Report') { $p.Range.Font.Size = 16 }
       if ($txt -eq 'Final Report') { $p.SpaceAfter = 24 }
-      if ($txt -eq 'Team Members' -or $txt -eq 'Supervisor') { $p.Range.Font.Bold = $true; $p.SpaceBefore = 10 }
-      if ($txt -like 'Fall 2026*') { $p.SpaceBefore = 36 }
+      if ($txt -eq 'Team Members') { $p.Range.Font.Bold = $true; $p.SpaceBefore = 10 }
+      if ($txt -like 'Advisor:*') { $p.SpaceBefore = 12 }
+      if ($txt -like 'Fall 2026*') { $p.SpaceBefore = 20 }
     }
     $null = $doc.Content.Find.Execute('TITLE-RAYGUARD', $true, $false, $false, $false, $false, $true, 0, $false, 'RayGuard', 1)
     $rg = $doc.Content; $null = $rg.Find.Execute('RayGuard'); $rg.Font.Size = 32; $rg.Font.Bold = $true
@@ -104,6 +105,31 @@ try {
   Replace-Placeholder $doc 'TOC-PLACEHOLDER' 'Contents' 'TOC \o "1-3" \h \z \u'
   Replace-Placeholder $doc 'LOF-PLACEHOLDER' 'List of Figures' 'TOC \h \z \t "Image Caption,1"'
   Replace-Placeholder $doc 'LOT-PLACEHOLDER' 'List of Tables' 'TOC \h \z \t "Table Caption,1"'
+
+  # Form pages start on a new page; figure and table notes are small.
+  foreach ($p in $doc.Paragraphs) {
+    $x = $p.Range.Text
+    if ($p.Style.NameLocal -eq 'Heading 4') { $p.Range.Font.Color = 0; $p.Range.Font.Name = 'Times New Roman'; $p.Range.Font.Size = 12; $p.Range.Font.Bold = $true; $p.Range.Font.Italic = $false }
+    if ($p.Style.NameLocal -eq 'Heading 2' -and $x -like '*Declaration*') { $p.PageBreakBefore = $true }
+    if ($x.StartsWith('Note. ')) { $p.Range.Font.Size = 10; $p.LineSpacingRule = 0; $p.SpaceAfter = 12 }
+    elseif ($x.Trim() -eq 'FORMPAGE') { $p.Next().PageBreakBefore = $true; $p.Next().Alignment = 1; $null = $p.Range.Delete() }
+    elseif ($p.Style.NameLocal -eq 'Image Caption') { $p.Range.Font.Italic = $false }
+    elseif ($p.Style.NameLocal -eq 'Table Caption') { $p.Range.Font.Italic = $false }
+  }
+  # Small space between a table and the text below it.
+  foreach ($t2 in $doc.Tables) { try { $n = $t2.Range.Next(4, 1); if ($n -and -not $n.Information(12)) { $n.ParagraphFormat.SpaceBefore = 8 } } catch {} }
+  # Remove the empty paragraphs left after the title page.
+  for ($k = 1; $k -le 40; $k++) {
+    $q = $doc.Paragraphs.Item($k)
+    if ($q.Style.NameLocal -eq 'Heading 1') { break }
+    if ($q.Range.Text.Trim().Length -eq 0 -and $q.Range.InlineShapes.Count -eq 0) { $null = $q.Range.Delete(); $k-- }
+  }
+  $sec = $doc.Sections.Item(1)
+  $sec.PageSetup.DifferentFirstPageHeaderFooter = -1
+  $sec.Headers.Item(1).Range.Text = "RayGuard SDP I`tFinal Report"
+  $sec.Headers.Item(1).Range.Font.Size = 10
+  $sec.Headers.Item(1).Range.ParagraphFormat.TabStops.ClearAll()
+  $null = $sec.Headers.Item(1).Range.ParagraphFormat.TabStops.Add(160*$mm, 2)
 
   # Page numbers, then refresh every field so the lists show page numbers.
   $ftr = $doc.Sections.Item(1).Footers.Item(1)
