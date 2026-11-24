@@ -3837,4 +3837,5 @@ from the 14 November snapshot: 11 by Ali and 11 by Mohammad (totals 72 and 62; a
 files were not inspected for this note; the snapshot itself holds 478 distinct files.
 
 - 24 November: the owner reports that Prof. Werghi approved his typed name as signature on the Risk Assessment and
-  Health and Safety forms. The Safety Officer line stays blank for the Safety Officer.
+  Health and Safety forms. The owner later reported that the Safety Officer
+  approved a typed name as signature; names and signatures stay out of Git.
