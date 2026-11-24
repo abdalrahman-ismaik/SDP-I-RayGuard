@@ -304,6 +304,20 @@ unequal treatment of the families. If the data remain too few, the transparent r
 the deliverable and the learned methods are reported as exploratory.
 
 %-----------------------------------------------------------------------------
+\section{Modeling and Simulation}\label{sec:modsim}
+Two kinds of modeling support the design. The first is the mathematical model of
+Chapter~\ref{ch:theory}. Its binomial case-recall model (Figure~\ref{fig:kofn}) was evaluated
+numerically and shows that a rule requiring all four components is too strict for a
+realistic detector, which led to the $k$-of-4 rule of Section~\ref{sec:dismantled}.
+
+The second is the computational study of the detector. The search compared six settings on
+the validation set before one was selected (Figure~\ref{fig:t41search}), and the selected and
+untuned models were then evaluated on the published test set
+(Section~\ref{sec:results}). Software behaviour was tested with synthetic fixtures before
+real data were used (Section~\ref{sec:verification}). No physical X-ray simulation was
+performed, because real scans were available.
+
+%-----------------------------------------------------------------------------
 \section{Realistic Constraints, Standards and Ethics}\label{sec:realistic}
 
 \subsection{Realistic Constraints}

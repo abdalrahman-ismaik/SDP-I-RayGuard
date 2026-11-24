@@ -524,3 +524,33 @@ contracts\\
 \bottomrule
 \end{longtable}
 \endgroup
+
+\section{Software Listing}
+The complete source code is in the two repositories of Table~\ref{tab:repos}.
+Table~\ref{tab:software} lists the main files. Paths starting with \file{app:} are in
+RayGuard-App; the others are in the research repository.
+
+\begingroup\tablesetup
+\begin{longtable}{@{}L{0.46\textwidth}L{0.49\textwidth}@{}}
+\caption{Main software files.}\label{tab:software}\\
+\toprule File & Purpose\\\midrule\endfirsthead
+\toprule File & Purpose\\\midrule\endhead
+\file{src/sdp_xray/common/contracts.py} & Scan and detection contracts\\
+\file{src/sdp_xray/common/run_manifest.py} & Run manifest\\
+\file{src/sdp_xray/baseline.py} & Baseline records and run planning\\
+\file{src/sdp_xray/initialization.py} & Initialization receipt\\
+\file{src/sdp_xray/evaluation.py} & Evaluator and matched comparison\\
+\file{src/sdp_xray/coco_metrics.py} & COCO metrics\\
+\file{src/sdp_xray/box_repair.py} & Training-box repair\\
+\file{src/sdp_xray/training_partition.py} & Training and validation partition\\
+\file{src/sdp_xray/tuning.py} & Optuna search\\
+\file{src/sdp_xray/training_workflow.py} & Training workflow\\
+\file{scripts/evaluate_t41_frozen.py} & Frozen test runner\\
+\file{docs/report/tools/t41_figures.py} & Recomputed metrics and figures\\
+\file{app:backend/src/rayguard_gui/api.py} & Application API\\
+\file{app:backend/src/rayguard_gui/runner.py} & Model execution\\
+\file{app:backend/src/rayguard_gui/comparison.py} & Comparison with annotations\\
+\file{app:frontend/src/App.tsx} & Operator interface\\
+\bottomrule
+\end{longtable}
+\endgroup
