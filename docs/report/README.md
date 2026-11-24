@@ -16,7 +16,7 @@ From this directory, with MiKTeX/TeX Live and Python-independent native tools:
 
 ```powershell
 New-Item -ItemType Directory -Force build | Out-Null
-foreach ($name in @('coordinates','architecture','experiments','gantt','method','workflow','t41-flow','t41-search','t41-test','t41-size','t41-oppoint','t41-gap','t41-curves','t41-pr')) {
+foreach ($name in @('coordinates','architecture','experiments','gantt','method','workflow','t41-flow','t41-search','t41-test','t41-size','t41-oppoint','t41-gap','t41-curves','t41-pr','p2-pipeline','p2-kofn')) {
     lualatex -interaction=nonstopmode -halt-on-error -output-directory=build "figures/$name.tex"
     pdftoppm -png -singlefile -r 180 "build/$name.pdf" "figures/$name"
 }
@@ -33,6 +33,10 @@ illustrations; see the provenance register. No raw scans or research PDF reprodu
 are included. Compile and inspect every page; missing references/assets, overflow and
 unreadable figures block final delivery. Typical handbook length is guidance; do not pad.
 
+Student IDs (`private/student-ids.tex`), typed signatures (`private/signatures.tex`) and the KU logo
+(`figures/private/ku-logo.png`) are ignored by Git. Without them the build shows placeholders, blank
+signature lines and the university name.
+
 ## Sources and Word path
 
 The ten research entries were checked against supplied papers and primary arXiv
@@ -44,8 +48,8 @@ The bibliography is a starting research record, not a claim that all cited exper
 were reproduced. The mistaken exploratory lookup of arXiv:1312.6114 is excluded because
 it is unrelated to the report's optimizer discussion.
 
-LaTeX remains canonical. A Word copy is required under the current course notice unless
-PDF acceptance is confirmed. Conversion alone is not acceptance: compare equations,
+LaTeX remains canonical. PDF submission was accepted on 24 November 2026, so the Word copy below is
+optional; its title page and forms no longer match `main.tex`. Conversion alone is not acceptance: compare equations,
 captions, figure/table references, citations and pagination with the PDF. No Word copy is
 marked ready until rendering and content/layout comparison pass.
 
@@ -85,6 +89,23 @@ The script checks the prediction and annotation hashes and stops unless AP@[.50:
 reproduces 41.5886 and 48.0502 exactly. `figures/private/` holds dataset scans and is
 ignored by Git; without it the report builds with a placeholder note in place of the
 example figure.
+
+## Application walkthrough figures
+
+`tools/app_walkthrough.mjs` drives a running RayGuard-App with Playwright and saves
+screenshots of real runs; `tools/app_walkthrough_figures.py` arranges them in
+`figures/private/` (ignored by Git because they show dataset scans). Copy the `.mjs` file
+into the app's `frontend/` folder, start the app on port 8771 with the generic model and
+`demo_dir`/`demo_annotations` configured, then:
+
+```powershell
+node app_walkthrough.mjs <captures> <IEDXray/Test> Test001489.jpg 1488 2803 3369 0
+node app_walkthrough.mjs --model <captures> <IEDXray/Test> Test001489.jpg device
+```
+
+The second form is for the device and specific models (one service start per model). The
+current figures use the supplied IEDXray checkpoints, as their captions state. Relabel
+them only after recapturing with a different checkpoint and checking its hash.
 
 ## Acceptance review
 

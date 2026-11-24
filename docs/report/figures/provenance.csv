@@ -2,7 +2,7 @@ asset,kind,source,evidence_boundary,reuse
 coordinates.png,original diagram,coordinates.tex,illustrative geometry not a prediction,project-created
 architecture.png,original diagram,architecture.tex and docs/architecture.md,implemented prototype versus unqualified research path distinguished,project-created
 experiments.png,original diagram,experiments.tex and docs/finetuning.md,controlled study planned not executed,project-created
-gantt.png,original schedule,gantt.tex with semester record and task records,panel A dated evidence statuses; panel B proposed work windows; effort unreported,project-created
+gantt.png,original schedule,gantt.tex with semester record and task records,landscape chart; research and collection periods reported by the team; effort unreported,project-created
 method.png,original diagram,method.tex,all six stages executed; stage 6 covers the generic-explosive task only,project-created
 workflow.png,original diagram,workflow.tex and CONTRIBUTING.md (T36 protection),configured repository rules; not a claim of every PR following the bypass-free path,project-created
 t41-flow.png,original diagram,t41-flow.tex with docs/t41-results.md and docs/t41-handoff.md,executed T41 reduced generic study flow; not the original 20-attempt protocol,project-created
@@ -14,3 +14,7 @@ t41-gap.png,original chart,t41-gap.tex with values from docs/t41-results.md,vali
 t41-curves.png,original chart,t41-curves.tex with figures/t41-val-ap.csv (per-epoch validation AP exported by Ahmed from jobs 770 and 819),training-split validation; one seed,project-created
 t41-pr.png,original chart,t41-pr.tex with figures/t41-pr.csv from tools/t41_figures.py (saved job-820 predictions; pycocotools 2.0.11),curve averages reproduce published-test AP50/AP75 exactly; descriptive,project-created
 private/t41-ex-*.png,annotated dataset images (not in Git),tools/t41_figures.py on IEDXray Test000001/004918/000071 and saved job-820 predictions,descriptive post-test inspection; image hashes match the frozen plan,IEDXray images reproduced with attribution; overlays project-created
+p2-pipeline.png,original diagram,p2-pipeline.tex and Section 4.6,proposed SDP II pipeline; no stage trained or evaluated,project-created
+p2-kofn.png,original chart,p2-kofn.tex binomial formula,analytical model with independent components; not measured,project-created
+private/app-*.png,application screenshots,tools/app_walkthrough.mjs; runs of 24 November 2026,real app runs with supplied IEDXray checkpoints (not the fine-tuned model),IEDXray test scans with attribution; not committed
+private/ku-logo.png,university logo,local Khalifa University brand file,title page only as requested by the course,not committed

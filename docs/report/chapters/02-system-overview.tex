@@ -38,8 +38,7 @@ category identifier can have different meanings in different tasks.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Detection tasks supported by the system, following the IEDXray
-benchmark.}
+\caption{Detection tasks supported by the system.}
 \label{tab:dettasks}
 \begin{tabularx}{\textwidth}{@{}L{0.26\textwidth}YL{0.26\textwidth}@{}}
 \toprule
@@ -53,6 +52,7 @@ Specific explosive detection & Boxes around explosive material, labelled by
 category & Finer description of the threat\\
 \bottomrule
 \end{tabularx}
+\floatnote{The tasks follow the IEDXray benchmark.}
 \end{table}
 
 %-----------------------------------------------------------------------------
@@ -63,8 +63,7 @@ on 22~November~2026.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Functional requirements of the SDP~I system, their source in the
-proposal and their status.}
+\caption{Functional requirements of the SDP~I system.}
 \label{tab:requirements}
 \begin{tabularx}{\textwidth}{@{}lYL{0.15\textwidth}L{0.27\textwidth}@{}}
 \toprule
@@ -224,9 +223,8 @@ decision rule; neither is implied by selecting a checkpoint in the interface.
 Detection of threats distributed across several bags is SDP~II work. Its input
 interface is already defined: a case groups several scan results under an
 externally supplied case identifier and records the provenance of the grouping.
-Component-level evidence, case ground truth and the fusion method remain to be
-developed in SDP~II.
+Section~\ref{sec:dismantled} proposes the methods; component-level evidence, case
+ground truth and the fusion itself remain to be developed in SDP~II.
 
-\pending{Supervisor acceptance of the requirement and specification mapping,
-qualification on the presentation machine, and confirmation of the scanner export
-hand-off.}
+Supervisor acceptance of this mapping, qualification on the presentation machine and the
+scanner export hand-off remain open.

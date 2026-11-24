@@ -6,7 +6,8 @@ claim. This chapter describes the implemented software (Section~\ref{sec:softwar
 the dataset audit and collection (Section~\ref{sec:data}), the verification
 results (Section~\ref{sec:verification}), the evaluation protocol and the executed
 fine-tuning study (Section~\ref{sec:protocol}), the resulting prototype detection
-results (Section~\ref{sec:results}), and the remaining application acceptance
+results (Section~\ref{sec:results}), a walkthrough of the application
+(Section~\ref{sec:walkthrough}), and the remaining application acceptance
 (Section~\ref{sec:acceptance}).
 
 %-----------------------------------------------------------------------------
@@ -21,8 +22,7 @@ evidence behind it.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Implemented software components, integration record and evidence level
-on 23~November~2026.}
+\caption{Implemented software components.}
 \label{tab:components-sw}
 \begin{tabularx}{\textwidth}{@{}L{0.22\textwidth}YL{0.2\textwidth}L{0.17\textwidth}@{}}
 \toprule
@@ -46,6 +46,7 @@ Operator application & Image intake, localization, review, notes and export &
 RayGuard-App & Executed on real scans\\
 \bottomrule
 \end{tabularx}
+\floatnote{Integration record and evidence level on 23~November~2026.}
 \end{table}
 
 \subsection{Operator Application}
@@ -95,10 +96,9 @@ Section~\ref{sec:protocol}.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\textwidth]{experiments.png}
-\caption{Experiment design. The upper path reproduces the supplied checkpoint;
-the lower path is the controlled study, executed in reduced form as shown in
-Figure~\ref{fig:t41flow}.}
+\caption{Experiment design.}
 \label{fig:experiments}
+\floatnote{The upper path reproduces the supplied checkpoint; the lower path is the controlled study, executed in reduced form as shown in Figure~\ref{fig:t41flow}.}
 \end{figure}
 
 %-----------------------------------------------------------------------------
@@ -162,9 +162,7 @@ design serves the single-scan task now and the distributed task of SDP~II later.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Component families and item variants of the collection catalogue. All
-items are labelled laboratory items; explosive and detonator items are
-simulants.}
+\caption{Component families of the collection catalogue.}
 \label{tab:components}
 \begin{tabularx}{\textwidth}{@{}L{0.24\textwidth}L{0.16\textwidth}Y@{}}
 \toprule
@@ -176,6 +174,7 @@ Battery & B1--B3 & Power source\\
 Wire & W1--W2 & Electrical connection\\
 \bottomrule
 \end{tabularx}
+\floatnote{All items are labelled laboratory items; explosive and detonator items are simulants.}
 \end{table}
 
 Table~\ref{tab:catalogue} summarizes the structure of the catalogue. Every student
@@ -205,7 +204,9 @@ Item variants & All twelve variants of Table~\ref{tab:components}\\
 \end{tabularx}
 \end{table}
 
-The sessions were held between 29~September and 9~October~2026 according to the
+The collection activity ran from 28~September to 4~November~2026, as reported by the
+team. The scan files in the laboratory snapshot are dated 29~September to
+9~October~2026. The sessions followed the
 schedule agreed with the laboratory (Appendix~\ref{app:management}). The team
 completed the 500 catalogue configurations of Round~1. Table~\ref{tab:collection}
 gives the snapshot of the laboratory computer taken on 14~November~2026, which
@@ -217,9 +218,7 @@ decoded without error.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Distinct image files per student in the laboratory snapshot of
-14~November~2026, with the scan dates taken from the file names. The snapshot
-does not contain all 500 collected scans.}
+\caption{Distinct image files per student.}
 \label{tab:collection}
 \begin{tabularx}{\textwidth}{@{}L{0.3\textwidth}rY@{}}
 \toprule
@@ -234,6 +233,7 @@ Mohammad Arwani & 51 & 29 Sep (32), 6 Oct (19)\\
 Total in snapshot & 478 & 29 Sep -- 9 Oct 2026\\
 \bottomrule
 \end{tabularx}
+\floatnote{Laboratory snapshot of 14~November~2026, with the scan dates taken from the file names. The snapshot does not contain all 500 collected scans.}
 \end{table}
 
 \subsection{Negative Scans}
@@ -268,8 +268,7 @@ quality.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Software checks recorded during integration, 21--23~November~2026. All
-tests use synthetic fixtures.}
+\caption{Software checks recorded during integration.}
 \label{tab:checks}
 \begin{tabularx}{\textwidth}{@{}L{0.24\textwidth}L{0.24\textwidth}Y@{}}
 \toprule
@@ -287,6 +286,7 @@ Required CI & Ubuntu and Windows checks passed & Hosted CPU checks before merge;
 no GPU or accuracy evidence\\
 \bottomrule
 \end{tabularx}
+\floatnote{Recorded 21--23~November~2026. All tests use synthetic fixtures.}
 \end{table}
 
 \subsection{Diagnostic Inference}
@@ -355,15 +355,14 @@ Deferred & Specific-explosive task; seeds 29 and 43; full 20-attempt search\\
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\textwidth]{t41-flow.png}
-\caption{Executed T41 study. Blue stages use the training split only; orange
-stages touch the published test set once, after both checkpoints were fixed.}
+\caption{Executed T41 study.}
 \label{fig:t41flow}
+\floatnote{Blue stages use the training split only; orange stages touch the published test set once, after both checkpoints were fixed.}
 \end{figure}
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Hyperparameters of the untuned control and the selected search
-candidate. All other settings are identical.}
+\caption{Hyperparameters of the control and the candidate.}
 \label{tab:hyper}
 \begin{tabular}{@{}lrr@{}}
 \toprule
@@ -376,6 +375,7 @@ Weight decay & 0.0005 & 0.000133\\
 Mosaic probability & 0.0 & 0.394\\
 \bottomrule
 \end{tabular}
+\floatnote{Untuned control and selected search candidate. All other settings are identical.}
 \end{table}
 
 %-----------------------------------------------------------------------------
@@ -399,8 +399,7 @@ failure, and every job stayed within its four-hour limit.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{T41 training jobs. Validation AP@[.50:.95] in percent on the
-training-split validation set.}
+\caption{T41 training jobs.}
 \label{tab:t41jobs}
 \begin{tabular}{@{}llllr@{}}
 \toprule
@@ -416,13 +415,14 @@ Control confirmation & 770 & 100 epochs; epoch 68 kept & 2:47:35 & 87.71\\
 Candidate confirmation & 819 & 100 epochs; epoch 84 kept & 2:46:49 & 87.48\\
 \bottomrule
 \end{tabular}
+\floatnote{Validation AP@[.50:.95] in percent on the training-split validation set.}
 \end{table}
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=0.9\textwidth]{t41-search.png}
-\caption{Validation AP of the six search attempts after 30 epochs and of the two
-100-epoch confirmations (dashed). Attempt 0 failed and has no score.}
+\caption{Validation AP of the search attempts.}
 \label{fig:t41search}
+\floatnote{Six attempts after 30 epochs and two 100-epoch confirmations (dashed). Attempt 0 failed and has no score.}
 \end{figure}
 
 In confirmation, the candidate scored 0.22 percentage points below the control
@@ -439,9 +439,9 @@ that further epochs alone would not have raised validation AP.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=0.95\textwidth]{t41-curves.png}
-\caption{Validation AP after each epoch of the two 100-epoch confirmation runs;
-markers show the selected epochs.}
+\caption{Validation AP per epoch of the confirmation runs.}
 \label{fig:t41curves}
+\floatnote{Two 100-epoch runs; markers show the selected epochs.}
 \end{figure}
 
 \subsection{Frozen Test Results}
@@ -456,8 +456,7 @@ and~\ref{fig:t41size} plot them.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Frozen published-test results of the generic detector (percent). These
-are project measurements, not the scores published for IEDXray.}
+\caption{Frozen test results of the generic detector.}
 \label{tab:t41test}
 \begin{tabular}{@{}lrrr@{}}
 \toprule
@@ -475,20 +474,21 @@ AR small / medium / large & 50.70 / 46.98 / 51.24 & 37.89 / 51.43 / 56.68 & \\
 Validation AP@[.50:.95] & 87.71 & 87.48 & $-0.22$\\
 \bottomrule
 \end{tabular}
+\floatnote{Values in percent on the published test set. These are project measurements, not the scores published for IEDXray.}
 \end{table}
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=0.9\textwidth]{t41-test.png}
-\caption{Published-test COCO metrics of the untuned control and the selected
-candidate, both trained for up to 100 epochs from the same starting weights.}
+\caption{Test COCO metrics of the control and the candidate.}
 \label{fig:t41test}
+\floatnote{Published test set; both models were trained for up to 100 epochs from the same starting weights.}
 \end{figure}
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\textwidth]{t41-size.png}
-\caption{Published-test AP and AR by COCO object size. The candidate is better on
-medium and large objects and worse on small ones.}
+\caption{Test AP and AR by object size.}
 \label{fig:t41size}
+\floatnote{COCO object sizes on the published test set. The candidate is better on medium and large objects and worse on small ones.}
 \end{figure}
 
 The candidate scored 6.46 percentage points higher test AP than the control, with
@@ -510,10 +510,9 @@ many detections are found but poorly localized.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=0.85\textwidth]{t41-pr.png}
-\caption{Precision--recall curves on the published test set at IoU 0.50 (solid)
-and 0.75 (dashed), computed with pycocotools from the saved predictions of job
-820. Curves end at the highest recall each model reaches.}
+\caption{Precision--recall curves on the test set.}
 \label{fig:t41pr}
+\floatnote{IoU 0.50 (solid) and 0.75 (dashed), computed with pycocotools from the saved predictions of job 820. Curves end at the highest recall each model reaches.}
 \end{figure}
 
 \subsection{Fixed Operating Point}
@@ -524,8 +523,7 @@ Figure~\ref{fig:t41op} and Table~\ref{tab:t41op} show the counts.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Detection counts at confidence 0.25 and IoU 0.50 on the published test
-set (3,204 annotated boxes).}
+\caption{Detection counts at the fixed operating point.}
 \label{tab:t41op}
 \begin{tabular}{@{}lrr@{}}
 \toprule
@@ -539,13 +537,14 @@ Precision (\%) & 89.00 & 95.08\\
 Recall (\%) & 48.75 & 48.28\\
 \bottomrule
 \end{tabular}
+\floatnote{Confidence 0.25 and IoU 0.50 on the published test set (3,204 annotated boxes).}
 \end{table}
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\textwidth]{t41-oppoint.png}
-\caption{Detected and missed annotated boxes (left) and false positives (right)
-at the fixed operating point.}
+\caption{Detected, missed and false boxes at the operating point.}
 \label{fig:t41op}
+\floatnote{Left: detected and missed annotated boxes. Right: false positives.}
 \end{figure}
 
 At this threshold the candidate produced 59\% fewer false positives, raising
@@ -585,12 +584,9 @@ the models' detections.
 \fbox{\parbox{0.9\textwidth}{\centering\small The annotated test images are kept
 outside the repository. Build them with \file{docs/report/tools/t41_figures.py}
 (see \file{docs/report/README.md}).}}}
-\caption{Inspected test images: untuned control (left) and candidate~4 (right).
-Magenta: annotated threat; blue or orange: detection at confidence $\geq 0.25$;
-grey: the model's highest-scoring detection below 0.25, with its score. Images
-from the published IEDXray test set~\citep{takele2026iedxray}, reproduced with
-attribution; overlays added by the team.}
+\caption{Inspected test images.}
 \label{fig:t41examples}
+\floatnote{Untuned control (left) and candidate~4 (right). Magenta: annotated threat; blue or orange: detection at confidence $\geq 0.25$; grey: the model's highest-scoring detection below 0.25, with its score. Images from the published IEDXray test set~\citep{takele2026iedxray}, reproduced with attribution; overlays added by the team.}
 \end{figure}
 
 \subsection{Latency and Resources}
@@ -605,8 +601,7 @@ memory allocated by the inference process was 233~MB for the control and
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Inference time per image on the published test set (5,136 images per
-model; milliseconds).}
+\caption{Inference time per image.}
 \label{tab:t41latency}
 \begin{tabular}{@{}lrrrr@{}}
 \toprule
@@ -618,6 +613,7 @@ Predictor call (end to end) & 7.395 & 8.086 & 7.387 & 7.886\\
 Model inference only & 5.589 & 5.713 & 5.583 & 5.691\\
 \bottomrule
 \end{tabular}
+\floatnote{Published test set, 5,136 images per model; milliseconds.}
 \end{table}
 
 \subsection{Discussion and Limitations}
@@ -635,10 +631,9 @@ realistic estimate, but it is not an unseen-case benchmark.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=0.62\textwidth]{t41-gap.png}
-\caption{Validation versus published-test AP for both models. The gaps of 46.1
-(untuned) and 39.4 (tuned) percentage points indicate optimistic validation on a
-split without verified physical groups.}
+\caption{Validation and test AP of both models.}
 \label{fig:t41gap}
+\floatnote{The gaps of 46.1 (untuned) and 39.4 (tuned) percentage points indicate optimistic validation on a split without verified physical groups.}
 \end{figure}
 
 The remaining limits follow from the reduced scope. Only one training seed was
@@ -648,6 +643,120 @@ deferred. The results concern single-scan generic detection and do not evaluate
 host association or threats distributed across several bags. These experiments are
 planned for SDP~II (Section~\ref{sec:further}).
 \projectrecord{docs/t41-results.md}
+
+%-----------------------------------------------------------------------------
+\section{Application Walkthrough}\label{sec:walkthrough}
+This section follows one scan through RayGuard-App, from setup to a saved review. The
+screenshots were captured on 24~November~2026 from real runs of the application
+(application code at revision \file{3488abd}, engine \file{b7ec59e}) on a CPU, at the
+fixed threshold of 25\%. Each run took about 12--17~seconds, including the start of the
+model process. The scans come from the published IEDXray test
+set~\citep{takele2026iedxray}, reproduced with attribution.
+
+\textbf{Model shown.} The screenshots use the YOLOv10-M checkpoints supplied with
+IEDXray, not the detector fine-tuned in Section~\ref{sec:results}. The generic
+checkpoint has the same architecture, task and output class as the fine-tuned model,
+whose weights are not yet integrated in the application. The walkthrough demonstrates
+the application and is not evidence of accuracy. The scans were chosen after running
+the supplied models on 260 annotated and 60 unannotated test images: two clear
+detections, one image without an annotated threat, and the missed threat already shown
+in Figure~\ref{fig:t41examples}. None of the four has an exact copy in the training set.
+
+\subsection{Inspecting One Scan}
+\begin{enumerate}
+\item \textbf{Set up.} The operator chooses an input workflow and a model. The page
+shows the model classes, the device and the threshold (Figure~\ref{fig:appsteps}a).
+\item \textbf{Load.} A bag scan is uploaded and shown before any detection. Viewing
+adjustments change the display only (Figure~\ref{fig:appsteps}b).
+\item \textbf{Run.} The operator starts inference explicitly. The scan being processed
+is kept apart from the latest completed result (Figure~\ref{fig:appsteps}c).
+\item \textbf{Inspect.} The detector marks one region inside the laptop with a score of
+91.6\%, linked to its entry in the findings list (Figure~\ref{fig:appresult}).
+\item \textbf{Trace.} The provenance tab records the run, threshold, task and checkpoint
+hash (Figure~\ref{fig:appsteps}d).
+\item \textbf{Review.} The operator adds a note and flags the scan for follow-up. The
+application states that a review does not clear or classify the item
+(Figure~\ref{fig:appsteps}e).
+\item \textbf{Record.} The session page lists every run with its status and review, and
+each run can be exported as JSON (Figure~\ref{fig:appsteps}f).
+\end{enumerate}
+
+\begin{figure}[htbp]\centering
+\IfFileExists{figures/private/app-result.png}{%
+\includegraphics[width=\textwidth]{private/app-result.png}}{%
+\fbox{\parbox{0.9\textwidth}{\centering\small Screenshots showing dataset scans are kept
+outside the repository (see \file{docs/report/README.md}).}}}
+\caption{Detection result in RayGuard-App.}
+\label{fig:appresult}
+\floatnote{IEDXray scan \file{Test001489}~\citep{takele2026iedxray}: one region localized inside the laptop by the supplied generic-explosive checkpoint. The score is not a calibrated probability.}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\IfFileExists{figures/private/app-steps.png}{%
+\includegraphics[width=\textwidth]{private/app-steps.png}}{%
+\fbox{\parbox{0.9\textwidth}{\centering\small Screenshots showing dataset scans are kept
+outside the repository (see \file{docs/report/README.md}).}}}
+\caption{Walkthrough of one scan.}
+\label{fig:appsteps}
+\floatnote{(a) Workspace setup, (b) scan loaded, (c) inference running, (d) provenance with checkpoint hash, (e) operator review flagged for follow-up, (f) session records. Supplied generic checkpoint; the navigation sidebar is cropped.}
+\end{figure}
+
+\subsection{Comparison with the Reference and Other Tasks}
+In dataset replay, the application compares a saved generic result with the published
+annotation. Figure~\ref{fig:appcompare} shows two matched threats, an image without an
+annotated target and a missed threat. The last two are displayed with the message that an
+empty result is not a safety verdict. Table~\ref{tab:appcases} adds the fine-tuned models'
+results for the same scans, taken from the saved predictions of job~820 and not produced in
+the application. The fine-tuned candidate also finds the laptop threat, but it misses the
+walkie-talkie threat that the supplied model finds.
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Matching scores on the walkthrough scans.}
+\label{tab:appcases}
+\begin{tabularx}{\textwidth}{@{}L{0.17\textwidth}YL{0.17\textwidth}L{0.15\textwidth}L{0.15\textwidth}@{}}
+\toprule
+Scan & Content & Supplied model (application) & Control (job 820) & Candidate (job 820)\\
+\midrule
+\file{Test001489} & Annotated threat in a laptop & 0.916 & 0.968 & 0.954\\
+\file{Test002804} & Annotated threat in a walkie-talkie & 0.899 & 0.525 & none (best 0.137)\\
+\file{Test003370} & Laptop, no annotated threat & no detection & no detection & no detection\\
+\file{Test000001} & Annotated threat over electronics & none & none & none\\
+\bottomrule
+\end{tabularx}
+\floatnote{Highest score at or above 0.25 that matches the annotation with IoU $\geq$ 0.5. Four selected images; not a comparison of model accuracy.}
+\end{table}
+
+\begin{figure}[htbp]\centering
+\IfFileExists{figures/private/app-compare.png}{%
+\includegraphics[width=\textwidth]{private/app-compare.png}}{%
+\fbox{\parbox{0.9\textwidth}{\centering\small Screenshots showing dataset scans are kept
+outside the repository (see \file{docs/report/README.md}).}}}
+\caption{Comparison with the published annotation.}
+\label{fig:appcompare}
+\floatnote{Annotation in dashed cyan, supplied generic checkpoint in amber: (a) matched threat in a laptop, (b) matched threat in a walkie-talkie, (c) no annotated target and no detection, (d) missed threat.}
+\end{figure}
+
+The same scan can be examined with the other supplied tasks
+(Figure~\ref{fig:appmodels}). The device model localizes the laptop (91.5\%) and the
+specific-explosive model labels the region as a laptop explosive (98.3\%). Both models
+passed the application's execution check before use. The application keeps the three
+tasks separate and does not combine them into a decision.
+
+\begin{figure}[htbp]\centering
+\IfFileExists{figures/private/app-models.png}{%
+\includegraphics[width=\textwidth]{private/app-models.png}}{%
+\fbox{\parbox{0.9\textwidth}{\centering\small Screenshots showing dataset scans are kept
+outside the repository (see \file{docs/report/README.md}).}}}
+\caption{One scan with the other supplied checkpoints.}
+\label{fig:appmodels}
+\floatnote{Scan \file{Test001489}: (a) device detection, (b) specific-explosive detection. Supplied IEDXray checkpoints.}
+\end{figure}
+
+\subsection{Interface Evidence from T43}
+The interface behaviour around these steps, such as failed runs, filters, unsaved notes
+and accessibility, is covered by the eight acceptance tests of RayGuard-App PR~\#1. They
+use synthetic images and do not involve a model.
 
 %-----------------------------------------------------------------------------
 \section{Application Acceptance}\label{sec:acceptance}
@@ -665,5 +774,5 @@ Any pre-recorded fallback must be labelled as recorded. The hand-off of images f
 the scanner export and the current application revision also require a dated
 acceptance record. No new feature is needed only to generate contribution evidence.
 
-\pending{Approved screenshots with their application revision, references to real
-runs, a current end-to-end rehearsal and student-reviewed explanations.}
+The walkthrough with the fine-tuned checkpoint and a current end-to-end rehearsal remain
+open at the date of this report.
