@@ -58,7 +58,7 @@ tp_end = body.index(BS + "end{titlepage}") + len(BS + "end{titlepage}")
 title = r"""
 TITLEPAGE-START
 
-Khalifa University of Science and Technology
+LOGO-LINE
 
 College of Computing and Mathematical Sciences
 
@@ -68,9 +68,11 @@ TITLE-RAYGUARD
 
 AI-Powered Explosive Detection in X-ray Scans
 
-Senior Design Project I
+\textit{A research prototype that localizes explosive threats concealed in electronic devices in X-ray baggage scans, for review by a human operator.}
 
-Final Report
+Senior Design Project I -- Final Report
+
+Project COSC01
 
 Team Members
 
@@ -84,27 +86,21 @@ Mohammad Arwani --- ID-D
 
 Ahmed Almansoori --- ID-E
 
-Supervisor
+Advisor: Prof. Naoufel Werghi
 
-Prof. Naoufel Werghi
+Examiner: Dr. Sajid Javed
 
-Fall 2026 --- November 2026
+Fall 2026 --- 24 November 2026
 
 TITLEPAGE-END
 """
+if (root / "figures/private/ku-logo.png").exists():
+    title = title.replace("LOGO-LINE", r"\includegraphics[width=0.45\textwidth]{private/ku-logo.png}")
+else:
+    title = title.replace("LOGO-LINE", "Khalifa University of Science and Technology")
 ids_file = root / "private" / "student-ids.tex"
 ids = dict(re.findall(r"studentid([A-E])\}\{([^}]*)\}", ids_file.read_text(encoding="utf-8"))) if ids_file.exists() else {}
 title = re.sub(r"ID-([A-E])", lambda m: ids.get(m.group(1), "ID number"), title)
-# Keep this block in step with the titlepage in main.tex.
-tp_src = body[tp_start:tp_end]
-tp_plain = re.sub(r"\\[a-zA-Z]+|\[[^\]]*\]|[{}\\]", " ", tp_src)
-tp_plain = " ".join(tp_plain.split())
-for line in title.strip().splitlines():
-    text = line.split(" --- ")[0].strip()
-    if not text or text.isupper():  # blank lines and markers
-        continue
-    if text not in tp_plain:
-        sys.exit(f"Title page text not found in main.tex: {text!r}; update docx_prep.py")
 body = body[:tp_start] + title + body[tp_end:]
 
 # Front-matter commands Pandoc cannot render; TOC/LoF/LoT are inserted in Word.
@@ -131,6 +127,30 @@ def resolve_if_exists(text):
 
 
 body = resolve_if_exists(body)
+
+# Notes: move out of the float so that they become a paragraph below it.
+key = BS + "floatnote{"
+while key in body:
+    i = body.index(key)
+    note, j = braced(body, i + len(key) - 1)
+    ends = [(body.find(BS + "end{%s}" % e, j), e) for e in ("figure", "table")]
+    pos, env = min(x for x in ends if x[0] >= 0)
+    pos += len(BS + "end{%s}" % env)
+    body = body[:i] + body[j:pos] + "\n\n" + BS + "textit{Note.} " + note + "\n\n" + body[pos:]
+
+# Group rows of the contribution table: plain cells, since Pandoc drops the table otherwise.
+body = re.sub(r"(?:\\midrule\s*)?\\multicolumn\{4\}\{@\{\}l\}\{(\\textbf\{[^}]*\})\}", lambda m: m.group(1) + " & & & ", body)
+body = body.replace(BS + "begin{tabular}{@{}lllll@{}}" + "\n", BS + "begin{tabular}{@{}lllll@{}}" + "\nName & & Signature & & Date" + BS * 2 + BS + "midrule\n")
+# Official forms: page images rendered from the PDF (build-docx prerequisite).
+i = body.index(BS + "newcommand{" + BS + "vhead}")
+j = body.index(BS + "section{Declaration}")
+forms = "".join("\n\nFORMPAGE\n\n" + BS + "includegraphics[width=0.98" + BS + "textwidth]{../build/form-%d.png}\n\n" % n for n in (1, 2, 3))
+body = body[:i] + forms + body[j:]
+sigs = root / "private/signatures.tex"
+if sigs.exists():
+    for name, val in re.findall(r"newcommand\{\\(sig[A-Za-z]+)\}\{(.*)\}", sigs.read_text(encoding="utf-8")):
+        body = re.sub(BS * 2 + name + r"(?![A-Za-z])", lambda m, v=val: v, body)
+body = body.replace("[width=" + BS + "textwidth,height=0.87" + BS + "textheight,keepaspectratio]{gantt.png}", "[width=0.95" + BS + "textwidth]{gantt.png}")
 
 # Macros.
 body = re.sub(r"\\begingroup\\tablesetup|\\endgroup|\\tablesetup", "", body)
