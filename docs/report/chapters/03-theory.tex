@@ -86,9 +86,9 @@ related by
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=0.82\textwidth]{coordinates.png}
-\caption{Corner and COCO box coordinates in the original image. The rectangle is
-illustrative and is not a scan or a model prediction.}
+\caption{Corner and COCO box coordinates.}
 \label{fig:coordinates}
+\floatnote{Coordinates refer to the original image. The rectangle is illustrative and is not a scan or a model prediction.}
 \end{figure}
 
 The detector runs on a resized, letterboxed input of side $S$. The image is scaled
@@ -238,10 +238,9 @@ component detector has very high recall.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=0.8\textwidth]{p2-kofn.png}
-\caption{Probability of flagging a complete four-component case against the recall of
-each component, for three rules. Analytical binomial model with independent
-components and equal recall; not a measured result. The dotted line marks $r=0.8$.}
+\caption{Case recall against component recall.}
 \label{fig:kofn}
+\floatnote{Probability of flagging a complete four-component case for three rules. Analytical binomial model with independent components and equal recall; not a measured result. The dotted line marks $r=0.8$.}
 \end{figure}
 
 False alarms grow with the number of scans. If one scan falsely supports a family with

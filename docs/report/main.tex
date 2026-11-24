@@ -32,6 +32,8 @@
 \newcommand{\pending}[1]{\textbf{Pending verification:} #1}
 \newcommand{\file}[1]{\nolinkurl{#1}}
 \newcommand{\projectrecord}[1]{\textit{Project evidence:} \file{#1}.}
+% Extra information under a table or figure, so that titles stay short.
+\newcommand{\floatnote}[1]{\par\vspace{4pt}\begin{minipage}{\textwidth}\footnotesize\setstretch{1}\textit{Note.} #1\end{minipage}\par}
 \graphicspath{{figures/}}
 % Student IDs are kept out of Git (private/student-ids.tex).
 \InputIfFileExists{private/student-ids.tex}{}{%

@@ -61,8 +61,7 @@ measured accuracy comparison.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Qualitative evaluation of the supplied detector families
-($+$ satisfied, $\circ$ partial or unknown, $-$ not satisfied).}
+\caption{Qualitative evaluation of the supplied detector families.}
 \label{tab:detector-eval}
 \begin{tabularx}{\textwidth}{@{}L{0.2\textwidth}cccccY@{}}
 \toprule
@@ -81,6 +80,7 @@ Grounding DINO & $-$ & $\circ$ & $+$ & $-$ & $-$ & Text prompts and category
 handling must be verified together\\
 \bottomrule
 \end{tabularx}
+\floatnote{$+$ satisfied, $\circ$ partial or unknown, $-$ not satisfied.}
 \end{table}
 
 YOLOv10-M is the only family that satisfies every criterion and is therefore the
@@ -139,10 +139,9 @@ application.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\textwidth]{architecture.png}
-\caption{Selected system architecture. Solid arrows show the implemented prototype
-path; the dashed research path was executed on HPC for the generic study but is
-not yet connected to the application.}
+\caption{Selected system architecture.}
 \label{fig:architecture}
+\floatnote{Solid arrows show the implemented prototype path; the dashed research path was executed on HPC for the generic study but is not yet connected to the application.}
 \end{figure}
 
 Two design rules keep the data consistent. First, the source image, its
@@ -206,7 +205,7 @@ learned method only if it improves on that baseline on held-out groups.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Method alternatives for the dismantled project and the proposed choice.}
+\caption{Method alternatives for the dismantled project.}
 \label{tab:p2alternatives}
 \begin{tabularx}{\textwidth}{@{}L{0.14\textwidth}L{0.27\textwidth}L{0.2\textwidth}Y@{}}
 \toprule
@@ -263,9 +262,9 @@ evidence for an operator, not proof of an assembled device or of intent.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\textwidth]{p2-pipeline.png}
-\caption{Proposed pipeline for the dismantled project. Solid boxes form the first
-version; dashed boxes are research options. No stage has been trained or evaluated.}
+\caption{Proposed pipeline for the dismantled project.}
 \label{fig:p2pipeline}
+\floatnote{Solid boxes form the first version; dashed boxes are research options. No stage has been trained or evaluated.}
 \end{figure}
 
 \subsection{Evaluation Plan}

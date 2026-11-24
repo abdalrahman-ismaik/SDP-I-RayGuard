@@ -60,8 +60,7 @@ to the deliverable produced and its status at the time of writing.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Requirements of the original project proposal and the corresponding
-SDP~I deliverables, status on 22~November~2026.}
+\caption{Proposal requirements and SDP~I deliverables.}
 \label{tab:objectives}
 \begin{tabularx}{\textwidth}{@{}L{0.2\textwidth}YL{0.2\textwidth}c@{}}
 \toprule
@@ -85,6 +84,7 @@ GUI for system control and recording & RayGuard-App: upload, localization,
 review, notes and JSON export with provenance & Met & \ref{ch:implementation}\\
 \bottomrule
 \end{tabularx}
+\floatnote{Status on 24~November~2026.}
 \end{table}
 
 The second advisor meeting (M02, 24~September~2026) set a further direction:
@@ -116,9 +116,9 @@ decay are treated as explicit study variables~\citep{loshchilov2019adamw}.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{method.png}
-\caption{Engineering method followed in SDP~I. All six stages were executed;
-the evaluation stage covers the generic-explosive task.}
+\caption{Engineering method followed in SDP~I.}
 \label{fig:method}
+\floatnote{All six stages were executed; the evaluation stage covers the generic-explosive task.}
 \end{figure}
 
 \subsection{Scope and Contribution}
@@ -180,9 +180,7 @@ generic-explosive and specific-explosive detection~\citep{takele2026iedxray}.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Public X-ray security datasets. Counts and flags are as reported in
-Table~1 of the IEDXray paper~\citep{takele2026iedxray}; they were not
-re-measured by this team.}
+\caption{Public X-ray security datasets.}
 \label{tab:datasets}
 \begin{tabular}{@{}lrcccc@{}}
 \toprule
@@ -197,6 +195,7 @@ STCray~\citep{velayudhan2025stingbee} & 46,642 & 21 & Yes & No & 1\\
 IEDXray~\citep{takele2026iedxray} & 17,360 & 9 & Yes & Yes & 3\\
 \bottomrule
 \end{tabular}
+\floatnote{Counts and flags are as reported in Table~1 of the IEDXray paper~\citep{takele2026iedxray}; they were not re-measured by this team.}
 \end{table}
 
 \subsection{Object Detection Architectures}
@@ -296,7 +295,7 @@ correction~\citep{guo2017calibration}.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Literature considered for the dismantled project and its use in RayGuard.}
+\caption{Literature considered for the dismantled project.}
 \label{tab:litmethods}
 \begin{tabularx}{\textwidth}{@{}L{0.2\textwidth}L{0.27\textwidth}YL{0.21\textwidth}@{}}
 \toprule
@@ -352,9 +351,7 @@ is given in Appendix~\ref{app:patentlog}.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Closest patent results of the scoping search (22~November~2026). Status
-is as displayed by the patent office or Google Patents page; claims were not read
-in full, so no freedom-to-operate or patentability conclusion is drawn.}
+\caption{Closest patent results of the scoping search.}
 \label{tab:patents}
 \begin{tabularx}{\textwidth}{@{}L{0.19\textwidth}L{0.27\textwidth}YY@{}}
 \toprule
@@ -378,6 +375,7 @@ threshold & Closest match to P2 multi-scan correlation & Claim~1 read; others
 from page summary; page shows expired for non-payment\\
 \bottomrule
 \end{tabularx}
+\floatnote{Search of 22~November~2026. Status is as displayed by the patent office or Google Patents page; claims were not read in full, so no freedom-to-operate or patentability conclusion is drawn.}
 \end{table}
 
 The search found no patent for deep-learning detection of explosives hidden in
@@ -460,8 +458,7 @@ owner's name, and work on unmerged branches is not counted.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Students, GitHub accounts, lead tasks and repository evidence on
-23~November~2026. Task leads are contacts, not exclusive owners.}
+\caption{Students, lead tasks and repository evidence.}
 \label{tab:team}
 \begin{tabularx}{\textwidth}{@{}L{0.22\textwidth}L{0.2\textwidth}L{0.19\textwidth}Y@{}}
 \toprule
@@ -483,6 +480,7 @@ commit \file{d5d4baf} (open); branch \file{mohammad/guiflow}, commit
 \file{164d6cf}, not merged\\
 \bottomrule
 \end{tabularx}
+\floatnote{Status on 24~November~2026. Task leads are contacts, not exclusive owners.}
 \end{table}
 
 Table~\ref{tab:whodid} in Appendix~\ref{app:contributions} states who did what for the
@@ -525,9 +523,9 @@ whenever available. Table~\ref{tab:prs} lists the research PRs merged in Novembe
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{workflow.png}
-\caption{Contribution workflow on the protected branches, as configured under task
-T36. Orange boxes are enforced gates.}
+\caption{Contribution workflow on the protected branches.}
 \label{fig:workflow}
+\floatnote{As configured under task T36. Orange boxes are enforced gates.}
 \end{figure}
 
 \begin{table}[htbp]
@@ -617,11 +615,7 @@ assistance was used, a representative prompt and how the output was verified.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{AI prompt disclosure by student. Ahmed's row quotes actual prompt
-excerpts. Faisal's row is confirmed by the student, with the prompt reconstructed
-to state the purpose of the AI use rather than quoted verbatim. The other rows are
-drafted from each student's submitted work, and each student confirms the tool and
-replaces the prompt with their actual wording before submission.}
+\caption{AI prompt disclosure by student.}
 \label{tab:prompts}
 \begin{tabularx}{\textwidth}{@{}L{0.15\textwidth}L{0.2\textwidth}YL{0.2\textwidth}@{}}
 \toprule
@@ -658,4 +652,5 @@ Build and eight acceptance tests, repeated in a separate clone; walkthrough
 pending\\
 \bottomrule
 \end{tabularx}
+\floatnote{Ahmed's row quotes actual prompt excerpts. Faisal's row is confirmed by the student, with the prompt reconstructed to state the purpose of the AI use rather than quoted verbatim. The other rows are drafted from each student's submitted work, and each student confirms the tool and replaces the prompt with their actual wording before submission.}
 \end{table}
