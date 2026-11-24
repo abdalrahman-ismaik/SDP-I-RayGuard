@@ -105,22 +105,6 @@ try {
   Replace-Placeholder $doc 'LOF-PLACEHOLDER' 'List of Figures' 'TOC \h \z \t "Image Caption,1"'
   Replace-Placeholder $doc 'LOT-PLACEHOLDER' 'List of Tables' 'TOC \h \z \t "Table Caption,1"'
 
-  # Gantt chart: its own landscape page (LaTeX uses pdflscape).
-  foreach ($p in $doc.Paragraphs) {
-    if ($p.Style.NameLocal -eq 'Image Caption' -and $p.Range.Text -like '*Gantt chart of SDP*') {
-      $img = $p.Previous()
-      $after = $doc.Range($p.Range.End, $p.Range.End); $after.InsertBreak(2)
-      $before = $doc.Range($img.Range.Start, $img.Range.Start); $before.InsertBreak(2)
-      $sec = $doc.Range($before.End, $before.End + 1).Sections.Item(1)
-      $sec.PageSetup.Orientation = 1
-      $shape = $sec.Range.InlineShapes.Item(1)
-      $shape.LockAspectRatio = -1
-      $shape.Width = 247*$mm
-      $sec.Range.Paragraphs.Item(1).SpaceBefore = 0
-      break
-    }
-  }
-
   # Page numbers, then refresh every field so the lists show page numbers.
   $ftr = $doc.Sections.Item(1).Footers.Item(1)
   $null = $ftr.PageNumbers.Add(1, $true)

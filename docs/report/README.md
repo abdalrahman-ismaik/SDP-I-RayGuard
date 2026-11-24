@@ -33,6 +33,9 @@ illustrations; see the provenance register. No raw scans or research PDF reprodu
 are included. Compile and inspect every page; missing references/assets, overflow and
 unreadable figures block final delivery. Typical handbook length is guidance; do not pad.
 
+Student ID numbers on the title page come from `private/student-ids.tex`, which Git
+ignores; without it the title page shows a placeholder.
+
 ## Sources and Word path
 
 The ten research entries were checked against supplied papers and primary arXiv

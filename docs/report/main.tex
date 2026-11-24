@@ -10,7 +10,6 @@
 \usepackage[hidelinks,pdfpagelabels=false]{hyperref}
 \usepackage{xurl}
 \usepackage{bookmark}
-\usepackage{pdflscape}
 \usepackage{fancyhdr}
 \setlength{\headheight}{16pt}
 \pagestyle{fancy}
@@ -33,6 +32,14 @@
 \newcommand{\file}[1]{\nolinkurl{#1}}
 \newcommand{\projectrecord}[1]{\textit{Project evidence:} \file{#1}.}
 \graphicspath{{figures/}}
+% Student IDs are kept out of Git (private/student-ids.tex).
+\InputIfFileExists{private/student-ids.tex}{}{%
+  \newcommand{\studentidA}{ID number}%
+  \newcommand{\studentidB}{ID number}%
+  \newcommand{\studentidC}{ID number}%
+  \newcommand{\studentidD}{ID number}%
+  \newcommand{\studentidE}{ID number}%
+}
 \begin{document}
 \hypersetup{pageanchor=false}
 \begin{titlepage}
@@ -55,11 +62,11 @@
 \vspace{0.3cm}
 {\large
 \begin{tabular}{ll}
-Abd Alrahman Ismaik & Computer Science\\
-Faisal Daoud Alzarooni & Computer Science\\
-Ali Arif Saeed Alshamsi & Computer Science\\
-Mohammad Arwani & Computer Science\\
-Ahmed Almansoori & Computer Science\\
+Abd Alrahman Ismaik & \studentidA\\
+Faisal Daoud Alzarooni & \studentidB\\
+Ali Arif Saeed Alshamsi & \studentidC\\
+Mohammad Arwani & \studentidD\\
+Ahmed Almansoori & \studentidE\\
 \end{tabular}}
 \par\vspace{1cm}
 {\large\bfseries Supervisor\par}

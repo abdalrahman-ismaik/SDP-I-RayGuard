@@ -142,3 +142,4 @@ test-results/
 
 # Report figures built from dataset scans (kept out of Git; see docs/report/README.md)
 docs/report/figures/private/
+docs/report/private/
