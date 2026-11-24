@@ -393,7 +393,8 @@ repository setup; coordination & PRs \#1--\#15, \#20, \#23; 13 commits on
 Ali Arif Saeed Alshamsi & \texttt{Alshamisi10987} & T42 evaluation & PR~\#18
 (evaluator), PR~\#22 (data policy); 6 commits on \file{main}\\
 Faisal Daoud Alzarooni & \texttt{blitzict} & T40 baseline contracts & PRs \#17,
-\#19, \#21, \#24 (box-repair follow-up and PR review)\\
+\#19, \#21, \#24 (box-repair follow-up); reviews of PRs \#22 and \#27; 124 scans
+in the 14~November collection record; attribution confirmed by the student\\
 Ahmed Almansoori & \texttt{Boshahab} & T41 training workflow & PR~\#25: qualified
 training, HPC study and frozen test comparison; T41 task lead, AI-assisted
 implementation and execution under his direction\\
@@ -538,9 +539,10 @@ assistance was used, a representative prompt and how the output was verified.
 \begin{table}[htbp]
 \centering\tablesetup
 \caption{AI prompt disclosure by student. Ahmed's row quotes actual prompt
-excerpts; the other rows are drafted from each student's submitted work, and each
-student confirms the tool and replaces the prompt with their actual wording
-before submission.}
+excerpts. Faisal's row is confirmed by the student, with the prompt reconstructed
+to state the purpose of the AI use rather than quoted verbatim. The other rows are
+drafted from each student's submitted work, and each student confirms the tool and
+replaces the prompt with their actual wording before submission.}
 \label{tab:prompts}
 \begin{tabularx}{\textwidth}{@{}L{0.15\textwidth}L{0.2\textwidth}YL{0.2\textwidth}@{}}
 \toprule
@@ -554,10 +556,16 @@ Ali Arif Saeed Alshamsi & T42 evaluator: evaluation and COCO metric modules & ``
 COCO format, keeps the dataset category IDs including zero, and refuses to report
 if required scans are missing.'' & Synthetic \texttt{pytest} fixtures; CI on
 PR~\#18\\
-Faisal Daoud Alzarooni & T40 run contract, run manifest and initialization receipt &
-``Define a run manifest that checks the class map of every run, and a helper that
-hashes the starting weights and rejects a mismatch without loading the model.''
-& Synthetic \texttt{pytest} tests; CI on PRs~\#17, \#19, \#21\\
+Faisal Daoud Alzarooni & \texttt{pytest} tests and synthetic test data for the
+T40 run contract, run manifest and initialization receipt (AI coding assistant);
+the implementation itself was written in November with web searches, including
+Google AI Overviews &
+Reconstructed wording: ``Generate pytest tests and synthetic test data to validate
+the baseline run contract, manifest validation, record consistency and
+initialization receipt. Use synthetic inputs, placeholder hashes and mock files
+without loading actual datasets, model weights or checkpoints.''
+& Tests check software correctness and contract enforcement, not model
+performance; CI on PRs~\#17, \#19, \#21, \#24\\
 Ahmed Almansoori & T41 training workflow, HPC study and frozen test runner
 (OpenAI Codex desktop app) & Actual excerpts: ``Run a bounded GPU pilot through
 Slurm, checking actual training, checkpoint saving/reloading, class mapping and
