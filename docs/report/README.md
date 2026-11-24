@@ -16,7 +16,7 @@ From this directory, with MiKTeX/TeX Live and Python-independent native tools:
 
 ```powershell
 New-Item -ItemType Directory -Force build | Out-Null
-foreach ($name in @('coordinates','architecture','experiments','gantt')) {
+foreach ($name in @('coordinates','architecture','experiments','gantt','method','workflow','t41-flow','t41-search','t41-test','t41-size','t41-oppoint','t41-gap','t41-curves','t41-pr')) {
     lualatex -interaction=nonstopmode -halt-on-error -output-directory=build "figures/$name.tex"
     pdftoppm -png -singlefile -r 180 "build/$name.pdf" "figures/$name"
 }
@@ -45,10 +45,46 @@ were reproduced. The mistaken exploratory lookup of arXiv:1312.6114 is excluded 
 it is unrelated to the report's optimizer discussion.
 
 LaTeX remains canonical. A Word copy is required under the current course notice unless
-PDF acceptance is confirmed. Establish conversion with Pandoc and compare equations,
-captions, figure/table references, citations and pagination; conversion alone is not
-acceptance. No Word copy is marked ready until rendering and content/layout comparison
-pass. Keep any native tool downloads and conversion helpers in ignored local output.
+PDF acceptance is confirmed. Conversion alone is not acceptance: compare equations,
+captions, figure/table references, citations and pagination with the PDF. No Word copy is
+marked ready until rendering and content/layout comparison pass.
+
+After the LaTeX build above, build the Word copy from this directory (needs Pandoc 3.x,
+`winget install JohnMacFarlane.Pandoc`, plus Microsoft Word and uv):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/build-docx.ps1
+```
+
+It writes `build/main-word-draft.docx` and `build/main-word-check.pdf` (Word's export,
+for comparison only). The steps are in `tools/`:
+
+| File | Role |
+|---|---|
+| `docx_prep.py` | Flattens the chapters and rewrites custom table macros as plain tabulars; copies heading, table, figure and equation numbers from `build/main.aux` and `build/main.toc` |
+| `docx-refs.lua` | Places the bibliography before the appendices |
+| `ieee-min.csl` | Minimal numeric citation style for `--citeproc`; numbering follows citation order as in IEEEtran |
+| `docx-format.ps1` | Word automation: A4, margins, fonts, 1.5 spacing, table rules, title page, contents and lists |
+
+Known differences from the PDF: equation numbers are typed text, the bibliography is a
+simplified IEEE style, front matter has arabic page numbers and there is no running
+header. The title-page text is duplicated in `docx_prep.py`; the script stops if it no
+longer matches `main.tex`.
+
+## T41 figures from saved predictions
+
+`figures/t41-pr.csv` and the annotated example images in `figures/private/` come from the
+saved predictions of frozen-test job 820 (Ahmed's evidence archive, SHA-256
+`d8d5e039…`) and the local IEDXray test set. From the repository root:
+
+```powershell
+uv run --locked --with-requirements environments/evaluation.in --with pillow python docs/report/tools/t41_figures.py --run <extracted>/runs/generic-frozen-test-20261123 --annotations data/IEDXray/annotations/binary_explosive_det_test.json --images data/IEDXray/Test
+```
+
+The script checks the prediction and annotation hashes and stops unless AP@[.50:.95]
+reproduces 41.5886 and 48.0502 exactly. `figures/private/` holds dataset scans and is
+ignored by Git; without it the report builds with a placeholder note in place of the
+example figure.
 
 ## Acceptance review
 

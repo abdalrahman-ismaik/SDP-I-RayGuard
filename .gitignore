@@ -138,3 +138,6 @@ test-results/
 
 # Owner-authorized poster review export; source PDFs remain ignored.
 !/docs/posters/6g-mena-2026/RayGuard-Research-Poster-v6.pdf
+
+# Report figures built from dataset scans (kept out of Git; see docs/report/README.md)
+docs/report/figures/private/

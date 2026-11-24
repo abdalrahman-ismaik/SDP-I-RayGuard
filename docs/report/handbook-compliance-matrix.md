@@ -6,12 +6,13 @@ Working document for the report. Sources: `docs/final-report-requirements.md`, t
 
 | Requirement (handbook) | Where in draft | Status | Action |
 |---|---|---|---|
-| Title page | `main.tex` title page | partial | Official cover, project number, roster: **human** |
-| Abstract about 200 words | `main.tex` abstract | done | 198 words (22 Nov count) |
+| Title page | `main.tex` title page | partial | University, department, title, five students, supervisor added 23 Nov; official cover template and project number: **human** |
+| Abstract about 200 words | `main.tex` abstract | done | Rewritten 23 Nov, about 200 words |
 | Table of contents | `main.tex` | done | — |
-| Ch.1 Introduction: goals, motivation, method | `chapters/01-introduction.tex` | done | — |
-| Ch.1 technical background and literature and patent search | Chapter 1, Table 1.2 | partial | Literature and patent search record added; IBM US10977755B2 claims partly read from text page; Infosys applications unread (404); USPTO full-text search not exhaustive |
-| Ch.1 GitHub details and AI-prompt disclosure | Appendix C; Chapter 1 | partial | Sanitized prompts and per-student contributions: **human** |
+| Ch.1 §1.1 goals, motivation, method | §1.1, Tables 1.1–1.2, Fig. 1.1 | done | Rewritten 22 Nov to handbook numbering |
+| Ch.1 §1.2 technical background and literature and patent search | §1.2, Tables 1.3–1.4; full log Appendix A | partial | Dataset and detector background added; IBM US10977755B2 claims partly read; Infosys applications unread (404); USPTO full-text search not exhaustive |
+| Ch.1 §1.3 report overview | §1.3, Table 1.5 | done | — |
+| Ch.1 §1.4 GitHub details, contributions and AI prompts | §1.4, Tables 1.6–1.10, Fig. 1.2; Appendix C | partial | Usernames, PR/review rules and docs system described; per-student confirmations and prompt excerpts: **human**; AGENTS.md/CONTRIBUTING.md conflict (T44) |
 | Ch.2 Requirements and system specification | `chapters/02-system-overview.tex` | done | — |
 | Ch.3 Engineering model, limitations and assumptions | `chapters/03-theory.tex` | done | — |
 | Ch.4 Concept generation and design evaluation | `chapters/04-design.tex` | done | — |
@@ -25,8 +26,8 @@ Working document for the report. Sources: `docs/final-report-requirements.md`, t
 
 | Requirement | Status | Action |
 |---|---|---|
-| Minimum 10 references | done (10 entries) | Add verified papers and books (step 2) |
-| Prefer papers and books | partial (9 of 10 are arXiv/misc) | Replace or add journal and conference sources |
+| Minimum 10 references | done (22 entries, 22 Nov) | — |
+| Prefer papers and books | partial (FALCON, Optuna and AdamW remain arXiv/misc) | Upgrade remaining entries when venues are verified |
 | Access dates for internet sources | partial | Add access dates to every web or arXiv entry |
 | No Wikipedia or non-credible sources | done | Keep |
 | Citation style | done | IEEEtran in `main.tex`; build has 0 undefined citations (22 Nov) |

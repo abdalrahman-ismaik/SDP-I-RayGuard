@@ -1,87 +1,232 @@
 \chapter{Theoretical Foundations}\label{ch:theory}
-\section{Detection as the engineering model}
-For a canonical RGB image $I$ of width $W$ and height $H$, a detector with
-parameters $\theta$ produces a finite set
+This chapter presents the engineering model behind RayGuard. It begins with the
+physics of the X-ray image (Section~\ref{sec:xray}), defines the detection model
+and the YOLOv10 detector (Section~\ref{sec:detmodel}), fixes the coordinate
+conventions (Section~\ref{sec:coords}), and derives the evaluation metrics
+(Section~\ref{sec:metrics}). It then formalizes the independence of training and
+validation data (Section~\ref{sec:partition}) and the optimization problem of the
+planned study (Section~\ref{sec:optim}), and closes with the assumptions and
+limitations of the model (Section~\ref{sec:limits}).
+
+%-----------------------------------------------------------------------------
+\section{X-ray Image Formation}\label{sec:xray}
+A baggage scanner measures the intensity of an X-ray beam after it crosses the
+bag. For a monochromatic beam of incident intensity $I_0$ travelling along a
+path $\ell$, the transmitted intensity follows the Beer--Lambert law
+\begin{equation}
+ I = I_0 \exp\!\left(-\int_{\ell} \mu(E,\mathbf{r})\,\mathrm{d}l\right),
+\end{equation}
+where $\mu(E,\mathbf{r})$ is the linear attenuation coefficient of the material at
+position $\mathbf{r}$ for photon energy $E$~\citep{wells2012review}. Each pixel
+therefore records the attenuation integrated along one ray, and every object on
+that ray contributes to it. This superposition is the physical cause of the
+overlap and clutter that make threat detection difficult.
+
+A dual-energy scanner records the same ray at a low and a high energy, giving
+$I_L$ and $I_H$. The ratio of the two attenuations,
+\begin{equation}
+ R = \frac{\ln(I_0/I_L)}{\ln(I_0/I_H)},
+\end{equation}
+depends mainly on the effective atomic number of the material and only weakly on
+its thickness. Scanners use $R$ to classify each pixel as organic, inorganic or
+metallic and render the classes in pseudo-colour~\citep{wells2012review}. Many
+explosives are organic and have an effective atomic number close to that of
+benign organic materials, so the material classification alone cannot separate
+them~\citep{takele2026iedxray}. Shape and context, which a learned detector can
+exploit, are therefore needed in addition to the material cue.
+
+%-----------------------------------------------------------------------------
+\section{Detection Model}\label{sec:detmodel}
+
+\subsection{Problem Formulation}
+For an RGB image $I$ of width $W$ and height $H$, a detector with parameters
+$\theta$ produces a finite set of detections
 \begin{equation}
  D_\theta(I)=\{(b_i,c_i,s_i)\}_{i=1}^{n},
- \qquad b_i=(x_{1i},y_{1i},x_{2i},y_{2i}).
+ \qquad b_i=(x_{1i},y_{1i},x_{2i},y_{2i}),
 \end{equation}
-Here $c_i$ belongs to the selected model's task namespace and $s_i$ is a model
-confidence. Box corners are measured in original-image pixels with positive
-width and height. The confidence is not assumed to be a calibrated probability
-of a dangerous device. A task map is needed to interpret labels; a model output
-index and a dataset category ID are different identifiers.
+where $b_i$ is a box in original-image pixels with positive width and height,
+$c_i$ is a category of the selected task and $s_i\in[0,1]$ is a confidence score.
+The score is not assumed to be a calibrated probability of a dangerous object.
+A task map is required to interpret $c_i$, because a model output index and a
+dataset category identifier are different quantities.
+
+\subsection{YOLOv10 Detector}
+YOLOv10 is a one-stage detector that predicts boxes and class scores densely on
+feature maps at several scales~\citep{wang2024yolov10}. Earlier YOLO versions
+assign several predictions to each object during training and remove the
+duplicates at inference with non-maximum suppression (NMS). YOLOv10 removes this
+post-processing step with \emph{consistent dual assignments}: during training a
+one-to-many head receives rich supervision, while a one-to-one head learns to
+emit a single prediction per object. Both heads rank candidate predictions with
+the same matching metric
+\begin{equation}
+ m(\alpha,\beta) = s_{\text{sp}} \cdot p^{\alpha} \cdot
+ \operatorname{IoU}(\hat b, b)^{\beta},
+\end{equation}
+where $p$ is the classification score, $\hat b$ and $b$ are the predicted and
+reference boxes, $s_{\text{sp}}$ is a spatial prior indicating whether the
+prediction lies within the object, and $\alpha,\beta$ balance classification
+against localization. Using the same metric for both heads aligns their
+supervision, so at inference only the one-to-one head is used and NMS is not
+needed~\citep{wang2024yolov10}. The medium variant, YOLOv10-M, is used in
+RayGuard because a checkpoint for each IEDXray task is available.
+
+%-----------------------------------------------------------------------------
+\section{Coordinate Conventions}\label{sec:coords}
+All boxes exchanged between components use original-image pixel corners
+(Figure~\ref{fig:coordinates}). COCO annotations instead store $(x,y,w,h)$, the
+top-left corner with width and height~\citep{lin2014coco}. The two forms are
+related by
+\begin{equation}
+ (x_1,y_1,x_2,y_2)=(x,\,y,\,x+w,\,y+h),\qquad
+ (x,y,w,h)=(x_1,\,y_1,\,x_2-x_1,\,y_2-y_1).
+\end{equation}
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=0.82\textwidth]{coordinates.png}
-\caption{Original explanatory diagram of corner and COCO box coordinates.
-The rectangle is illustrative and is not a scan or model prediction.}
+\caption{Corner and COCO box coordinates in the original image. The rectangle is
+illustrative and is not a scan or a model prediction.}
 \label{fig:coordinates}
 \end{figure}
 
-COCO annotations use $(x,y,w,h)$. Conversion to original-pixel corners is
+The detector runs on a resized, letterboxed input of side $S$. The image is scaled
+by $r=\min(S/W,\,S/H)$ and padded by $(p_x,p_y)$ to a square. A box predicted in
+the network input is mapped back to the original image by
 \begin{equation}
- (x_1,y_1,x_2,y_2)=(x,y,x+w,y+h),
+ x_{\text{orig}} = \frac{x_{\text{net}} - p_x}{r},\qquad
+ y_{\text{orig}} = \frac{y_{\text{net}} - p_y}{r},
 \end{equation}
-with inverse $(x_1,y_1,x_2-x_1,y_2-y_1)$. Any resizing or letterboxing inside the
-backend must be reversed before the shared contract is emitted. The software
-does not repair malformed source geometry silently. Figure~\ref{fig:coordinates}
-fixes the convention used in this report.
+followed by clipping to $[0,W]\times[0,H]$ for predictions only. This inversion
+is applied inside the inference backend before any result leaves it, so all
+consumers see original-image coordinates. Malformed geometry in the source
+annotations is reported, not silently repaired.
 
-\section{Localization and detection metrics}
-For predicted region $B_p$ and reference region $B_g$, intersection over union is
+%-----------------------------------------------------------------------------
+\section{Evaluation Metrics}\label{sec:metrics}
+
+\subsection{Matching}
+For a predicted box $B_p$ and a reference box $B_g$, the intersection over union is
 \begin{equation}
  \operatorname{IoU}(B_p,B_g)=\frac{|B_p\cap B_g|}{|B_p\cup B_g|}.
 \end{equation}
-At a declared score threshold and matching rule, precision and recall are
+Predictions are sorted by score and matched greedily to unmatched reference boxes
+of the same category with $\operatorname{IoU}\ge t$. A matched prediction is a
+true positive (TP), an unmatched prediction a false positive (FP), and an
+unmatched reference box a false negative (FN).
+
+\subsection{Precision, Recall and Average Precision}
+At a score threshold $\tau$, precision and recall are
 \begin{equation}
- P=\frac{TP}{TP+FP},\qquad R=\frac{TP}{TP+FN}.
+ P(\tau)=\frac{TP}{TP+FP},\qquad R(\tau)=\frac{TP}{TP+FN}.
 \end{equation}
-Their denominators and undefined cases need explicit treatment. A missed
-annotated threat contributes a false negative under the frozen matching rule;
-an unannotated detection is not automatically a physical false alarm because
-annotation completeness may itself be limited.
-
-COCO AP@[.50:.95] summarizes detection over IoU thresholds from 0.50 to 0.95;
-AP50 reports the 0.50 case, and AR summarizes recall under the evaluator's
-detection limits. These definitions are implemented by the official evaluator
-and must be interpreted with its settings and task maps~\citep{lin2014coco}.
-The validation objective returns AP as a fraction from 0 to 1. Published tables
-may display percentages; comparing them requires an explicit scale conversion.
-
-\section{Training and validation independence}
-Let $T$ be the published training image set and $E$ the published test set.
-Controlled improvement requires disjoint fit and validation partitions
-$T_f,T_v\subset T$ such that $T_f\cap T_v=\varnothing$ and
-$T_f\cup T_v=T$, subject to the reviewed data policy. Exact duplicate bytes and
-verified physical groups must not cross $T_f$ and $T_v$. A connected group may
-contain several images, so a target 80/20 fraction need not be attained exactly.
-
-The author checkpoints may have seen all published training images. Carving
-validation from those images does not make them unseen for those checkpoints.
-For controlled U/T experiments, both models start from general pretraining
-with documented exclusion evidence and the same task-head initialization
-procedure. They share the fixed partition and comparable training budget;
-the tuned model's choices are selected on validation, not on the test set.
-
-\section{Optimization and experiment identity}
-The planned search objective is
+Sweeping $\tau$ traces a precision--recall curve. COCO average precision at IoU
+threshold $t$ uses the interpolated precision
+$p_{\text{int}}(r)=\max_{r'\ge r} P(r')$ sampled at 101 recall points:
 \begin{equation}
- \lambda^*=\arg\max_{\lambda\in\Lambda}
- \operatorname{AP}(f_{\theta(T_f,\lambda)},T_v),
+ \operatorname{AP}_t = \frac{1}{101}\sum_{r\in\{0,0.01,\dots,1\}} p_{\text{int}}(r).
 \end{equation}
-where $\lambda$ denotes the declared hyperparameters. Optuna supports trial
-search and pruning~\citep{akiba2019optuna}; this does not establish that an
-improvement exists. Untuned and tuned inference records use distinct output
-checkpoint hashes with a common starting-weight parent hash. Matching that
-parent is necessary but insufficient: code, task, partition, settings, seeds
-and training budgets also need review.
+The primary metric averages over ten IoU thresholds and over the $K$ categories
+of the task:
+\begin{equation}
+ \operatorname{AP}_{[.50:.95]} = \frac{1}{10K}\sum_{k=1}^{K}
+ \sum_{t\in\{0.50,0.55,\dots,0.95\}} \operatorname{AP}_{t,k}.
+\end{equation}
+AP$_{50}$ is the value at $t=0.50$, and average recall (AR) averages the maximum
+recall over the same IoU thresholds for a fixed number of detections per
+image~\citep{lin2014coco}. RayGuard computes these quantities with the official
+COCO evaluator. The validation objective reports AP as a fraction in $[0,1]$;
+published tables often show percentages, so comparisons state the scale.
 
-\section{Limits of the model}
+\subsection{Interpretation}
+A missed annotated threat counts as a false negative. An unannotated detection is
+not automatically a physical false alarm, because annotations may be incomplete.
+Denominators that can be zero, such as precision with no predictions, are
+reported explicitly rather than replaced by a default value.
+
+%-----------------------------------------------------------------------------
+\section{Independence of Training and Validation Data}\label{sec:partition}
+Let $T$ be the published training set and $E$ the published test set. The
+controlled study divides $T$ into a fit set $T_f$ and a validation set $T_v$ with
+\begin{equation}
+ T_f\cap T_v=\varnothing,\qquad T_f\cup T_v=T,
+\end{equation}
+and never uses $E$ for model selection. Images are not independent when they are
+exact byte duplicates or show the same physical arrangement. Let
+$\mathcal{G}=\{g_1,\dots,g_m\}$ be the groups of such related images. The
+partition must keep every group whole:
+\begin{equation}
+ \forall g\in\mathcal{G}:\quad g\subseteq T_f \;\lor\; g\subseteq T_v .
+\end{equation}
+Because groups contain several images, a target split such as 80/20 is met only
+approximately.
+
+The supplied author checkpoints may have been trained on all of $T$, so images
+in $T_v$ are not unseen for them. For a controlled comparison of untuned and
+tuned models, both therefore start from general pre-trained weights, share the
+same partition and training budget, and select their settings on $T_v$ only.
+
+%-----------------------------------------------------------------------------
+\section{Hyperparameter Optimization}\label{sec:optim}
+Let $\lambda\in\Lambda$ denote the declared hyperparameters, such as learning
+rate, weight decay and augmentation strength, and let $f_{\theta(T_f,\lambda)}$ be
+the model trained on $T_f$ with $\lambda$. The planned search solves
+\begin{equation}
+ \lambda^*=\arg\max_{\lambda\in\Lambda}\;
+ \operatorname{AP}_{[.50:.95]}\!\left(f_{\theta(T_f,\lambda)},\,T_v\right).
+\end{equation}
+Optuna explores $\Lambda$ with a sequential sampler and stops unpromising trials
+early by pruning~\citep{akiba2019optuna}. A search that finds a higher validation
+AP does not by itself prove an improvement on unseen data.
+
+The optimizer is one of the searched choices. With AdamW, weight decay is
+decoupled from the adaptive gradient step:
+\begin{equation}
+ \theta_{t+1}=\theta_t-\eta\left(\frac{\hat m_t}{\sqrt{\hat v_t}+\epsilon}
+ +\lambda_{\text{wd}}\,\theta_t\right),
+\end{equation}
+where $\hat m_t$ and $\hat v_t$ are the bias-corrected first and second moment
+estimates of the gradient, $\eta$ is the learning rate and $\lambda_{\text{wd}}$
+the weight-decay coefficient~\citep{loshchilov2019adamw}. Treating the optimizer
+and its decay as explicit study variables avoids attributing a difference to
+tuning when it comes from a changed optimizer.
+
+Each trained model is identified by the hash of its output checkpoint and by the
+hash of its starting weights. A shared parent hash is necessary for a matched
+comparison but not sufficient: the code, task, partition, settings, seeds and
+budget must also match.
+
+%-----------------------------------------------------------------------------
+\section{Assumptions and Limitations}\label{sec:limits}
+Table~\ref{tab:assumptions} lists the assumptions of the engineering model and the
+consequence if each is violated.
+
+\begin{table}[!ht]
+\centering\tablesetup
+\caption{Assumptions of the engineering model and the effect of violating them.}
+\label{tab:assumptions}
+\begin{tabularx}{\textwidth}{@{}L{0.42\textwidth}Y@{}}
+\toprule
+Assumption & Consequence if violated\\
+\midrule
+Annotations are complete and correct for the task & False positives and negatives
+are miscounted; metrics are biased\\
+Related images are known and kept in one partition & Validation AP is inflated by
+leakage\\
+The test split is used only for the final evaluation & Reported AP overstates
+performance on unseen data\\
+Laboratory simulants resemble real threats in X-ray appearance & Results may not
+transfer to real explosives\\
+The detection score orders predictions sensibly & Thresholds chosen on validation
+do not hold at deployment\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
 Single-image box detection represents appearance and location. It does not
-establish chemical composition, electrical connectivity or assembly intent.
-FALCON's compositional formulation motivates asking about relationships, but
-does not remove the need for suitable supervision and case evaluation
-\citep{michael2026falcon}. RayGuard's P2 interface therefore requires external
-case provenance and keeps missing scans visible. No mathematical aggregation
-rule is presented here as an implemented distributed detector.
+establish chemical composition, electrical connectivity or the intent to
+assemble a device. FALCON's compositional formulation shows how relations between
+components could be modelled, but it still requires suitable supervision and
+case-level evaluation~\citep{michael2026falcon}. No aggregation rule over several
+scans is presented here as an implemented detector; that problem is addressed in
+SDP~II.

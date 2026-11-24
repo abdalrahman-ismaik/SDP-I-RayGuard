@@ -1,0 +1,35 @@
+\documentclass[border=8pt]{standalone}
+\usepackage{fontspec}
+\setsansfont{Arial}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18,
+  every axis/.append style={/pgf/number format/assume math mode=true,
+    tick label style={font=\sffamily\small}}}
+% COCO precision-recall curves (101 recall points, maxDets 100, all areas) on the
+% published test set. Data: t41-pr.csv, computed by tools/t41_figures.py from the
+% saved predictions of Slurm job 820 with pycocotools 2.0.11.
+\begin{document}
+\sffamily\small
+\begin{tikzpicture}
+\begin{axis}[
+  width=11cm,height=7.5cm,
+  xmin=0,xmax=1,ymin=0,ymax=102,
+  xlabel={Recall},ylabel={Precision (\%)},
+  xtick={0,0.1,...,1.0},
+  xticklabel style={/pgf/number format/.cd,fixed,precision=1},
+  grid=major,grid style={black!12},
+  axis lines*=left,
+  legend style={font=\footnotesize,draw=none,fill=white,fill opacity=0.85,text opacity=1,at={(0.02,0.04)},anchor=south west},
+  legend cell align=left,
+  % COCO stores precision 0 where a recall level is never reached; leave it undrawn.
+  unbounded coords=jump,
+  y filter/.expression={y==0 ? nan : y},
+]
+\addplot[blue!50!black,thick] table[x=recall,y=control_iou50,col sep=comma]{t41-pr.csv};
+\addplot[orange!80!black,thick] table[x=recall,y=candidate_iou50,col sep=comma]{t41-pr.csv};
+\addplot[blue!50!black,thick,dashed] table[x=recall,y=control_iou75,col sep=comma]{t41-pr.csv};
+\addplot[orange!80!black,thick,dashed] table[x=recall,y=candidate_iou75,col sep=comma]{t41-pr.csv};
+\legend{{Control, IoU 0.50},{Candidate 4, IoU 0.50},{Control, IoU 0.75},{Candidate 4, IoU 0.75}}
+\end{axis}
+\end{tikzpicture}
+\end{document}

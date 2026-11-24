@@ -15,11 +15,19 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small RayGuard SDP I}
-\fancyhead[R]{\small Draft for team review}
+\fancyhead[R]{\small Final Report}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0pt}
 \setlength{\emergencystretch}{3em}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcommand{\tablesetup}{\small\renewcommand{\arraystretch}{1.25}}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
 \newcommand{\pending}[1]{\textbf{Pending verification:} #1}
 \newcommand{\file}[1]{\nolinkurl{#1}}
 \newcommand{\projectrecord}[1]{\textit{Project evidence:} \file{#1}.}
@@ -28,53 +36,62 @@
 \hypersetup{pageanchor=false}
 \begin{titlepage}
 \centering
-{\Large Khalifa University\par}
-\vspace{0.4cm}
+{\Large\bfseries Khalifa University of Science and Technology\par}
+\vspace{0.3cm}
 {\large College of Computing and Mathematical Sciences\par}
-\vspace{2cm}
+\vspace{0.15cm}
+{\large Department of Computer Science\par}
+\vspace{2.2cm}
 {\Huge\bfseries RayGuard\par}
-\vspace{0.6cm}
-{\LARGE AI Powered Explosive Detection in X ray Scans\par}
-\vspace{1cm}
-{\Large Senior Design Project I\par}
 \vspace{0.5cm}
-{\large Fall 2026\par}
+{\LARGE AI-Powered Explosive Detection\\[0.2cm] in X-ray Scans\par}
+\vspace{1.2cm}
+{\Large Senior Design Project I\par}
+\vspace{0.2cm}
+{\large Final Report\par}
+\vspace{1.8cm}
+{\large\bfseries Team Members\par}
+\vspace{0.3cm}
+{\large
+\begin{tabular}{ll}
+Abd Alrahman Ismaik & Computer Science\\
+Faisal Daoud Alzarooni & Computer Science\\
+Ali Arif Saeed Alshamsi & Computer Science\\
+Mohammad Arwani & Computer Science\\
+Ahmed Almansoori & Computer Science\\
+\end{tabular}}
+\par\vspace{1cm}
+{\large\bfseries Supervisor\par}
+\vspace{0.2cm}
+{\large Prof.\ Naoufel Werghi\par}
 \vfill
-\begin{minipage}{0.86\textwidth}
-This report draft records the implemented single-scan prototype, research software
-and collection evidence available on 23 November 2026. A reduced generic detector
-study and frozen published-test comparison are complete. Specific-task training,
-repeatability, physical scanner integration and distributed-case fusion remain
-unfinished. The institutional cover format, project number, final student roster
-and supervisor details require confirmation before submission.
-\end{minipage}
-\vfill
-{\large Evidence update 23 November 2026\par}
+{\large Fall 2026 \quad\textbullet\quad November 2026\par}
 \end{titlepage}
 \hypersetup{pageanchor=true}
 \pagenumbering{roman}
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
-X-ray baggage screening requires operators to interpret cluttered images in which
-electronic devices can conceal suspicious material. RayGuard investigates object
-detection and an operator interface while retaining traceable evidence and explicit
-limitations. SDP I combines an IEDXray/YOLOv10-M single-image prototype with
-preparation for distributed component analysis. The implemented software provides
-dataset audits, prediction contracts, real detector execution, evaluation and a
-separate application for image intake, localization, review and export. A reduced
-HPC experiment completed six attempted generic configurations, including one
-recorded failure, and two 100-epoch confirmations from identical general starting
-weights. Validation AP was 87.71\% for the control and 87.48\% for the search
-candidate. A subsequent frozen comparison on all 5,136 published test images
-measured 41.59\% and 48.05\% AP respectively. These single-seed results do not
-establish repeatability or unseen-physical-case performance: duplicate images,
-uncertain physical grouping and label questions remain. Fixed-threshold recall
-was below 49\% for both models, so higher AP does not establish safe clearance.
-The separate collection inventory contains 577 paths and 478 distinct image
-payloads without accepted case labels or QC. The report distinguishes software
-verification, real model measurements and operational acceptance. Specific-task
-training, repeated-seed studies, distributed-case validation and observed scanner
-integration remain future work.
+X-ray baggage screening relies on operators who must find threats in cluttered,
+overlapping images, and explosives concealed inside electronic devices are among
+the hardest threats to see. RayGuard investigates how object detection can assist
+this task while keeping every result traceable. In Senior Design Project~I the
+team collected 500 positive X-ray scans of laboratory threat simulants following a
+balanced multi-bag catalogue, and helped the CVML laboratory collect about 7,000
+negative scans. The public IEDXray benchmark was audited before use, revealing
+label disagreements between annotation exports, exact image duplicates across the
+published train/test split and boundary errors. The team defined versioned
+contracts for scans, detections and runs; executed YOLOv10-M checkpoints for
+device, generic-explosive and specific-explosive detection on real images; and
+built RayGuard-App, an operator application for image intake, localized findings,
+review and traceable export. A reduced fine-tuning study on a GPU cluster trained
+an untuned and a tuned generic-explosive detector from the same starting weights;
+evaluated once on all 5,136 published test images, they reached 41.6\% and 48.1\%
+AP, with precision up to 95.1\% but recall below 49\% at a fixed threshold.
+Four of the five proposal requirements are met; evaluation is partly met, because
+the published test set is not an unseen-case benchmark. Further work in Senior
+Design Project~II covers recall, repeatability and the specific-explosive task,
+annotation of the collected data and detection of threats distributed across
+several bags.
 \tableofcontents
 \listoffigures
 \listoftables
@@ -83,14 +100,20 @@ integration remain future work.
 \begin{tabular}{lp{0.78\textwidth}}
 AP & Average precision\\
 AR & Average recall\\
+CI & Continuous integration\\
 COCO & Common Objects in Context\\
+CPC & Cooperative Patent Classification\\
+CT & Computed tomography\\
 GUI & Graphical user interface\\
 HPC & High performance computing\\
 IED & Improvised explosive device\\
 IoU & Intersection over union\\
+mAP & Mean average precision\\
 P1 / P2 & Single-scan / distributed multi-scan project workstreams\\
+PR & Pull request\\
 QC & Quality control\\
 SDP & Senior Design Project\\
+USPTO & United States Patent and Trademark Office\\
 \end{tabular}
 \clearpage
 \pagenumbering{arabic}

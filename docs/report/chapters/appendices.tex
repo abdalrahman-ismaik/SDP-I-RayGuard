@@ -1,239 +1,368 @@
-\setlength{\tabcolsep}{3.5pt}
 \chapter{Project Management}\label{app:management}
-\section{Schedule and dependencies}
-Figure~\ref{fig:gantt} separates recorded semester evidence from
-forward delivery work. A marker indicates an
-event or evidence date, not continuous effort or completed hours. Earlier
-8/15 October prototype targets are retained as historical obligations; they
-are not silently replaced by the November plan.
+This appendix documents how the project was planned and tracked: the schedule and
+its dependencies, the dated record of the semester, the task schedule in the form
+required by the handbook, and the full patent search log.
+
+%-----------------------------------------------------------------------------
+\section{Schedule and Dependencies}
+Figure~\ref{fig:gantt} separates the recorded events of the semester from the
+remaining delivery work. A marker indicates the date of an event or of its
+evidence, not continuous effort or completed hours. The earlier prototype targets
+of 8 and 15~October are kept as historical obligations rather than silently
+replaced by the November plan.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{gantt.png}
-\caption{Schedule summary in two panels. Panel A places recorded semester events by evidence status: filled markers are verified, hollow markers are reported and not independently checked, and the red cross is not evidenced. Panel B preserves the forward schedule recorded on 21 November 2026; the updated task table below records later completion. It gives planned work with durations, dependencies and responsibilities. Effort is unreported for every task, and no bar measures student effort.}
+\includegraphics[width=\textwidth]{gantt.png}
+\caption{Schedule summary in two panels. Panel~A places recorded semester events
+by evidence status: filled markers are verified, hollow markers are reported but
+not independently checked, and the red cross is not evidenced. Panel~B gives the
+forward schedule from 21~November~2026 with durations, dependencies and
+responsibilities. Effort was not recorded, and no bar measures student effort.}
 \label{fig:gantt}
 \end{figure}
 
-\begingroup\small\singlespacing
-\begin{longtable}{p{0.21\textwidth}p{0.34\textwidth}p{0.35\textwidth}}
-\caption{Dependencies and contingencies for the final SDP I delivery.}\\
-\toprule Deliverable & Required dependency & Contingency or open action\\
-\midrule\endfirsthead
-\toprule Deliverable & Required dependency & Contingency or open action\\
-\midrule\endhead
-Generic training & Qualified pilots, actual initialization and data receipts & Reduced scope completed; review source and evidence\\
-Generic evaluation & Frozen checkpoints, test inputs and inference settings & Job 820 completed; retain limitations and deferred tasks\\
-Demo & Current machine, engine/model identity and authorized examples & Clearly labeled saved real-run fallback, with known failures retained\\
-Report & Verified evidence, reference review, forms and student contribution statements & Freeze factual content for 23 Nov review; retain explicit limitations\\
-Submission & Active Blackboard format, project number, actual signatures and distribution clearance & Checked Word copy alongside LaTeX PDF; confirm institutional instructions before upload\\
-Distributed work & QC, accepted counts, labels and physical/case grouping & Preserve 30 Nov collection obligation; do not infer P2 completion\\
+Table~\ref{tab:dependencies} lists the dependencies of the final SDP~I deliverables
+and the contingency for each.
+
+\begingroup\tablesetup
+\begin{longtable}{@{}L{0.18\textwidth}L{0.36\textwidth}L{0.38\textwidth}@{}}
+\caption{Dependencies and contingencies of the final SDP~I deliverables.}\label{tab:dependencies}\\
+\toprule Deliverable & Required dependency & Contingency\\\midrule\endfirsthead
+\toprule Deliverable & Required dependency & Contingency\\\midrule\endhead
+Training pilot & Reviewed data receipts, verified initialization and a qualified
+backend & Report the software preparation and the precise blocker\\
+Evaluation & Matching predictions and ground truth under a frozen protocol & Report
+results as unavailable; never substitute paper or synthetic scores\\
+Demonstration & Presentation machine, engine and model identity, authorized
+examples & A clearly labelled recorded run, with known failures retained\\
+Report & Verified evidence, reviewed references, forms and contribution
+statements & Freeze factual content for team review; keep stated limitations\\
+Submission & Course format, project number, signatures and distribution clearance &
+Checked Word copy alongside the PDF; confirm instructions before upload\\
+SDP~II preparation & Quality control, annotation and group records for the
+collected scans & Carry forward as the first SDP~II work items\\
 \bottomrule
 \end{longtable}
 \endgroup
 
-Task names identify coordination contacts, not exclusive rights to files.
-Students prioritize assigned work and may complete a small dependency that
-blocks it without waiting for its lead. They record actual editor/scope and
-coordinate overlapping active edits or GPU/output use. Independent review
-and truthful credit remain necessary. The sole live backlog is
-\file{docs/tasks.md}; this appendix is a dated summary.
+Task leads are coordination contacts, not exclusive owners of files. Students
+prioritize their assigned work but may complete a small item that blocks it
+without waiting for its lead, recording the actual editor and scope. The live
+backlog is \file{docs/tasks.md}; this appendix is a dated summary.
 
-\section{Semester record}
-Table~\ref{tab:record} lists events and milestones from September to November 2026.
-Each row states its evidence status. \emph{Verified} means a local artifact, repository
-state or read-back confirms it. \emph{Reported} means an owner statement, email or meeting
-record that has not been independently checked. Conflicts are listed in
-Table~\ref{tab:conflicts} and are not resolved here.
+%-----------------------------------------------------------------------------
+\section{Semester Record}
+Table~\ref{tab:record} lists the events and milestones of the semester. Each row
+states its evidence status: \emph{verified} means a local artifact, repository
+state or read-back confirms it; \emph{reported} means an owner statement, email or
+meeting record that was not independently checked.
 
-\begingroup\small\singlespacing
-\begin{longtable}{>{\raggedright\arraybackslash}p{0.14\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}}
+\begingroup\tablesetup
+\begin{longtable}{@{}L{0.13\textwidth}L{0.31\textwidth}L{0.31\textwidth}L{0.17\textwidth}@{}}
 \caption{Dated semester record, September to November 2026.}\label{tab:record}\\
 \toprule Date & Event & Outcome & Evidence\\\midrule\endfirsthead
 \toprule Date & Event & Outcome & Evidence\\\midrule\endhead
-8 Sep 2026 & Advisor meeting M01 (Prof.\ Werghi) & Source minutes and companion; attendance not confirmed & Reported\\
-22--25 Sep & Generic inference and dataset audits & Generic inference ran; device-label and split findings recorded & Verified\\
-24 Sep & Advisor meeting M02; Divya follow-up F02 & Batch 1 by 15 Oct, Batch 2 after midterms, GUI and poster tasks & Reported (minutes hash verified)\\
-25 Sep & Team repository setup (PR \#1, rulesets) & Published; hosted checks passed & Verified\\
-28 Sep & Collection emails F03--F05; catalogue C01 & Revised slots 29 Sep--8 Oct; catalogue structure checked & Reported; catalogue verified\\
-29 Sep--9 Oct & First-round collection files (filename span only) & 577 JPEG paths, 478 distinct payloads, all decode & Verified (files); sessions reported\\
-12--17 Oct & Poster acceptance and revision & Accepted 12 Oct; revised file 17 Oct; TDRA response pending & Reported\\
-19 Oct & Collection update F06; SLG visit invitation F08 & 30 Nov overall deadline; visit 21 Oct, 14:00--17:00 & Reported (invitation only)\\
-20 Oct & 6G MENA session, Abu Dhabi & Team attendance owner-reported; presentation evidence not reviewed & Reported\\
-21 Oct & SLG CEO visit & No outcome recorded in the project record & Not evidenced\\
-4--18 Nov & CS-HPC access email; owner confirmation & Access issued; training run not verified & Reported\\
-21 Nov & PR \#18 merged (commit 9350482) & 273 evaluation-enabled tests and required CI passed & Verified\\
-21 Nov & Report LaTeX build and Word draft & Local build passes; Word layout review open & Verified (local)\\
-22--23 Nov & Reduced generic T41 experiment and frozen test & Six attempts, two confirmations; test job 820 completed & Executed and verified\\
+8 Sep & Advisor meeting M01 (Prof.\ Werghi) & Minutes and companion record &
+Reported\\
+22--25 Sep & Generic inference and dataset audits & Inference ran; label and
+split findings recorded & Verified\\
+24 Sep & Advisor meeting M02; follow-up F02 & Collection batches, GUI and poster
+tasks & Reported (minutes hash verified)\\
+25 Sep & Repository setup (PR~\#1, branch rules) & Published; hosted checks
+passed & Verified\\
+28 Sep & Collection emails F03--F05; catalogue C01 & Sessions 29~Sep--8~Oct;
+catalogue structure checked & Reported; catalogue verified\\
+29 Sep--9 Oct & Round~1 positive-scan collection & 500 configurations collected;
+14~Nov snapshot holds 478 distinct files & Reported (500); verified
+(snapshot)\\
+12--17 Oct & Poster acceptance and revision & Accepted 12~Oct; revised file
+17~Oct & Reported\\
+19 Oct & Collection update F06; SLG visit invitation & Overall collection
+deadline 30~Nov; visit 21~Oct & Reported\\
+20 Oct & 6G MENA session, Abu Dhabi & Team attendance & Reported\\
+21 Oct & SLG CEO visit & No outcome recorded & Not evidenced\\
+4--18 Nov & HPC access & Access issued and confirmed & Reported\\
+14--21 Nov & PRs~\#17, \#19, \#18, \#21 merged & Run contract, evaluator and
+initialization receipt integrated & Verified\\
+22 Nov & PRs~\#20, \#22, \#23 merged & Progress record, data policy, status
+refresh & Verified\\
+22--23 Nov & T41 study on HPC (jobs 755--819) & Six search attempts, two 100-epoch confirmations & Verified (receipts)\\
+23 Nov & Frozen test, job 820 & Test AP 41.59\% and 48.05\% & Verified (recomputed)\\
+23 Nov & PRs~\#25, \#24 merged & T41 integration and results; box-repair fixes & Verified\\
+21--23 Nov & Report written and revised & LaTeX build passes & Verified
+(local)\\
 \bottomrule
 \end{longtable}
 \endgroup
 
 \textbf{Conferences and events.} The project record lists the ISDIA and ICISAS calls
-(closed 15 November 2026, no submission recorded), the CVCI call (official deadline
-30 November 2026, conflicting with a 5 December invitation) and a ZU SRC abstract window
-(15 December 2026 to 18 January 2027). No submission or acceptance for any event is recorded.
+(closed 15~November~2026, no submission recorded), the CVCI call (official deadline
+30~November~2026, conflicting with a 5~December invitation) and a ZU SRC abstract
+window (15~December~2026 to 18~January~2027). No submission or acceptance is
+recorded for any of them.
 
-\begingroup\small\singlespacing
-\begin{longtable}{>{\raggedright\arraybackslash}p{0.44\textwidth}>{\raggedright\arraybackslash}p{0.52\textwidth}}
-\caption{Open conflicts recorded in the project, not resolved in this report.}\label{tab:conflicts}\\
+Table~\ref{tab:conflicts} lists conflicts between project records that this report
+does not resolve.
+
+\begingroup\tablesetup
+\begin{longtable}{@{}L{0.3\textwidth}L{0.65\textwidth}@{}}
+\caption{Open conflicts between project records.}\label{tab:conflicts}\\
 \toprule Item & Conflict\\\midrule\endfirsthead
 \toprule Item & Conflict\\\midrule\endhead
-Report deadline & 24 Nov 2026, 17:00 UTC+4 (owner) versus 27 Nov 2026 (pasted notice)\\
-Collection deadline & Batch 1 by 15 Oct (historical) versus 30 Nov overall\\
-Collection count & Target 500 versus 577 paths and 478 distinct payloads\\
-Round 1 allocation & One item per student (F03) versus all four families per student (C01)\\
-Logo adoption & A04 in one progress heading versus A03 approved 28 Sep in the status record\\
-Poster timeline & 30 Sep, 14 Oct, 17 Oct revision versus 20 Oct confirmation\\
+Report deadline & 24~Nov~2026, 17:00 UTC+4 (owner) versus 27~Nov~2026 (pasted
+notice)\\
+Collection deadline & Batch~1 by 15~Oct (historical) versus 30~Nov overall\\
+Round~1 allocation & One item per student (F03) versus all four families per
+student (C01)\\
+Logo adoption & A04 in one progress heading versus A03 approved 28~Sep\\
+Poster timeline & 30~Sep, 14~Oct and 17~Oct revisions versus 20~Oct
+confirmation\\
 \bottomrule
 \end{longtable}
 \endgroup
 
-\section{Handbook-form task schedule}
-Table~\ref{tab:tasks} sets out the schedule elements the handbook asks for. Effort in hours
-was not recorded for any task, so the effort column reads ``unreported'' rather than an estimate.
-Durations are the dates in the project record, not measured effort.
+%-----------------------------------------------------------------------------
+\section{Task Schedule}
+Table~\ref{tab:tasks} gives the remaining tasks with the schedule elements the
+handbook asks for. Effort in hours was not recorded, so the effort column reads
+``unreported'' rather than an estimate.
 
-\begingroup\small\singlespacing
-\begin{longtable}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.10\textwidth}>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}}
-\caption{Task schedule in handbook form (effort unreported).}\label{tab:tasks}\\
+\begingroup\tablesetup
+\begin{longtable}{@{}L{0.2\textwidth}L{0.12\textwidth}L{0.11\textwidth}L{0.22\textwidth}L{0.23\textwidth}@{}}
+\caption{Remaining task schedule in handbook form.}\label{tab:tasks}\\
 \toprule Task & Duration & Effort & Depends on & Output and contingency\\\midrule\endfirsthead
 \toprule Task & Duration & Effort & Depends on & Output and contingency\\\midrule\endhead
-Report drafting (LaTeX, bibliography) & 21--24 Nov & unreported & Verified evidence; references & Build and PDF; contingency: freeze content for review\\
-Group review and Word copy & 23--24 Nov & unreported & Build; Pandoc conversion & Word draft; contingency: PDF if accepted\\
-Presentation rehearsal & 25--26 Nov & unreported & Demo candidate; slot & Rehearsed demo; contingency: recorded fallback\\
-Presentation & 27 Nov (stated) & unreported & Slot confirmation & Presentation; slot TBD\\
-Collection completion & to 30 Nov & unreported & Lab protocol; QC & Accepted counts; open conflict in Table~\ref{tab:conflicts}\\
-Generic training and evaluation & 22--23 Nov & unreported & Verified data and qualified runtime & Reduced study completed; see Chapter~\ref{ch:implementation}\\
+Report writing & 21--24 Nov & Unreported & Verified evidence; references & PDF;
+freeze content for review\\
+Team review and Word copy & 23--24 Nov & Unreported & Final build & Word copy;
+PDF if accepted\\
+Presentation rehearsal & 25--26 Nov & Unreported & Demonstration machine; slot &
+Rehearsed demo; recorded fallback\\
+Presentation & 27 Nov (stated) & Unreported & Slot confirmation &
+Presentation\\
+Collection follow-up & to 30 Nov & Unreported & Laboratory review & Quality
+control of collected scans\\
+Completed study (T41) & SDP~II & Unreported & T41 results & Specific task, seeds 29 and 43, threshold calibration\\
 \bottomrule
 \end{longtable}
 \endgroup
 
+%-----------------------------------------------------------------------------
+\section{Full Patent Search Log}\label{app:patentlog}
+Table~\ref{tab:patentlog} records every search behind the summary in
+Table~\ref{tab:patents}. All searches were run on 22~November~2026. Sources were
+read to the level stated in the last column; no entry is a freedom-to-operate or
+patentability finding.
+
+\begingroup\tablesetup
+\begin{longtable}{@{}L{0.24\textwidth}L{0.44\textwidth}L{0.26\textwidth}@{}}
+\caption{Literature and patent search log, 22~November~2026.}\label{tab:patentlog}\\
+\toprule Query or source & Result found & Limit\\\midrule\endfirsthead
+\toprule Query or source & Result found & Limit\\\midrule\endhead
+YOLO detectors for concealed IEDs in X-ray (web) & Academic YOLO studies on IED
+replicas and small threat objects; one USPTO baggage-inspection patent that names
+YOLO as a detector & Snippets only; claims, assignee and status not verified\\
+Multi-view or multi-scan fusion of detections (web) & Multi-view detection with
+epipolar constraints; dual-view feature fusion; a dual-view dataset with
+auxiliary-view networks & Academic results only; no patent on cross-image
+detection fusion\\
+Dark-field and multi-energy material discrimination & Reported in the supplied
+benchmark and survey citations & Cited through supplied papers\\
+Three patent-focused web searches & Multi-sensor explosives detection with a
+neural network (EP0476070A1, US5153439A); transmitted and scattered-ray screening
+(US5600700A); dual-energy CT threat resolution (US20040258199A1); two-scanner
+dual-energy inspection (US9915752). No patent on deep-learning detection of
+explosives in modified electronics or on cross-image fusion & Web snippets;
+claims, status and assignees not verified\\
+Google Patents records of three hits & US8885938B2, detecting concealed threats
+(Analogic; filed 2008, granted 2014): laptop-type object classification, neural
+network one option among SVM and PCA, mainly CT. KR102063859B1, airport AI baggage
+screening (Deepnoid; filed 2019): deep-learning X-ray classification of prohibited
+items. JP6678192B2, firearm detection with a neural network (Tsinghua University;
+filed 2018): not explosives & Status shown as active; claim text summarized by a
+tool, not read verbatim\\
+Google Patents, ``multi-view x-ray detection fusion'' with CPC G01V~5/20 (run by a
+team member) & About 230 results; the top ten are hardware or imaging patents
+(stereoscopic X-ray, muon and gamma imaging, a security robot); none fuses threat
+detections across images & Single query, top ten only\\
+USPTO Patent Public Search: ``multi-view'' AND ``x-ray'' AND (``detection'' OR
+``detecting'') AND (``baggage'' OR ``security''); US-PGPUB, USPAT, USOCR; 863 hits
+& Visible top 12 mostly unrelated (light-field displays, camera calibration, stent
+prediction, luggage tracking, bag tags). Closest: ``Detection of disassembled
+items'' (Infosys; US20260301145\,A1, US20260301379\,A1), which embed segmented
+material-based objects in a learned feature space and score membership of
+restricted items & Abstracts read; published applications only; full records
+returned HTTP~404\\
+Google Patents, US10977755B2 (IBM; application US15/819,730 filed 21~Nov~2017),
+``Cognitive screening for prohibited items across multiple checkpoints by using
+context aware spatio-temporal analysis'' & Claim~1 recites detecting a component of
+an object in a scan of one owner's container and another component in a second
+owner's container, storing the records with context, and flagging owners by a
+correlation and danger threshold. Three independent claims. Closest match to the
+SDP~II multi-scan idea & Claims partly read; claims 7--10 and the grant date from
+the page summary. Page shows expired for non-payment (lapse 2025) with conflicting
+grant dates. USPTO PDF is a scanned image without text\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+%=============================================================================
 \chapter{Risk and Required Forms}\label{app:risk}
-\section{Risk preparation worksheet}
-Table~\ref{tab:risk} is a draft engineering worksheet for discussion, not the
-official completed Risk Assessment or Health and Safety form. Likelihood,
-severity, residual ratings and named signatories require supervisor/lab review.
-No signature, approval or absence of hazards is inferred here.
 
-\begingroup\small\singlespacing
-\begin{longtable}{p{0.2\textwidth}p{0.32\textwidth}p{0.38\textwidth}}
-\caption{Draft hazard and project-risk discussion worksheet.}\label{tab:risk}\\
-\toprule Hazard or risk & Possible consequence & Proposed controls and outstanding review\\
-\midrule\endfirsthead
-\toprule Hazard or risk & Possible consequence & Proposed controls and outstanding review\\
-\midrule\endhead
-Lab X-ray equipment & Exposure or unsafe operation & Trained authorized operation, intact interlocks and lab procedures; lab/supervisor determines applicable radiation controls\\
-Electrical equipment and specimen handling & Injury, damage or unapproved operation & Follow lab-approved equipment/specimen protocol; no unsupervised hazardous work; confirm permitted inert materials with lab\\
-Missed detections or overconfidence & Incorrect inspection decision & Human review, known-miss demonstration, visible failure states and no safe verdict from empty results\\
-Data and credentials & Disclosure or unauthorized access & Authorized local storage, sanitized exports, no scans/weights/credentials/private paths in public Git\\
-Split leakage and invalid labels & Misleading evaluation or tuning & Preserve published test, hash artifacts, group duplicates, review geometry and physical provenance; no test-based tuning\\
-Compute failure or excess resource use & Lost study evidence, missed deadline or quota breach & One job/output owner, checkpoint/restart evidence, bounded pilot and measured budget before search\\
-Software mismatch & Invalid result or demo failure & Pinned environments, actual device/revision records, clean startup checks and labeled recorded fallback\\
-Contribution and AI attribution & Misrepresentation in individual assessment & Actual work links, student explain-back and truthful assistance disclosure; no invented hours\\
-Report and publication & Rejected submission or confidential disclosure & Confirm Word/PDF acceptance and filename; actual form signatures; resolve written-permission requirement before public distribution\\
+\section{Risk Assessment Worksheet}
+Table~\ref{tab:risk} lists the hazards and project risks identified by the team and
+the controls proposed for each. It supports, but does not replace, the official
+Risk Assessment and Health and Safety forms; likelihood and severity ratings and
+the signatories are set in those forms with the supervisor and the laboratory.
+
+\begingroup\tablesetup
+\begin{longtable}{@{}L{0.22\textwidth}L{0.27\textwidth}L{0.45\textwidth}@{}}
+\caption{Hazards, project risks and proposed controls.}\label{tab:risk}\\
+\toprule Hazard or risk & Possible consequence & Proposed control\\\midrule\endfirsthead
+\toprule Hazard or risk & Possible consequence & Proposed control\\\midrule\endhead
+Laboratory X-ray equipment & Radiation exposure or unsafe operation & Operation
+only by trained, authorized users with intact interlocks, under laboratory
+procedures\\
+Electrical equipment and specimen handling & Injury or equipment damage & Follow the
+laboratory protocol; no unsupervised hazardous work; only laboratory-approved
+simulants\\
+Missed detections or over-confidence & Incorrect inspection decision & Human
+review, known misses shown, visible failure states, no clearance from empty
+results\\
+Data and credentials & Disclosure or unauthorized access & Local storage; no scans,
+weights, credentials or private paths in the public repository\\
+Data leakage and invalid labels & Misleading evaluation & Untouched test split,
+hashed artifacts, grouped duplicates, reviewed box repairs\\
+Compute failure or overuse & Lost results, missed deadline or quota breach & One
+owner per job, checkpoint and restart, bounded pilot before the full search\\
+Software mismatch & Invalid result or failed demonstration & Pinned environments,
+recorded revisions, clean-start checks, labelled recorded fallback\\
+Contribution and AI attribution & Misrepresentation in individual assessment &
+Links to actual work, student explain-back, truthful disclosure of assistance\\
+Report distribution & Rejected submission or confidential disclosure & Confirm
+format and permission before public distribution; genuine signatures only\\
 \bottomrule
 \end{longtable}
 \endgroup
 
-\section{Official form insertion checklist}
-The handbook lists Risk Assessment and Health and Safety forms for SDP I/II.
-Its Health and Safety form calls for student representative and supervisor
-signatures and handling by the University Safety Officer. Confirm the current
-course templates and insert their completed, authorized copies into the
-submission version. Do not mark the project software-only without reviewing
-the team's physical lab collection work.
+\section{Official Forms}
+The handbook requires a Risk Assessment form and a Health and Safety form for
+SDP~I. The Health and Safety form needs the signatures of a student representative
+and the supervisor and is handled by the University Safety Officer. Because the
+project included physical scan collection in the laboratory, it is not treated as
+software-only for these forms. The completed, signed forms are inserted in the
+submitted version of this report. The Project Clearance forms apply to the SDP~II
+final report.
 
-\pending{Official Risk Assessment form, completed Health and Safety form,
-current declaration wording, actual signatures, recipients and dates. The
-current draft intentionally contains no fabricated declaration or signature.}
+\pending{Completed Risk Assessment and Health and Safety forms with signatures,
+recipients and dates. This report contains no pre-filled signature or
+declaration.}
 
-The Project Clearance I/II forms are explicitly marked for the SDP II final
-report. They are not treated as new SDP I submission requirements without
-a specific course instruction. Physical final-copy requirements and public
-distribution remain to be clarified against the later course notices.
-
+%=============================================================================
 \chapter{Contribution and Assistance Record}\label{app:contributions}
-The entries below distinguish repository evidence from personal understanding.
-They are draft source records for student confirmation, not a final allocation
-of marks or hours. Team names follow shared records and require roster confirmation.
+Table~\ref{tab:contrib} links each student's contribution to repository evidence
+and lists what the student still confirms personally. It complements
+Table~\ref{tab:team} and is not an allocation of marks or hours.
 
-\begingroup\small\singlespacing
-\begin{longtable}{p{0.19\textwidth}p{0.41\textwidth}p{0.3\textwidth}}
-\caption{Evidence-linked contribution worksheet for individual confirmation.}\\
-\toprule Student & Existing source record & Verification still needed\\
-\midrule\endfirsthead
-\toprule Student & Existing source record & Verification still needed\\
-\midrule\endhead
-Abd Alrahman Ismaik & Coordination/GUI direction recorded in project documentation; assisted integration and report preparation & Personal reviewed contribution statement, report sections and explain-back\\
-Faisal Daoud Alzarooni & T40 baseline/contracts/tools PRs 17/19; initialization PR 21 & Student confirmation, actual HPC handoff and explain-back\\
-Ahmed Almansoori & T41 task lead; qualified generic training and frozen test evidence, with agent assistance & Personal contribution confirmation and explain-back; execution alone does not establish individual authorship\\
-Ali Arif Alshamsi & T42 evaluator PR 18, validation interface and matched comparison & Student confirmation, real evaluation evidence when available and explain-back\\
-Mohammad Arwani & Research branch records an assisted app acceptance slice & Verified shared app commit/diff, human walkthrough and roster spelling\\
+\begingroup\tablesetup
+\begin{longtable}{@{}L{0.21\textwidth}L{0.42\textwidth}L{0.31\textwidth}@{}}
+\caption{Contribution record for individual confirmation.}\label{tab:contrib}\\
+\toprule Student & Repository evidence & Still to confirm\\\midrule\endfirsthead
+\toprule Student & Repository evidence & Still to confirm\\\midrule\endhead
+Abd Alrahman Ismaik & Coordination; operator GUI (RayGuard-App); repository setup
+and rules (T36); report integration & Contribution statement and explain-back\\
+Ali Arif Saeed Alshamsi & T42 evaluator and matched comparison (PR~\#18); data
+policy and box repair (PR~\#22), both used by the T41 study & Contribution
+statement and explain-back\\
+Faisal Daoud Alzarooni & T40 run contract and tools (PRs~\#17, \#19);
+initialization receipt (PR~\#21); box-repair fixes and report corrections
+(PR~\#24); reviews of PRs~\#22 and \#27; 124 scans in the 14~November collection
+record & Statement received 24~November: T40 lead and attribution of PRs~\#17,
+\#19, \#21 and \#24 confirmed. Explain-back still to do\\
+Ahmed Almansoori & T41 task lead: qualified training, HPC study and frozen test
+comparison (PR~\#25), AI-assisted implementation and execution under his direction
+& Contribution statement, name spelling and explain-back\\
+Mohammad Arwani & T43 GUI acceptance and accessibility checks (branch commit
+\file{164d6cf}) & Application commit, walkthrough and explain-back\\
 \bottomrule
 \end{longtable}
 \endgroup
 
-AI assistance was used in implementation, review and documentation preparation,
-including this report draft. Each student must review and understand the work
-they claim. Relevant sanitized code-generation prompts and assistance details
-must be included accurately in the final disclosure; private transcripts,
-credentials and session records remain outside the public repository.
-\pending{Student-reviewed disclosure and relevant sanitized prompt excerpts.}
+AI assistance was used in implementation, review and documentation, including the
+preparation of this report. Each student reviews and understands the work they
+claim, and the prompt disclosure in Table~\ref{tab:prompts} is completed by each
+student. Private transcripts, credentials and session records remain outside the
+public repository.
 
+\pending{Student-confirmed contribution statements and prompt excerpts.}
+
+%=============================================================================
 \chapter{Handbook Coverage and Source Map}\label{app:coverage}
-\begingroup\small\singlespacing
-\begin{longtable}{p{0.12\textwidth}p{0.45\textwidth}p{0.33\textwidth}}
-\caption{R01--R15 traceability for this draft. Presence is not final acceptance.}\\
-\toprule ID & Draft location & Remaining gate\\
-\midrule\endfirsthead
-\toprule ID & Draft location & Remaining gate\\
-\midrule\endhead
-R01 & Cover, abstract, contents and lists & Institutional cover/roster confirmation\\
-R02 & Chapter 1 objectives and scope & Student/supervisor review\\
-R03 & Chapter 1 literature & Deeper reference reading; scoped patent-search record\\
-R04 & Chapter 1 and Appendix C & Individual confirmations and sanitized prompts\\
-R05 & Chapter 2, Table 2.1 & Formal requirements/specification review\\
-R06 & Chapter 3 & Technical review of assumptions and equations\\
-R07 & Chapter 4 & Final design rationale review\\
-R08 & Chapter 5 & Current app revision and approved screenshots\\
-R09 & Chapter 5 & Eligible real metrics and demonstration evidence\\
-R10 & Chapter 6 & Conclusions updated to final evidence cutoff\\
-R11 & References & Verify relevance, metadata and final citation coverage\\
-R12 & Appendix A and original specification below & Gantt actuals/student ownership confirmation\\
-R13 & Appendix B & Official completed forms and actual signatures\\
-R14 & Appendix B & Official declaration and applicable paperwork\\
-R15 & Project course checklist & Actual submission, permission and rehearsal receipts\\
+
+\section{Handbook Coverage}
+Table~\ref{tab:coverage} maps the report requirements R01--R15 of the course
+handbook to their location in this report and to the step that remains.
+
+\begingroup\tablesetup
+\begin{longtable}{@{}lL{0.42\textwidth}L{0.42\textwidth}@{}}
+\caption{Handbook requirements and their location in this report.}\label{tab:coverage}\\
+\toprule ID & Location & Remaining step\\\midrule\endfirsthead
+\toprule ID & Location & Remaining step\\\midrule\endhead
+R01 & Title page, abstract, contents and lists & Official cover template and
+project number\\
+R02 & Section~\ref{sec:goals}, Table~\ref{tab:objectives} & Supervisor review\\
+R03 & Section~\ref{sec:background}, Tables~\ref{tab:datasets}
+and~\ref{tab:patents} & Full reading of the closest patents\\
+R04 & Section~\ref{sec:github}, Appendix~\ref{app:contributions} & Student
+confirmations and prompt excerpts\\
+R05 & Chapter~\ref{ch:system}, Table~\ref{tab:requirements} & Supervisor review\\
+R06 & Chapter~\ref{ch:theory} & Technical review of equations and assumptions\\
+R07 & Chapter~\ref{ch:design} & Supervisor review\\
+R08 & Chapter~\ref{ch:implementation} & Approved screenshots with application
+revision\\
+R09 & Chapter~\ref{ch:implementation} & Final metrics and demonstration
+evidence\\
+R10 & Chapter~\ref{ch:conclusions} & Update at the final evidence cutoff\\
+R11 & Bibliography & Final citation review\\
+R12 & Appendix~\ref{app:management} & Confirmation of actual dates and owners\\
+R13 & Appendix~\ref{app:risk} & Completed forms and signatures\\
+R14 & Appendix~\ref{app:risk} & Official declaration\\
+R15 & Course checklist & Submission and rehearsal receipts\\
 \bottomrule
 \end{longtable}
 \endgroup
 
-\section{Original specification summary}
-The original proposal requires image acquisition of 500 positive/negative
-samples; preprocessing for image quality; contemporary explosive detection;
-evaluation on unseen test data; and a GUI supporting control and recording.
-This summary preserves the requirements without reproducing private source
-documents. Later meetings prioritize distributed collection and retain a
-single-scan existing-model showcase. Table~\ref{tab:requirements} maps the
-current implementation without treating later planning as waiver of older
-requirements.
+\section{Original Specification Summary}
+The original proposal requires image acquisition of 500 positive and negative
+samples, pre-processing for image quality, detection of explosives with
+contemporary models, evaluation on unseen test data, and a GUI supporting control
+and recording. These five requirements define the scope of SDP~I
+(Table~\ref{tab:objectives}). The direction set at the second advisor meeting,
+detection of threats distributed across several bags, is SDP~II work.
 
-\section{Project source register}
-\begingroup\small\singlespacing
-\begin{longtable}{p{0.4\textwidth}p{0.5\textwidth}}
-\caption{Project records supporting the report; paths are repository-relative.}\\
-\toprule Source record & Use and evidence boundary\\
-\midrule\endfirsthead
-\toprule Source record & Use and evidence boundary\\
-\midrule\endhead
-\file{docs/final-report-requirements.md} & Handbook requirements and R01--R15; original handbook remains local\\
-\file{docs/meeting_minutes/README.md} & M01/M02 and F02--F08 directions; minutes do not prove execution\\
-\file{docs/research.md} & Paper and release inspection; published claims remain distinct\\
-\file{docs/iedxray-audit.md} & Audit findings and source preservation\\
-\file{docs/first-inference.md} & Initial executed CPU diagnostic inference and retained miss\\
-\file{docs/architecture.md} & Contract and repository boundary; older passages require revision-aware reading\\
-\file{docs/collection-progress-2026-11-14.md} & Path/byte inventory and unresolved QC/provenance\\
-\file{docs/progress.md} & Dated integration commands, test outcomes and limitations\\
-\file{docs/course-endgame-2026-11.md} & Submission/presentation notices and conflicts\\
-\file{docs/tasks.md} & Sole live backlog; this report is a dated evidence snapshot\\
+\section{Project Source Register}
+Table~\ref{tab:sources} lists the project records cited in this report. Paths are
+relative to the research repository.
+
+\begingroup\tablesetup
+\begin{longtable}{@{}L{0.42\textwidth}L{0.53\textwidth}@{}}
+\caption{Project records supporting the report.}\label{tab:sources}\\
+\toprule Source record & Use\\\midrule\endfirsthead
+\toprule Source record & Use\\\midrule\endhead
+\file{docs/final-report-requirements.md} & Handbook requirements R01--R15\\
+\file{docs/meeting_minutes/README.md} & Meetings M01 and M02 and follow-ups
+F02--F08\\
+\file{docs/research.md} & Paper and release inspection\\
+\file{docs/iedxray-audit.md} & IEDXray audit findings\\
+\file{docs/first-inference.md} & First executed inference and retained miss\\
+\file{docs/checkpoint-catalog.md} & Inspection of the supplied checkpoints\\
+\file{docs/architecture.md}, \file{docs/contracts.md} & Architecture and
+contracts\\
+\file{docs/decisions.md} & Dated design decisions\\
+\file{docs/collection-progress-2026-11-14.md} & Collection snapshot of
+14~November\\
+\file{docs/progress.md} & Dated commands, test outcomes and limitations\\
+\file{docs/tasks.md} & Live backlog\\
 \bottomrule
 \end{longtable}
 \endgroup

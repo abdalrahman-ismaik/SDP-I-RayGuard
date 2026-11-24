@@ -1,0 +1,33 @@
+\documentclass[border=8pt]{standalone}
+\usepackage{fontspec}
+\setsansfont{Arial}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18,
+  every axis/.append style={/pgf/number format/assume math mode=true,
+    tick label style={font=\sffamily\small}}}
+% Validation AP@[.50:.95] per epoch for the two 100-epoch T41 confirmations
+% (Slurm jobs 770 and 819). Data: t41-val-ap.csv, exported by Ahmed Almansoori
+% from the saved epoch records (0-1 scale; plotted in percent).
+\begin{document}
+\sffamily\small
+\begin{tikzpicture}
+\begin{axis}[
+  width=13cm,height=7cm,
+  xmin=0,xmax=101,ymin=50,ymax=92,
+  xlabel={Epoch},ylabel={Validation AP@[.50:.95] (\%)},
+  xtick={0,10,...,100},
+  ymajorgrids,grid style={black!12},
+  axis lines*=left,
+  legend style={font=\footnotesize,draw=none,fill=none,at={(0.98,0.04)},anchor=south east},
+  legend cell align=left,
+]
+\addplot[blue!50!black,thick] table[x=epoch,y expr=\thisrow{control AP}*100,col sep=comma]{t41-val-ap.csv};
+\addplot[orange!80!black,thick] table[x=epoch,y expr=\thisrow{candidate AP}*100,col sep=comma]{t41-val-ap.csv};
+\addplot[forget plot,only marks,mark=*,mark size=2.5pt,blue!50!black] coordinates {(68,87.7062)};
+\addplot[forget plot,only marks,mark=square*,mark size=2.5pt,orange!80!black] coordinates {(84,87.4833)};
+\node[font=\scriptsize,blue!50!black,anchor=south] at (axis cs:68,88.2) {epoch 68: 87.71};
+\node[font=\scriptsize,orange!80!black,anchor=north] at (axis cs:84,86.6) {epoch 84: 87.48};
+\legend{Untuned control (job 770),Candidate 4 (job 819)}
+\end{axis}
+\end{tikzpicture}
+\end{document}

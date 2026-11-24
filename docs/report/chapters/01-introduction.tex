@@ -1,148 +1,581 @@
 \chapter{Introduction}
 \label{ch:introduction}
-\section{Problem and motivation}
-Security screening of baggage involves recognizing suspicious objects under
-occlusion, overlap and variable clutter. Embedded threats within electronic
-devices make this problem more difficult because the host device and the
-threat region are distinct concepts. A device box alone cannot establish a
-threat, and a detector confidence is not an operational safety decision.
-The IEDXray benchmark supplies a relevant research setting for studying these
-distinctions in X-ray imagery~\citep{takele2026iedxray}.
 
-RayGuard investigates a practical path from an authorized scan to localized
-model findings, operator review and a traceable result record. The project
-also considers a broader setting in which component evidence is distributed
-across multiple packages. That setting requires externally justified grouping
-and component labels; it cannot be obtained by arbitrarily combining unrelated
-benchmark images. The second advisor meeting prioritized collection for that
-distributed work while retaining a simple existing-model GUI showcase.
-\projectrecord{docs/meeting_minutes/SDP_Meeting_02_Minutes_Fall_2026.md}
+This chapter states what the project set out to achieve and why, describes the
+method followed during SDP~I, situates the work in the literature and patent
+record, outlines the report, and documents the shared repositories through which
+the team collaborated. Throughout the report, three evidence levels are kept
+distinct: \emph{documented} (recorded in a project file), \emph{artifact inspected}
+(a file, release or paper was examined) and \emph{executed and verified} (a command
+was run and its output checked).
 
-\section{Objectives and scope}
-The original proposal calls for a 500-sample dataset with positive and negative
-examples, image preprocessing, contemporary object detection, unseen-data
-evaluation and a GUI supporting control and recording. The report evaluates
-these objectives against actual evidence rather than treating a working screen
-as completion of the full research problem.
+%-----------------------------------------------------------------------------
+\section{Goals, Motivation and Method}
+\label{sec:goals}
 
-The immediate SDP I implementation objectives are to preserve an explicit
-task and category map, execute a verified detector, display original-coordinate
-boxes and scores, distinguish failures from empty results, and retain provenance
-through review and export. The experimental objectives are to reproduce a
-supplied checkpoint's evaluation and to compare untuned and tuned models under
-a controlled training-only validation design. These experiments remain distinct
-from reproducing the authors' full training procedure.
+\subsection{Motivation}
+X-ray baggage screening is the principal imaging modality at airports, border
+checkpoints and other high-security venues. In most operational settings the
+images are still interpreted by trained operators. The IEDXray study, citing a
+systematic survey, reports a recall of approximately 80--90\% for manual
+screening and notes that operator proficiency requires months of computer-based
+training~\citep{takele2026iedxray,velayudhan2023survey}. Manual inspection is
+therefore costly to scale and sensitive to fatigue during peak throughput.
+
+Improvised explosive devices (IEDs) are a harder target than conventional
+contraband such as firearms or knives, which usually appear as single objects
+with distinctive geometry. Takele et al.\ identify four properties that make IEDs
+difficult to detect~\citep{takele2026iedxray}:
+\begin{enumerate}
+\item \textbf{Composite assemblies.} An IED combines a power source, an initiator
+and a main charge, and several of these parts (batteries, wires, containers) are
+benign in isolation.
+\item \textbf{Concealment and miniaturization.} Explosive material can be embedded
+inside laptops, phones, pagers or walkie-talkies, so that the host device and the
+threat region overlap in the image.
+\item \textbf{Dismantled components.} The parts of a device may be dispersed across
+a bag, which calls for part-to-whole reasoning rather than single-object detection.
+\item \textbf{Material ambiguity.} Dual-energy scanners separate organic, inorganic
+and metallic material, but cannot reliably distinguish benign organic substances
+from explosives~\citep{wells2012review}.
+\end{enumerate}
+Consumer electronics are a particular concern because the housing is designed to
+look benign. Prior work by a member of this team curated X-ray scans of 34
+physical devices for this setting and reported that compact devices, such as pagers
+and walkie-talkies, remained the hardest class for a fine-tuned
+detector~\citep{ismaik2026src}. These observations motivate an assistive system
+that localizes candidate threats for an operator, rather than an autonomous
+alarm.
+
+\subsection{Goals and Objectives}
+The overall goal of RayGuard is to investigate a traceable path from an authorized
+X-ray scan to localized model findings, operator review and an exported result
+record, for explosives concealed in electronic devices. The supervisor's
+proposal defines five tasks: build a 500-sample dataset with positive and
+negative scans; pre-process images for noise and contrast; apply contemporary
+object detectors; evaluate on unseen test data with several metrics; and provide
+a graphical user interface (GUI) for system control and recording. These five
+tasks are the requirements of SDP~I. Table~\ref{tab:objectives} maps each of them
+to the deliverable produced and its status at the time of writing.
 
 \begin{table}[htbp]
-\centering\small
-\caption{Scope boundaries used throughout this report.}
+\centering\tablesetup
+\caption{Requirements of the original project proposal and the corresponding
+SDP~I deliverables, status on 22~November~2026.}
+\label{tab:objectives}
+\begin{tabularx}{\textwidth}{@{}L{0.2\textwidth}YL{0.2\textwidth}c@{}}
+\toprule
+Proposal requirement & SDP~I deliverable & Status & Ch.\\
+\midrule
+Image acquisition: 500 samples, positive and negative & 500 positive scans of
+concealed-threat scenarios collected by the team in scheduled lab sessions;
+about 7,000 negative scans collected with the CVML lab and shared by the lab &
+Met & \ref{ch:implementation}\\
+Pre-processing: noise reduction, contrast enhancement & Contrast and viewing
+adjustments in the operator interface & Met & \ref{ch:design}\\
+Detection with contemporary models & YOLOv10-M checkpoints for device,
+generic-explosive and specific-explosive detection, executed on real scans &
+Met & \ref{ch:implementation}\\
+Evaluation on unseen test data & Fine-tuned generic detector evaluated once on all
+5,136 published test images under a frozen plan: AP 41.6\% (untuned) and 48.1\%
+(tuned) & Partly met: published test set, not an unseen-case benchmark; specific
+task in SDP~II &
+\ref{ch:implementation}\\
+GUI for system control and recording & RayGuard-App: upload, localization,
+review, notes and JSON export with provenance & Met & \ref{ch:implementation}\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The second advisor meeting (M02, 24~September~2026) set a further direction:
+threats whose components are distributed across several packages. This
+direction was not part of the original proposal and is scoped as SDP~II work.
+SDP~I contributes to it through the data collection, because the positive scans
+follow the lab's multi-bag catalogue.
+\projectrecord{docs/meeting_minutes/SDP_Meeting_02_Minutes_Fall_2026.md}
+
+\subsection{Method}
+The project followed an evidence-first engineering method in six stages
+(Figure~\ref{fig:method}). Requirements were first extracted from the proposal,
+the meeting minutes and the course handbook. The supplied IEDXray release was then
+audited for label consistency, split overlap and annotation geometry before any
+model output was trusted. Explicit contracts fixed the task identifiers, category
+namespaces and coordinate conventions shared by the research code and the
+application. A verified checkpoint was executed on real images within bounded
+diagnostic runs, and the results were integrated into an operator application.
+Finally, an evaluation protocol separating reproduction of a supplied checkpoint
+from a controlled comparison of untuned and tuned models was implemented and
+executed: a reduced fine-tuning study on the HPC cluster produced two generic
+detectors that were evaluated once on the published test set.
+COCO conventions provide the common annotation and metric
+language~\citep{lin2014coco}; Optuna is the search
+framework~\citep{akiba2019optuna}; and optimizer settings such as decoupled weight
+decay are treated as explicit study variables~\citep{loshchilov2019adamw}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{method.png}
+\caption{Engineering method followed in SDP~I. All six stages were executed;
+the evaluation stage covers the generic-explosive task.}
+\label{fig:method}
+\end{figure}
+
+\subsection{Scope and Contribution}
+Table~\ref{tab:scope} assigns each workstream to SDP~I or SDP~II. The
+contribution of SDP~I is a collected dataset, an auditable single-scan
+prototype, a research software path with tested contracts, and documented
+dataset findings, and the first measured accuracy of a fine-tuned generic
+detector. These measurements come from one training seed; the report makes no
+claim of a repeatable tuning gain, a novel fusion method or operational safety.
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Workstreams by project phase, current evidence and remaining work.}
 \label{tab:scope}
-\begin{tabular}{p{0.21\textwidth}p{0.31\textwidth}p{0.35\textwidth}}
-\toprule Workstream & Current evidence & Remaining acceptance\\\midrule
-Single-scan prototype & Bounded real inference and implemented operator workflow & Human rehearsal, eligible accuracy evaluation and full P1 decisions\\
-Research software & Qualified generic training, evaluator and frozen test comparison executed & Physical-group verification, repeated seeds and deferred specific task\\
-Distributed collection & Sanitized inventory and catalogue targets & QC, physical/case labels, accepted counts and collection completion\\
-Distributed inference & Interface and research direction documented & Component evidence, case ground truth, fusion and evaluation\\\bottomrule
+\begin{tabularx}{\textwidth}{@{}L{0.2\textwidth}cYY@{}}
+\toprule
+Workstream & Phase & Current evidence & Remaining work\\
+\midrule
+Dataset collection & SDP~I & 500 positive scans collected; about 7,000 negative
+scans shared by the lab & Quality control and annotation\\
+Single-scan prototype (P1) & SDP~I & Real inference, an operator workflow and
+frozen test results for the generic task & Human rehearsal; specific task\\
+Research software & SDP~I & Contracts, evaluator, qualified training and a frozen
+test runner, executed on HPC & Repeated seeds and physical-group verification\\
+Distributed inference (P2) & SDP~II & Direction set at M02; interface
+documented & Component labels, case ground truth, fusion and evaluation\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+%-----------------------------------------------------------------------------
+\section{Technical Background, Literature and Patent Search}
+\label{sec:background}
+
+\subsection{X-ray Baggage Screening}
+Baggage scanners acquire line-scan transmission images at two energy levels. The
+ratio of attenuations supports a coarse classification into organic, inorganic and
+metallic material, which is rendered as pseudo-colour for the
+operator~\citep{wells2012review}. Projection imaging superimposes every object on
+the beam path, so clutter and overlap hide shape cues. A survey of baggage threat
+detection covers both 2D and 3D modalities and the deep-learning methods applied to
+them~\citep{velayudhan2023survey}. Alternative physics, such as dark-field
+imaging combined with neural networks, has discriminated threat materials in
+proof-of-concept experiments~\citep{astolfo2022darkfield}, but such hardware is
+outside the scope of this project, which uses images from a conventional
+dual-energy scanner.
+
+\subsection{Public X-ray Threat Datasets}
+Table~\ref{tab:datasets} summarizes the public datasets most relevant to this
+work. Most benchmarks target conventional prohibited items such as guns, knives
+and tools~\citep{miao2019sixray,mery2015gdxray,wei2020opixray,wang2021pidray}.
+HiXray includes electronic devices~\citep{tao2021hixray}, and STCray includes
+explosive-related samples with captions~\citep{velayudhan2025stingbee}. IEDXray is
+the only listed dataset that combines explosives, annotated electronic hosts and
+several detection tasks; it supplies 17,360 images with separate tasks for device,
+generic-explosive and specific-explosive detection~\citep{takele2026iedxray}.
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Public X-ray security datasets. Counts and flags are as reported in
+Table~1 of the IEDXray paper~\citep{takele2026iedxray}; they were not
+re-measured by this team.}
+\label{tab:datasets}
+\begin{tabular}{@{}lrcccc@{}}
+\toprule
+Dataset & Images & Classes & Explosives & Electronics & Tasks\\
+\midrule
+SIXray~\citep{miao2019sixray} & 1,050,302 & 6 & No & No & 1\\
+GDXray~\citep{mery2015gdxray} & 8,150 & 3 & No & No & 1\\
+OPIXray~\citep{wei2020opixray} & 8,885 & 5 & No & No & 1\\
+PIDray~\citep{wang2021pidray} & 47,677 & 12 & No & No & 1\\
+HiXray~\citep{tao2021hixray} & 45,364 & 8 & No & Yes & 1\\
+STCray~\citep{velayudhan2025stingbee} & 46,642 & 21 & Yes & No & 1\\
+IEDXray~\citep{takele2026iedxray} & 17,360 & 9 & Yes & Yes & 3\\
+\bottomrule
 \end{tabular}
 \end{table}
 
-\section{Research background}
-Baggage threat detection has been surveyed for both 2D and 3D screening
-\citep{velayudhan2023survey}. Dark-field X-ray imaging combined with neural
-networks has been reported to discriminate threat materials from benign
-materials in proof-of-concept experiments \citep{astolfo2022darkfield}, and large
-X-ray benchmarks such as SIXray address prohibited-item discovery in overlapping
-images \citep{miao2019sixray}. These sources motivate the problem but do not
-establish this project's performance.
-The literature offers several detector architectures rather than one universal
-solution. Faster R-CNN shares learned features with a region-proposal network,
-providing a representative two-stage approach~\citep{ren2015faster}.
-RetinaNet's focal loss addresses the imbalance encountered in dense detection,
-which motivates attention to hard and rare cases without proving transfer to
-this X-ray task~\citep{lin2017focal}. DETR formulates detection as set prediction
-with bipartite matching~\citep{carion2020detr}; Grounding DINO incorporates grounded
-pretraining for open-set detection~\citep{liu2023grounding}.
-These papers motivate design alternatives, not claims that those models were
-trained or evaluated by this team.
+\subsection{Object Detection Architectures}
+Detector families differ in how they generate and assign candidate boxes. Faster
+R-CNN shares convolutional features with a region-proposal network and is the
+representative two-stage detector~\citep{ren2015faster}. RetinaNet introduced the
+focal loss to counter the foreground--background imbalance of dense one-stage
+detection~\citep{lin2017focal}. DETR formulates detection as set prediction with
+bipartite matching and removes hand-designed anchors and non-maximum
+suppression~\citep{carion2020detr}. Grounding DINO adds grounded language
+pre-training for open-set detection~\citep{liu2023grounding}. YOLOv10 combines
+consistent dual label assignment with an efficiency-driven architecture to give
+end-to-end real-time detection~\citep{wang2024yolov10}.
 
-YOLOv10 proposes consistent dual assignments and an efficient architecture for
-end-to-end detection~\citep{wang2024yolov10}. Its available task-matched checkpoint
-and executed project backend make YOLOv10-M a practical reference for RayGuard.
-This selection is based on implementation evidence and project constraints;
-it does not imply that it is the highest-scoring model in the IEDXray paper.
+IEDXray benchmarks YOLOv10, Faster R-CNN, DETR and Grounding DINO on its three
+tasks~\citep{takele2026iedxray}. RayGuard adopts YOLOv10-M as its reference
+detector because task-matched checkpoints are available and the backend has been
+executed by the team. This choice reflects implementation evidence and project
+constraints; it does not imply that YOLOv10-M is the highest-scoring model in the
+IEDXray benchmark.
 
-The IEDXray release covers device, generic-explosive and specific-explosive
-detection, alongside a complete annotation export. The inspected paper reports
-17,360 images with a published 12,224/5,136 train/test split. Its protocol describes
-separation of physical configurations and concealment setups, while the local
-audit identifies four exact image-byte overlaps across the supplied splits.
-The published claim and local finding must both be retained.
-\projectrecord{docs/iedxray-paper-review.md}
+\subsection{Explosive and IED Detection Research}
+Early learning-based work on X-ray threats applied transfer learning from
+photographic images. Caldwell and Griffin showed that such transfer has measurable
+limits in the X-ray domain~\citep{caldwell2019transfer}, which supports
+domain-specific data. Seyfi et al.\ detected explosive circuits in laptop X-ray
+images with deep networks~\citep{seyfi2024circuit}; IEDXray notes that this
+dataset was derived from repeated imaging of a small number of devices, which
+raises concerns about imbalance and spurious correlation~\citep{takele2026iedxray}.
 
-FALCON studies component grounding and compositional reasoning within X-ray
-scenes~\citep{michael2026falcon}. The project inspected its paper and release as
-a research option; the release observations recorded in the repository do not
-establish a running multi-package solution. Grounded component presence and
-plausible language do not prove physical connectivity or dangerous assembly.
-\projectrecord{docs/research.md}
+Two recent Khalifa University works define the immediate context of RayGuard.
+First, the SRC~2026 paper by Ismaik et al.\ curated 34 physical devices in five
+device-specific threat classes and introduced a synthesis tool that injects threat
+signatures into benign device scans~\citep{ismaik2026src}. On 2,847 images
+(10\% real, 90\% synthetic) with an image-level 70/15/15 split, that paper reports
+a YOLOv10 mAP of 36.8 over IoU 0.50--0.95 and 59.1 at IoU~0.50. These are the
+published results of that study, not results of SDP~I; the authors themselves note
+that generalization depends heavily on synthesis because only six threat-bearing
+real scans were available. Second, FALCON treats threat as a relational property
+of grounded regions rather than an independent detection outcome: it encodes
+component presence, pairwise functional compatibility and scene-level risk, and
+introduces the Falcon-X benchmark for this compositional
+setting~\citep{michael2026falcon}. Grounded component presence and plausible
+generated language do not, however, establish physical connectivity or a
+dangerous assembly. The team inspected the FALCON paper and release as a research
+option for the distributed workstream; the inspection did not establish a running
+multi-package solution.
+\projectrecord{docs/research.md; docs/iedxray-paper-review.md}
 
-\section{Literature and patent search record}
-A scoping search was made on 22 November 2026 to locate related work and patents. It was limited to three web queries and is not a complete patent landscape; patent databases were not queried by classification or claim text. Table~\ref{tab:search} lists the searches, and the sources were read at the level of their abstracts and snippets.
+\subsection{Research Gap}
+The literature review identifies three gaps that shape the RayGuard workstreams:
+\begin{enumerate}
+\item \textbf{Data quality for concealed explosives.} Real explosive-in-device data
+are scarce, and benchmark claims depend on split independence. RayGuard therefore
+audits IEDXray before training: the published paper reports a 12,224/5,136
+train/test split, while the local audit found four exact image-byte overlaps
+across the supplied splits (Chapter~\ref{ch:implementation}).
+\item \textbf{Threats distributed across packages.} Detection across separately
+acquired scans requires externally justified grouping and component labels. It
+cannot be obtained by combining unrelated benchmark images. SDP~I collected the
+grouped scans; the detection method itself is the subject of SDP~II.
+\item \textbf{Operator-facing traceability.} Published detectors report accuracy,
+but a screening aid must also separate a model confidence from an operational
+decision and record provenance through review and export. This motivates the
+application contracts in Chapter~\ref{ch:system}.
+\end{enumerate}
 
-\begingroup\small\singlespacing
-\begin{longtable}{p{0.26\textwidth}p{0.37\textwidth}p{0.27\textwidth}}
-\caption{Scoping literature and patent search, accessed 22 November 2026.}\label{tab:search}\\
-\toprule Query focus & Result found & Limit\\\midrule
-\endfirsthead
-\toprule Query focus & Result found & Limit\\\midrule
-\endhead
-YOLO detectors for concealed IEDs in X-ray & Academic YOLO studies on IED replicas and small threat objects; one USPTO baggage-inspection patent that names YOLO as a detector & Snippets only; patent claims, assignee and status not verified\\
-Multi-view or multi-scan fusion of detections & Multi-view detection with epipolar constraints; dual-view feature fusion; a dual-view dataset with auxiliary-view networks & Academic results only; no patent claiming cross-image detection fusion was found\\
-Dark-field and multi-energy material discrimination & Reported in the supplied benchmark and survey citations & Cited through supplied papers; not independently re-read\\
-Patent-focused queries (three further web searches, 22 Nov 2026) & Older related patents only: multi-sensor explosives detection with a neural network (EP0476070A1, US5153439A); X-ray and transmitted/scattered-ray baggage screening (US5600700A); dual-energy CT threat resolution (US20040258199A1); two-scanner dual-energy inspection (US9915752). No patent found for deep-learning detection of explosives hidden in modified electronics or for cross-image detection fusion & Web search snippets, not a patent-database query by classification or claim text; claims, status and assignees not verified. A Google Patents or USPTO full-text search with CPC G01V 5/20 is still required\\
-Google Patents records of three hits (fetched 22 Nov 2026) & US8885938B2, Detecting concealed threats (Analogic; filed 2008, granted 2014): laptop-type object classification, neural network one option among SVM and PCA, mainly CT; KR102063859B1, airport AI baggage screening (Deepnoid; filed 2019): deep-learning X-ray classification of prohibited items; JP6678192B2, firearm detection with a neural network (Tsinghua University; filed 2018): not explosives & Status shown on the pages as active; claim text summarized by a fetch tool, not read verbatim, so claims are unverified. Not a complete database search: one of two Google Patents queries rendered; USPTO full-text search not run\\
-Google Patents, multi-view x-ray detection fusion with CPC G01V 5/20, run by a team member on 22 November 2026 & About 230 results; the top ten are hardware or imaging patents (stereoscopic X-ray, muon and gamma imaging, a security robot). No top-ten hit describes fusing threat detections across images & Single query, top ten only, read from a pasted result page; claims not read; no hit confirmed as relevant\\
-USPTO Patent Public Search, query "multi-view" AND "x-ray" AND ("detection" OR "detecting") AND ("baggage" OR "security"), databases US-PGPUB, USPAT, USOCR (run on 22 November 2026; 863 total hits) & Visible top 12 hits are mostly unrelated (light-field displays, camera calibration, stent prediction, luggage tracking and bag tags). Two published 2026 applications, "Detection of disassembled items" (Infosys; US20260301145 A1 and US20260301379 A1), are the closest match: they embed segmented material-based objects in a learned feature space and score whether an object belongs to restricted items & Abstract read for the two Infosys applications; claims not read and status shown only as published applications, so neither is confirmed granted or relevant\\
-Google Patents page of US10977755B2 (IBM; application US15/819,730 filed 21 Nov 2017; accessed 22 Nov 2026), "Cognitive screening for prohibited items across multiple checkpoints by using context aware spatio-temporal analysis" & Claim 1 recites detecting a component of an object in a scan image of one owner's container and another component in a second owner's container, storing the records with contextual information, and flagging owners by a correlation and danger threshold. Three independent claims. Closest match found to the multi-scan (Workstream 2) idea & Claims partly read from the text page, not in full; claims 7--10 and the bibliographic grant date rest on the page summary. Page lists status as expired for non-payment of maintenance fees (expiry 2038 adjusted; lapse 2025), with conflicting grant dates on the page; not a current freedom-to-operate finding. The USPTO PDF is a scanned image without text. Infosys applications US20260301145 and US20260301379 returned HTTP 404 on Google Patents and no working link was found, so their claims and status are unread\\
+\subsection{Patent Search}
+A scoping patent search was carried out on 22~November~2026. It combined web
+searches, Google Patents queries (including classification CPC G01V~5/20,
+detection of prohibited objects by radiation) and a USPTO Patent Public Search
+full-text query across the US-PGPUB, USPAT and USOCR databases. The search aimed
+to locate prior art for two ideas: deep-learning detection of explosives in
+electronic devices, and correlation of component detections across separate
+scans. Table~\ref{tab:patents} lists the closest results; the complete search log
+is given in Appendix~\ref{app:patentlog}.
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Closest patent results of the scoping search (22~November~2026). Status
+is as displayed by the patent office or Google Patents page; claims were not read
+in full, so no freedom-to-operate or patentability conclusion is drawn.}
+\label{tab:patents}
+\begin{tabularx}{\textwidth}{@{}L{0.19\textwidth}L{0.27\textwidth}YY@{}}
+\toprule
+Source & Closest result & Relevance & Limit\\
+\midrule
+Web and patent queries (six searches) & EP0476070A1, US5153439A, US5600700A,
+US20040258199A1, US9915752: multi-sensor, dual-energy and CT screening hardware &
+Low: imaging hardware, not learned detection in electronics & Snippets only;
+claims not read\\
+Google Patents records & US8885938B2 (Analogic), KR102063859B1 (Deepnoid),
+JP6678192B2 (Tsinghua Univ.) & Partial overlap with single-image learned
+classification (P1) & Claim text summarized by a tool, not read verbatim\\
+Google Patents, CPC G01V~5/20, multi-view fusion & About 230 results; top ten are
+imaging hardware & None found for fusing detections across images & Top ten only\\
+USPTO Patent Public Search (863 hits) & US20260301145\,A1, US20260301379\,A1
+(Infosys), detection of disassembled items & Close to P2: scores segmented objects
+against restricted items & Abstracts only; full records returned HTTP~404\\
+Google Patents, US10977755B2 (IBM) & Detects components of an object in
+containers of different owners and flags owners by correlation and a danger
+threshold & Closest match to P2 multi-scan correlation & Claim~1 read; others
+from page summary; page shows expired for non-payment\\
 \bottomrule
-\end{longtable}
-\endgroup
+\end{tabularx}
+\end{table}
 
-\section{Method and research contribution}
-The engineering method begins with requirements and evidence inspection,
-followed by dataset auditing, strict interfaces, bounded real inference and
-application integration. Experimental preparation separates model execution
-from evaluation. COCO conventions provide a common annotation and evaluation
-language~\citep{lin2014coco}; the actual source category IDs remain task-specific.
-For controlled improvement, Optuna supplies a framework for defining and
-pruning search trials~\citep{akiba2019optuna}. Search is planned, not completed.
-The selected optimization alternatives include SGD and AdamW; decoupled weight
-decay motivates treating optimizer settings explicitly~\citep{loshchilov2019adamw}.
+The search found no patent for deep-learning detection of explosives hidden in
+modified electronic devices. The IBM patent and the two Infosys applications are
+the closest prior art for the distributed idea and must be read in full before
+any novelty claim is made for the SDP~II work.
 
-The current contribution is an auditable prototype and research-software path,
-with documented findings and limitations. No new detector accuracy, tuning gain,
-novel fusion method or operational safety claim is made in this draft.
+%-----------------------------------------------------------------------------
+\section{Report Overview}
+\label{sec:overview}
+Table~\ref{tab:organization} summarizes the content of the remaining chapters and
+appendices.
 
-\section{Repositories and individual contributions}
-The shared research repository is
-\url{https://github.com/abdalrahman-ismaik/SDP-I-RayGuard}.
-The separate GUI repository is
-\url{https://github.com/abdalrahman-ismaik/RayGuard-App}.
-The application pins shared engine code through a Git submodule. GUI source
-changes belong in the application checkout; its ignored predecessor is a recovery
-copy. Appendix~\ref{app:contributions} records contribution evidence and outstanding
-student verification. AI-assisted implementation and documentation must be disclosed
-accurately; assistance does not establish a student's independent understanding.
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Organization of the report.}
+\label{tab:organization}
+\begin{tabularx}{\textwidth}{@{}L{0.36\textwidth}Y@{}}
+\toprule
+Chapter or appendix & Content\\
+\midrule
+Ch.~\ref{ch:system}: System Overview & Requirements, system specification,
+interfaces and contracts\\
+Ch.~\ref{ch:theory}: Theoretical Foundations & Engineering model, coordinate and
+category conventions, evaluation quantities, assumptions and limitations\\
+Ch.~\ref{ch:design}: Concept Generation and Design Evaluation & Alternative
+detectors, architectures and data policies, with the evaluation criteria\\
+Ch.~\ref{ch:implementation}: Implementation and Fabrication & Implemented
+software, dataset and collection evidence, verification results, the
+fine-tuning study and the prototype results\\
+Ch.~\ref{ch:conclusions}: Conclusions & Summary, critical appraisal and further
+work\\
+App.~\ref{app:management}: Project Management & Gantt chart, semester record,
+schedule and full patent search log\\
+App.~\ref{app:risk}: Risk and Required Forms & Risk worksheet and official form
+checklist\\
+App.~\ref{app:contributions}: Contribution Record & Evidence-linked contribution
+worksheet and AI assistance record\\
+App.~\ref{app:coverage}: Handbook Coverage & Handbook requirement map and source
+register\\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-\pending{Student-confirmed contributions, sanitized relevant prompt excerpts,
-formal project number, final roster and institutional cover template. A scoped patent
-search is not evidenced; this draft makes no patentability or clearance claim.}
+%-----------------------------------------------------------------------------
+\section{GitHub Repositories, Collaboration and Contributions}
+\label{sec:github}
 
-\section{Report organization}
-Chapter~\ref{ch:system} defines requirements and interfaces.
-Chapter~\ref{ch:theory} explains the engineering model and evaluation quantities.
-Chapter~\ref{ch:design} compares alternatives and documents constraints.
-Chapter~\ref{ch:implementation} describes actual implementation and verification.
-Chapter~\ref{ch:conclusions} evaluates progress and remaining work.
-The appendices provide project-management evidence, requirement coverage,
-risk preparation and contribution records.
+\subsection{Repositories}
+The team works in two public GitHub repositories (Table~\ref{tab:repos}). The research repository holds
+the shared engine code, contracts, audits, documentation and this report. The
+application repository holds the GUI and pins a reviewed revision of the research
+repository as a Git submodule, so that each application release records the exact
+engine commit it uses.
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Project repositories.}
+\label{tab:repos}
+\begin{tabularx}{\textwidth}{@{}L{0.17\textwidth}L{0.43\textwidth}Y@{}}
+\toprule
+Repository & URL & Role\\
+\midrule
+SDP-I-RayGuard & \url{https://github.com/abdalrahman-ismaik/SDP-I-RayGuard} &
+Research code, contracts, audits, task records, report source\\
+RayGuard-App & \url{https://github.com/abdalrahman-ismaik/RayGuard-App} & Operator
+GUI, local API and launcher; \file{engine/} submodule pins the research code\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Team Accounts and Contributions}
+Table~\ref{tab:team} lists each student's GitHub account, the task they lead in the
+shared backlog and the repository evidence of their work. Commit counts cover
+non-merge commits on \file{main} at revision \file{3197d96} (22~November~2026).
+Counts are an activity indicator, not a measure of effort: pull requests merged
+through the GitHub web interface appear as separate merge commits under the
+owner's name, and work on unmerged branches is not counted.
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Students, GitHub accounts, lead tasks and repository evidence on
+23~November~2026. Task leads are contacts, not exclusive owners.}
+\label{tab:team}
+\begin{tabularx}{\textwidth}{@{}L{0.22\textwidth}L{0.2\textwidth}L{0.19\textwidth}Y@{}}
+\toprule
+Student & GitHub account & Lead task & Repository evidence\\
+\midrule
+Abd Alrahman Ismaik & \texttt{abdalrahman-ismaik} & T28/T39 GUI; T36
+repository setup; coordination & PRs \#1--\#15, \#20, \#23; 13 commits on
+\file{main}\\
+Ali Arif Saeed Alshamsi & \texttt{Alshamisi10987} & T42 evaluation & PR~\#18
+(evaluator), PR~\#22 (data policy); 6 commits on \file{main}\\
+Faisal Daoud Alzarooni & \texttt{blitzict} & T40 baseline contracts & PRs \#17,
+\#19, \#21, \#24 (box-repair follow-up); reviews of PRs \#22 and \#27; 124 scans
+in the 14~November collection record; attribution confirmed by the student\\
+Ahmed Almansoori & \texttt{Boshahab} & T41 training workflow & PR~\#25: qualified
+training, HPC study and frozen test comparison; T41 task lead, AI-assisted
+implementation and execution under his direction\\
+Mohammad Arwani & \texttt{mohd2k5} & T43 GUI validation & Branch
+\file{mohammad/guiflow}, commit \file{164d6cf}; not yet merged\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\pending{Each student's own confirmation of the contribution summary, the final
+roster spelling and a supervisor walkthrough of the GitHub record before the
+final presentation. Appendix~\ref{app:contributions} holds the detailed
+worksheet.}
+
+\subsection{Branching Model and Protected Branches}
+The repository uses one integration branch and two workstream branches. The
+\file{main} branch integrates reviewed work; \file{prototype/p1-single-scan} and
+\file{prototype/p2-multiscan} hold the single-scan and distributed workstreams.
+Contributors create a short task branch from \file{main} named after the task
+and author (for example \file{faisal/baseline} or \file{ali/evaluation}) and open
+a pull request (PR) against the agreed target. Direct pushes, force-pushes and
+deletion are blocked on all three shared branches, so no contributor can overwrite
+another's history. Shared fixes reach the prototype branches through separate
+synchronization PRs (for example PRs~\#6 and~\#7).
+
+\subsection{Pull Request and Review Process}
+Branch protection was activated and read back on 25~September~2026 under task
+T36. Figure~\ref{fig:workflow} shows the resulting workflow. Every PR to a
+protected branch must satisfy the following rules before it can be merged:
+\begin{enumerate}
+\item \textbf{Code-owner review.} The \file{.github/CODEOWNERS} file assigns the
+repository owner as reviewer for all paths. An approval from another collaborator
+does not replace the code-owner review.
+\item \textbf{Stale approvals dismissed.} A new commit pushed after an approval
+dismisses that approval, so the reviewed diff is always the merged diff.
+\item \textbf{Resolved conversations.} All review threads must be resolved.
+\item \textbf{Required continuous integration (CI).} The checks
+\texttt{CPU (ubuntu-latest)} and \texttt{CPU (windows-latest)} must pass on a
+branch that is up to date with the target. They install the locked environment and run
+\texttt{ruff} linting, the \texttt{pytest} suite, an environment check and a
+synthetic annotation audit. These are software checks, not model evaluation, and they
+have no bypass, including for the owner.
+\end{enumerate}
+Because GitHub does not allow authors to approve their own PRs, the owner holds a
+review bypass for owner-authored and administrative changes. A bypass is not
+recorded as an approval or as student sign-off; teammate review is requested
+whenever available. Table~\ref{tab:prs} lists the research PRs merged in November.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{workflow.png}
+\caption{Contribution workflow on the protected branches, as configured under task
+T36. Orange boxes are enforced gates.}
+\label{fig:workflow}
+\end{figure}
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Pull requests merged into \file{main} in November 2026.}
+\label{tab:prs}
+\begin{tabularx}{\textwidth}{@{}llL{0.22\textwidth}Y@{}}
+\toprule
+PR & Merged & Author & Purpose\\
+\midrule
+\#17 & 14 Nov & \texttt{blitzict} & T40 shared baseline run contract and adapter\\
+\#19 & 15 Nov & \texttt{blitzict} & T40 run planning and record check\\
+\#18 & 21 Nov & \texttt{Alshamisi10987} & T42 COCO evaluation and matched comparison\\
+\#21 & 21 Nov & \texttt{blitzict} & T40 general starting weights and initialization receipt\\
+\#20 & 22 Nov & \texttt{abdalrahman-ismaik} & Semester progress and conference record\\
+\#22 & 22 Nov & \texttt{Alshamisi10987} & Proposed single-scan data policy (T41/T42)\\
+\#23 & 22 Nov & \texttt{abdalrahman-ismaik} & Status refresh after merges\\
+\#25 & 23 Nov & \texttt{Boshahab} & T41 qualified training, HPC study and frozen
+test results\\
+\#24 & 23 Nov & \texttt{blitzict} & Box-repair record hash and input check after
+review of PR~\#22\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Documentation and Tracking System}
+Project knowledge is kept in the repository rather than in conversations, so that
+a fresh clone carries the same context. Each kind of record has exactly one owning
+file (Table~\ref{tab:docs}). Every completed task records the actual commands,
+outcomes, limitations and next action, and each claim carries one of the three
+evidence labels defined at the start of this chapter. Minimum evidence is defined
+per work type: for example, a baseline run requires a matching checkpoint,
+configuration and class order, a pinned environment, genuine predictions and a run
+manifest.
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Documentation files and the information each owns.}
+\label{tab:docs}
+\begin{tabularx}{\textwidth}{@{}L{0.34\textwidth}Y@{}}
+\toprule
+File & Purpose\\
+\midrule
+\file{docs/status.md} & Short handoff: what works, current priorities and
+blockers\\
+\file{docs/tasks.md} & The only backlog: stable task IDs (T1--T44), lead, reviewer,
+dependencies, state and acceptance evidence\\
+\file{docs/progress.md} & Dated engineering handoffs written by contributors\\
+\file{docs/plan.md} & Sequencing, capacity and dependency assumptions\\
+\file{docs/context.md} & Agreed requirements, source precedence and open questions\\
+\file{docs/decisions.md} & Dated design and scope decisions, including superseded
+ones\\
+\file{docs/meeting\_minutes/} & Reviewed Markdown records of advisor meetings and
+follow-ups\\
+\file{docs/verification.md} & Recorded software, data-audit and inference checks
+with their limits\\
+\file{docs/final-report-requirements.md} & Handbook requirements and rubrics for
+this report\\
+\file{CONTRIBUTING.md} & Setup, branching, review and evidence rules for
+contributors\\
+\file{AGENTS.md}, \file{.agents/skills/} & Shared instructions and four workflow
+guides for AI tools (data audit, baseline reproduction, evaluation, demo)\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Use of AI Tools and Prompt Disclosure}
+The contribution guide (\file{CONTRIBUTING.md}) permits students to use AI tools to
+inspect requirements, draft or edit their assigned files and suggest checks. It
+does not allow AI tools to act as contributors: each student must review the full
+diff, run the checks and personally execute \texttt{git add}, \texttt{git commit}
+and \texttt{git push} under their own GitHub identity, and no AI identity may
+appear as author, committer or co-author. AI-assisted work counts as a student's
+contribution only after that student understands, verifies and commits it.
+In practice, some commits did not follow this rule. The two commits in PR~\#25
+were authored and committed by an AI coding assistant (OpenAI Codex) under Ahmed
+Almansoori's instructions and published through his GitHub account; two earlier
+commits on the unmerged T41 draft branch were created the same way. Linux and
+Windows CI passed on PR~\#25, the owner merged it, and GitHub records the owner's
+approval of the same final commit ten seconds after the merge. The AI tool is
+disclosed as assistance, not as a team member, and Ahmed remains responsible for
+confirming his contribution and explaining the implementation and results. The
+mismatch between the contribution guide and the agent instructions in
+\file{AGENTS.md} is tracked as task T44.
+Table~\ref{tab:prompts} records, for each student, the work in which AI
+assistance was used, a representative prompt and how the output was verified.
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{AI prompt disclosure by student. Ahmed's row quotes actual prompt
+excerpts. Faisal's row is confirmed by the student, with the prompt reconstructed
+to state the purpose of the AI use rather than quoted verbatim. The other rows are
+drafted from each student's submitted work, and each student confirms the tool and
+replaces the prompt with their actual wording before submission.}
+\label{tab:prompts}
+\begin{tabularx}{\textwidth}{@{}L{0.15\textwidth}L{0.2\textwidth}YL{0.2\textwidth}@{}}
+\toprule
+Student & Work and files & Representative prompt & How verified\\
+\midrule
+Abd Alrahman Ismaik & T28/T39 operator GUI (RayGuard-App) & ``Build a local web
+interface that uploads an X-ray image, runs the selected YOLOv10-M task and draws
+the boxes in original image coordinates, with review notes and JSON export.'' &
+App tests; manual run on real scans\\
+Ali Arif Saeed Alshamsi & T42 evaluator: evaluation and COCO metric modules & ``Write a COCO evaluator that converts corner boxes to
+COCO format, keeps the dataset category IDs including zero, and refuses to report
+if required scans are missing.'' & Synthetic \texttt{pytest} fixtures; CI on
+PR~\#18\\
+Faisal Daoud Alzarooni & \texttt{pytest} tests and synthetic test data for the
+T40 run contract, run manifest and initialization receipt (AI coding assistant);
+the implementation itself was written in November with web searches, including
+Google AI Overviews &
+Reconstructed wording: ``Generate pytest tests and synthetic test data to validate
+the baseline run contract, manifest validation, record consistency and
+initialization receipt. Use synthetic inputs, placeholder hashes and mock files
+without loading actual datasets, model weights or checkpoints.''
+& Tests check software correctness and contract enforcement, not model
+performance; CI on PRs~\#17, \#19, \#21, \#24\\
+Ahmed Almansoori & T41 training workflow, HPC study and frozen test runner
+(OpenAI Codex desktop app) & Actual excerpts: ``Run a bounded GPU pilot through
+Slurm, checking actual training, checkpoint saving/reloading, class mapping and
+Ali's validation objective.'' ``Use the same verified general initialization for
+untuned/tuned comparisons. Never select models or parameters using the published
+test set.'' & Slurm pilots, six generic search attempts, jobs 770/819 and frozen
+test job 820; independent checks of saved metrics; CI on PR~\#25\\
+Mohammad Arwani & T43 GUI acceptance slice (RayGuard-App) & ``Add acceptance and
+accessibility tests for the upload, review and export flows of the GUI.'' &
+Reported app test run; walkthrough pending\\
+\bottomrule
+\end{tabularx}
+\end{table}
