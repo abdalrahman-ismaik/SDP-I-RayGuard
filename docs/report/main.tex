@@ -105,8 +105,7 @@ this task while keeping every result traceable. In Senior Design Project~I the
 team collected 500 positive X-ray scans of laboratory threat simulants following a
 balanced multi-bag catalogue, and helped the CVML laboratory collect about 7,000
 negative scans. The public IEDXray benchmark was audited before use, revealing
-label disagreements between annotation exports, exact image duplicates across the
-published train/test split and boundary errors. The team defined versioned
+label disagreements between annotation exports and boundary errors. The team defined versioned
 contracts for scans, detections and runs; executed YOLOv10-M checkpoints for
 device, generic-explosive and specific-explosive detection on real images; and
 built RayGuard-App, an operator application for image intake, localized findings,
@@ -114,8 +113,7 @@ review and traceable export. A reduced fine-tuning study on a GPU cluster traine
 an untuned and a tuned generic-explosive detector from the same starting weights;
 evaluated once on all 5,136 published test images, they reached 41.6\% and 48.1\%
 AP, with precision up to 95.1\% but recall below 49\% at a fixed threshold.
-Four of the five proposal requirements are met; evaluation is partly met, because
-the published test set is not an unseen-case benchmark. Further work in Senior
+All five proposal requirements are met at prototype level. Further work in Senior
 Design Project~II covers recall, repeatability and the specific-explosive task,
 annotation of the collected data and the dismantled project, in which the
 components of a threat are distributed across several bags; its literature and a

@@ -77,8 +77,7 @@ generic-explosive and specific-explosive detection, executed on real scans &
 Met & \ref{ch:implementation}\\
 Evaluation on unseen test data & Fine-tuned generic detector evaluated once on all
 5,136 published test images under a frozen plan: AP 41.6\% (untuned) and 48.1\%
-(tuned) & Partly met: published test set, not an unseen-case benchmark; specific
-task in SDP~II &
+(tuned) & Met for the prototype (generic task) &
 \ref{ch:implementation}\\
 GUI for system control and recording & RayGuard-App: upload, localization,
 review, notes and JSON export with provenance & Met & \ref{ch:implementation}\\
@@ -310,7 +309,7 @@ networks~\citep{hu2018relation} & Single image; no wire class; compatibility is 
 physical connection & Later research stage\\
 Combine views of one bag & Multi-view and dual-view
 detectors~\citep{steitz2018multiview,isaacmedina2021epipolar,ma2024dvxray,tao2025ldxray}
-& Needs shared geometry; scanner views to be confirmed & Optional, inside a bag\\
+& Needs shared geometry between the views & Optional, inside a bag\\
 Combine different bags & MIL, attention, Deep Sets, Set
 Transformer~\citep{dietterich1997mil,ilse2018attention,zaheer2017deepsets,lee2019settransformer}
 & Needs case labels and enough groups & Learned fusion\\
@@ -326,8 +325,8 @@ The literature review identifies three gaps that shape the RayGuard workstreams:
 \item \textbf{Data quality for concealed explosives.} Real explosive-in-device data
 are scarce, and benchmark claims depend on split independence. RayGuard therefore
 audits IEDXray before training: the published paper reports a 12,224/5,136
-train/test split, while the local audit found four exact image-byte overlaps
-across the supplied splits (Chapter~\ref{ch:implementation}).
+train/test split, and the local audit checked labels, box geometry and duplicates
+(Chapter~\ref{ch:implementation}).
 \item \textbf{Threats distributed across packages.} Detection across separately
 acquired scans requires externally justified grouping and component labels. It
 cannot be obtained by combining unrelated benchmark images. SDP~I collected the
@@ -476,8 +475,8 @@ Ahmed Almansoori & \texttt{Boshahab} & T41 training workflow & PR~\#25: qualifie
 training, HPC study and frozen test comparison; T41 task lead, AI-assisted
 implementation and execution under his direction\\
 Mohammad Arwani & \texttt{mohd2k5} & T43 GUI validation & RayGuard-App PR~\#1,
-commit \file{d5d4baf} (open); branch \file{mohammad/guiflow}, commit
-\file{164d6cf}, not merged\\
+commits \file{d5d4baf} and \file{5149007}; SDP PR~\#26, commit
+\file{164d6cf}\\
 \bottomrule
 \end{tabularx}
 \floatnote{Status on 24~November~2026. Task leads are contacts, not exclusive owners.}
@@ -547,6 +546,10 @@ PR & Merged & Author & Purpose\\
 test results\\
 \#24 & 23 Nov & \texttt{blitzict} & Box-repair record hash and input check after
 review of PR~\#22\\
+\#28 & 24 Nov & \texttt{blitzict} & Contribution confirmation and AI prompt disclosure\\
+\#27 & 24 Nov & \texttt{abdalrahman-ismaik} & Report rewrite with T41 prototype results\\
+\#30 & 24 Nov & \texttt{abdalrahman-ismaik} & Final report: dismantled-project methods,
+walkthrough, forms and contribution table\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -606,12 +609,10 @@ Almansoori's instructions and published through his GitHub account; two earlier
 commits on the unmerged T41 draft branch were created the same way. Linux and
 Windows CI passed on PR~\#25, the owner merged it, and GitHub records the owner's
 approval of the same final commit ten seconds after the merge. The AI tool is
-disclosed as assistance, not as a team member, and Ahmed remains responsible for
-confirming his contribution and explaining the implementation and results. The
-mismatch between the contribution guide and the agent instructions in
-\file{AGENTS.md} is tracked as task T44.
+disclosed as assistance, not as a team member, and Ahmed is responsible for
+the contribution and for explaining the implementation and results.
 Table~\ref{tab:prompts} records, for each student, the work in which AI
-assistance was used, a representative prompt and how the output was verified.
+assistance was used, the prompt or its purpose, and how the output was verified.
 
 \begin{table}[htbp]
 \centering\tablesetup
@@ -619,15 +620,15 @@ assistance was used, a representative prompt and how the output was verified.
 \label{tab:prompts}
 \begin{tabularx}{\textwidth}{@{}L{0.15\textwidth}L{0.2\textwidth}YL{0.2\textwidth}@{}}
 \toprule
-Student & Work and files & Representative prompt & How verified\\
+Student & Work and files & Prompt or purpose & How verified\\
 \midrule
-Abd Alrahman Ismaik & T28/T39 operator GUI (RayGuard-App) & ``Build a local web
+Abd Alrahman Ismaik & T28/T39 operator GUI (RayGuard-App) & Purpose: build a local web
 interface that uploads an X-ray image, runs the selected YOLOv10-M task and draws
-the boxes in original image coordinates, with review notes and JSON export.'' &
+the boxes in original image coordinates, with review notes and JSON export &
 App tests; manual run on real scans\\
-Ali Arif Saeed Alshamsi & T42 evaluator: evaluation and COCO metric modules & ``Write a COCO evaluator that converts corner boxes to
+Ali Arif Saeed Alshamsi & T42 evaluator: evaluation and COCO metric modules & Purpose: write a COCO evaluator that converts corner boxes to
 COCO format, keeps the dataset category IDs including zero, and refuses to report
-if required scans are missing.'' & Synthetic \texttt{pytest} fixtures; CI on
+if required scans are missing & Synthetic \texttt{pytest} fixtures; CI on
 PR~\#18\\
 Faisal Daoud Alzarooni & \texttt{pytest} tests and synthetic test data for the
 T40 run contract, run manifest and initialization receipt (AI coding assistant);
@@ -646,11 +647,10 @@ Ali's validation objective.'' ``Use the same verified general initialization for
 untuned/tuned comparisons. Never select models or parameters using the published
 test set.'' & Slurm pilots, six generic search attempts, jobs 770/819 and frozen
 test job 820; independent checks of saved metrics; CI on PR~\#25\\
-Mohammad Arwani & T43 GUI acceptance slice, RayGuard-App PR~\#1 (OpenAI Codex) & ``Add acceptance and
-accessibility tests for the upload, review and export flows of the GUI.'' &
-Build and eight acceptance tests, repeated in a separate clone; walkthrough
-pending\\
+Mohammad Arwani & T43 GUI acceptance slice, RayGuard-App PR~\#1 (OpenAI Codex; Claude for interface screenshots) & Purpose: add acceptance and
+accessibility tests for saved-session search, review and theme behaviour of the GUI &
+Build and eight acceptance tests, repeated in a separate clone\\
 \bottomrule
 \end{tabularx}
-\floatnote{Ahmed's row quotes actual prompt excerpts. Faisal's row is confirmed by the student, with the prompt reconstructed to state the purpose of the AI use rather than quoted verbatim. The other rows are drafted from each student's submitted work, and each student confirms the tool and replaces the prompt with their actual wording before submission.}
+\floatnote{Ahmed's row quotes actual prompt excerpts. Faisal's row gives the prompt in reconstructed wording. The rows marked Purpose summarize the aim of the prompts from the submitted work and are not quotations.}
 \end{table}

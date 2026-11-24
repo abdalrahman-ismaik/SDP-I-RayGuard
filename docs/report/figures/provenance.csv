@@ -16,5 +16,5 @@ t41-pr.png,original chart,t41-pr.tex with figures/t41-pr.csv from tools/t41_figu
 private/t41-ex-*.png,annotated dataset images (not in Git),tools/t41_figures.py on IEDXray Test000001/004918/000071 and saved job-820 predictions,descriptive post-test inspection; image hashes match the frozen plan,IEDXray images reproduced with attribution; overlays project-created
 p2-pipeline.png,original diagram,p2-pipeline.tex and Section 4.6,proposed SDP II pipeline; no stage trained or evaluated,project-created
 p2-kofn.png,original chart,p2-kofn.tex binomial formula,analytical model with independent components; not measured,project-created
-private/app-*.png,application screenshots,tools/app_walkthrough.mjs; runs of 24 November 2026,real app runs with supplied IEDXray checkpoints (not the fine-tuned model),IEDXray test scans with attribution; not committed
+private/app-*.png,application screenshots,tools/app_walkthrough.mjs; runs of 24 November 2026,real app runs: T41 candidate 4 (generic); supplied IEDXray checkpoints (device and specific),IEDXray test scans with attribution; not committed
 private/ku-logo.png,university logo,local Khalifa University brand file,title page only as requested by the course,not committed

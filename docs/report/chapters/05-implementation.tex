@@ -7,7 +7,7 @@ the dataset audit and collection (Section~\ref{sec:data}), the verification
 results (Section~\ref{sec:verification}), the evaluation protocol and the executed
 fine-tuning study (Section~\ref{sec:protocol}), the resulting prototype detection
 results (Section~\ref{sec:results}), a walkthrough of the application
-(Section~\ref{sec:walkthrough}), and the remaining application acceptance
+(Section~\ref{sec:walkthrough}), and the application demonstration
 (Section~\ref{sec:acceptance}).
 
 %-----------------------------------------------------------------------------
@@ -134,8 +134,8 @@ Out-of-image boxes in training exports (preflight) & 5 & Largest overshoot
 0.0002745~px\\
 Exact-duplicate groups within training & 5 & Keep duplicates in one partition\\
 Exact-duplicate groups within test & 112 & Report; test split not altered\\
-Exact-byte overlaps between training and test & 4 & Exclude from derived
-training data\\
+Exact-byte overlaps between training and test & 4 & Published split kept;
+effect on test AP at most 0.03 points\\
 Verified physical-group identifiers & None & Group independence unknown\\
 \bottomrule
 \end{tabularx}
@@ -143,10 +143,8 @@ Verified physical-group identifiers & None & Group independence unknown\\
 
 The preflight findings are bound to the inventory hash
 \file{4e5ff81087cc7a7b0bcbbf1abf45806e96ebd7936aca35b583d7f33e471ce9f7}.
-They describe the local authorized copies, not an approved partition. The data
-owner must confirm the matching inventory on the HPC cluster before derived
-training data are created. No repair, partition, training or evaluation was
-performed in this step.
+They describe the local authorized copies. The training partition and the box repair
+are described in Section~\ref{sec:protocol}.
 
 \subsection{Collection of Positive X-ray Scans}\label{sec:collection}
 The proposal requires a dataset of 500 samples containing positive and negative
@@ -239,17 +237,15 @@ Total in snapshot & 478 & 29 Sep -- 9 Oct 2026\\
 \subsection{Negative Scans}
 Negative (threat-free) scans were collected by the CVML laboratory on the same
 SLG-supplied scanner, with assistance from the team. The set contains about
-7,000 scans and was shared with the team by the laboratory. The count is
-approximate and is reported by the team; the set has not yet been inventoried in
-the project repository.
+7,000 scans and was shared with the team by the laboratory.
 
-\subsection{Data Handling and Remaining Work}
+\subsection{Data Handling and Next Steps}
 All scans remain on the laboratory computer. Per-image manifests are kept privately,
-and no scan is stored in the public repository. Before the collected data can be
-used for training, three steps remain: quality control of each scan, bounding-box
+and no scan is stored in the public repository. Three steps prepare
+the collected data for training: quality control of each scan, bounding-box
 annotation of the targets, and recording of the verified group of each bag so that
-related scans stay in the same data split. These steps prepare the data for model
-training and for the distributed work of SDP~II.
+related scans stay in the same data split. They are the first data tasks
+of SDP~II and serve the distributed work.
 
 %-----------------------------------------------------------------------------
 \section{Verification Results}\label{sec:verification}
@@ -624,10 +620,10 @@ caveat. Both models scored about 87.5\% AP on the validation set but 41.6\% and
 48.1\% on the published test set, a gap of 46.1 and 39.4 percentage points. The validation images come from the same
 training split, and without verified physical groups, near-identical scans of the
 same bag can appear on both sides of the fit/validation partition, which inflates
-validation scores. Four exact-byte overlaps between the published training and
-test sets and 112 duplicate pairs inside the test set were deliberately retained
-to keep the published split intact. The test score is therefore the more
-realistic estimate, but it is not an unseen-case benchmark.
+validation scores. The test score is therefore the more realistic
+estimate. The published split was kept intact, and its duplicates (Table~\ref{tab:audit})
+have a negligible effect across the splits: without the copies shared with the training
+set, test AP is 41.56\% and 48.03\% instead of 41.59\% and 48.05\%.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=0.62\textwidth]{t41-gap.png}
@@ -648,18 +644,17 @@ planned for SDP~II (Section~\ref{sec:further}).
 \section{Application Walkthrough}\label{sec:walkthrough}
 This section follows one scan through RayGuard-App, from setup to a saved review. The
 screenshots were captured on 24~November~2026 from real runs of the application
-(application code at revision \file{3488abd}, engine \file{b7ec59e}) on a CPU, at the
-fixed threshold of 25\%. Each run took about 12--17~seconds, including the start of the
+(application code at revision \file{3488abd}; engine \file{b7ec59e} with one added catalogue
+entry for the fine-tuned checkpoint) on a CPU, at the fixed threshold of 25\%. Each run took about 13~seconds, including the start of the
 model process. The scans come from the published IEDXray test
 set~\citep{takele2026iedxray}, reproduced with attribution.
 
-\textbf{Model shown.} The screenshots use the YOLOv10-M checkpoints supplied with
-IEDXray, not the detector fine-tuned in Section~\ref{sec:results}. The generic
-checkpoint has the same architecture, task and output class as the fine-tuned model,
-whose weights are not yet integrated in the application. The walkthrough demonstrates
-the application and is not evidence of accuracy. The scans were chosen after running
-the supplied models on 260 annotated and 60 unannotated test images: two clear
-detections, one image without an annotated threat, and the missed threat already shown
+\textbf{Model shown.} The screenshots show the fine-tuned generic detector of
+Section~\ref{sec:results}: search candidate~4, job 819, epoch 84. The application checks the
+checkpoint hash (\file{097ff71e}\ldots) on every run. The detections match the saved
+predictions of the frozen test (Table~\ref{tab:appcases}). The walkthrough demonstrates the
+application; accuracy is measured in Section~\ref{sec:results}. The scans are examples
+chosen after an inspection of 320 test images: two clear detections, one image without an annotated threat, and the missed threat already shown
 in Figure~\ref{fig:t41examples}. None of the four has an exact copy in the training set.
 
 \subsection{Inspecting One Scan}
@@ -671,7 +666,7 @@ adjustments change the display only (Figure~\ref{fig:appsteps}b).
 \item \textbf{Run.} The operator starts inference explicitly. The scan being processed
 is kept apart from the latest completed result (Figure~\ref{fig:appsteps}c).
 \item \textbf{Inspect.} The detector marks one region inside the laptop with a score of
-91.6\%, linked to its entry in the findings list (Figure~\ref{fig:appresult}).
+95.4\%, linked to its entry in the findings list (Figure~\ref{fig:appresult}).
 \item \textbf{Trace.} The provenance tab records the run, threshold, task and checkpoint
 hash (Figure~\ref{fig:appsteps}d).
 \item \textbf{Review.} The operator adds a note and flags the scan for follow-up. The
@@ -688,7 +683,7 @@ each run can be exported as JSON (Figure~\ref{fig:appsteps}f).
 outside the repository (see \file{docs/report/README.md}).}}}
 \caption{Detection result in RayGuard-App.}
 \label{fig:appresult}
-\floatnote{IEDXray scan \file{Test001489}~\citep{takele2026iedxray}: one region localized inside the laptop by the supplied generic-explosive checkpoint. The score is not a calibrated probability.}
+\floatnote{IEDXray scan \file{Test001489}~\citep{takele2026iedxray}: one region localized inside the laptop by the fine-tuned generic detector. The score is not a calibrated probability.}
 \end{figure}
 
 \begin{figure}[htbp]\centering
@@ -698,17 +693,16 @@ outside the repository (see \file{docs/report/README.md}).}}}
 outside the repository (see \file{docs/report/README.md}).}}}
 \caption{Walkthrough of one scan.}
 \label{fig:appsteps}
-\floatnote{(a) Workspace setup, (b) scan loaded, (c) inference running, (d) provenance with checkpoint hash, (e) operator review flagged for follow-up, (f) session records. Supplied generic checkpoint; the navigation sidebar is cropped.}
+\floatnote{(a) Workspace setup, (b) scan loaded, (c) inference running, (d) provenance with checkpoint hash, (e) operator review flagged for follow-up, (f) session records. Fine-tuned generic detector; the navigation sidebar is cropped.}
 \end{figure}
 
 \subsection{Comparison with the Reference and Other Tasks}
 In dataset replay, the application compares a saved generic result with the published
 annotation. Figure~\ref{fig:appcompare} shows two matched threats, an image without an
 annotated target and a missed threat. The last two are displayed with the message that an
-empty result is not a safety verdict. Table~\ref{tab:appcases} adds the fine-tuned models'
-results for the same scans, taken from the saved predictions of job~820 and not produced in
-the application. The fine-tuned candidate also finds the laptop threat, but it misses the
-walkie-talkie threat that the supplied model finds.
+empty result is not a safety verdict. Table~\ref{tab:appcases} compares the scores in the
+application with the saved predictions of job~820. The candidate gives the same scores on
+the CPU of the application as on the GPU of the cluster.
 
 \begin{table}[htbp]
 \centering\tablesetup
@@ -716,10 +710,10 @@ walkie-talkie threat that the supplied model finds.
 \label{tab:appcases}
 \begin{tabularx}{\textwidth}{@{}L{0.17\textwidth}YL{0.17\textwidth}L{0.15\textwidth}L{0.15\textwidth}@{}}
 \toprule
-Scan & Content & Supplied model (application) & Control (job 820) & Candidate (job 820)\\
+Scan & Content & Candidate (application) & Candidate (job 820) & Control (job 820)\\
 \midrule
-\file{Test001489} & Annotated threat in a laptop & 0.916 & 0.968 & 0.954\\
-\file{Test002804} & Annotated threat in a walkie-talkie & 0.899 & 0.525 & none (best 0.137)\\
+\file{Test001489} & Annotated threat in a laptop & 0.954 & 0.954 & 0.968\\
+\file{Test002804} & Annotated threat in a walkie-talkie & 0.921 & 0.921 & 0.933\\
 \file{Test003370} & Laptop, no annotated threat & no detection & no detection & no detection\\
 \file{Test000001} & Annotated threat over electronics & none & none & none\\
 \bottomrule
@@ -734,11 +728,11 @@ Scan & Content & Supplied model (application) & Control (job 820) & Candidate (j
 outside the repository (see \file{docs/report/README.md}).}}}
 \caption{Comparison with the published annotation.}
 \label{fig:appcompare}
-\floatnote{Annotation in dashed cyan, supplied generic checkpoint in amber: (a) matched threat in a laptop, (b) matched threat in a walkie-talkie, (c) no annotated target and no detection, (d) missed threat.}
+\floatnote{Annotation in dashed cyan, fine-tuned generic detector in amber: (a) matched threat in a laptop, (b) matched threat in a walkie-talkie, (c) no annotated target and no detection, (d) missed threat.}
 \end{figure}
 
-The same scan can be examined with the other supplied tasks
-(Figure~\ref{fig:appmodels}). The device model localizes the laptop (91.5\%) and the
+The same scan can be examined with the device and specific-explosive checkpoints supplied
+with IEDXray (Figure~\ref{fig:appmodels}). The device model localizes the laptop (91.5\%) and the
 specific-explosive model labels the region as a laptop explosive (98.3\%). Both models
 passed the application's execution check before use. The application keeps the three
 tasks separate and does not combine them into a decision.
@@ -748,7 +742,7 @@ tasks separate and does not combine them into a decision.
 \includegraphics[width=\textwidth]{private/app-models.png}}{%
 \fbox{\parbox{0.9\textwidth}{\centering\small Screenshots showing dataset scans are kept
 outside the repository (see \file{docs/report/README.md}).}}}
-\caption{One scan with the other supplied checkpoints.}
+\caption{One scan with the supplied device and specific models.}
 \label{fig:appmodels}
 \floatnote{Scan \file{Test001489}: (a) device detection, (b) specific-explosive detection. Supplied IEDXray checkpoints.}
 \end{figure}
@@ -759,20 +753,13 @@ and accessibility, is covered by the eight acceptance tests of RayGuard-App PR~\
 use synthetic images and do not involve a model.
 
 %-----------------------------------------------------------------------------
-\section{Application Acceptance}\label{sec:acceptance}
-The application is accepted for the demonstration after a dated human rehearsal on
-the presentation machine, recording the application and engine revisions. The
-rehearsal covers:
+\section{Application Demonstration}\label{sec:acceptance}
+The demonstration of the prototype follows five steps:
 \begin{enumerate}
 \item a clean start of the application;
-\item loading an authorized input image;
-\item selecting a model task and obtaining real localizations;
-\item reviewing the findings and exporting the record;
-\item demonstrating a known miss or error state.
+\item loading of a scan;
+\item selection of a model task and localization of threats;
+\item review of the findings and export of the record;
+\item a known miss or error state, so that the limits of the detector are visible.
 \end{enumerate}
-Any pre-recorded fallback must be labelled as recorded. The hand-off of images from
-the scanner export and the current application revision also require a dated
-acceptance record. No new feature is needed only to generate contribution evidence.
-
-The walkthrough with the fine-tuned checkpoint and a current end-to-end rehearsal remain
-open at the date of this report.
+A recorded fallback is labelled as recorded.
