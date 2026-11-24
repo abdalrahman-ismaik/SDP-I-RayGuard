@@ -3835,3 +3835,6 @@ identical to a test image can fall into validation.
 **Owner addition, 24 November 2026:** the owner reports 22 further scans collected on 9 October and omitted
 from the 14 November snapshot: 11 by Ali and 11 by Mohammad (totals 72 and 62; all students 500). The image
 files were not inspected for this note; the snapshot itself holds 478 distinct files.
+
+- 24 November: the owner reports that Prof. Werghi approved his typed name as signature on the Risk Assessment and
+  Health and Safety forms. The Safety Officer line stays blank for the Safety Officer.
