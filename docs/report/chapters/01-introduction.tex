@@ -60,8 +60,7 @@ to the deliverable produced and its status at the time of writing.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Requirements of the original project proposal and the corresponding
-SDP~I deliverables, status on 22~November~2026.}
+\caption{Proposal requirements and SDP~I deliverables.}
 \label{tab:objectives}
 \begin{tabularx}{\textwidth}{@{}L{0.2\textwidth}YL{0.2\textwidth}c@{}}
 \toprule
@@ -85,13 +84,15 @@ GUI for system control and recording & RayGuard-App: upload, localization,
 review, notes and JSON export with provenance & Met & \ref{ch:implementation}\\
 \bottomrule
 \end{tabularx}
+\floatnote{Status on 24~November~2026.}
 \end{table}
 
 The second advisor meeting (M02, 24~September~2026) set a further direction:
 threats whose components are distributed across several packages. This
 direction was not part of the original proposal and is scoped as SDP~II work.
 SDP~I contributes to it through the data collection, because the positive scans
-follow the lab's multi-bag catalogue.
+follow the lab's multi-bag catalogue, and through the literature review and method
+proposal of Sections~\ref{sec:litdismantled} and~\ref{sec:dismantled}.
 \projectrecord{docs/meeting_minutes/SDP_Meeting_02_Minutes_Fall_2026.md}
 
 \subsection{Method}
@@ -115,9 +116,9 @@ decay are treated as explicit study variables~\citep{loshchilov2019adamw}.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{method.png}
-\caption{Engineering method followed in SDP~I. All six stages were executed;
-the evaluation stage covers the generic-explosive task.}
+\caption{Engineering method followed in SDP~I.}
 \label{fig:method}
+\floatnote{All six stages were executed; the evaluation stage covers the generic-explosive task.}
 \end{figure}
 
 \subsection{Scope and Contribution}
@@ -142,8 +143,10 @@ Single-scan prototype (P1) & SDP~I & Real inference, an operator workflow and
 frozen test results for the generic task & Human rehearsal; specific task\\
 Research software & SDP~I & Contracts, evaluator, qualified training and a frozen
 test runner, executed on HPC & Repeated seeds and physical-group verification\\
-Distributed inference (P2) & SDP~II & Direction set at M02; interface
-documented & Component labels, case ground truth, fusion and evaluation\\
+Dismantled project, distributed inference (P2) & SDP~II & Grouped scans
+collected; interface documented; literature reviewed and methods proposed
+(Section~\ref{sec:dismantled}) & Component labels, case ground truth, training, fusion
+and evaluation\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -177,9 +180,7 @@ generic-explosive and specific-explosive detection~\citep{takele2026iedxray}.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Public X-ray security datasets. Counts and flags are as reported in
-Table~1 of the IEDXray paper~\citep{takele2026iedxray}; they were not
-re-measured by this team.}
+\caption{Public X-ray security datasets.}
 \label{tab:datasets}
 \begin{tabular}{@{}lrcccc@{}}
 \toprule
@@ -194,6 +195,7 @@ STCray~\citep{velayudhan2025stingbee} & 46,642 & 21 & Yes & No & 1\\
 IEDXray~\citep{takele2026iedxray} & 17,360 & 9 & Yes & Yes & 3\\
 \bottomrule
 \end{tabular}
+\floatnote{Counts and flags are as reported in Table~1 of the IEDXray paper~\citep{takele2026iedxray}; they were not re-measured by this team.}
 \end{table}
 
 \subsection{Object Detection Architectures}
@@ -243,6 +245,81 @@ option for the distributed workstream; the inspection did not establish a runnin
 multi-package solution.
 \projectrecord{docs/research.md; docs/iedxray-paper-review.md}
 
+\subsection{Methods for Dismantled and Multi-Image Threats}\label{sec:litdismantled}
+The second advisor meeting extended the project to threats that are dismantled and
+carried in several bags. After reviewing the content of this report with the team on
+24~November~2026, the supervisor suggested adding the research on the methods proposed
+for that work.
+Table~\ref{tab:litmethods} groups the relevant literature by the problem it solves.
+
+\paragraph{Compositional reasoning in one scan.}
+FALCON is the closest published work. It detects regions with a class-agnostic
+RF-DETR~\citep{robinson2026rfdetr}, pools the region features into one learned slot
+per component type, and predicts component presence, pairwise functional links and
+a scene risk before a language model explains the result. On its Falcon-X test set,
+referring functional grounding reaches 50.45 cIoU against 20.07 for the next best
+fine-tuned model, while component-presence accuracy is about 98\% for several
+fine-tuned models~\citep{michael2026falcon}. Its authors conclude that the relation
+between parts, rather than their recognition, is the harder problem on that
+benchmark. FALCON works on one image; its authors list reasoning over related scans,
+where the evidence is distributed across images, as future work. Its three component
+types (battery, detonator and main charge) also do not include wires.
+
+\paragraph{Several views of one bag.}
+Multi-view X-ray R-CNN pools features from several views in 3D by using the known
+scanner geometry and reports clear accuracy gains over single views~\citep{steitz2018multiview}.
+Isaac-Medina et al.\ relate detections in different views through epipolar
+constraints~\citep{isaacmedina2021epipolar}. Dual-view benchmarks and detectors fuse
+a main and an auxiliary view of the same bag~\citep{ma2024dvxray,tao2025ldxray}.
+These methods assume that the views show the same objects under a known geometry.
+Scans of different bags share neither, so this family can strengthen the detection
+inside each bag if the scanner provides two views, but it cannot link components
+across bags.
+
+\paragraph{Decisions over a set of images.}
+A case of several bags is an unordered set of variable size. Multiple instance
+learning (MIL) assigns one label to a set of instances~\citep{dietterich1997mil}, and
+attention-based MIL learns how much each instance contributes to that
+label~\citep{ilse2018attention}. Deep Sets characterizes functions that do not depend
+on the order of the elements~\citep{zaheer2017deepsets}, and the Set Transformer also
+models interactions between the elements~\citep{lee2019settransformer}. These methods
+need case-level labels, but they accept missing scans and any bag order.
+
+\paragraph{Small objects and reliable scores.}
+Detonators and wires are expected to appear small or thin. Slicing-aided inference runs a detector on
+overlapping tiles to recover small objects~\citep{akyon2022sahi}. Because evidence
+from several scans is combined, the scores must also be comparable: modern networks
+are often over-confident, and temperature scaling is a simple
+correction~\citep{guo2017calibration}.
+\projectrecord{docs/meeting\_minutes/follow-up-report-2026-11-24.md}
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Literature considered for the dismantled project.}
+\label{tab:litmethods}
+\begin{tabularx}{\textwidth}{@{}L{0.2\textwidth}L{0.27\textwidth}YL{0.21\textwidth}@{}}
+\toprule
+Problem & Methods & Limit for this project & Proposed use\\
+\midrule
+Find each component & YOLOv10~\citep{wang2024yolov10};
+RF-DETR~\citep{robinson2026rfdetr}; tiled inference~\citep{akyon2022sahi} &
+Needs component boxes or masks for the collected scans & Stage~1 detector and
+comparison\\
+Relate components in one scan & FALCON~\citep{michael2026falcon}; relation
+networks~\citep{hu2018relation} & Single image; no wire class; compatibility is not
+physical connection & Later research stage\\
+Combine views of one bag & Multi-view and dual-view
+detectors~\citep{steitz2018multiview,isaacmedina2021epipolar,ma2024dvxray,tao2025ldxray}
+& Needs shared geometry; scanner views to be confirmed & Optional, inside a bag\\
+Combine different bags & MIL, attention, Deep Sets, Set
+Transformer~\citep{dietterich1997mil,ilse2018attention,zaheer2017deepsets,lee2019settransformer}
+& Needs case labels and enough groups & Learned fusion\\
+Make scores comparable & Temperature scaling~\citep{guo2017calibration} & Needs
+independent validation groups & Before any fusion\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
 \subsection{Research Gap}
 The literature review identifies three gaps that shape the RayGuard workstreams:
 \begin{enumerate}
@@ -254,7 +331,8 @@ across the supplied splits (Chapter~\ref{ch:implementation}).
 \item \textbf{Threats distributed across packages.} Detection across separately
 acquired scans requires externally justified grouping and component labels. It
 cannot be obtained by combining unrelated benchmark images. SDP~I collected the
-grouped scans; the detection method itself is the subject of SDP~II.
+grouped scans and prepared a method proposal (Section~\ref{sec:dismantled}); the
+method is implemented and evaluated in SDP~II.
 \item \textbf{Operator-facing traceability.} Published detectors report accuracy,
 but a screening aid must also separate a model confidence from an operational
 decision and record provenance through review and export. This motivates the
@@ -273,9 +351,7 @@ is given in Appendix~\ref{app:patentlog}.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Closest patent results of the scoping search (22~November~2026). Status
-is as displayed by the patent office or Google Patents page; claims were not read
-in full, so no freedom-to-operate or patentability conclusion is drawn.}
+\caption{Closest patent results of the scoping search.}
 \label{tab:patents}
 \begin{tabularx}{\textwidth}{@{}L{0.19\textwidth}L{0.27\textwidth}YY@{}}
 \toprule
@@ -299,6 +375,7 @@ threshold & Closest match to P2 multi-scan correlation & Claim~1 read; others
 from page summary; page shows expired for non-payment\\
 \bottomrule
 \end{tabularx}
+\floatnote{Search of 22~November~2026. Status is as displayed by the patent office or Google Patents page; claims were not read in full, so no freedom-to-operate or patentability conclusion is drawn.}
 \end{table}
 
 The search found no patent for deep-learning detection of explosives hidden in
@@ -325,7 +402,8 @@ interfaces and contracts\\
 Ch.~\ref{ch:theory}: Theoretical Foundations & Engineering model, coordinate and
 category conventions, evaluation quantities, assumptions and limitations\\
 Ch.~\ref{ch:design}: Concept Generation and Design Evaluation & Alternative
-detectors, architectures and data policies, with the evaluation criteria\\
+detectors, architectures and data policies, with the evaluation criteria; methods
+proposed for the dismantled project\\
 Ch.~\ref{ch:implementation}: Implementation and Fabrication & Implemented
 software, dataset and collection evidence, verification results, the
 fine-tuning study and the prototype results\\
@@ -380,8 +458,7 @@ owner's name, and work on unmerged branches is not counted.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Students, GitHub accounts, lead tasks and repository evidence on
-23~November~2026. Task leads are contacts, not exclusive owners.}
+\caption{Students, lead tasks and repository evidence.}
 \label{tab:team}
 \begin{tabularx}{\textwidth}{@{}L{0.22\textwidth}L{0.2\textwidth}L{0.19\textwidth}Y@{}}
 \toprule
@@ -398,16 +475,16 @@ in the 14~November collection record\\
 Ahmed Almansoori & \texttt{Boshahab} & T41 training workflow & PR~\#25: qualified
 training, HPC study and frozen test comparison; T41 task lead, AI-assisted
 implementation and execution under his direction\\
-Mohammad Arwani & \texttt{mohd2k5} & T43 GUI validation & Branch
-\file{mohammad/guiflow}, commit \file{164d6cf}; not yet merged\\
+Mohammad Arwani & \texttt{mohd2k5} & T43 GUI validation & RayGuard-App PR~\#1,
+commit \file{d5d4baf} (open); branch \file{mohammad/guiflow}, commit
+\file{164d6cf}, not merged\\
 \bottomrule
 \end{tabularx}
+\floatnote{Status on 24~November~2026. Task leads are contacts, not exclusive owners.}
 \end{table}
 
-\pending{Each student's own confirmation of the contribution summary, the final
-roster spelling and a supervisor walkthrough of the GitHub record before the
-final presentation. Appendix~\ref{app:contributions} holds the detailed
-worksheet.}
+Table~\ref{tab:whodid} in Appendix~\ref{app:contributions} states who did what for the
+system, the data, the study and this report.
 
 \subsection{Branching Model and Protected Branches}
 The repository uses one integration branch and two workstream branches. The
@@ -446,9 +523,9 @@ whenever available. Table~\ref{tab:prs} lists the research PRs merged in Novembe
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{workflow.png}
-\caption{Contribution workflow on the protected branches, as configured under task
-T36. Orange boxes are enforced gates.}
+\caption{Contribution workflow on the protected branches.}
 \label{fig:workflow}
+\floatnote{As configured under task T36. Orange boxes are enforced gates.}
 \end{figure}
 
 \begin{table}[htbp]
@@ -515,7 +592,7 @@ guides for AI tools (data audit, baseline reproduction, evaluation, demo)\\
 \end{tabularx}
 \end{table}
 
-\subsection{Use of AI Tools and Prompt Disclosure}
+\subsection{Use of AI Tools and Prompt Disclosure}\label{sec:aiuse}
 The contribution guide (\file{CONTRIBUTING.md}) permits students to use AI tools to
 inspect requirements, draft or edit their assigned files and suggest checks. It
 does not allow AI tools to act as contributors: each student must review the full
@@ -538,11 +615,7 @@ assistance was used, a representative prompt and how the output was verified.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{AI prompt disclosure by student. Ahmed's row quotes actual prompt
-excerpts. Faisal's row is confirmed by the student, with the prompt reconstructed
-to state the purpose of the AI use rather than quoted verbatim. The other rows are
-drafted from each student's submitted work, and each student confirms the tool and
-replaces the prompt with their actual wording before submission.}
+\caption{AI prompt disclosure by student.}
 \label{tab:prompts}
 \begin{tabularx}{\textwidth}{@{}L{0.15\textwidth}L{0.2\textwidth}YL{0.2\textwidth}@{}}
 \toprule
@@ -573,9 +646,11 @@ Ali's validation objective.'' ``Use the same verified general initialization for
 untuned/tuned comparisons. Never select models or parameters using the published
 test set.'' & Slurm pilots, six generic search attempts, jobs 770/819 and frozen
 test job 820; independent checks of saved metrics; CI on PR~\#25\\
-Mohammad Arwani & T43 GUI acceptance slice (RayGuard-App) & ``Add acceptance and
+Mohammad Arwani & T43 GUI acceptance slice, RayGuard-App PR~\#1 (OpenAI Codex) & ``Add acceptance and
 accessibility tests for the upload, review and export flows of the GUI.'' &
-Reported app test run; walkthrough pending\\
+Build and eight acceptance tests, repeated in a separate clone; walkthrough
+pending\\
 \bottomrule
 \end{tabularx}
+\floatnote{Ahmed's row quotes actual prompt excerpts. Faisal's row is confirmed by the student, with the prompt reconstructed to state the purpose of the AI use rather than quoted verbatim. The other rows are drafted from each student's submitted work, and each student confirms the tool and replaces the prompt with their actual wording before submission.}
 \end{table}

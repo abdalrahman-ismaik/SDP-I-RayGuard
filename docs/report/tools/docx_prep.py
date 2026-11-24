@@ -74,15 +74,15 @@ Final Report
 
 Team Members
 
-Abd Alrahman Ismaik --- Computer Science
+Abd Alrahman Ismaik --- ID-A
 
-Faisal Daoud Alzarooni --- Computer Science
+Faisal Daoud Alzarooni --- ID-B
 
-Ali Arif Saeed Alshamsi --- Computer Science
+Ali Arif Saeed Alshamsi --- ID-C
 
-Mohammad Arwani --- Computer Science
+Mohammad Arwani --- ID-D
 
-Ahmed Almansoori --- Computer Science
+Ahmed Almansoori --- ID-E
 
 Supervisor
 
@@ -92,6 +92,9 @@ Fall 2026 --- November 2026
 
 TITLEPAGE-END
 """
+ids_file = root / "private" / "student-ids.tex"
+ids = dict(re.findall(r"studentid([A-E])\}\{([^}]*)\}", ids_file.read_text(encoding="utf-8"))) if ids_file.exists() else {}
+title = re.sub(r"ID-([A-E])", lambda m: ids.get(m.group(1), "ID number"), title)
 # Keep this block in step with the titlepage in main.tex.
 tp_src = body[tp_start:tp_end]
 tp_plain = re.sub(r"\\[a-zA-Z]+|\[[^\]]*\]|[{}\\]", " ", tp_src)

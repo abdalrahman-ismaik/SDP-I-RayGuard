@@ -1,5 +1,9 @@
 # COSC 497 SDP I end of semester requirements
 
+**Owner update, 24 November 2026:** PDF submission is accepted, so no Word copy is required. Deadline
+24 November 2026, 17:00 UTC+4. File name `COSC01.SDP1 Final Report`. The title page shows the KU logo, team
+members, title, short description, advisor and examiner. This replaces the Word and deadline notes below.
+
 This record consolidates the course announcements supplied to the team and the Fall 2026 SDP handbook. Use it to coordinate the GitHub record, report, individual contribution evidence, demo and presentation. A listed requirement is not evidence that its deliverable is complete.
 
 ## Dates and conflicts

@@ -5,7 +5,8 @@ evaluation criteria (Section~\ref{sec:criteria}), generates and assesses the
 detector concepts (Section~\ref{sec:detector}) and the system concepts
 (Section~\ref{sec:sysconcepts}), presents the selected architecture
 (Section~\ref{sec:architecture}), discusses pre-processing and host association
-(Section~\ref{sec:preproc}), and closes with the realistic constraints, standards
+(Section~\ref{sec:preproc}), proposes the methods for the dismantled project
+(Section~\ref{sec:dismantled}), and closes with the realistic constraints, standards
 and ethical considerations (Section~\ref{sec:realistic}).
 
 %-----------------------------------------------------------------------------
@@ -60,8 +61,7 @@ measured accuracy comparison.
 
 \begin{table}[htbp]
 \centering\tablesetup
-\caption{Qualitative evaluation of the supplied detector families
-($+$ satisfied, $\circ$ partial or unknown, $-$ not satisfied).}
+\caption{Qualitative evaluation of the supplied detector families.}
 \label{tab:detector-eval}
 \begin{tabularx}{\textwidth}{@{}L{0.2\textwidth}cccccY@{}}
 \toprule
@@ -80,6 +80,7 @@ Grounding DINO & $-$ & $\circ$ & $+$ & $-$ & $-$ & Text prompts and category
 handling must be verified together\\
 \bottomrule
 \end{tabularx}
+\floatnote{$+$ satisfied, $\circ$ partial or unknown, $-$ not satisfied.}
 \end{table}
 
 YOLOv10-M is the only family that satisfies every criterion and is therefore the
@@ -138,10 +139,9 @@ application.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\textwidth]{architecture.png}
-\caption{Selected system architecture. Solid arrows show the implemented prototype
-path; the dashed research path was executed on HPC for the generic study but is
-not yet connected to the application.}
+\caption{Selected system architecture.}
 \label{fig:architecture}
+\floatnote{Solid arrows show the implemented prototype path; the dashed research path was executed on HPC for the generic study but is not yet connected to the application.}
 \end{figure}
 
 Two design rules keep the data consistent. First, the source image, its
@@ -170,6 +170,138 @@ edge. \emph{Full-image detection} avoids that failure mode but still needs a
 justified rule linking each threat to a host. The separate device and explosive
 annotations of IEDXray do not decide between them, so the decision is left open
 and the scan result records an explicit null association when the link is unknown.
+
+%-----------------------------------------------------------------------------
+\section{Proposed Methods for the Dismantled Project}\label{sec:dismantled}
+In the dismantled project, the parts of an IED are distributed over several bags and
+each bag alone may look harmless. This section proposes the methods for SDP~II, based
+on the literature of Section~\ref{sec:litdismantled} and the model of
+Section~\ref{sec:distmodel}. It is a research plan: no component detector or fusion
+method has been trained, and the choices remain subject to supervisor review.
+
+\subsection{Problem and Data}
+The Round~1 collection fits this problem by design: each of its 125 groups spreads one
+explosive simulant, one detonator simulant, one battery and one wire over four bags
+(Section~\ref{sec:collection}). Four properties of the data shape the method:
+\begin{enumerate}
+\item \textbf{Every collected group is complete.} Incomplete and threat-free cases are
+also needed. They can be built by replacing one or more bags of a group with negative
+scans. The images are real, but the grouping is simulated and must be reported as such.
+\item \textbf{Negative scans may contain benign parts.} Batteries and wires appear in
+ordinary electronics, so a negative scan cannot be assumed free of these families. The
+annotation guide must separate target items from benign look-alikes.
+\item \textbf{There are few physical items.} The same twelve item variants are
+reused across the 125 groups. A detector can memorize an item, so a split by group alone does not show that
+it recognizes new items.
+\item \textbf{There are few independent groups.} If 25 groups form a test set and 20
+are found, the recall of 80\% has a 95\% Wilson interval of 61--91\%. The study can
+show large differences between methods, but not small ones.
+\end{enumerate}
+
+\subsection{Method Alternatives}
+Table~\ref{tab:p2alternatives} compares the alternatives for each stage. The common
+principle is to begin with the simplest method that can be explained and to add a
+learned method only if it improves on that baseline on held-out groups.
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Method alternatives for the dismantled project.}
+\label{tab:p2alternatives}
+\begin{tabularx}{\textwidth}{@{}L{0.14\textwidth}L{0.27\textwidth}L{0.2\textwidth}Y@{}}
+\toprule
+Stage & Alternatives & Proposed & Reason\\
+\midrule
+Component detection & YOLOv10-M boxes; RF-DETR boxes and masks; FALCON proposals &
+YOLOv10-M first, RF-DETR with masks as comparison & The T41 workflow can be reused;
+masks exclude background under overlap but cost more annotation\\
+Small parts & Larger input; tiled inference; no change & Test larger input, then
+tiles & T41 test AP on small objects was the weakest for the tuned model; both options
+add latency\\
+Pre-training & General weights; IEDXray; Falcon-X & General weights, then Falcon-X
+if access and licence allow & Falcon-X has battery, detonator and main-charge labels,
+but none for wires\\
+Score handling & Raw scores; temperature scaling & Temperature scaling per family &
+Fusion needs comparable scores\\
+Cross-bag fusion & Independent bags; noisy-OR and $k$-of-4; attention MIL; Set
+Transformer & Noisy-OR and $k$-of-4 first; attention MIL next & Transparent,
+and only thresholds are fitted; attention shows the responsible bag\\
+Relational reasoning & Checklist; FALCON-style slots and links; language explanation
+& Checklist; slots as research option & The inspected FALCON release has its risk and
+link heads disabled and covers one image\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Proposed Pipeline}
+Figure~\ref{fig:p2pipeline} shows the proposed pipeline. Each bag is scanned and
+processed separately, so the single-scan contracts and the application can be reused.
+\begin{description}
+\item[Stage 1, component detection.] A detector is trained on the four families. It
+starts from general weights and follows the partition, checkpoint and test rules of
+the T41 study. Negative scans are added as hard negatives. A first experiment compares
+input sizes, because wires and detonators are expected to be the smallest targets.
+\item[Stage 2, calibration.] Scores are calibrated per family on validation groups,
+and the calibration error is reported.
+\item[Stage 3a, transparent aggregation.] The noisy-OR gives a four-family checklist
+for the case. The explosive and detonator simulants are treated as primary evidence,
+while a battery or a wire only supports it: the case is flagged
+if $N(X)\ge k$ and at least one primary family is supported. The value of $k$ and the
+thresholds are fixed on validation groups.
+\item[Stage 3b, learned set fusion.] Attention-based MIL is trained on per-bag
+component evidence. It is kept small because only 125 groups exist.
+\item[Stage 3c, relational model.] As a research option, the FALCON component queries
+would attend to the regions of all bags in a case instead of one image, with a fourth
+query for wires. This is the cross-image extension that the FALCON authors leave
+open~\citep{michael2026falcon}.
+\item[Stage 4, case evidence.] The operator sees which family was found in which bag,
+with the source box, and which scans are missing or failed.
+\end{description}
+The grouping of bags into a case is an input supplied with its provenance. The system
+does not infer which bags or travellers belong together, and a complete checklist is
+evidence for an operator, not proof of an assembled device or of intent.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{p2-pipeline.png}
+\caption{Proposed pipeline for the dismantled project.}
+\label{fig:p2pipeline}
+\floatnote{Solid boxes form the first version; dashed boxes are research options. No stage has been trained or evaluated.}
+\end{figure}
+
+\subsection{Evaluation Plan}
+Table~\ref{tab:p2eval} defines how each method would be judged. All four bags of a
+group stay in the same split, and the test groups are used once, as in the T41 study.
+
+\begin{table}[htbp]
+\centering\tablesetup
+\caption{Evaluation plan for the dismantled project.}
+\label{tab:p2eval}
+\begin{tabularx}{\textwidth}{@{}L{0.24\textwidth}Y@{}}
+\toprule
+Aspect & Plan\\
+\midrule
+Splits & By group; a second split also holds out item variants (for example one
+explosive, one detonator and one battery variant) to test unseen items. Wires have
+only two variants, so holding one out leaves a single training variant\\
+Baselines & Independent single-bag decisions; any-component alarm; $k$-of-4 rule\\
+Component metrics & AP by family and by object size, with recall at a fixed threshold\\
+Case metrics & Recall of complete cases at a fixed false-alarm rate on threat-free
+cases; results for partial cases reported separately\\
+Robustness & One scan removed or failed; number of bags changed; clutter levels L1--L5\\
+Reliability & Calibration error; confidence intervals by resampling whole groups\\
+Cost & Latency of a case and annotation effort for boxes and masks\\
+Decision rule & A learned method replaces the rule only if it improves case recall at
+the same false-alarm rate on validation groups\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Risks and Entry Conditions}
+Work starts when the 500 scans have passed quality control, the four families have
+been annotated, and the group of each bag has been verified. The main risks are too
+few groups for learned fusion, memorized items, and false alarms from benign batteries
+and wires. The responses are the simple baseline, the item hold-out split and the
+unequal treatment of the families. If the data remain too few, the transparent rule is
+the deliverable and the learned methods are reported as exploratory.
 
 %-----------------------------------------------------------------------------
 \section{Realistic Constraints, Standards and Ethics}\label{sec:realistic}

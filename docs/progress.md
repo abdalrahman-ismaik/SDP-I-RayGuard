@@ -3766,3 +3766,55 @@ identical to a test image can fall into validation.
   precision–recall figure and the three inspected examples; the example figure falls back
   to a note when the private images are absent. Build: 75 pages, 0 errors, 0 undefined,
   0 overfull; Word copy 77 pages, 17 figures.
+
+## 23 November 2026 — Faisal's confirmation and RayGuard-App PR #1 (T38/T43)
+
+- Faisal confirmed the T40 lead role and PRs #17, #19, #21 and #24, and supplied the
+  Table 1.10 disclosure (reconstructed prompt, not verbatim). Checked on GitHub: all four
+  PRs are Faisal's; reviews exist on #20 (later dismissed) and #27 (approved at `b7b9f2c`).
+  Open point: the disclosure names CI scripts, but none of those PRs changes `.github/`.
+- Mohammad's [RayGuard-App PR #1](https://github.com/abdalrahman-ismaik/RayGuard-App/pull/1)
+  at `d5d4baf` (tests and docs only; base `3488abd`) run in a separate clone on Windows with
+  installed Chrome: build passed; 8 T43 and 157 total browser tests passed; type check, backend
+  lint and 280 backend tests passed. Hosted CI had not run (fork approval required).
+  Software checks on synthetic data only; the walkthrough and acceptance remain open.
+
+## 24 November 2026 — Dismantled-project methods in the report (T38)
+
+- Follows the supervisor feedback in `meeting_minutes/follow-up-report-2026-11-24.md`.
+- Added Section 1.2.5 (literature), 3.7 (model) and 4.6 (proposed methods, pipeline and
+  evaluation plan), two figures (`p2-pipeline`, `p2-kofn`) and 12 references. Reference
+  metadata was checked against Crossref, PMLR or arXiv; FALCON details come from the
+  supplied v2 paper. The other new papers were checked through metadata and, for three of
+  them, abstracts; they were not read in full. No component detector or fusion method has been
+  trained, and the k-of-4 chart is analytical.
+- Aligned the scope table, research gap, abstract, Chapter 2 and further-work item 5.
+
+## 24 November 2026 — Application walkthrough in the report (T38/T43)
+
+- Section 5.6 shows real RayGuard-App runs (app `3488abd`, engine `b7ec59e`, CPU, threshold
+  0.25) on four IEDXray test scans, with the supplied IEDXray checkpoints. The fine-tuned
+  checkpoint (job 819) is not on this machine; captions and text say which model is shown.
+- Scans were chosen after running the supplied models on 260 annotated and 60 unannotated
+  test images (seed 17), plus the known miss `Test000001`. None has an exact copy in Train.
+- The table of fine-tuned results uses the saved job 820 predictions. Candidate 4 finds the
+  laptop threat in `Test001489` (0.954) and misses `Test002804` (best 0.137).
+- Screenshots stay in ignored `docs/report/figures/private/`. Next: recapture with the
+  job 819 checkpoint after its hash and loading are verified.
+
+## 24 November 2026 — Landscape Gantt chart and schedule (T38)
+
+- Gantt chart redrawn as one landscape page (PDF and Word). The owner supplied the research
+  period (8 Sep–10 Nov) and the collection period (28 Sep–4 Nov); both are marked as
+  reported. The dated scan files (29 Sep–9 Oct) are marked inside the collection bar.
+- The owner confirmed that the SLG CEO visit (21 Oct) took place. Its outcome is not recorded.
+
+## 24 November 2026 — Final submission pass (T38)
+
+- Merged main (#27, #28); kept Faisal's own wording and the #29 line.
+- Title page follows the coordinator's list; project COSC01; examiner as given by the owner.
+- Appendix B holds the Risk Assessment form, Health and Safety form and Declaration from the handbook.
+  Student names are typed signatures on the owner's statement that all five agreed; supervisor and
+  Safety Officer lines are blank. Ratings are proposed. Signatures, IDs and logo stay out of Git.
+- Appendix C has a "who did what" table from tasks, PRs, commits and the collection inventory.
+- `\pending` markers removed; open items are stated in plain sentences. PDF only.

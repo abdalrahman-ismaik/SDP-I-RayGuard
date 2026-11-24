@@ -1,5 +1,9 @@
 # SDP I final report requirements
 
+**Owner update, 24 November 2026:** PDF submission is accepted, so no Word copy is required. Deadline
+24 November 2026, 17:00 UTC+4. File name `COSC01.SDP1 Final Report`. The title page shows the KU logo, team
+members, title, short description, advisor and examiner. This replaces the Word and deadline notes below.
+
 Recorded 21 November 2026 at the project owner's request. This is the authoritative
 shared report specification; [tasks](tasks.md), T38, is the only backlog. Requirements
 recorded here are not completed deliverables. Consult this specification for all

@@ -45,6 +45,7 @@ GEMINI.md
 # Share only reviewed meeting Markdown; original sources remain private
 /docs/meeting_minutes/*
 !/docs/meeting_minutes/follow-up-slg-2026-10-19.md
+!/docs/meeting_minutes/follow-up-report-2026-11-24.md
 !/docs/meeting_minutes/follow-up-poster-2026-10-19.md
 !/docs/meeting_minutes/follow-up-collection-2026-10-19.md
 !/docs/meeting_minutes/README.md
@@ -141,3 +142,4 @@ test-results/
 
 # Report figures built from dataset scans (kept out of Git; see docs/report/README.md)
 docs/report/figures/private/
+docs/report/private/
