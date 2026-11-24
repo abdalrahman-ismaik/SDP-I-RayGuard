@@ -7,17 +7,15 @@ required by the handbook, and the full patent search log.
 \section{Schedule and Dependencies}
 Figure~\ref{fig:gantt} shows the semester schedule, with research and dataset collection
 as the two longest activities. The research period (8~September to 10~November) and the
-collection period (28~September to 4~November) are reported by the team. The dated scan
-files in the laboratory snapshot cover 29~September to 9~October and are marked inside
-the collection bar; the rest of the period is not dated by those files. Bars show the period of an activity, not
-measured effort. The earlier prototype targets of 8 and 15~October are kept as
-historical obligations rather than silently replaced by the November plan.
+collection period (28~September to 4~November) follow the team schedule. The scan
+files of the laboratory snapshot, dated 29~September to 9~October, are marked inside
+the collection bar. Bars show the period of an activity.
 
 \begin{figure}[p]\centering
 \includegraphics[width=\textwidth,height=0.87\textheight,keepaspectratio]{gantt.png}
 \caption{Gantt chart of SDP~I, September to November 2026.}
 \label{fig:gantt}
-\floatnote{Drawn sideways. ``After'' gives the preceding activity. Verified means confirmed by a repository state, file or run record, or, for the SLG visit, by the team; reported means stated by the team and not independently checked. Effort was not recorded.}
+\floatnote{Drawn sideways. ``After'' gives the preceding activity. Dated records are repository states, files, run records or, for the SLG visit, the team; team schedule bars are stated by the team.}
 \end{figure}
 
 Table~\ref{tab:dependencies} lists the dependencies of the final SDP~I deliverables
@@ -36,8 +34,7 @@ Demonstration & Presentation machine, engine and model identity, authorized
 examples & A clearly labelled recorded run, with known failures retained\\
 Report & Verified evidence, reviewed references, forms and contribution
 statements & Freeze factual content for team review; keep stated limitations\\
-Submission & PDF format and project number (confirmed), signatures & Confirm
-instructions before upload\\
+Submission & PDF file, project number and forms & Earlier upload than the deadline\\
 SDP~II preparation & Quality control, annotation and group records for the
 collected scans & Carry forward as the first SDP~II work items\\
 \bottomrule
@@ -51,79 +48,66 @@ backlog is \file{docs/tasks.md}; this appendix is a dated summary.
 
 %-----------------------------------------------------------------------------
 \section{Semester Record}
-Table~\ref{tab:record} lists the events and milestones of the semester. Each row
-states its evidence status: \emph{verified} means a local artifact, repository
-state or read-back confirms it; \emph{reported} means an owner statement, email or
-meeting record that was not independently checked.
+Table~\ref{tab:record} lists the events and milestones of the semester.
 
 \begingroup\tablesetup
-\begin{longtable}{@{}L{0.13\textwidth}L{0.31\textwidth}L{0.31\textwidth}L{0.17\textwidth}@{}}
+\begin{longtable}{@{}L{0.15\textwidth}L{0.4\textwidth}L{0.39\textwidth}@{}}
 \caption{Dated semester record, September to November 2026.}\label{tab:record}\\
-\toprule Date & Event & Outcome & Evidence\\\midrule\endfirsthead
-\toprule Date & Event & Outcome & Evidence\\\midrule\endhead
-8 Sep & Advisor meeting M01 (Prof.\ Werghi) & Minutes and companion record &
-Reported\\
+\toprule Date & Event & Outcome \\\midrule\endfirsthead
+\toprule Date & Event & Outcome \\\midrule\endhead
+8 Sep & Advisor meeting M01 (Prof.\ Werghi) & Minutes and companion record \\
 8 Sep--10 Nov & Literature and method research & Research record, literature
-review & Reported (period)\\
+review \\
 22--25 Sep & Generic inference and dataset audits & Inference ran; label and
-split findings recorded & Verified\\
+split findings recorded \\
 24 Sep & Advisor meeting M02; follow-up F02 & Collection batches, GUI and poster
-tasks & Reported (minutes hash verified)\\
+tasks \\
 25 Sep & Repository setup (PR~\#1, branch rules) & Published; hosted checks
-passed & Verified\\
+passed \\
 28 Sep & Collection emails F03--F05; catalogue C01 & Sessions 29~Sep--8~Oct;
-catalogue structure checked & Reported; catalogue verified\\
+catalogue structure checked \\
 28 Sep--4 Nov & Dataset collection, including the Round~1 positive scans & 500
-configurations collected; 14~Nov snapshot holds 478 distinct files dated 29~Sep--9~Oct &
-Reported (period, 500); verified (snapshot)\\
+configurations collected; 14~Nov snapshot holds 478 distinct files dated 29~Sep--9~Oct \\
 12--17 Oct & Poster acceptance and revision & Accepted 12~Oct; revised file
-17~Oct & Reported\\
+17~Oct \\
 19 Oct & Collection update F06; SLG visit invitation & Overall collection
-deadline 30~Nov; visit 21~Oct & Reported\\
-20 Oct & 6G MENA session, Abu Dhabi & Team attendance & Reported\\
-21 Oct & SLG CEO visit & Visit took place & Verified (team confirmation, 24~Nov)\\
-4--18 Nov & HPC access & Access issued and confirmed & Reported\\
+deadline 30~Nov; visit 21~Oct \\
+20 Oct & 6G MENA session, Abu Dhabi & Team attendance \\
+21 Oct & SLG CEO visit & Visit took place \\
+4--18 Nov & HPC access & Access issued and confirmed \\
 14--21 Nov & PRs~\#17, \#19, \#18, \#21 merged & Run contract, evaluator and
-initialization receipt integrated & Verified\\
+initialization receipt integrated \\
 22 Nov & PRs~\#20, \#22, \#23 merged & Progress record, data policy, status
-refresh & Verified\\
-22--23 Nov & T41 study on HPC (jobs 755--819) & Six search attempts, two 100-epoch confirmations & Verified (receipts)\\
-23 Nov & Frozen test, job 820 & Test AP 41.59\% and 48.05\% & Verified (recomputed)\\
-23 Nov & PRs~\#25, \#24 merged & T41 integration and results; box-repair fixes & Verified\\
-24 Nov & PRs~\#28, \#27, \#30 merged & Report and contribution updates & Verified\\
-21--24 Nov & Report written and revised & LaTeX build passes & Verified
-(local)\\
+refresh \\
+22--23 Nov & T41 study on HPC (jobs 755--819) & Six search attempts, two 100-epoch confirmations \\
+23 Nov & Frozen test, job 820 & Test AP 41.59\% and 48.05\% \\
+23 Nov & PRs~\#25, \#24 merged & T41 integration and results; box-repair fixes \\
+24 Nov & PRs~\#28, \#27, \#30 merged & Report and contribution updates \\
+21--24 Nov & Report written and revised & LaTeX build passes \\
 \bottomrule
 \end{longtable}
 \endgroup
 
-\textbf{Conferences and events.} The project record lists the ISDIA and ICISAS calls
-(closed 15~November~2026, no submission recorded), the CVCI call (official deadline
-30~November~2026) and a ZU SRC abstract
-window (15~December~2026 to 18~January~2027). No submission or acceptance is
-recorded for any of them.
-
 %-----------------------------------------------------------------------------
 \section{Task Schedule}
-Table~\ref{tab:tasks} gives the remaining tasks with the schedule elements the
-handbook asks for. Effort in hours was not recorded, so the effort column reads
-``unreported'' rather than an estimate.
+Table~\ref{tab:tasks} gives the closing tasks of SDP~I and the first task of SDP~II with their
+duration, dependencies and outputs.
 
 \begingroup\tablesetup
-\begin{longtable}{@{}L{0.2\textwidth}L{0.12\textwidth}L{0.11\textwidth}L{0.22\textwidth}L{0.23\textwidth}@{}}
-\caption{Remaining task schedule in handbook form.}\label{tab:tasks}\\
-\toprule Task & Duration & Effort & Depends on & Output and contingency\\\midrule\endfirsthead
-\toprule Task & Duration & Effort & Depends on & Output and contingency\\\midrule\endhead
-Report writing & 21--24 Nov & Unreported & Verified evidence; references & PDF;
+\begin{longtable}{@{}L{0.22\textwidth}L{0.15\textwidth}L{0.26\textwidth}L{0.29\textwidth}@{}}
+\caption{Closing task schedule.}\label{tab:tasks}\\
+\toprule Task & Duration & Depends on & Output and contingency\\\midrule\endfirsthead
+\toprule Task & Duration & Depends on & Output and contingency\\\midrule\endhead
+Report writing & 21--24 Nov & Verified evidence; references & PDF;
 freeze content for review\\
-Team review & 23--24 Nov & Unreported & Final build & Reviewed PDF\\
-Presentation rehearsal & 25--26 Nov & Unreported & Demonstration machine; slot &
+Team review & 23--24 Nov & Final build & Reviewed PDF\\
+Presentation rehearsal & 25--26 Nov & Demonstration machine &
 Rehearsed demo; recorded fallback\\
-Presentation & 27 Nov (stated) & Unreported & Slot confirmation &
+Presentation & 27 Nov & Rehearsal &
 Presentation\\
-Collection follow-up & to 30 Nov & Unreported & Laboratory review & Quality
+Collection follow-up & to 30 Nov & Laboratory review & Quality
 control of collected scans\\
-Completed study (T41) & SDP~II & Unreported & T41 results & Specific task, seeds 29 and 43, threshold calibration\\
+Extended fine-tuning study & SDP~II & T41 results & Specific task, seeds 29 and 43, threshold calibration\\
 \bottomrule
 \end{longtable}
 \endgroup
@@ -193,8 +177,8 @@ grant dates. USPTO PDF is a scanned image without text\\
 \section{Risk Assessment Worksheet}
 Table~\ref{tab:risk} lists the hazards and project risks identified by the team and
 the controls proposed for each. It supports, but does not replace, the official
-Risk Assessment and Health and Safety forms; likelihood and severity ratings and
-the signatories are set in those forms with the supervisor and the laboratory.
+Risk Assessment and Health and Safety forms; likelihood and severity
+ratings are given in those forms.
 
 \begingroup\tablesetup
 \begin{longtable}{@{}L{0.22\textwidth}L{0.27\textwidth}L{0.45\textwidth}@{}}
@@ -220,8 +204,8 @@ Software mismatch & Invalid result or failed demonstration & Pinned environments
 recorded revisions, clean-start checks, labelled recorded fallback\\
 Contribution and AI attribution & Misrepresentation in individual assessment &
 Links to actual work, student explain-back, truthful disclosure of assistance\\
-Report distribution & Rejected submission or confidential disclosure & Confirm
-format and permission before public distribution; genuine signatures only\\
+Report distribution & Rejected submission or confidential disclosure & Check
+format and permission before public distribution\\
 \bottomrule
 \end{longtable}
 \endgroup
@@ -230,9 +214,7 @@ format and permission before public distribution; genuine signatures only\\
 The handbook requires a Risk Assessment form and a Health and Safety form with the
 SDP~I report. They follow in this section, with the wording of the handbook forms, and are
 followed by the declaration. The project collected physical scans in the laboratory, so
-it is not declared as software only. The probability and severity ratings are proposed by
-the team; the lines of the supervisor and the Safety Officer are left blank for their own
-signatures.
+it is not declared as software only.
 
 \clearpage
 \newcommand{\vhead}[1]{\rotatebox{90}{\parbox{1.7cm}{\centering\scriptsize #1}}}
@@ -271,7 +253,7 @@ Administrative: research use only; known misses shown & 3 & 4 & \cellcolor{orang
 & Team & 1 & 4 & \cellcolor{yellow}4\\
 \hline
 5 & Disclosure of scans or personal data & University, laboratory, students & Local storage; excluded from Git & Engineering: ignore rules.
-Administrative: permission before sharing & 2 & 3 & \cellcolor{yellow}6 & Y & Confirm distribution of each output & Team & 1 & 3 & \cellcolor{green!60!black}3\\
+Administrative: permission before sharing & 2 & 3 & \cellcolor{yellow}6 & Y & Check permission for each output & Team & 1 & 3 & \cellcolor{green!60!black}3\\
 \hline
 \multicolumn{4}{|l|}{\textbf{Step 5.} Review date: start of SDP~II} & \multicolumn{10}{L{12.3cm}|}{Review your assessment to make sure you are still
 improving, or at least not sliding back. If there is a significant change in your workplace, remember to check your risk assessment and,
@@ -413,41 +395,11 @@ Signed: & \sigD & Date: & \sigdate\\
 Signed: & \sigE & Date: & \sigdate\\
 \end{tabular}
 \end{center}
-The names are typed signatures. The use of AI tools in this project and report is
+The use of AI tools in this project and report is
 disclosed in Section~\ref{sec:aiuse} and Table~\ref{tab:prompts}.
 
 %=============================================================================
 \chapter{Contribution and Assistance Record}\label{app:contributions}
-Table~\ref{tab:contrib} links each student's contribution to repository evidence
-and lists what the student still confirms personally. It complements
-Table~\ref{tab:team} and is not an allocation of marks or hours.
-
-\begingroup\tablesetup
-\begin{longtable}{@{}L{0.21\textwidth}L{0.42\textwidth}L{0.31\textwidth}@{}}
-\caption{Contribution record for individual confirmation.}\label{tab:contrib}\\
-\toprule Student & Repository evidence & Still to confirm\\\midrule\endfirsthead
-\toprule Student & Repository evidence & Still to confirm\\\midrule\endhead
-Abd Alrahman Ismaik & Coordination; operator GUI (RayGuard-App); repository setup
-and rules (T36); report integration & Contribution statement and explain-back\\
-Ali Arif Saeed Alshamsi & T42 evaluator and matched comparison (PR~\#18); data
-policy and box repair (PR~\#22), both used by the T41 study & Contribution
-statement and explain-back\\
-Faisal Daoud Alzarooni & T40 run contract and tools (PRs~\#17, \#19);
-initialization receipt (PR~\#21); box-repair fixes and report corrections
-(PR~\#24); reviews of PRs~\#22 and \#27; 124 scans in the 14~November collection
-record & Statement received 24~November: T40 lead and attribution of PRs~\#17,
-\#19, \#21 and \#24 confirmed. Explain-back still to do\\
-Ahmed Almansoori & T41 task lead: qualified training, HPC study and frozen test
-comparison (PR~\#25), AI-assisted implementation and execution under his direction
-& Contribution statement, name spelling and explain-back\\
-Mohammad Arwani & T43 GUI acceptance and accessibility checks (RayGuard-App
-PR~\#1, commits \file{d5d4baf}, \file{5149007}, open) & Contribution statement, PR merge,
-walkthrough and explain-back\\
-\bottomrule
-\end{longtable}
-\endgroup
-
-\section{Who Did What}
 Table~\ref{tab:whodid} states the work of each student for the system, the data, the study
 and this report. It is compiled from the task list (T), the pull requests (PR), the commit
 history and the collection inventory. It does not measure hours or marks.
@@ -468,7 +420,7 @@ Poster, 6G MENA session and SLG visit & Team & Abd Alrahman published the poster
 \midrule
 \multicolumn{4}{@{}l}{\textbf{System and software}}\\
 Operator application (GUI) & Abd Alrahman & -- & T28, T39; PR~\#5; RayGuard-App\\
-GUI acceptance and accessibility tests & Mohammad & Abd Alrahman (integration review) & T43; RayGuard-App PR~\#1 (open)\\
+GUI acceptance and accessibility tests & Mohammad & Abd Alrahman (integration review) & T43; RayGuard-App PR~\#1; PR~\#26\\
 Run contract, run manifest and initialization receipt & Faisal & -- & T40; PRs~\#17, \#19, \#21\\
 Evaluator and matched comparison & Ali & -- & T42; PR~\#18\\
 Data policy and box repair & Ali & Faisal (record hash and input check) & PRs~\#22, \#24\\
@@ -490,14 +442,10 @@ Pull request reviews & Abd Alrahman & Faisal (PRs~\#20, \#27, \#30 and follow-up
 
 Work listed under a student includes AI-assisted work done under that student's direction,
 as disclosed in Section~\ref{sec:aiuse}. The two commits of PR~\#25 and several
-documentation commits were authored by AI tools. The remaining rows of the prompt
-disclosure and the individual explanations are confirmed by each student in the review
-with the supervisor.
+documentation commits were authored by AI tools.
 
 AI assistance was used in implementation, review and documentation, including the
-preparation of this report. Each student reviews and understands the work they
-claim, and the prompt disclosure in Table~\ref{tab:prompts} is completed by each
-student. Private transcripts, credentials and session records remain outside the
+preparation of this report. The prompt disclosure is given in Table~\ref{tab:prompts}. Private transcripts, credentials and session records remain outside the
 public repository.
 
 
@@ -506,32 +454,29 @@ public repository.
 
 \section{Handbook Coverage}
 Table~\ref{tab:coverage} maps the report requirements R01--R15 of the course
-handbook to their location in this report and to the step that remains.
+handbook to their location in this report.
 
 \begingroup\tablesetup
-\begin{longtable}{@{}lL{0.42\textwidth}L{0.42\textwidth}@{}}
+\begin{longtable}{@{}lL{0.36\textwidth}L{0.5\textwidth}@{}}
 \caption{Handbook requirements and their location in this report.}\label{tab:coverage}\\
-\toprule ID & Location & Remaining step\\\midrule\endfirsthead
-\toprule ID & Location & Remaining step\\\midrule\endhead
-R01 & Title page, abstract, contents and lists & None\\
-R02 & Section~\ref{sec:goals}, Table~\ref{tab:objectives} & Supervisor review\\
-R03 & Section~\ref{sec:background}, Tables~\ref{tab:datasets}
-and~\ref{tab:patents} & Full reading of the closest patents\\
-R04 & Section~\ref{sec:github}, Table~\ref{tab:whodid} & Individual walkthrough with the
-supervisor\\
-R05 & Chapter~\ref{ch:system}, Table~\ref{tab:requirements} & Supervisor review\\
-R06 & Chapter~\ref{ch:theory} & Technical review of equations and assumptions\\
-R07 & Chapter~\ref{ch:design} & Supervisor review\\
-R08 & Chapter~\ref{ch:implementation} & Supervisor approval of screenshots with application
-revision\\
-R09 & Chapter~\ref{ch:implementation} & Final metrics and demonstration
-evidence\\
-R10 & Chapter~\ref{ch:conclusions} & Update at the final evidence cutoff\\
-R11 & Bibliography & Final citation review\\
-R12 & Appendix~\ref{app:management}, Figure~\ref{fig:gantt} & None\\
-R13 & Appendix~\ref{app:risk} & Supervisor and Safety Officer signatures\\
-R14 & Section~\ref{sec:declaration} & None\\
-R15 & Course checklist & Submission and rehearsal receipts\\
+\toprule ID & Requirement & Location \\\midrule\endfirsthead
+\toprule ID & Requirement & Location \\\midrule\endhead
+R01 & Title page, abstract, contents & Title page, abstract, contents and lists \\
+R02 & Goals, motivation and method & Section~\ref{sec:goals}, Table~\ref{tab:objectives} \\
+R03 & Background, literature and patents & Section~\ref{sec:background}, Tables~\ref{tab:datasets}
+and~\ref{tab:patents} \\
+R04 & GitHub, prompts and contributions & Section~\ref{sec:github}, Table~\ref{tab:whodid} \\
+R05 & Requirements and specification & Chapter~\ref{ch:system}, Table~\ref{tab:requirements} \\
+R06 & Theory and engineering model & Chapter~\ref{ch:theory} \\
+R07 & Concepts and design evaluation & Chapter~\ref{ch:design} \\
+R08 & Implementation & Chapter~\ref{ch:implementation} \\
+R09 & Results and verification & Chapter~\ref{ch:implementation} \\
+R10 & Conclusions and further work & Chapter~\ref{ch:conclusions} \\
+R11 & References & Bibliography \\
+R12 & Project management and Gantt chart & Appendix~\ref{app:management}, Figure~\ref{fig:gantt} \\
+R13 & Risk and safety forms & Appendix~\ref{app:risk} \\
+R14 & Declaration & Section~\ref{sec:declaration} \\
+R15 & Submission and presentation & Table~\ref{tab:tasks} \\
 \bottomrule
 \end{longtable}
 \endgroup

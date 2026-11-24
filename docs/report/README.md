@@ -104,8 +104,8 @@ node app_walkthrough.mjs --model <captures> <IEDXray/Test> Test001489.jpg device
 ```
 
 The second form is for the device and specific models (one service start per model). The
-current figures use the supplied IEDXray checkpoints, as their captions state. Relabel
-them only after recapturing with a different checkpoint and checking its hash.
+current figures use T41 candidate 4 (SHA-256 `097ff71e…`) for the generic task, added as a local
+engine catalogue entry, and the supplied IEDXray checkpoints for the device and specific tasks.
 
 ## Acceptance review
 

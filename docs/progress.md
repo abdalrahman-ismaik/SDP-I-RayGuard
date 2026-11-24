@@ -3823,3 +3823,11 @@ identical to a test image can fall into validation.
   that are byte copies of training images (3 boxes) were excluded in a recomputation from the saved
   predictions: AP 41.5602 and 48.0317 on 5,132 images (41.5886 and 48.0502 on 5,136). The audit table
   wrongly said they were excluded from training data; corrected. Table A.3 (record conflicts) removed.
+
+- Ahmed supplied `epoch-084.pt` (job 819): SHA-256 matches `097ff71e…`. It ran in RayGuard-App from a separate
+  clone with one local engine catalogue entry (not published): Test001489 0.954, Test002804 0.921, Test003370 and
+  Test000001 none; all equal to the saved job 820 predictions. Walkthrough recaptured with this model.
+- Correction: the earlier walkthrough table read predictions by file number instead of COCO image ID (532 of 5,136
+  differ), which gave wrong values for Test002804 only. Fixed.
+- Internal confirmation notes were moved out of the report at the owner's request. Still open outside the report:
+  supervisor and Safety Officer signatures, prompts of three students, app PR #1 and SDP PR #26, rehearsal.
