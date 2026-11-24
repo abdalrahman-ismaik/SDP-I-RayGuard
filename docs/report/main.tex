@@ -5,7 +5,8 @@
 \setsansfont{Arial}
 \usepackage{setspace}
 \onehalfspacing
-\usepackage{graphicx,booktabs,longtable,tabularx,array,amsmath,amssymb,xcolor}
+\usepackage{graphicx,booktabs,longtable,tabularx,array,amsmath,amssymb}
+\usepackage[table]{xcolor}
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage[hidelinks,pdfpagelabels=false]{hyperref}
 \usepackage{xurl}
@@ -40,26 +41,40 @@
   \newcommand{\studentidD}{ID number}%
   \newcommand{\studentidE}{ID number}%
 }
+% Typed signatures are kept out of Git (private/signatures.tex); blank lines otherwise.
+\newcommand{\sigline}{\rule{5cm}{0.4pt}}
+\InputIfFileExists{private/signatures.tex}{}{%
+  \newcommand{\sigA}{\sigline}\newcommand{\sigB}{\sigline}\newcommand{\sigC}{\sigline}%
+  \newcommand{\sigD}{\sigline}\newcommand{\sigE}{\sigline}%
+  \newcommand{\sigdate}{\rule{3cm}{0.4pt}}%
+}
 \begin{document}
 \hypersetup{pageanchor=false}
 \begin{titlepage}
 \centering
-{\Large\bfseries Khalifa University of Science and Technology\par}
-\vspace{0.3cm}
+\IfFileExists{figures/private/ku-logo.png}{%
+\includegraphics[width=7.2cm]{private/ku-logo.png}\par}{%
+{\Large\bfseries Khalifa University of Science and Technology\par}}
+\vspace{0.7cm}
 {\large College of Computing and Mathematical Sciences\par}
-\vspace{0.15cm}
+\vspace{0.1cm}
 {\large Department of Computer Science\par}
-\vspace{2.2cm}
+\vspace{0.9cm}
 {\Huge\bfseries RayGuard\par}
-\vspace{0.5cm}
-{\LARGE AI-Powered Explosive Detection\\[0.2cm] in X-ray Scans\par}
-\vspace{1.2cm}
-{\Large Senior Design Project I\par}
-\vspace{0.2cm}
-{\large Final Report\par}
-\vspace{1.8cm}
+\vspace{0.35cm}
+{\LARGE AI-Powered Explosive Detection\\[0.1cm] in X-ray Scans\par}
+\vspace{0.6cm}
+\begin{minipage}{0.84\textwidth}\centering\itshape
+A research prototype that localizes explosive threats concealed in electronic devices
+in X-ray baggage scans, for review by a human operator.
+\end{minipage}\par
+\vspace{0.8cm}
+{\Large Senior Design Project I -- Final Report\par}
+\vspace{0.15cm}
+{\large Project COSC01\par}
+\vspace{0.9cm}
 {\large\bfseries Team Members\par}
-\vspace{0.3cm}
+\vspace{0.2cm}
 {\large
 \begin{tabular}{ll}
 Abd Alrahman Ismaik & \studentidA\\
@@ -68,12 +83,14 @@ Ali Arif Saeed Alshamsi & \studentidC\\
 Mohammad Arwani & \studentidD\\
 Ahmed Almansoori & \studentidE\\
 \end{tabular}}
-\par\vspace{1cm}
-{\large\bfseries Supervisor\par}
-\vspace{0.2cm}
-{\large Prof.\ Naoufel Werghi\par}
+\par\vspace{0.8cm}
+{\large
+\begin{tabular}{c@{\hspace{2.2cm}}c}
+\textbf{Advisor} & \textbf{Examiner}\\
+Prof.\ Naoufel Werghi & Dr.\ Sajid Javed\\
+\end{tabular}\par}
 \vfill
-{\large Fall 2026 \quad\textbullet\quad November 2026\par}
+{\large Fall 2026 \quad\textbullet\quad 24 November 2026\par}
 \end{titlepage}
 \hypersetup{pageanchor=true}
 \pagenumbering{roman}

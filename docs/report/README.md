@@ -33,8 +33,9 @@ illustrations; see the provenance register. No raw scans or research PDF reprodu
 are included. Compile and inspect every page; missing references/assets, overflow and
 unreadable figures block final delivery. Typical handbook length is guidance; do not pad.
 
-Student ID numbers on the title page come from `private/student-ids.tex`, which Git
-ignores; without it the title page shows a placeholder.
+Student IDs (`private/student-ids.tex`), typed signatures (`private/signatures.tex`) and the KU logo
+(`figures/private/ku-logo.png`) are ignored by Git. Without them the build shows placeholders, blank
+signature lines and the university name.
 
 ## Sources and Word path
 
@@ -47,8 +48,8 @@ The bibliography is a starting research record, not a claim that all cited exper
 were reproduced. The mistaken exploratory lookup of arXiv:1312.6114 is excluded because
 it is unrelated to the report's optimizer discussion.
 
-LaTeX remains canonical. A Word copy is required under the current course notice unless
-PDF acceptance is confirmed. Conversion alone is not acceptance: compare equations,
+LaTeX remains canonical. PDF submission was accepted on 24 November 2026, so the Word copy below is
+optional; its title page and forms no longer match `main.tex`. Conversion alone is not acceptance: compare equations,
 captions, figure/table references, citations and pagination with the PDF. No Word copy is
 marked ready until rendering and content/layout comparison pass.
 

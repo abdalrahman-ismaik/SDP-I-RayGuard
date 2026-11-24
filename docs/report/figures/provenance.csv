@@ -17,3 +17,4 @@ private/t41-ex-*.png,annotated dataset images (not in Git),tools/t41_figures.py 
 p2-pipeline.png,original diagram,p2-pipeline.tex and Section 4.6,proposed SDP II pipeline; no stage trained or evaluated,project-created
 p2-kofn.png,original chart,p2-kofn.tex binomial formula,analytical model with independent components; not measured,project-created
 private/app-*.png,application screenshots,tools/app_walkthrough.mjs; runs of 24 November 2026,real app runs with supplied IEDXray checkpoints (not the fine-tuned model),IEDXray test scans with attribution; not committed
+private/ku-logo.png,university logo,local Khalifa University brand file,title page only as requested by the course,not committed

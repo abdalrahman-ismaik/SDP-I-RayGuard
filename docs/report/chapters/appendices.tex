@@ -37,8 +37,8 @@ Demonstration & Presentation machine, engine and model identity, authorized
 examples & A clearly labelled recorded run, with known failures retained\\
 Report & Verified evidence, reviewed references, forms and contribution
 statements & Freeze factual content for team review; keep stated limitations\\
-Submission & Course format, project number, signatures and distribution clearance &
-Checked Word copy alongside the PDF; confirm instructions before upload\\
+Submission & PDF format and project number (confirmed), signatures & Confirm
+instructions before upload\\
 SDP~II preparation & Quality control, annotation and group records for the
 collected scans & Carry forward as the first SDP~II work items\\
 \bottomrule
@@ -111,8 +111,6 @@ does not resolve.
 \caption{Open conflicts between project records.}\label{tab:conflicts}\\
 \toprule Item & Conflict\\\midrule\endfirsthead
 \toprule Item & Conflict\\\midrule\endhead
-Report deadline & 24~Nov~2026, 17:00 UTC+4 (owner) versus 27~Nov~2026 (pasted
-notice)\\
 Collection deadline & Batch~1 by 15~Oct (historical) versus 30~Nov overall\\
 Round~1 allocation & One item per student (F03) versus all four families per
 student (C01)\\
@@ -136,8 +134,7 @@ handbook asks for. Effort in hours was not recorded, so the effort column reads
 \toprule Task & Duration & Effort & Depends on & Output and contingency\\\midrule\endhead
 Report writing & 21--24 Nov & Unreported & Verified evidence; references & PDF;
 freeze content for review\\
-Team review and Word copy & 23--24 Nov & Unreported & Final build & Word copy;
-PDF if accepted\\
+Team review & 23--24 Nov & Unreported & Final build & Reviewed PDF\\
 Presentation rehearsal & 25--26 Nov & Unreported & Demonstration machine; slot &
 Rehearsed demo; recorded fallback\\
 Presentation & 27 Nov (stated) & Unreported & Slot confirmation &
@@ -247,18 +244,195 @@ format and permission before public distribution; genuine signatures only\\
 \end{longtable}
 \endgroup
 
-\section{Official Forms}
-The handbook requires a Risk Assessment form and a Health and Safety form for
-SDP~I. The Health and Safety form needs the signatures of a student representative
-and the supervisor and is handled by the University Safety Officer. Because the
-project included physical scan collection in the laboratory, it is not treated as
-software-only for these forms. The completed, signed forms are inserted in the
-submitted version of this report. The Project Clearance forms apply to the SDP~II
-final report.
+\section{Official Forms}\label{sec:forms}
+The handbook requires a Risk Assessment form and a Health and Safety form with the
+SDP~I report. They follow in this section, with the wording of the handbook forms, and are
+followed by the declaration. The project collected physical scans in the laboratory, so
+it is not declared as software only. The probability and severity ratings are proposed by
+the team; the lines of the supervisor and the Safety Officer are left blank for their own
+signatures.
 
-\pending{Completed Risk Assessment and Health and Safety forms with signatures,
-recipients and dates. This report contains no pre-filled signature or
-declaration.}
+\clearpage
+\newcommand{\vhead}[1]{\rotatebox{90}{\parbox{1.7cm}{\centering\scriptsize #1}}}
+\begin{center}
+\rotatebox{90}{\begin{minipage}{0.97\textheight}
+\setstretch{1}
+{\large\bfseries Risk Assessment Form} \textit{(To be submitted along with SDP~I final report)}\par
+\medskip
+{\small \textbf{Location name:} CVML Laboratory, Khalifa University\quad
+\textbf{Description of task/activity/area/premises:} Collection of X-ray baggage scans with
+inert laboratory simulants, and development and demonstration of a detection prototype\par}
+\medskip
+{\scriptsize\renewcommand{\arraystretch}{1.25}\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|c|L{2.35cm}|L{1.75cm}|L{3cm}|L{3.2cm}|c|c|c|c|L{2.8cm}|L{1.6cm}|c|c|c|}
+\hline
+ & \textbf{Step 1} & \textbf{Step 2} & \multicolumn{2}{c|}{\textbf{Step 3}} & \multicolumn{3}{c|}{} & \multicolumn{6}{c|}{\textbf{Step 4}}\\
+\hline
+ & & & & & \multicolumn{3}{c|}{Risk rating} & \multicolumn{3}{c|}{Actions and implementation} & \multicolumn{3}{c|}{Residual risk}\\
+\hline
+SN & Hazard? & Who is at risk? & Existing controls/measures already in place & Control measure (hierarchy of control) &
+\vhead{Probability (P)} & \vhead{Severity (S)} & \vhead{Rating (P\,$\times$\,S)} & \vhead{Further action required (Y/N)} &
+Action required & Responsible person & \vhead{Probability (P)} & \vhead{Severity (S)} & \vhead{Rating (P\,$\times$\,S)}\\
+\hline
+1 & X-ray radiation from the baggage scanner & Students, laboratory staff & Laboratory procedures and supervision &
+Administrative: trained, authorized users only; interlocks intact & 1 & 4 & \cellcolor{yellow}4 & Y &
+Follow the laboratory induction before each session & Students, laboratory & 1 & 4 & \cellcolor{yellow}4\\
+\hline
+2 & Electrical equipment & Students, laboratory staff & Laboratory equipment rules & Administrative: do not open equipment; report
+faults & 1 & 3 & \cellcolor{green!60!black}3 & N & -- & -- & 1 & 3 & \cellcolor{green!60!black}3\\
+\hline
+3 & Handling bags and specimens & Students & Inert laboratory simulants only & Substitution: simulants replace real
+threats. Administrative: no unsupervised hazardous work & 2 & 2 & \cellcolor{yellow}4 & N & -- & -- & 2 & 2 & \cellcolor{yellow}4\\
+\hline
+4 & Missed detection or over-trust in the prototype & Operators, public & Human review; no clearance from an empty result &
+Administrative: research use only; known misses shown & 3 & 4 & \cellcolor{orange}12 & Y & No operational use; raise recall in SDP~II
+& Team & 1 & 4 & \cellcolor{yellow}4\\
+\hline
+5 & Disclosure of scans or personal data & University, laboratory, students & Local storage; excluded from Git & Engineering: ignore rules.
+Administrative: permission before sharing & 2 & 3 & \cellcolor{yellow}6 & Y & Confirm distribution of each output & Team & 1 & 3 & \cellcolor{green!60!black}3\\
+\hline
+\multicolumn{4}{|l|}{\textbf{Step 5.} Review date: start of SDP~II} & \multicolumn{10}{L{12.3cm}|}{Review your assessment to make sure you are still
+improving, or at least not sliding back. If there is a significant change in your workplace, remember to check your risk assessment and,
+when necessary, amend it.}\\
+\hline
+\end{tabular}}\par
+\bigskip
+{\small Date prepared: \sigdate\quad Conducted by: \sigA\quad Approved by: \rule{5cm}{0.4pt}\par
+\smallskip
+\textit{(Student representative signature and name: Abd Alrahman Ismaik)}\quad \textit{(Signature of supervisor and name: Prof.\ Naoufel Werghi)}\par}
+\end{minipage}}
+\end{center}
+
+\clearpage
+\subsection*{Risk Assessment Form: Rating Scale}
+\begin{center}\footnotesize\setlength{\tabcolsep}{4pt}\setstretch{1}\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+ & \multicolumn{5}{c|}{\textbf{SEVERITY}}\\
+\hline
+\textbf{PROBABILITY} & Insignificant (1) & Minor (2) & Moderate (3) & Major (4) & Catastrophic (5)\\
+\hline
+Rare (1) & \cellcolor{green!60!black}1 & \cellcolor{green!60!black}2 & \cellcolor{green!60!black}3 & \cellcolor{yellow}4 & \cellcolor{yellow}5\\
+\hline
+Possible (2) & \cellcolor{green!60!black}2 & \cellcolor{yellow}4 & \cellcolor{yellow}6 & \cellcolor{orange}8 & \cellcolor{orange}10\\
+\hline
+Likely (3) & \cellcolor{green!60!black}3 & \cellcolor{yellow}6 & \cellcolor{orange}9 & \cellcolor{orange}12 & \cellcolor{red}15\\
+\hline
+Often (4) & \cellcolor{yellow}4 & \cellcolor{orange}8 & \cellcolor{orange}12 & \cellcolor{red}16 & \cellcolor{red}20\\
+\hline
+Frequent/Almost certain (5) & \cellcolor{yellow}5 & \cellcolor{orange}10 & \cellcolor{red}15 & \cellcolor{red}20 & \cellcolor{red}25\\
+\hline
+\end{tabular}
+
+\bigskip
+\begin{tabular}{|c|l|L{9.6cm}|}
+\hline
+\cellcolor{red}15--25 & \textbf{Extreme risk} & Absolutely Unacceptably High activity should not proceed in current form\\
+\hline
+\cellcolor{orange}8--12 & \textbf{High risk} & Unacceptably High Activity should be modified to include remedial planning and action
+and be subject to detailed HSE assessment\\
+\hline
+\cellcolor{yellow}4--6 & \textbf{Moderate risk} & Acceptable but must be managed at ``As Low as Reasonably Practicable'' (ALARP). Activity
+or industry can operate subject to management and / or modification\\
+\hline
+\cellcolor{green!60!black}1--3 & \textbf{Low risk} & Acceptable without required further action. No action required unless escalation of
+risk is possible\\
+\hline
+\end{tabular}
+
+\bigskip
+\begin{tabular}{|L{4.4cm}|L{10cm}|}
+\hline
+\multicolumn{2}{|L{14.8cm}|}{\textbf{Hierarchy of Control (controls identified may be a mixture of the hierarchy in order to provide minimum operator
+exposure)}}\\
+\hline
+Elimination & Eliminate the hazard.\\
+\hline
+Substitution & Provide an alternative that is capable of performing the same task and is safer to use.\\
+\hline
+Engineering controls & Provide or construct a physical barrier or guard or technical measures.\\
+\hline
+Administrative controls & Develop policies, procedures, practices and guidelines, in consultation with employees, to mitigate the risk.
+Provide training, instruction and supervision about the hazard.\\
+\hline
+Personal protective equipment & Personal equipment designed to protect the individual from the hazard.\\
+\hline
+\end{tabular}
+\end{center}
+
+\clearpage
+\subsection*{Health and Safety Assessment Form}
+\textit{(To be submitted along with SDPI-Final report)}
+
+\begingroup\small\setstretch{1.1}\setlength{\parskip}{5pt}\setlength{\parindent}{0pt}
+\textbf{Name:} Abd Alrahman Ismaik (student representative), Faisal Daoud Alzarooni, Ali Arif Saeed Alshamsi, Mohammad Arwani, Ahmed Almansoori
+
+\textbf{Department:} Computer Science\hfill \textbf{Supervisor:} Prof.\ Naoufel Werghi
+
+\textbf{Project Location/Room:} CVML Laboratory, Khalifa University
+
+\textbf{Project Title:} RayGuard: AI-Powered Explosive Detection in X-ray Scans
+
+\textbf{Brief Description of Project:} Collection of X-ray baggage scans with inert simulants, and a software prototype that localizes
+concealed explosive threats for review by an operator.
+
+\textbf{SOFTWARE:} If your project involves SOFTWARE ONLY tick the box and sign the form [\hspace{1em}] (not ticked: scans were collected in the laboratory)
+
+\textbf{Nature of Possible Risks:}
+
+Listed below are the hazards likely to be encountered during your project, together with the measures that should be taken to minimize
+the associated risks. If you consider there to be no appreciable risks, enter NONE for each heading.
+
+\textbf{ELECTRICAL} (e.g.\ working on exposed circuitry more than 50\,V): NONE. Mains-powered equipment is used as supplied and is not opened.
+
+\textbf{RADIATION} (e.g.\ microwave systems): X-ray baggage scanner. Used only in the laboratory, under its procedures and supervision, by
+authorized users with interlocks intact.
+
+\textbf{LASER} (e.g.\ lasers of class 3B or 4): NONE
+
+\textbf{ROBOTIC} (e.g.\ working in restricted areas containing fixed robots or working with mobile robots): NONE
+
+\textbf{MECHANICAL} (e.g.\ use of power tools, rotating machines or heavy weights): NONE. Bags are handled by hand.
+
+\textbf{OTHER} (e.g.\ chemicals): Labelled inert laboratory simulants only; no real explosives or detonators.
+
+Potential risks should be discussed with your supervisor, along with the appropriate safety procedures to ensure such risks are minimized.
+Use page 2 of this form to provide further details where necessary or to raise any outstanding queries.
+
+Any change in the nature or extent of risks during the project must be reported immediately to the College Safety Officer.
+
+\medskip
+Signature of Students Rep: \sigA\hfill Date: \sigdate
+
+\medskip
+Signature of Supervisor: \rule{5.5cm}{0.4pt}\hfill Date: \rule{3cm}{0.4pt}
+
+The original copy of this form must be forwarded to the University Safety Officer and copies bound into the project proposal and final
+project report.
+
+\medskip
+Received by: Signature of Safety Officer: \rule{5cm}{0.4pt}\hfill Date: \rule{3cm}{0.4pt}
+\endgroup
+
+\clearpage
+\section{Declaration}\label{sec:declaration}
+We declare that the work in this report was carried out in accordance with the
+regulations of Khalifa University. The work is entirely our own except were indicated by
+special reference in the text. Any view expressed in the report is those of the authors
+and in no way represent those of Khalifa University. No part of the report has been
+presented to any other university for any degree.
+
+\begin{center}\renewcommand{\arraystretch}{2}
+\begin{tabular}{@{}llll@{}}
+Signed: & \sigA & Date: & \sigdate\\
+Signed: & \sigB & Date: & \sigdate\\
+Signed: & \sigC & Date: & \sigdate\\
+Signed: & \sigD & Date: & \sigdate\\
+Signed: & \sigE & Date: & \sigdate\\
+\end{tabular}
+\end{center}
+The names are typed signatures. The use of AI tools in this project and report is
+disclosed in Section~\ref{sec:aiuse} and Table~\ref{tab:prompts}.
 
 %=============================================================================
 \chapter{Contribution and Assistance Record}\label{app:contributions}
@@ -277,9 +451,10 @@ Ali Arif Saeed Alshamsi & T42 evaluator and matched comparison (PR~\#18); data
 policy and box repair (PR~\#22), both used by the T41 study & Contribution
 statement and explain-back\\
 Faisal Daoud Alzarooni & T40 run contract and tools (PRs~\#17, \#19);
-initialization receipt (PR~\#21); box-repair validation and report corrections
-(PR~\#24); reviews of PRs~\#20 and \#27 & Attribution confirmed 23~November;
-explain-back\\
+initialization receipt (PR~\#21); box-repair fixes and report corrections
+(PR~\#24); reviews of PRs~\#22 and \#27; 124 scans in the 14~November collection
+record & Statement received 24~November: T40 lead and attribution of PRs~\#17,
+\#19, \#21 and \#24 confirmed. Explain-back still to do\\
 Ahmed Almansoori & T41 task lead: qualified training, HPC study and frozen test
 comparison (PR~\#25), AI-assisted implementation and execution under his direction
 & Contribution statement, name spelling and explain-back\\
@@ -290,13 +465,59 @@ walkthrough and explain-back\\
 \end{longtable}
 \endgroup
 
+\section{Who Did What}
+Table~\ref{tab:whodid} states the work of each student for the system, the data, the study
+and this report. It is compiled from the task list (T), the pull requests (PR), the commit
+history and the collection inventory. It does not measure hours or marks.
+
+\begingroup\tablesetup
+\begin{longtable}{@{}L{0.2\textwidth}L{0.2\textwidth}L{0.3\textwidth}L{0.21\textwidth}@{}}
+\caption{Who did what in SDP~I.}\label{tab:whodid}\\
+\toprule Work & Lead & Other contributors & Evidence\\\midrule\endfirsthead
+\toprule Work & Lead & Other contributors & Evidence\\\midrule\endhead
+\multicolumn{4}{@{}l}{\textbf{Project and data}}\\
+Coordination, repository setup and branch rules & Abd Alrahman & -- & T35, T36; PRs~\#1--\#11\\
+Meeting minutes and project records & Abd Alrahman & All five students attended M02 & T20, T33, T34\\
+Dataset audits and first inference & Abd Alrahman & -- & T02--T04, T16; commits \file{575e0a9}, \file{1cfffa8}\\
+Positive scan collection & All students & Files in the 14~November snapshot: Abd Alrahman 142, Faisal 124, Ahmed 100, Ali 61,
+Mohammad 51 & T21; Table~\ref{tab:collection}\\
+Collection catalogue and inventory records & Abd Alrahman & Catalogue supplied by the laboratory & T26, T27; PR~\#8\\
+Poster, 6G MENA session and SLG visit & Team & Abd Alrahman published the poster files & T23, T37; PR~\#11\\
+\midrule
+\multicolumn{4}{@{}l}{\textbf{System and software}}\\
+Operator application (GUI) & Abd Alrahman & -- & T28, T39; PR~\#5; RayGuard-App\\
+GUI acceptance and accessibility tests & Mohammad & Abd Alrahman (integration review) & T43; RayGuard-App PR~\#1 (open)\\
+Run contract, run manifest and initialization receipt & Faisal & -- & T40; PRs~\#17, \#19, \#21\\
+Evaluator and matched comparison & Ali & -- & T42; PR~\#18\\
+Data policy and box repair & Ali & Faisal (record hash and input check) & PRs~\#22, \#24\\
+\midrule
+\multicolumn{4}{@{}l}{\textbf{Study}}\\
+Training pipeline, HPC study and frozen test & Ahmed & Ali (evaluator and validation objective); Faisal (initialization receipt) & T41; PR~\#25\\
+Recomputed metrics, precision--recall curves and result figures & Abd Alrahman & Ahmed (predictions and training curves) & PR~\#27\\
+Research on methods for the dismantled project & Abd Alrahman & -- & T38; commit \file{7cfba36}\\
+\midrule
+\multicolumn{4}{@{}l}{\textbf{Report and reviews}}\\
+Report text, Chapters 1--6 and appendices & Abd Alrahman & Ahmed (T41 results draft); Faisal (corrections, own contribution and prompt text) &
+T38; PRs~\#20, \#25, \#27, \#24, \#28, \#29\\
+Application walkthrough & Abd Alrahman & Mohammad (T43 tests and interface screenshots for review) & Commit \file{72d26ba}\\
+Patent search and references & Abd Alrahman & -- & PR~\#20\\
+Pull request reviews & Abd Alrahman & Faisal (PRs~\#20, \#27 and follow-up of \#22) & GitHub reviews\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+Work listed under a student includes AI-assisted work done under that student's direction,
+as disclosed in Section~\ref{sec:aiuse}. The two commits of PR~\#25 and several
+documentation commits were authored by AI tools. The remaining rows of the prompt
+disclosure and the individual explanations are confirmed by each student in the review
+with the supervisor.
+
 AI assistance was used in implementation, review and documentation, including the
 preparation of this report. Each student reviews and understands the work they
 claim, and the prompt disclosure in Table~\ref{tab:prompts} is completed by each
 student. Private transcripts, credentials and session records remain outside the
 public repository.
 
-\pending{Student-confirmed contribution statements and prompt excerpts.}
 
 %=============================================================================
 \chapter{Handbook Coverage and Source Map}\label{app:coverage}
@@ -310,13 +531,12 @@ handbook to their location in this report and to the step that remains.
 \caption{Handbook requirements and their location in this report.}\label{tab:coverage}\\
 \toprule ID & Location & Remaining step\\\midrule\endfirsthead
 \toprule ID & Location & Remaining step\\\midrule\endhead
-R01 & Title page, abstract, contents and lists & Official cover template and
-project number\\
+R01 & Title page, abstract, contents and lists & None\\
 R02 & Section~\ref{sec:goals}, Table~\ref{tab:objectives} & Supervisor review\\
 R03 & Section~\ref{sec:background}, Tables~\ref{tab:datasets}
 and~\ref{tab:patents} & Full reading of the closest patents\\
-R04 & Section~\ref{sec:github}, Appendix~\ref{app:contributions} & Student
-confirmations and prompt excerpts\\
+R04 & Section~\ref{sec:github}, Table~\ref{tab:whodid} & Individual walkthrough with the
+supervisor\\
 R05 & Chapter~\ref{ch:system}, Table~\ref{tab:requirements} & Supervisor review\\
 R06 & Chapter~\ref{ch:theory} & Technical review of equations and assumptions\\
 R07 & Chapter~\ref{ch:design} & Supervisor review\\
@@ -326,9 +546,9 @@ R09 & Chapter~\ref{ch:implementation} & Final metrics and demonstration
 evidence\\
 R10 & Chapter~\ref{ch:conclusions} & Update at the final evidence cutoff\\
 R11 & Bibliography & Final citation review\\
-R12 & Appendix~\ref{app:management} & Confirmation of actual dates and owners\\
-R13 & Appendix~\ref{app:risk} & Completed forms and signatures\\
-R14 & Appendix~\ref{app:risk} & Official declaration\\
+R12 & Appendix~\ref{app:management}, Figure~\ref{fig:gantt} & None\\
+R13 & Appendix~\ref{app:risk} & Supervisor and Safety Officer signatures\\
+R14 & Section~\ref{sec:declaration} & None\\
 R15 & Course checklist & Submission and rehearsal receipts\\
 \bottomrule
 \end{longtable}

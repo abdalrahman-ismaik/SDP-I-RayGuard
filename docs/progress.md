@@ -3808,3 +3808,13 @@ identical to a test image can fall into validation.
   period (8 Sep–10 Nov) and the collection period (28 Sep–4 Nov); both are marked as
   reported. The dated scan files (29 Sep–9 Oct) are marked inside the collection bar.
 - The owner confirmed that the SLG CEO visit (21 Oct) took place. Its outcome is not recorded.
+
+## 24 November 2026 — Final submission pass (T38)
+
+- Merged main (#27, #28); kept Faisal's own wording and the #29 line.
+- Title page follows the coordinator's list; project COSC01; examiner as given by the owner.
+- Appendix B holds the Risk Assessment form, Health and Safety form and Declaration from the handbook.
+  Student names are typed signatures on the owner's statement that all five agreed; supervisor and
+  Safety Officer lines are blank. Ratings are proposed. Signatures, IDs and logo stay out of Git.
+- Appendix C has a "who did what" table from tasks, PRs, commits and the collection inventory.
+- `\pending` markers removed; open items are stated in plain sentences. PDF only.
