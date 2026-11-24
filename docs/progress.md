@@ -3818,3 +3818,8 @@ identical to a test image can fall into validation.
   Safety Officer lines are blank. Ratings are proposed. Signatures, IDs and logo stay out of Git.
 - Appendix C has a "who did what" table from tasks, PRs, commits and the collection inventory.
 - `\pending` markers removed; open items are stated in plain sentences. PDF only.
+
+- Evaluation is marked "Met for the prototype (generic task)" by owner decision. The four test images
+  that are byte copies of training images (3 boxes) were excluded in a recomputation from the saved
+  predictions: AP 41.5602 and 48.0317 on 5,132 images (41.5886 and 48.0502 on 5,136). The audit table
+  wrongly said they were excluded from training data; corrected. Table A.3 (record conflicts) removed.

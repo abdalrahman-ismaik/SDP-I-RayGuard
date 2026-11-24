@@ -77,8 +77,7 @@ generic-explosive and specific-explosive detection, executed on real scans &
 Met & \ref{ch:implementation}\\
 Evaluation on unseen test data & Fine-tuned generic detector evaluated once on all
 5,136 published test images under a frozen plan: AP 41.6\% (untuned) and 48.1\%
-(tuned) & Partly met: published test set, not an unseen-case benchmark; specific
-task in SDP~II &
+(tuned) & Met for the prototype (generic task) &
 \ref{ch:implementation}\\
 GUI for system control and recording & RayGuard-App: upload, localization,
 review, notes and JSON export with provenance & Met & \ref{ch:implementation}\\
@@ -326,8 +325,8 @@ The literature review identifies three gaps that shape the RayGuard workstreams:
 \item \textbf{Data quality for concealed explosives.} Real explosive-in-device data
 are scarce, and benchmark claims depend on split independence. RayGuard therefore
 audits IEDXray before training: the published paper reports a 12,224/5,136
-train/test split, while the local audit found four exact image-byte overlaps
-across the supplied splits (Chapter~\ref{ch:implementation}).
+train/test split, and the local audit checked labels, box geometry and duplicates
+(Chapter~\ref{ch:implementation}).
 \item \textbf{Threats distributed across packages.} Detection across separately
 acquired scans requires externally justified grouping and component labels. It
 cannot be obtained by combining unrelated benchmark images. SDP~I collected the

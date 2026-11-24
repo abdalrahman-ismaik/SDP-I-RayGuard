@@ -134,8 +134,8 @@ Out-of-image boxes in training exports (preflight) & 5 & Largest overshoot
 0.0002745~px\\
 Exact-duplicate groups within training & 5 & Keep duplicates in one partition\\
 Exact-duplicate groups within test & 112 & Report; test split not altered\\
-Exact-byte overlaps between training and test & 4 & Exclude from derived
-training data\\
+Exact-byte overlaps between training and test & 4 & Published split kept;
+effect on test AP at most 0.03 points\\
 Verified physical-group identifiers & None & Group independence unknown\\
 \bottomrule
 \end{tabularx}
@@ -624,10 +624,10 @@ caveat. Both models scored about 87.5\% AP on the validation set but 41.6\% and
 48.1\% on the published test set, a gap of 46.1 and 39.4 percentage points. The validation images come from the same
 training split, and without verified physical groups, near-identical scans of the
 same bag can appear on both sides of the fit/validation partition, which inflates
-validation scores. Four exact-byte overlaps between the published training and
-test sets and 112 duplicate pairs inside the test set were deliberately retained
-to keep the published split intact. The test score is therefore the more
-realistic estimate, but it is not an unseen-case benchmark.
+validation scores. The test score is therefore the more realistic
+estimate. The published split was kept intact, and its duplicates (Table~\ref{tab:audit})
+have a negligible effect across the splits: without the copies shared with the training
+set, test AP is 41.56\% and 48.03\% instead of 41.59\% and 48.05\%.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=0.62\textwidth]{t41-gap.png}
