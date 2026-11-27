@@ -54,6 +54,13 @@ MODELS = {spec.id: spec for spec in (
         "Locates suspicious explosive regions using one trained class. Empty output is not a safety verdict.",
     ),
     ModelSpec(
+        "author-yolov10m-generic-tuned", "YOLOv10-M · Generic Explosive (fine-tuned, local demo)",
+        "iedxray.generic_explosive_detection", "suspicious_region", ("Explosive",), (0,),
+        "epoch-084.pt",
+        "097ff71eb741ce51ba053bc77512ba0916772c69ae8b4d7d50c0ef497e3f65f8",
+        "Fine-tuned generic detector from the frozen study (job 819, epoch 84). Local demo entry, not a published catalogue entry. Empty output is not a safety verdict.",
+    ),
+    ModelSpec(
         "author-yolov10m-device", "YOLOv10-M · Electronic Devices",
         "iedxray.device_detection", "device",
         ("Laptop", "Mobile", "Pager", "Walkie-Talkie"), (1, 2, 3, 4),
